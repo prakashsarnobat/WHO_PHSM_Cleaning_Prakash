@@ -11,11 +11,11 @@ Cleaning routines for Non-pharmaceutical intervention data from 7 providers:
 * CSH Vienna
 * OxCGRT
 
-This project is developed in the Docker Python 3.8 container.
+### Guide for contributors
+
+This project is developed in the [Docker Python 3.8 container](https://hub.docker.com/_/python).
 
 To develop this project locally - alter the project directory in the `.env` file.
-
-### Local Development
 
 Build the Docker image with:
 
@@ -37,13 +37,15 @@ make bash
 
 ### Linting
 
-Once in the container, run `isort`, `black`, and `flake8` with:
+Once in the container, run [`isort`](https://pypi.org/project/isort/), [`black`](https://pypi.org/project/black/), and [`flake8`](https://pypi.org/project/flake8/) with:
 
 ``` ${shell} 
 make lint
 ```
 
 ### Testing
+
+This project uses [`tox`](https://tox.readthedocs.io/en/latest/) for automated unit testing.
 
 Run unit tests with:
 
