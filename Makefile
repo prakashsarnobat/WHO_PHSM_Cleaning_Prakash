@@ -36,3 +36,5 @@ test_read:
 	python src/test.py
 
 #need: docs & testing (tox?)
+
+#wants logging & change history and reporting (basic)
