@@ -4,3 +4,4 @@ black>=20.8b1
 isort>=5.5
 flake8>=3.8.4
 tox>=3.13.2
+

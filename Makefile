@@ -35,6 +35,14 @@ flake8:
 isort:
 	python -m isort src
 
+#Build docs
+docs: FORCE
+	cd ./docs && $(MAKE) html
+
 #dummy test target
 test_read:
 	python src/test.py
+
+#Phony target to force rebuilds
+.PHONY: FORCE
+FORCE:
