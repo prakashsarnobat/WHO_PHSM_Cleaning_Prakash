@@ -1,3 +1,7 @@
+#need: docs & testing (tox?)
+
+#wants logging & change history and reporting (basic) & custom github CI
+
 # Search for .env file variables
 ifneq (,$(wildcard ./.env))
     include .env
@@ -34,7 +38,3 @@ isort:
 #dummy test target
 test_read:
 	python src/test.py
-
-#need: docs & testing (tox?)
-
-#wants logging & change history and reporting (basic)
