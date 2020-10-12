@@ -1,3 +1,4 @@
+import pandas as pd
 
 def generate_blank_record():
     '''Function to generate a blank record with the correct WHO keys'''
@@ -74,3 +75,10 @@ def key_map(new_record: dict, old_record: dict, new_key: str, old_key: str):
     new_record[new_key] = old_record[old_key]
 
     return(new_record)
+
+
+def parse_date(record: dict):
+
+    record['date'] = pd.to_datetime(record['date'])
+
+    return(record)

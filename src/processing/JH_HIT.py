@@ -21,6 +21,7 @@ def transform(record: dict):
     new_record = utils.apply_key_map(new_record, record, key_ref)
 
     # Handle date - infer format (shared)
+    record = utils.parse_date(record)
 
     # Assign unique ID (shared)
 
