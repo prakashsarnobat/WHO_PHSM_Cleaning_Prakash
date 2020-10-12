@@ -18,12 +18,14 @@ def transform(record: dict):
     key_ref = pd.read_csv('config/key_map/JH_HIT.csv')
     key_ref = key_ref.to_dict(orient='records')
 
-    new_record = utils.apply_key_map(new_record, record, key_ref)
+    record = utils.apply_key_map(new_record, record, key_ref)
 
     # Handle date - infer format (shared)
     record = utils.parse_date(record)
 
     # Assign unique ID (shared)
+    record = utils.assign_id(record)
+    print('a')
 
     # replace non ascii characters (shared)
 

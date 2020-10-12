@@ -1,4 +1,5 @@
 import pandas as pd
+import uuid
 
 def generate_blank_record():
     '''Function to generate a blank record with the correct WHO keys'''
@@ -79,14 +80,23 @@ def key_map(new_record: dict, old_record: dict, new_key: str, old_key: str):
 
 def parse_date(record: dict):
     '''
-    
         Function to parse record date format
 
         Currently relying on parsing behaviour of pandas.to_datetime.
-        This may need to change in the future with bizarre date formats.
+        NOTE: This is vulnerable to USA format dates parsed as EU dates
 
     '''
 
-    record['date'] = pd.to_datetime(record['date'])
+    record['date_start'] = pd.to_datetime(record['date_start'])
+    record['date_end'] = pd.to_datetime(record['date_end'])
+    record['date_entry'] = pd.to_datetime(record['date_entry'])
+
+    return(record)
+
+
+def assign_id(record):
+    '''Function to assign a unique ID to each record'''
+
+    record['who_id'] = str(uuid.uuid4())
 
     return(record)

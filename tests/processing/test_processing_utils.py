@@ -1,6 +1,7 @@
 import pytest
 
-from src.processing.utils import generate_blank_record, key_map, apply_key_map
+from pandas import Timestamp
+from src.processing.utils import generate_blank_record, key_map, apply_key_map, parse_date, assign_id
 
 
 class Test_generate_blank_record:
@@ -57,3 +58,46 @@ class Test_apply_key_map:
 
         assert a['a'] == 'something'
         assert a['b'] == 'something else'
+
+
+class Test_parse_date:
+
+    def test_parse_date_r_format(self):
+
+        a = {'date_start': '2020-01-01', 'date_end': '2020-01-01', 'date_entry': '2020-01-01'}
+
+        a = parse_date(a)
+
+        assert type(a['date_start']) == Timestamp
+
+    def test_parse_date_usa_format(self):
+
+        a = {'date_start': '04/30/2020', 'date_end': '04/30/2020', 'date_entry': '04/30/2020'}
+
+        a = parse_date(a)
+
+        assert type(a['date_start']) == Timestamp
+
+        assert a['date_start'].month == 4
+
+    def test_parse_date_eu_format(self):
+
+        a = {'date_start': '30/04/2020', 'date_end': '30/04/2020', 'date_entry': '30/04/2020'}
+
+        a = parse_date(a)
+
+        assert type(a['date_start']) == Timestamp
+
+        assert a['date_start'].month == 4
+
+class Test_assign_id:
+
+    def test_assign_id(self):
+
+        a = {'a': None}
+
+        a = assign_id(a)
+
+        assert type(a['who_id']) == str
+
+        assert len(a['who_id']) == 36
