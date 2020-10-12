@@ -1,0 +1,35 @@
+﻿dataset,input_variable,who_variable
+IHR,ID,prop_id
+IHR,Region,
+IHR,SP implementing measures,country_territory_area
+IHR,SP implementing measures,area_covered
+IHR,Reporting cases? 1=yes,
+IHR,Date Reporting First Case,
+IHR,Time between First Case and Measure,
+IHR,1. Flight Restrictions,prov_measure
+IHR,2. Ship restrictions,prov_measure
+IHR,3. Land border restrictions,prov_measure
+IHR,4. Visa Restrictions,prov_measure
+IHR,5. Self-monitoring,prov_measure
+IHR,6. Quarantine (Nationals/Residents),prov_measure
+IHR,7. Quarantine (non-Nationals/non-Residents),prov_measure
+IHR,8. Entry ban on single country,prov_measure
+IHR,9. Entry ban on multiple countries,prov_measure
+IHR,10. Entry ban on all countries,prov_measure
+IHR,11. Exit ban,prov_measure
+IHR,12. Trade Measures,prov_measure
+IHR,"13. General Requirements (e.g. health declarations / certificates, passenger locator forms, etc.)",prov_measure
+IHR,Start date of implementation,date_start
+IHR,1. Flight Restrictions,response_type
+IHR,2. Ship restrictions,response_type
+IHR,3. Land border restrictions,response_type
+IHR,4. Visa Restrictions,response_type
+IHR,5. Self-monitoring,response_type
+IHR,6. Quarantine (Nationals/Residents),response_type
+IHR,7. Quarantine (non-Nationals/non-Residents),response_type
+IHR,8. Entry ban on single country,response_type
+IHR,9. Entry ban on multiple countries,response_type
+IHR,10. Entry ban on all countries,response_type
+IHR,11. Exit ban,response_type
+IHR,12. Trade Measures,response_type
+IHR,"13. General Requirements (e.g. health declarations / certificates, passenger locator forms, etc.)",response_type

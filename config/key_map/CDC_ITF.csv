@@ -1,0 +1,21 @@
+﻿dataset,input_variable,who_variable
+CDC_ITF,Unique Identifier,prop_id
+CDC_ITF,WHO Region,
+CDC_ITF,Country,country_territory_area
+CDC_ITF,Country,area_covered
+CDC_ITF,Date Entered,date_entry
+CDC_ITF,Date implemented or lifted,date_start
+CDC_ITF,Date implemented or lifted,date_end
+CDC_ITF,Restriction Type,prov_subcategory
+CDC_ITF,Action taken,response_type
+CDC_ITF,Focus area,
+CDC_ITF,Mandatory,non_compliance
+CDC_ITF,Mitigation measure,prov_measure
+CDC_ITF,Subnational/regional only,admin_level
+CDC_ITF,Concise Notes,comments
+CDC_ITF,Notes,comments
+CDC_ITF,Source,link
+CDC_ITF,Secondary Source,source_alt
+CDC_ITF,ISO Code 2,
+CDC_ITF,ISO Code 3,
+CDC_ITF,WHO Member Status,

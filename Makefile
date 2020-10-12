@@ -1,4 +1,4 @@
-#need: docs & testing (tox?)
+#need: docs
 
 #wants logging & change history and reporting (basic) & custom github CI
 
@@ -40,9 +40,11 @@ docs: FORCE
 	cd ./docs && $(MAKE) html
 
 #dummy test target
-test_read:
-	python src/test.py
+preprocess:
+	python src/preprocess.py
 
+process:
+	python src/process.py
 #Phony target to force rebuilds
 .PHONY: FORCE
 FORCE:

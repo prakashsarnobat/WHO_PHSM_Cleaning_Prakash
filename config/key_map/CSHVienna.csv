@@ -1,0 +1,15 @@
+﻿dataset,input_variable,who_variable
+CSHVienna,id,prop_id
+CSHVienna,Country,country_territory_area
+CSHVienna,iso3,iso
+CSHVienna,State,
+CSHVienna,Region,area_covered
+CSHVienna,Date,date_start
+CSHVienna,Date,date_entry
+CSHVienna,Measure_L1,prov_category
+CSHVienna,Measure_L2,prov_subcategory
+CSHVienna,Measure_L3,prov_measure
+CSHVienna,Measure_L4,comments
+CSHVienna,Status,
+CSHVienna,Comment,comments
+CSHVienna,Source,link
