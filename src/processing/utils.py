@@ -78,6 +78,14 @@ def key_map(new_record: dict, old_record: dict, new_key: str, old_key: str):
 
 
 def parse_date(record: dict):
+    '''
+    
+        Function to parse record date format
+
+        Currently relying on parsing behaviour of pandas.to_datetime.
+        This may need to change in the future with bizarre date formats.
+
+    '''
 
     record['date'] = pd.to_datetime(record['date'])
 
