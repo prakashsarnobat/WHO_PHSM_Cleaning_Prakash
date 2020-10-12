@@ -1,5 +1,6 @@
 
 def generate_blank_record():
+    '''Function to generate a blank record with the correct WHO keys'''
 
     record = {
         "processed": None,
@@ -47,3 +48,29 @@ def generate_blank_record():
     }
 
     return record
+
+
+def apply_key_map(new_record: dict, old_record: dict, key_ref: dict):
+    '''Function to apply key mapping between two records based on a key reference'''
+
+    for key in key_ref:
+
+        try:
+            new_record = key_map(new_record,
+                                 old_record,
+                                 key['new_key'],
+                                 key['old_key'])
+
+        except Exception as e:
+
+            continue
+
+    return(new_record)
+
+
+def key_map(new_record: dict, old_record: dict, new_key: str, old_key: str):
+    '''Function to move data between records from one key to another'''
+
+    new_record[new_key] = old_record[old_key]
+
+    return(new_record)

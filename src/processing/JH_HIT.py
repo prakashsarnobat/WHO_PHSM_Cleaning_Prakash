@@ -6,13 +6,19 @@ Functions to transform JH_HIT records to WHO format.
 Currently removing records with null "locality" and "usa_county" fields
 """
 import pandas as pd
-
+from processing import utils
 
 def transform(record: dict):
 
     # generator function of new record with correct keys (shared)
+    new_record = utils.generate_blank_record()
 
-    # replace data in new record with data from old record using column reference (shared)
+    # replace data in new record with data from old record using column
+    # reference (shared)
+    key_ref = pd.read_csv('config/key_map/JH_HIT.csv')
+    key_ref = key_ref.to_dict(orient='records')
+
+    new_record = utils.apply_key_map(new_record, record, key_ref)
 
     # Handle date - infer format (shared)
 

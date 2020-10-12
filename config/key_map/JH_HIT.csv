@@ -1,4 +1,4 @@
-﻿dataset,input_variable,who_variable
+﻿dataset,old_key,new_key
 JH_HIT,unique_id,prop_id
 JH_HIT,record_id,
 JH_HIT,update,
