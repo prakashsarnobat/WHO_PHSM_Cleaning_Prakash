@@ -43,6 +43,8 @@ docs: FORCE
 preprocess:
 	python src/preprocess.py
 
+process:
+	python src/process.py
 #Phony target to force rebuilds
 .PHONY: FORCE
 FORCE:
