@@ -1,0 +1,19 @@
+﻿dataset,input_variable,who_variable
+ACAPS,ID,prop_id
+ACAPS,COUNTRY,country_territory_area
+ACAPS,ISO,iso
+ACAPS,ADMIN_LEVEL_NAME,admin_level
+ACAPS,PCODE,
+ACAPS,REGION,area_covered
+ACAPS,LOG_TYPE,response_type
+ACAPS,CATEGORY,prov_category
+ACAPS,MEASURE,prov_measure
+ACAPS,TARGETED_POP_GROUP,targeted
+ACAPS,COMMENTS,comments
+ACAPS,NON_COMPLIANCE,non_compliance
+ACAPS,DATE_IMPLEMENTED,date_start
+ACAPS,SOURCE,source
+ACAPS,SOURCE_TYPE,source_type
+ACAPS,LINK,link
+ACAPS,ENTRY_DATE,date_entry
+ACAPS,Alternative source,source_alt

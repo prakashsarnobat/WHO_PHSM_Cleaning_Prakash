@@ -23,7 +23,11 @@ with open(column_map) as json_file:
 
 # replace this with logging
 print("Reading JH")
-jh = pd.read_csv(jh)
+jh = pd.read_csv(jh).to_dict(orient='records')
+
+print(jh)
+
+exit()
 
 jh = apply_column_map(jh, "JH_HIT", column_map)
 

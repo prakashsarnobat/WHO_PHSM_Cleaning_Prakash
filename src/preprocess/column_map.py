@@ -1,4 +1,5 @@
-# Should have separate section that checks that config files are ok before passing them here
+# Should have separate section that checks that config files are
+# ok before passing them here
 
 
 def apply_column_map(data, dataset, col_map):
@@ -10,7 +11,8 @@ def apply_column_map(data, dataset, col_map):
 
         data = column_map(data, cm["orig_col"], cm["new_col"])
 
-    # drop columns named with empty strings (the null value in config/column_map.json)
+    # drop columns named with empty strings
+    # (the null value in config/column_map.json)
     data.drop([""], axis=1, inplace=True)
 
     return data
