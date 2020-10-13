@@ -7,7 +7,7 @@ import pandas as pd
 from processing import utils
 from processing import check
 
-def transform(record: dict, key_ref: dict, country_ref: pd.DataFrame):
+def transform(record: dict, key_ref: dict, country_ref: pd.DataFrame, who_coding: pd.DataFrame):
 
     # generator function of new record with correct keys (shared)
     new_record = utils.generate_blank_record()
@@ -31,9 +31,11 @@ def transform(record: dict, key_ref: dict, country_ref: pd.DataFrame):
     utils.assign_who_country_name(record, country_ref)
 
     # Join who coding from lookup (shared)
+    utils.assign_who_coding(record, who_coding)
 
     # check for missing WHO codes (shared)
-
+    check.check_missing_who_code(record)
+    
     #custom JH things here
 
     # Currently removing records with null "locality" and "usa_county" fields

@@ -1,0 +1,20 @@
+﻿dataset,prov_category,prov_subcategory,prov_measure,who_code,who_category,who_subcategory,who_measure,non_compliance,who_targeted
+JH_HIT,school_closed,,Nursery school closures,4.1.2,Social and physical distancing measures,School measures ,Closing,,Nursery school closures
+JH_HIT,school_closed,,Post-secondary school closures,4.1.2,Social and physical distancing measures,School measures ,Closing,,Post-secondary school closures
+JH_HIT,school_closed,,Primary school closures,4.1.2,Social and physical distancing measures,School measures ,Closing,,Primary school closures
+JH_HIT,school_closed,,Secondary school closures,4.1.2,Social and physical distancing measures,School measures ,Closing,,Secondary school closures
+JH_HIT,mask,,Universal facemask policies,1.4,Individual measures,,Wearing a mask,,
+JH_HIT,closed_border,,Border closures for entering by air,5.7,International travel measures,,Suspending or restricting international flights,,
+JH_HIT,closed_border,,Border closures for entering by land,5.9,International travel measures,,Closing international land borders,,
+JH_HIT,closed_border,,Border closures for entering by sea,5.8,International travel measures,,Suspending or restricting international ferries or ships,,
+JH_HIT,closed_border,,Border closures for leaving by air,5.7,International travel measures,,Suspending or restricting international flights,,
+JH_HIT,closed_border,,Border closures for leaving by land,5.9,International travel measures,,Closing international land borders,,
+JH_HIT,closed_border,,Border closures for leaving by sea,5.8,International travel measures,,Suspending or restricting international ferries or ships,,
+JH_HIT,symp_screening,,Symptom screening when entering by air,5.5,International travel measures,,Entry screening and isolation or quarantine,,
+JH_HIT,symp_screening,,Symptom screening when entering by land,5.5,International travel measures,,Entry screening and isolation or quarantine,,
+JH_HIT,symp_screening,,Symptom screening when entering by sea,5.5,International travel measures,,Entry screening and isolation or quarantine,,
+JH_HIT,state_of_emergency,,State of emergency,8.1,Other measures,,Legal and policy regulations,,
+JH_HIT,household_confined,,Household confinement,4.5.2,Social and physical distancing measures,Domestic travel ,Stay-at-home order,,
+JH_HIT,public_transport_closed,,Public transportation closures,4.5.1,Social and physical distancing measures,Domestic travel ,Suspending or restricting movement,,
+JH_HIT,limited_mvt,,Limiting movement within borders,4.5.3,Social and physical distancing measures,Domestic travel ,Restricting entry,,
+JH_HIT,not_enough_to_code,,not_enough_to_code,11,Not enough to code,Not enough to code,Not enough to code,,

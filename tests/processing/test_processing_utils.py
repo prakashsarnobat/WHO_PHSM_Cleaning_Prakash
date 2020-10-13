@@ -1,7 +1,7 @@
 import pytest
 
 import pandas as pd
-from src.processing.utils import generate_blank_record, key_map, apply_key_map, parse_date, assign_id, assign_who_country_name
+from src.processing.utils import generate_blank_record, key_map, apply_key_map, parse_date, assign_id, assign_who_country_name, assign_who_coding
 
 
 class Test_generate_blank_record:
@@ -128,5 +128,147 @@ class Test_assign_who_country_name:
 
         country_ref = pd.DataFrame({'iso': ['USA']})
 
-        with pytest.raises(KeyError):
-            assign_who_country_name(a, country_ref)
+        a = assign_who_country_name(a, country_ref)
+
+        assert a['iso'] == 'AFG'
+
+        assert a['who_region'] == 'unknown'
+
+        assert a['country_territory_area'] == 'unknown'
+
+        assert a['iso_3166_1_numeric'] == 'unknown'
+
+
+class Test_assign_who_coding:
+
+    def test_assign_who_coding(self):
+
+        record = {}
+
+        record['prov_measure'] = 'a'
+        record['prov_subcategory'] = 'b'
+        record['prov_category'] = 'c'
+
+        who_coding = pd.DataFrame({'prov_measure': ['a'],
+                                   'prov_subcategory': ['b'],
+                                   'prov_category': ['c'],
+                                   'who_code': [1],
+                                   'who_measure': ['a'],
+                                   'who_subcategory': ['b'],
+                                   'who_category': ['c'],
+                                   'non_compliance': ['d'],
+                                   'who_targeted': ['e']})
+
+        record = assign_who_coding(record, who_coding)
+
+        assert record['who_code'] == 1
+
+        assert record['who_measure'] == 'a'
+
+        assert record['who_subcategory'] == 'b'
+
+        assert record['who_category'] == 'c'
+
+        assert record['non_compliance'] == 'd'
+
+        assert record['targeted'] == 'e'
+
+    def test_assign_who_coding_missing(self):
+
+        record = {}
+
+        record['dataset'] = 'ACAPS'
+        record['prov_measure'] = 'a'
+        record['prov_subcategory'] = 'b'
+        record['prov_category'] = 'c'
+
+        who_coding = pd.DataFrame({'prov_measure': ['b'],
+                                   'prov_subcategory': ['b'],
+                                   'prov_category': ['c'],
+                                   'who_code': [1],
+                                   'who_measure': ['a'],
+                                   'who_subcategory': ['b'],
+                                   'who_category': ['c']})
+
+        record = assign_who_coding(record, who_coding)
+
+        assert record['who_code'] == 'unknown'
+
+        assert record['who_measure'] == 'unknown'
+
+        assert record['who_subcategory'] == 'unknown'
+
+        assert record['who_category'] == 'unknown'
+
+    def test_assign_who_coding_duplicate(self):
+
+        record = {}
+
+        record['dataset'] = 'ACAPS'
+        record['prov_measure'] = 'a'
+        record['prov_subcategory'] = 'b'
+        record['prov_category'] = 'c'
+
+        who_coding = pd.DataFrame({'prov_measure': ['a', 'a'],
+                                   'prov_subcategory': ['b', 'b'],
+                                   'prov_category': ['c', 'c'],
+                                   'who_code': [1, 1],
+                                   'who_measure': ['a', 'a'],
+                                   'who_subcategory': ['b', 'b'],
+                                   'who_category': ['c', 'c']})
+
+        record = assign_who_coding(record, who_coding)
+
+        assert record['who_code'] == 'unknown'
+
+        assert record['who_measure'] == 'unknown'
+
+        assert record['who_subcategory'] == 'unknown'
+
+        assert record['who_category'] == 'unknown'
+
+    def test_assign_who_coding_targeted(self):
+
+        record = {}
+
+        record['prov_measure'] = 'a'
+        record['prov_subcategory'] = 'b'
+        record['prov_category'] = 'c'
+        record['targeted'] = 'd'
+
+        who_coding = pd.DataFrame({'prov_measure': ['a'],
+                                   'prov_subcategory': ['b'],
+                                   'prov_category': ['c'],
+                                   'who_code': [1],
+                                   'who_measure': ['a'],
+                                   'who_subcategory': ['b'],
+                                   'who_category': ['c'],
+                                   'non_compliance': ['d'],
+                                   'who_targeted': ['']})
+
+        record = assign_who_coding(record, who_coding)
+
+        assert record['targeted'] == 'd'
+
+    def test_assign_who_coding_non_compliance(self):
+
+        record = {}
+
+        record['prov_measure'] = 'a'
+        record['prov_subcategory'] = 'b'
+        record['prov_category'] = 'c'
+        record['non_compliance'] = 'f'
+
+        who_coding = pd.DataFrame({'prov_measure': ['a'],
+                                   'prov_subcategory': ['b'],
+                                   'prov_category': ['c'],
+                                   'who_code': [1],
+                                   'who_measure': ['a'],
+                                   'who_subcategory': ['b'],
+                                   'who_category': ['c'],
+                                   'non_compliance': [''],
+                                   'who_targeted': ['a']})
+
+        record = assign_who_coding(record, who_coding)
+
+        assert record['non_compliance'] == 'f'

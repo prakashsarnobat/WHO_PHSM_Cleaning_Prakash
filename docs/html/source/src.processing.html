@@ -41,7 +41,7 @@
 <p>Functions to transform JH_HIT records to WHO format.</p>
 <dl class="function">
 <dt id="src.processing.JH_HIT.transform">
-<code class="descclassname">src.processing.JH_HIT.</code><code class="descname">transform</code><span class="sig-paren">(</span><em>record: dict</em>, <em>key_ref: dict</em>, <em>country_ref: &lt;sphinx.ext.autodoc.importer._MockObject object at 0x7ff9f5c43208&gt;</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/src/processing/JH_HIT.html#transform"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.processing.JH_HIT.transform" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">src.processing.JH_HIT.</code><code class="descname">transform</code><span class="sig-paren">(</span><em>record: dict</em>, <em>key_ref: dict</em>, <em>country_ref: &lt;sphinx.ext.autodoc.importer._MockObject object at 0x7f3f24ac2b70&gt;</em>, <em>who_coding: &lt;sphinx.ext.autodoc.importer._MockObject object at 0x7f3f24ac2b00&gt;</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/src/processing/JH_HIT.html#transform"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.processing.JH_HIT.transform" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </div>
@@ -53,8 +53,19 @@
 <p>Functions to check data attributed inline.</p>
 <dl class="function">
 <dt id="src.processing.check.check_missing_iso">
-<code class="descclassname">src.processing.check.</code><code class="descname">check_missing_iso</code><span class="sig-paren">(</span><em>record</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/src/processing/check.html#check_missing_iso"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.processing.check.check_missing_iso" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<code class="descclassname">src.processing.check.</code><code class="descname">check_missing_iso</code><span class="sig-paren">(</span><em>record: dict</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/src/processing/check.html#check_missing_iso"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.processing.check.check_missing_iso" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function to check for missing ISO codes</p>
+<p>Note: will not throw an error for “unknown” values which much be
+handled later</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="src.processing.check.check_missing_who_code">
+<code class="descclassname">src.processing.check.</code><code class="descname">check_missing_who_code</code><span class="sig-paren">(</span><em>record: dict</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/src/processing/check.html#check_missing_who_code"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.processing.check.check_missing_who_code" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function to check for null who codes</p>
+<p>Note: will not throw an error for “unknown” values which much be
+handled later</p>
+</dd></dl>
 
 </div>
 </div>
@@ -72,7 +83,7 @@
 <p>General checks for record numbers etc</p>
 <dl class="function">
 <dt id="src.processing.main.process">
-<code class="descclassname">src.processing.main.</code><code class="descname">process</code><span class="sig-paren">(</span><em>record: dict</em>, <em>key_ref: dict</em>, <em>country_ref: &lt;sphinx.ext.autodoc.importer._MockObject object at 0x7ff9f5c03710&gt;</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/src/processing/main.html#process"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.processing.main.process" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">src.processing.main.</code><code class="descname">process</code><span class="sig-paren">(</span><em>record: dict</em>, <em>key_ref: dict</em>, <em>country_ref: &lt;sphinx.ext.autodoc.importer._MockObject object at 0x7f3f24bba748&gt;</em>, <em>who_coding: &lt;sphinx.ext.autodoc.importer._MockObject object at 0x7f3f24bba3c8&gt;</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/src/processing/main.html#process"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.processing.main.process" title="Permalink to this definition">¶</a></dt>
 <dd><p>Unify individual dataset transformers</p>
 </dd></dl>
 
@@ -93,8 +104,16 @@
 </dd></dl>
 
 <dl class="function">
+<dt id="src.processing.utils.assign_who_coding">
+<code class="descclassname">src.processing.utils.</code><code class="descname">assign_who_coding</code><span class="sig-paren">(</span><em>record: dict</em>, <em>who_coding: &lt;sphinx.ext.autodoc.importer._MockObject object at 0x7f3f24ab4198&gt;</em>, <em>missing_value: str = 'unknown'</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/src/processing/utils.html#assign_who_coding"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.processing.utils.assign_who_coding" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function to assign WHO coding to a record</p>
+<p>Test this thoroughly</p>
+<p>Still need to account for possible targeted values</p>
+</dd></dl>
+
+<dl class="function">
 <dt id="src.processing.utils.assign_who_country_name">
-<code class="descclassname">src.processing.utils.</code><code class="descname">assign_who_country_name</code><span class="sig-paren">(</span><em>record: dict</em>, <em>country_ref: &lt;sphinx.ext.autodoc.importer._MockObject object at 0x7ff9f5c9fb70&gt;</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/src/processing/utils.html#assign_who_country_name"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.processing.utils.assign_who_country_name" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">src.processing.utils.</code><code class="descname">assign_who_country_name</code><span class="sig-paren">(</span><em>record: dict</em>, <em>country_ref: &lt;sphinx.ext.autodoc.importer._MockObject object at 0x7f3f24ab41d0&gt;</em>, <em>missing_value: str = 'unknown'</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/src/processing/utils.html#assign_who_country_name"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.processing.utils.assign_who_country_name" title="Permalink to this definition">¶</a></dt>
 <dd><p>Function to assign country names by ISO code</p>
 <p>also adds: who_region, country_territory_area, iso_3166_1_numeric</p>
 </dd></dl>

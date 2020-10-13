@@ -39,7 +39,7 @@
 <span class="kn">from</span> <span class="nn">processing</span> <span class="k">import</span> <span class="n">utils</span>
 <span class="kn">from</span> <span class="nn">processing</span> <span class="k">import</span> <span class="n">check</span>
 
-<div class="viewcode-block" id="transform"><a class="viewcode-back" href="../../../source/src.processing.html#src.processing.JH_HIT.transform">[docs]</a><span class="k">def</span> <span class="nf">transform</span><span class="p">(</span><span class="n">record</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span> <span class="n">key_ref</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span> <span class="n">country_ref</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">):</span>
+<div class="viewcode-block" id="transform"><a class="viewcode-back" href="../../../source/src.processing.html#src.processing.JH_HIT.transform">[docs]</a><span class="k">def</span> <span class="nf">transform</span><span class="p">(</span><span class="n">record</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span> <span class="n">key_ref</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span> <span class="n">country_ref</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span> <span class="n">who_coding</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">):</span>
 
     <span class="c1"># generator function of new record with correct keys (shared)</span>
     <span class="n">new_record</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">generate_blank_record</span><span class="p">()</span>
@@ -63,9 +63,11 @@
     <span class="n">utils</span><span class="o">.</span><span class="n">assign_who_country_name</span><span class="p">(</span><span class="n">record</span><span class="p">,</span> <span class="n">country_ref</span><span class="p">)</span>
 
     <span class="c1"># Join who coding from lookup (shared)</span>
+    <span class="n">utils</span><span class="o">.</span><span class="n">assign_who_coding</span><span class="p">(</span><span class="n">record</span><span class="p">,</span> <span class="n">who_coding</span><span class="p">)</span>
 
     <span class="c1"># check for missing WHO codes (shared)</span>
-
+    <span class="n">check</span><span class="o">.</span><span class="n">check_missing_who_code</span><span class="p">(</span><span class="n">record</span><span class="p">)</span>
+    
     <span class="c1">#custom JH things here</span>
 
     <span class="c1"># Currently removing records with null &quot;locality&quot; and &quot;usa_county&quot; fields</span>
