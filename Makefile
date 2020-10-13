@@ -37,6 +37,8 @@ isort:
 
 #Build docs
 docs: FORCE
+	sphinx-apidoc -f -o docs/source src
+	sphinx-apidoc -f -o docs/source tests
 	cd ./docs && $(MAKE) html
 
 #dummy test target
