@@ -4,14 +4,6 @@ src.preprocess package
 Submodules
 ----------
 
-src.preprocess.column\_map module
----------------------------------
-
-.. automodule:: src.preprocess.column_map
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
 src.preprocess.utils module
 ---------------------------
 

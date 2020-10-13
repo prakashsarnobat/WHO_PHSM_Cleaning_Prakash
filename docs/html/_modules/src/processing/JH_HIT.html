@@ -33,7 +33,26 @@
 <span></span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">JH_HIT.py</span>
 <span class="sd">====================================</span>
-<span class="sd">Functions to transform JH_HIT records to WHO format.</span>
+<span class="sd">Transform JH_HIT records to WHO PHSM format.</span>
+
+<span class="sd">**Data Source:**</span>
+<span class="sd">`https://github.com/HopkinsIDD/hit-covid &lt;https://github.com/HopkinsIDD/hit-covid&gt;`_</span>
+
+<span class="sd">**Processing Steps:**</span>
+
+<span class="sd">1. Remove records with null ``locality`` AND null ``usa_county`` values.</span>
+<span class="sd">2. Remove a subset of ``prov_measure`` values. See ``config/prov_measure_filter/JH_HIT.csv`` for exact values.</span>
+<span class="sd">3. Generate a blank record with required keys.</span>
+<span class="sd">4. Move data from provider record to new record with ``apply_key_map`` using key mapping in ``config/key_map/JH_HIT.csv``.</span>
+<span class="sd">5. Parse date formats in ``date_start``, ``date_end``, ``date_entry``.</span>
+<span class="sd">6. Assign a unique record ID.</span>
+<span class="sd">7. Map non-ascii characters to their closest ascii equivalent.</span>
+<span class="sd">8. Check for missing ``iso`` codes.</span>
+<span class="sd">9. Assign WHO-accepted ``country_territory_area``, ``who_region``, ``iso_3166_1_numeric``</span>
+<span class="sd">10. Assign WHO PHSM dataset coding using ``prov_measure``, ``prov_subcategory``, ``prov_category``</span>
+<span class="sd">11. Check for missing ``who_code`` values.</span>
+<span class="sd">12. Custom JH things (development in progress)</span>
+
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 <span class="kn">from</span> <span class="nn">processing</span> <span class="k">import</span> <span class="n">utils</span>
@@ -41,34 +60,38 @@
 
 <div class="viewcode-block" id="transform"><a class="viewcode-back" href="../../../source/src.processing.html#src.processing.JH_HIT.transform">[docs]</a><span class="k">def</span> <span class="nf">transform</span><span class="p">(</span><span class="n">record</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span> <span class="n">key_ref</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span> <span class="n">country_ref</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span> <span class="n">who_coding</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">):</span>
 
-    <span class="c1"># generator function of new record with correct keys (shared)</span>
+    <span class="c1"># 1.</span>
+
+    <span class="c1"># 2.</span>
+
+    <span class="c1"># 3. generator function of new record with correct keys (shared)</span>
     <span class="n">new_record</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">generate_blank_record</span><span class="p">()</span>
 
-    <span class="c1"># replace data in new record with data from old record using column</span>
+    <span class="c1"># 4. replace data in new record with data from old record using column</span>
     <span class="c1"># reference (shared)</span>
     <span class="n">record</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">apply_key_map</span><span class="p">(</span><span class="n">new_record</span><span class="p">,</span> <span class="n">record</span><span class="p">,</span> <span class="n">key_ref</span><span class="p">)</span>
 
-    <span class="c1"># Handle date - infer format (shared)</span>
+    <span class="c1"># 5. Handle date - infer format (shared)</span>
     <span class="n">record</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">parse_date</span><span class="p">(</span><span class="n">record</span><span class="p">)</span>
 
-    <span class="c1"># Assign unique ID (shared)</span>
+    <span class="c1"># 6. Assign unique ID (shared)</span>
     <span class="n">record</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">assign_id</span><span class="p">(</span><span class="n">record</span><span class="p">)</span>
 
-    <span class="c1"># replace non ascii characters (shared)</span>
+    <span class="c1"># 7. replace non ascii characters (shared)</span>
 
-    <span class="c1"># check for missing ISO codes (shared)</span>
+    <span class="c1"># 8. check for missing ISO codes (shared)</span>
     <span class="n">check</span><span class="o">.</span><span class="n">check_missing_iso</span><span class="p">(</span><span class="n">record</span><span class="p">)</span>
 
-    <span class="c1"># Join WHO accepted country names (shared)</span>
-    <span class="n">utils</span><span class="o">.</span><span class="n">assign_who_country_name</span><span class="p">(</span><span class="n">record</span><span class="p">,</span> <span class="n">country_ref</span><span class="p">)</span>
+    <span class="c1"># 9. Join WHO accepted country names (shared)</span>
+    <span class="n">record</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">assign_who_country_name</span><span class="p">(</span><span class="n">record</span><span class="p">,</span> <span class="n">country_ref</span><span class="p">)</span>
 
-    <span class="c1"># Join who coding from lookup (shared)</span>
-    <span class="n">utils</span><span class="o">.</span><span class="n">assign_who_coding</span><span class="p">(</span><span class="n">record</span><span class="p">,</span> <span class="n">who_coding</span><span class="p">)</span>
+    <span class="c1"># 10. Join who coding from lookup (shared)</span>
+    <span class="n">record</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">assign_who_coding</span><span class="p">(</span><span class="n">record</span><span class="p">,</span> <span class="n">who_coding</span><span class="p">)</span>
 
-    <span class="c1"># check for missing WHO codes (shared)</span>
+    <span class="c1"># 11. check for missing WHO codes (shared)</span>
     <span class="n">check</span><span class="o">.</span><span class="n">check_missing_who_code</span><span class="p">(</span><span class="n">record</span><span class="p">)</span>
-    
-    <span class="c1">#custom JH things here</span>
+
+    <span class="c1"># 12. custom JH things here</span>
 
     <span class="c1"># Currently removing records with null &quot;locality&quot; and &quot;usa_county&quot; fields</span>
     <span class="c1">#if pd.isnull(record[&#39;locality&#39;]) and pd.isnull(record[&#39;usa_county&#39;]):</span>
