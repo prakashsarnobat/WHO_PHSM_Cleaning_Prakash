@@ -1,0 +1,245 @@
+﻿who_region,country_territory_area,iso,iso_3166_1_numeric
+WPRO,cocos (keeling) islands,CCK,166
+WPRO,christmas island,CXR,162
+EURO,jersey,JEY,832
+EURO,montenegro,MNE,499
+AFRO,mayotte,MYT,175
+EMRO,"occupied palestinian territory, including east jerusalem",PSE,275
+EURO,serbia,SRB,688
+WPRO,johnston atoll,JTN,581
+WPRO,midway islands,MID,581
+WPRO,wake island,WAK,581
+EURO,kosovo,XKX,688
+EMRO,afghanistan,AFG,4
+EURO,albania,ALB,8
+AFRO,algeria,DZA,12
+WPRO,american samoa,ASM,16
+EURO,andorra,AND,20
+AFRO,angola,AGO,24
+AMRO,antigua and barbuda,ATG,28
+EURO,azerbaijan,AZE,31
+AMRO,argentina,ARG,32
+WPRO,australia,AUS,36
+EURO,austria,AUT,40
+AMRO,bahamas,BHS,44
+EMRO,bahrain,BHR,48
+SEARO,bangladesh,BGD,50
+EURO,armenia,ARM,51
+AMRO,barbados,BRB,52
+EURO,belgium,BEL,56
+AMRO,bermuda,BMU,60
+SEARO,bhutan,BTN,64
+AMRO,"bolivia, plurinational state of",BOL,68
+EURO,bosnia and herzegovina,BIH,70
+AFRO,botswana,BWA,72
+AMRO,brazil,BRA,76
+AMRO,belize,BLZ,84
+WPRO,solomon islands,SLB,90
+AMRO,british virgin islands,VGB,92
+WPRO,brunei darussalam,BRN,96
+EURO,bulgaria,BGR,100
+SEARO,myanmar,MMR,104
+AFRO,burundi,BDI,108
+EURO,belarus,BLR,112
+WPRO,cambodia,KHM,116
+AFRO,cameroon,CMR,120
+AMRO,canada,CAN,124
+AFRO,cabo verde,CPV,132
+AMRO,cayman islands,CYM,136
+AFRO,central african republic,CAF,140
+SEARO,sri lanka,LKA,144
+AFRO,chad,TCD,148
+AMRO,chile,CHL,152
+WPRO,china,CHN,156
+AMRO,colombia,COL,170
+AFRO,comoros,COM,174
+AFRO,congo,COG,178
+AFRO,democratic republic of the congo,COD,180
+WPRO,cook islands,COK,184
+AMRO,costa rica,CRI,188
+EURO,croatia,HRV,191
+AMRO,cuba,CUB,192
+EURO,cyprus,CYP,196
+EURO,czech republic,CZE,203
+AFRO,benin,BEN,204
+EURO,denmark,DNK,208
+AMRO,dominica,DMA,212
+AMRO,dominican republic,DOM,214
+AMRO,ecuador,ECU,218
+AMRO,el salvador,SLV,222
+AFRO,equatorial guinea,GNQ,226
+AFRO,ethiopia,ETH,231
+AFRO,eritrea,ERI,232
+EURO,estonia,EST,233
+EURO,faroe islands,FRO,234
+AMRO,falkland islands (malvinas),FLK,238
+WPRO,fiji,FJI,242
+EURO,finland,FIN,246
+EURO,france,FRA,250
+AMRO,french guiana,GUF,254
+WPRO,french polynesia,PYF,258
+EMRO,djibouti,DJI,262
+AFRO,gabon,GAB,266
+EURO,georgia,GEO,268
+AFRO,gambia,GMB,270
+EURO,germany,DEU,276
+AFRO,ghana,GHA,288
+EURO,gibraltar,GIB,292
+WPRO,kiribati,KIR,296
+EURO,greece,GRC,300
+EURO,greenland,GRL,304
+AMRO,grenada,GRD,308
+AMRO,guadeloupe,GLP,312
+AMRO,guadeloupe,GLP,312
+WPRO,guam,GUM,316
+AMRO,guatemala,GTM,320
+AFRO,guinea,GIN,324
+AMRO,guyana,GUY,328
+AMRO,haiti,HTI,332
+EURO,holy see,VAT,336
+AMRO,honduras,HND,340
+EURO,hungary,HUN,348
+EURO,iceland,ISL,352
+SEARO,india,IND,356
+SEARO,indonesia,IDN,360
+EMRO,"iran, islamic republic of",IRN,364
+EMRO,iraq,IRQ,368
+EURO,ireland,IRL,372
+EURO,israel,ISR,376
+EURO,italy,ITA,380
+AFRO,cote d ivoire,CIV,384
+AMRO,jamaica,JAM,388
+WPRO,japan,JPN,392
+EURO,kazakhstan,KAZ,398
+EMRO,jordan,JOR,400
+AFRO,kenya,KEN,404
+SEARO,democratic people's republic of korea,PRK,408
+WPRO,republic of korea,KOR,410
+EMRO,kuwait,KWT,414
+EURO,kyrgyzstan,KGZ,417
+WPRO,lao people's democratic republic,LAO,418
+EMRO,lebanon,LBN,422
+AFRO,lesotho,LSO,426
+EURO,latvia,LVA,428
+AFRO,liberia,LBR,430
+EMRO,libya,LBY,434
+EURO,liechtenstein,LIE,438
+EURO,lithuania,LTU,440
+EURO,luxembourg,LUX,442
+AFRO,madagascar,MDG,450
+AFRO,malawi,MWI,454
+WPRO,malaysia,MYS,458
+SEARO,maldives,MDV,462
+AFRO,mali,MLI,466
+EURO,malta,MLT,470
+AMRO,martinique,MTQ,474
+AFRO,mauritania,MRT,478
+AFRO,mauritius,MUS,480
+AMRO,mexico,MEX,484
+EURO,monaco,MCO,492
+WPRO,mongolia,MNG,496
+EURO,republic of moldova,MDA,498
+AMRO,montserrat,MSR,500
+EMRO,morocco,MAR,504
+AFRO,mozambique,MOZ,508
+EMRO,oman,OMN,512
+AFRO,namibia,NAM,516
+WPRO,nauru,NRU,520
+SEARO,nepal,NPL,524
+EURO,netherlands,NLD,528
+AMRO,netherlands antilles,ANT,530
+AMRO,curacao,CUW,531
+AMRO,aruba,ABW,533
+AMRO,sint maarten,SXM,534
+AMRO,"bonaire, sint eustatius and saba",BES,535
+WPRO,new caledonia,NCL,540
+WPRO,vanuatu,VUT,548
+WPRO,new zealand,NZL,554
+AMRO,nicaragua,NIC,558
+AFRO,niger,NER,562
+AFRO,nigeria,NGA,566
+WPRO,niue,NIU,570
+WPRO,norfolk island,NFK,574
+EURO,norway,NOR,578
+WPRO,"northern mariana islands, commonwealth of the",MNP,580
+WPRO,"micronesia, federated states of",FSM,583
+WPRO,marshall islands,MHL,584
+WPRO,palau,PLW,585
+EMRO,pakistan,PAK,586
+AMRO,panama,PAN,591
+WPRO,papua new guinea,PNG,598
+AMRO,paraguay,PRY,600
+AMRO,peru,PER,604
+WPRO,philippines,PHL,608
+WPRO,pitcairn islands,PCN,612
+EURO,poland,POL,616
+EURO,portugal,PRT,620
+AFRO,guinea-bissau,GNB,624
+SEARO,timor-leste,TLS,626
+AMRO,puerto rico,PRI,630
+EMRO,qatar,QAT,634
+AFRO,reunion,REU,638
+EURO,romania,ROU,642
+EURO,russian federation,RUS,643
+AFRO,rwanda,RWA,646
+AMRO,saint barthelemy,BLM,652
+AFRO,saint helena,SHN,654
+AMRO,saint kitts and nevis,KNA,659
+AMRO,anguilla,AIA,660
+AMRO,saint lucia,LCA,662
+AMRO,saint martin,MAF,663
+AMRO,saint pierre and miquelon,SPM,666
+AMRO,saint vincent and the grenadines,VCT,670
+EURO,san marino,SMR,674
+AFRO,sao tome and principe,STP,678
+EMRO,saudi arabia,SAU,682
+AFRO,senegal,SEN,686
+AFRO,seychelles,SYC,690
+AFRO,sierra leone,SLE,694
+WPRO,singapore,SGP,702
+EURO,slovakia,SVK,703
+WPRO,viet nam,VNM,704
+EURO,slovenia,SVN,705
+EMRO,somalia,SOM,706
+AFRO,south africa,ZAF,710
+AFRO,zimbabwe,ZWE,716
+EURO,spain,ESP,724
+AFRO,south sudan,SSD,728
+EMRO,sudan,SDN,729
+AFRO,western sahara,ESH,732
+AMRO,suriname,SUR,740
+EURO,svalbard and jan mayen islands,SJM,744
+AFRO,eswatini,SWZ,748
+EURO,sweden,SWE,752
+EURO,switzerland,CHE,756
+EMRO,syrian arab republic,SYR,760
+EURO,tajikistan,TJK,762
+SEARO,thailand,THA,764
+AFRO,togo,TGO,768
+WPRO,tokelau,TKL,772
+WPRO,tonga,TON,776
+AMRO,trinidad and tobago,TTO,780
+EMRO,united arab emirates,ARE,784
+EMRO,tunisia,TUN,788
+EURO,turkey,TUR,792
+EURO,turkmenistan,TKM,795
+AMRO,turks and caicos islands,TCA,796
+WPRO,tuvalu,TUV,798
+AFRO,uganda,UGA,800
+EURO,ukraine,UKR,804
+EURO,north macedonia,MKD,807
+EMRO,egypt,EGY,818
+EURO,united kingdom of great britain and northern ireland,GBR,826
+EURO,guernsey,GGY,831
+EURO,isle of man,IMN,833
+AFRO,united republic of tanzania,TZA,834
+AMRO,united states of america,USA,840
+AMRO,united states virgin islands,VIR,850
+AFRO,burkina faso,BFA,854
+AMRO,uruguay,URY,858
+EURO,uzbekistan,UZB,860
+AMRO,"venezuela, bolivarian republic of",VEN,862
+WPRO,wallis and futuna,WLF,876
+WPRO,samoa,WSM,882
+EMRO,yemen,YEM,887
+AFRO,zambia,ZMB,894

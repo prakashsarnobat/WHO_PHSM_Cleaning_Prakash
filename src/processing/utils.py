@@ -1,4 +1,6 @@
 import pandas as pd
+import os
+import logging
 import uuid
 
 def generate_blank_record():
@@ -98,5 +100,24 @@ def assign_id(record):
     '''Function to assign a unique ID to each record'''
 
     record['who_id'] = str(uuid.uuid4())
+
+    return(record)
+
+
+def assign_who_country_name(record: dict, country_ref: pd.DataFrame):
+    '''
+    Function to assign country names by ISO code
+
+    also adds: who_region, country_territory_area, iso_3166_1_numeric
+
+    '''
+
+    country_ref = country_ref.loc[country_ref['iso'] == record['iso'], :]
+
+    record['who_region'] = str(country_ref['who_region'].iloc[0])
+
+    record['country_territory_area'] = str(country_ref['country_territory_area'].iloc[0])
+
+    record['iso_3166_1_numeric'] = int(country_ref['iso_3166_1_numeric'].iloc[0])
 
     return(record)
