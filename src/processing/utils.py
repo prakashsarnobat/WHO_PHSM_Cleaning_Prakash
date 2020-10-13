@@ -131,7 +131,7 @@ def assign_who_country_name(record: dict, country_ref: pd.DataFrame):
     return(record)
 
 
-def assign_who_coding(record: dict, who_coding: pd.DataFrame):
+def assign_who_coding(record: dict, who_coding: pd.DataFrame, missing_value: str = 'unknown'):
     '''
         Function to assign WHO coding to a record
 
@@ -155,15 +155,20 @@ def assign_who_coding(record: dict, who_coding: pd.DataFrame):
 
     except Exception as e:
 
+        # replace this with logging
         print('Coding values found: ' + str(len(coding.iloc[:, 1])))
         print('No coding found for dataset: {} prov_measure: {} prov_subcategory: {} prov_category: {}'.format(record['dataset'], record['prov_measure'], record['prov_subcategory'], record['prov_category']))
 
+        record['who_code'] = missing_value
+        record['who_measure'] = missing_value
+        record['who_subcategory'] = missing_value
+        record['who_category'] = missing_value
 
-        raise e
+        return(record)
 
-    record['who_code'] = coding['who_code']
-    record['who_measure'] = coding['who_measure']
-    record['who_subcategory'] = coding['who_subcategory']
-    record['who_category'] = coding['who_category']
+    record['who_code'] = coding['who_code'].iloc[0]
+    record['who_measure'] = coding['who_measure'].iloc[0]
+    record['who_subcategory'] = coding['who_subcategory'].iloc[0]
+    record['who_category'] = coding['who_category'].iloc[0]
 
     return(record)

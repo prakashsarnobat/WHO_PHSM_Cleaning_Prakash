@@ -32,8 +32,10 @@ def transform(record: dict, key_ref: dict, country_ref: pd.DataFrame, who_coding
 
     # Join who coding from lookup (shared)
     utils.assign_who_coding(record, who_coding)
-    # check for missing WHO codes (shared)
 
+    # check for missing WHO codes (shared)
+    check.check_missing_who_code(record)
+    
     #custom JH things here
 
     # Currently removing records with null "locality" and "usa_county" fields
