@@ -1,0 +1,19 @@
+prov_category,prov_measure,keep
+school_closed,Nursery school closures,TRUE
+school_closed,Post-secondary school closures,TRUE
+school_closed,Primary school closures,TRUE
+school_closed,Secondary school closures,TRUE
+mask,Universal facemask policies,TRUE
+closed_border,Border closures for entering by air,TRUE
+closed_border,Border closures for entering by land,TRUE
+closed_border,Border closures for entering by sea,TRUE
+closed_border,Border closures for leaving by air,TRUE
+closed_border,Border closures for leaving by land,TRUE
+closed_border,Border closures for leaving by sea,TRUE
+symp_screening,Symptom screening when entering by air,TRUE
+symp_screening,Symptom screening when entering by land,TRUE
+symp_screening,Symptom screening when entering by sea,TRUE
+state_of_emergency,State of emergency,TRUE
+household_confined,Household confinement,TRUE
+public_transport_closed,Public transportation closures,TRUE
+limited_mvt,Limiting movement within borders,TRUE

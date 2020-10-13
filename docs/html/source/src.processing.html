@@ -38,10 +38,27 @@
 <span id="src-processing-jh-hit-module"></span><h2>src.processing.JH_HIT module<a class="headerlink" href="#module-src.processing.JH_HIT" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="jh-hit-py">
 <h3>JH_HIT.py<a class="headerlink" href="#jh-hit-py" title="Permalink to this headline">¶</a></h3>
-<p>Functions to transform JH_HIT records to WHO format.</p>
+<p>Transform JH_HIT records to WHO PHSM format.</p>
+<p><strong>Data Source:</strong>
+<a class="reference external" href="https://github.com/HopkinsIDD/hit-covid">https://github.com/HopkinsIDD/hit-covid</a></p>
+<p><strong>Processing Steps:</strong></p>
+<ol class="arabic simple">
+<li>Remove records with null <code class="docutils literal notranslate"><span class="pre">locality</span></code> AND null <code class="docutils literal notranslate"><span class="pre">usa_county</span></code> values.</li>
+<li>Remove a subset of <code class="docutils literal notranslate"><span class="pre">prov_measure</span></code> values. See <code class="docutils literal notranslate"><span class="pre">config/prov_measure_filter/JH_HIT.csv</span></code> for exact values.</li>
+<li>Generate a blank record with required keys.</li>
+<li>Move data from provider record to new record with <code class="docutils literal notranslate"><span class="pre">apply_key_map</span></code> using key mapping in <code class="docutils literal notranslate"><span class="pre">config/key_map/JH_HIT.csv</span></code>.</li>
+<li>Parse date formats in <code class="docutils literal notranslate"><span class="pre">date_start</span></code>, <code class="docutils literal notranslate"><span class="pre">date_end</span></code>, <code class="docutils literal notranslate"><span class="pre">date_entry</span></code>.</li>
+<li>Assign a unique record ID.</li>
+<li>Map non-ascii characters to their closest ascii equivalent.</li>
+<li>Check for missing <code class="docutils literal notranslate"><span class="pre">iso</span></code> codes.</li>
+<li>Assign WHO-accepted <code class="docutils literal notranslate"><span class="pre">country_territory_area</span></code>, <code class="docutils literal notranslate"><span class="pre">who_region</span></code>, <code class="docutils literal notranslate"><span class="pre">iso_3166_1_numeric</span></code></li>
+<li>Assign WHO PHSM dataset coding using <code class="docutils literal notranslate"><span class="pre">prov_measure</span></code>, <code class="docutils literal notranslate"><span class="pre">prov_subcategory</span></code>, <code class="docutils literal notranslate"><span class="pre">prov_category</span></code></li>
+<li>Check for missing <code class="docutils literal notranslate"><span class="pre">who_code</span></code> values.</li>
+<li>Custom JH things (development in progress)</li>
+</ol>
 <dl class="function">
 <dt id="src.processing.JH_HIT.transform">
-<code class="descclassname">src.processing.JH_HIT.</code><code class="descname">transform</code><span class="sig-paren">(</span><em>record: dict</em>, <em>key_ref: dict</em>, <em>country_ref: &lt;sphinx.ext.autodoc.importer._MockObject object at 0x7f3f24ac2b70&gt;</em>, <em>who_coding: &lt;sphinx.ext.autodoc.importer._MockObject object at 0x7f3f24ac2b00&gt;</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/src/processing/JH_HIT.html#transform"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.processing.JH_HIT.transform" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">src.processing.JH_HIT.</code><code class="descname">transform</code><span class="sig-paren">(</span><em>record: dict</em>, <em>key_ref: dict</em>, <em>country_ref: &lt;sphinx.ext.autodoc.importer._MockObject object at 0x7ffbecab5ef0&gt;</em>, <em>who_coding: &lt;sphinx.ext.autodoc.importer._MockObject object at 0x7ffbecab5e48&gt;</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/src/processing/JH_HIT.html#transform"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.processing.JH_HIT.transform" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </div>
@@ -83,7 +100,7 @@ handled later</p>
 <p>General checks for record numbers etc</p>
 <dl class="function">
 <dt id="src.processing.main.process">
-<code class="descclassname">src.processing.main.</code><code class="descname">process</code><span class="sig-paren">(</span><em>record: dict</em>, <em>key_ref: dict</em>, <em>country_ref: &lt;sphinx.ext.autodoc.importer._MockObject object at 0x7f3f24bba748&gt;</em>, <em>who_coding: &lt;sphinx.ext.autodoc.importer._MockObject object at 0x7f3f24bba3c8&gt;</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/src/processing/main.html#process"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.processing.main.process" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">src.processing.main.</code><code class="descname">process</code><span class="sig-paren">(</span><em>record: dict</em>, <em>key_ref: dict</em>, <em>country_ref: &lt;sphinx.ext.autodoc.importer._MockObject object at 0x7ffbec915400&gt;</em>, <em>who_coding: &lt;sphinx.ext.autodoc.importer._MockObject object at 0x7ffbec9154e0&gt;</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/src/processing/main.html#process"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.processing.main.process" title="Permalink to this definition">¶</a></dt>
 <dd><p>Unify individual dataset transformers</p>
 </dd></dl>
 
@@ -105,7 +122,7 @@ handled later</p>
 
 <dl class="function">
 <dt id="src.processing.utils.assign_who_coding">
-<code class="descclassname">src.processing.utils.</code><code class="descname">assign_who_coding</code><span class="sig-paren">(</span><em>record: dict</em>, <em>who_coding: &lt;sphinx.ext.autodoc.importer._MockObject object at 0x7f3f24ab4198&gt;</em>, <em>missing_value: str = 'unknown'</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/src/processing/utils.html#assign_who_coding"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.processing.utils.assign_who_coding" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">src.processing.utils.</code><code class="descname">assign_who_coding</code><span class="sig-paren">(</span><em>record: dict</em>, <em>who_coding: &lt;sphinx.ext.autodoc.importer._MockObject object at 0x7ffbec9281d0&gt;</em>, <em>missing_value: str = 'unknown'</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/src/processing/utils.html#assign_who_coding"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.processing.utils.assign_who_coding" title="Permalink to this definition">¶</a></dt>
 <dd><p>Function to assign WHO coding to a record</p>
 <p>Test this thoroughly</p>
 <p>Still need to account for possible targeted values</p>
@@ -113,7 +130,7 @@ handled later</p>
 
 <dl class="function">
 <dt id="src.processing.utils.assign_who_country_name">
-<code class="descclassname">src.processing.utils.</code><code class="descname">assign_who_country_name</code><span class="sig-paren">(</span><em>record: dict</em>, <em>country_ref: &lt;sphinx.ext.autodoc.importer._MockObject object at 0x7f3f24ab41d0&gt;</em>, <em>missing_value: str = 'unknown'</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/src/processing/utils.html#assign_who_country_name"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.processing.utils.assign_who_country_name" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">src.processing.utils.</code><code class="descname">assign_who_country_name</code><span class="sig-paren">(</span><em>record: dict</em>, <em>country_ref: &lt;sphinx.ext.autodoc.importer._MockObject object at 0x7ffbec928198&gt;</em>, <em>missing_value: str = 'unknown'</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/src/processing/utils.html#assign_who_country_name"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.processing.utils.assign_who_country_name" title="Permalink to this definition">¶</a></dt>
 <dd><p>Function to assign country names by ISO code</p>
 <p>also adds: who_region, country_territory_area, iso_3166_1_numeric</p>
 </dd></dl>
@@ -128,6 +145,7 @@ handled later</p>
 <dt id="src.processing.utils.key_map">
 <code class="descclassname">src.processing.utils.</code><code class="descname">key_map</code><span class="sig-paren">(</span><em>new_record: dict</em>, <em>old_record: dict</em>, <em>new_key: str</em>, <em>old_key: str</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/src/processing/utils.html#key_map"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.processing.utils.key_map" title="Permalink to this definition">¶</a></dt>
 <dd><p>Function to move data between records from one key to another</p>
+<p>if a new key is null, data will not be copied. Occurs when some data in a provider dataset is not used in WHO dataset</p>
 </dd></dl>
 
 <dl class="function">

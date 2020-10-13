@@ -17,7 +17,7 @@ JH_HIT,date_of_update,date_start
 JH_HIT,status,
 JH_HIT,status_simp,
 JH_HIT,subpopulation,targeted
-JH_HIT,required,non_compliance
+JH_HIT,required,non_compliance_penalty
 JH_HIT,reduced_capacity,
 JH_HIT,symp_screening,
 JH_HIT,enforcement,

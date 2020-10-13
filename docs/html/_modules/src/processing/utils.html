@@ -107,13 +107,13 @@
 
 
 <div class="viewcode-block" id="key_map"><a class="viewcode-back" href="../../../source/src.processing.html#src.processing.utils.key_map">[docs]</a><span class="k">def</span> <span class="nf">key_map</span><span class="p">(</span><span class="n">new_record</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span> <span class="n">old_record</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span> <span class="n">new_key</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">old_key</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
-    <span class="sd">&#39;&#39;&#39;Function to move data between records from one key to another&#39;&#39;&#39;</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Function to move data between records from one key to another</span>
 
-    <span class="k">if</span> <span class="n">pd</span><span class="o">.</span><span class="n">isnull</span><span class="p">(</span><span class="n">old_record</span><span class="p">[</span><span class="n">old_key</span><span class="p">]):</span>
+<span class="sd">    if a new key is null, data will not be copied. Occurs when some data in a provider dataset is not used in WHO dataset</span>
+<span class="sd">    &#39;&#39;&#39;</span>
 
-        <span class="n">new_record</span><span class="p">[</span><span class="n">new_key</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
-
-    <span class="k">else</span><span class="p">:</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">pd</span><span class="o">.</span><span class="n">isnull</span><span class="p">(</span><span class="n">new_key</span><span class="p">):</span>
 
         <span class="n">new_record</span><span class="p">[</span><span class="n">new_key</span><span class="p">]</span> <span class="o">=</span> <span class="n">old_record</span><span class="p">[</span><span class="n">old_key</span><span class="p">]</span>
 
@@ -240,7 +240,7 @@
 
         <span class="k">else</span><span class="p">:</span>
 
-            <span class="n">record</span><span class="p">[</span><span class="s1">&#39;non_compliance&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">coding</span><span class="p">[</span><span class="s1">&#39;non_compliance&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="n">record</span><span class="p">[</span><span class="s1">&#39;non_compliance_penalty&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">coding</span><span class="p">[</span><span class="s1">&#39;non_compliance&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
 
     <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
 

@@ -169,7 +169,7 @@ class Test_assign_who_coding:
 
         assert record['who_category'] == 'c'
 
-        assert record['non_compliance'] == 'd'
+        assert record['non_compliance_penalty'] == 'd'
 
         assert record['targeted'] == 'e'
 
@@ -257,7 +257,7 @@ class Test_assign_who_coding:
         record['prov_measure'] = 'a'
         record['prov_subcategory'] = 'b'
         record['prov_category'] = 'c'
-        record['non_compliance'] = 'f'
+        record['non_compliance_penalty'] = 'f'
 
         who_coding = pd.DataFrame({'prov_measure': ['a'],
                                    'prov_subcategory': ['b'],
@@ -271,4 +271,4 @@ class Test_assign_who_coding:
 
         record = assign_who_coding(record, who_coding)
 
-        assert record['non_compliance'] == 'f'
+        assert record['non_compliance_penalty'] == 'f'

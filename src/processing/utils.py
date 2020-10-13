@@ -75,13 +75,13 @@ def apply_key_map(new_record: dict, old_record: dict, key_ref: dict):
 
 
 def key_map(new_record: dict, old_record: dict, new_key: str, old_key: str):
-    '''Function to move data between records from one key to another'''
+    '''
+    Function to move data between records from one key to another
 
-    if pd.isnull(old_record[old_key]):
+    if a new key is null, data will not be copied. Occurs when some data in a provider dataset is not used in WHO dataset
+    '''
 
-        new_record[new_key] = ''
-
-    else:
+    if not pd.isnull(new_key):
 
         new_record[new_key] = old_record[old_key]
 
@@ -208,7 +208,7 @@ def assign_who_coding(record: dict, who_coding: pd.DataFrame, missing_value: str
 
         else:
 
-            record['non_compliance'] = coding['non_compliance'].iloc[0]
+            record['non_compliance_penalty'] = coding['non_compliance'].iloc[0]
 
     except Exception as e:
 
