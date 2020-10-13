@@ -67,6 +67,8 @@ def apply_key_map(new_record: dict, old_record: dict, key_ref: dict):
 
         except Exception as e:
 
+            print(e)
+
             continue
 
     return(new_record)
@@ -119,5 +121,42 @@ def assign_who_country_name(record: dict, country_ref: pd.DataFrame):
     record['country_territory_area'] = str(country_ref['country_territory_area'].iloc[0])
 
     record['iso_3166_1_numeric'] = int(country_ref['iso_3166_1_numeric'].iloc[0])
+
+    return(record)
+
+
+def assign_who_coding(record: dict, who_coding: pd.DataFrame):
+    '''
+        Function to assign WHO coding to a record
+
+        Test this thoroughly
+
+        Still need to account for possible targeted values
+
+    '''
+
+    prov_measure = who_coding['prov_measure'] == record['prov_measure']
+    prov_subcategory = who_coding['prov_subcategory'] == record['prov_subcategory']
+    prov_category = who_coding['prov_category'] == record['prov_category']
+
+    coding = who_coding.loc[prov_measure & prov_subcategory & prov_category, :]
+
+    try:
+
+        assert len(coding.iloc[:, 1]) == 1
+
+    except Exception as e:
+
+        print(coding)
+        print(record['prov_measure'])
+        print(record['prov_subcategory'])
+        print(record['prov_category'])
+
+        raise e
+
+    record['who_code'] = coding['who_code']
+    record['who_measure'] = coding['who_measure']
+    record['who_subcategory'] = coding['who_subcategory']
+    record['who_category'] = coding['who_category']
 
     return(record)

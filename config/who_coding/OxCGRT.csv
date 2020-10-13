@@ -1,0 +1,40 @@
+﻿dataset,prov_category,prov_subcategory,prov_measure,who_code,who_category,who_subcategory,who_measure,non_compliance,who_targeted
+OxCGRT,,,C1_1,4.1.2,Social and physical distancing measures,School measures ,Closing,Recommended,General
+OxCGRT,,,C1_2,4.1.2,Social and physical distancing measures,School measures ,Closing,Required,Targeted
+OxCGRT,,,C1_3,4.1.2,Social and physical distancing measures,School measures ,Closing,Required,General
+OxCGRT,,,C2_1,4.2.2,Social and physical distancing measures,"Offices, businesses, institutions and operations",Closing,Recommended,
+OxCGRT,,,C2_2,4.2.2,Social and physical distancing measures,"Offices, businesses, institutions and operations",Closing,Required,
+OxCGRT,,,C2_3,4.2.2,Social and physical distancing measures,"Offices, businesses, institutions and operations",Closing,Required,
+OxCGRT,,,C3_1,4.3.4,Social and physical distancing measures,"Gatherings, businesses and services","Cancelling, restricting or adapting mass gatherings",Recommended,
+OxCGRT,,,C3_2,4.3.4,Social and physical distancing measures,"Gatherings, businesses and services","Cancelling, restricting or adapting mass gatherings",Required,
+OxCGRT,,,C4_1,4.3.3,Social and physical distancing measures,"Gatherings, businesses and services","Cancelling, closing, restricting or adapting public gatherings outside the home",,1000
+OxCGRT,,,C4_2,4.3.3,Social and physical distancing measures,"Gatherings, businesses and services","Cancelling, closing, restricting or adapting public gatherings outside the home",,100
+OxCGRT,,,C4_3,4.3.3,Social and physical distancing measures,"Gatherings, businesses and services","Cancelling, closing, restricting or adapting public gatherings outside the home",,10
+OxCGRT,,,C4_4,4.3.3,Social and physical distancing measures,"Gatherings, businesses and services","Cancelling, closing, restricting or adapting public gatherings outside the home",,<10
+OxCGRT,,,C5_1,4.5.1,Social and physical distancing measures,Domestic travel ,Suspending or restricting movement,Recommended,
+OxCGRT,,,C5_2,4.5.1,Social and physical distancing measures,Domestic travel ,Suspending or restricting movement,Required,
+OxCGRT,,,C6_1,4.5.2,Social and physical distancing measures,Domestic travel,Stay-at-home order,Recommended,
+OxCGRT,,,C6_2,4.5.2,Social and physical distancing measures,Domestic travel,Stay-at-home order,Required,
+OxCGRT,,,C6_3,4.5.2,Social and physical distancing measures,Domestic travel ,Stay-at-home order,Required,
+OxCGRT,,,C7_1,4.5.1,Social and physical distancing measures,Domestic travel ,Suspending or restricting movement,Recommended,
+OxCGRT,,,C7_2,4.5.1,Social and physical distancing measures,Domestic travel ,Suspending or restricting movement,Required,
+OxCGRT,,,C8_1,5.5,International travel measures,,Entry screening and isolation or quarantine,,
+OxCGRT,,,C8_2,5.5,International travel measures,,Entry screening and isolation or quarantine,,
+OxCGRT,,,C8_3,5.3,International travel measures,,Restricting entry,,
+OxCGRT,,,C8_4,5.3,International travel measures,,Restricting entry,,
+OxCGRT,,,E1_1,8.3,Other measures,,Financial packages,,
+OxCGRT,,,E1_2,8.3,Other measures,,Financial packages,,
+OxCGRT,,,E2_1,8.3,Other measures,,Financial packages,,
+OxCGRT,,,E2_2,8.3,Other measures,,Financial packages,,
+OxCGRT,,,E3,8.3,Other measures,,Financial packages,,
+OxCGRT,,,E4,8.3,Other measures,,Financial packages,,
+OxCGRT,,,H1_1,8.4.1,Other measures,Communications and engagement,General public awareness campaigns,,
+OxCGRT,,,H1_2,8.4.1,Other measures,Communications and engagement,General public awareness campaigns,,
+OxCGRT,,,H2_1,3.1.1,Surveillance and response measures,Detecting and isolating cases,Passive case detection,,Specific symptoms
+OxCGRT,,,H2_2,3.1.1,Surveillance and response measures,Detecting and isolating cases,Passive case detection,,Any symptoms
+OxCGRT,,,H2_3,3.1.1,Surveillance and response measures,Detecting and isolating cases,Passive case detection,,Anyone
+OxCGRT,,,H3_1,3.2.1,Surveillance and response measures,Tracing and quarantining contacts,Contact tracing,,Traditional
+OxCGRT,,,H3_2,3.2.1,Surveillance and response measures,Tracing and quarantining contacts,Contact tracing,,Traditional
+OxCGRT,,,H4,8.3,Other measures,,Financial packages,,
+OxCGRT,,,H5,8.3,Other measures,,Financial packages,,
+OxCGRT,,,no_new_measures,10,Not of interest,Not of interest,Not of interest,,
