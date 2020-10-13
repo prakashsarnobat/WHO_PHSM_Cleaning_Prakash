@@ -18,15 +18,17 @@ Logging
 General checks for record numbers etc
 """
 
+import pandas as pd
 from processing import JH_HIT
 
 
-def process(record: dict):
+def process(record: dict, key_ref: dict, country_ref: pd.DataFrame):
+    '''Unify individual dataset transformers'''
 
     if record['dataset'] == 'JH_HIT':
 
         # apply JH transformer here
-        record = JH_HIT.transform(record)
+        record = JH_HIT.transform(record, key_ref, country_ref)
 
     else:
 

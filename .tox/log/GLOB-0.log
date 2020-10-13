@@ -1,0 +1,65 @@
+action: GLOB, msg: packaging
+cwd: /usr/who_clean
+cmd: /usr/local/bin/python setup.py sdist --formats=zip --dist-dir .tox/dist
+running sdist
+running egg_info
+writing src.egg-info/PKG-INFO
+writing dependency_links to src.egg-info/dependency_links.txt
+writing top-level names to src.egg-info/top_level.txt
+reading manifest file 'src.egg-info/SOURCES.txt'
+writing manifest file 'src.egg-info/SOURCES.txt'
+running check
+warning: check: missing required meta-data: url
+
+warning: check: missing meta-data: if 'author' supplied, 'author_email' must be supplied too
+
+creating src-0.0.1
+creating src-0.0.1/src
+creating src-0.0.1/src.egg-info
+creating src-0.0.1/src/preprocess
+creating src-0.0.1/src/processing
+copying files to src-0.0.1...
+copying README.md -> src-0.0.1
+copying setup.py -> src-0.0.1
+copying src/__init__.py -> src-0.0.1/src
+copying src/preprocess.py -> src-0.0.1/src
+copying src/process.py -> src-0.0.1/src
+copying src.egg-info/PKG-INFO -> src-0.0.1/src.egg-info
+copying src.egg-info/SOURCES.txt -> src-0.0.1/src.egg-info
+copying src.egg-info/dependency_links.txt -> src-0.0.1/src.egg-info
+copying src.egg-info/top_level.txt -> src-0.0.1/src.egg-info
+copying src/preprocess/__init__.py -> src-0.0.1/src/preprocess
+copying src/preprocess/column_map.py -> src-0.0.1/src/preprocess
+copying src/preprocess/utils.py -> src-0.0.1/src/preprocess
+copying src/processing/JH_HIT.py -> src-0.0.1/src/processing
+copying src/processing/__init__.py -> src-0.0.1/src/processing
+copying src/processing/check.py -> src-0.0.1/src/processing
+copying src/processing/main.py -> src-0.0.1/src/processing
+copying src/processing/utils.py -> src-0.0.1/src/processing
+Writing src-0.0.1/setup.cfg
+creating '.tox/dist/src-0.0.1.zip' and adding 'src-0.0.1' to it
+adding 'src-0.0.1'
+adding 'src-0.0.1/src'
+adding 'src-0.0.1/src.egg-info'
+adding 'src-0.0.1/PKG-INFO'
+adding 'src-0.0.1/README.md'
+adding 'src-0.0.1/setup.cfg'
+adding 'src-0.0.1/setup.py'
+adding 'src-0.0.1/src/preprocess'
+adding 'src-0.0.1/src/processing'
+adding 'src-0.0.1/src/__init__.py'
+adding 'src-0.0.1/src/preprocess.py'
+adding 'src-0.0.1/src/process.py'
+adding 'src-0.0.1/src/preprocess/__init__.py'
+adding 'src-0.0.1/src/preprocess/column_map.py'
+adding 'src-0.0.1/src/preprocess/utils.py'
+adding 'src-0.0.1/src/processing/JH_HIT.py'
+adding 'src-0.0.1/src/processing/__init__.py'
+adding 'src-0.0.1/src/processing/check.py'
+adding 'src-0.0.1/src/processing/main.py'
+adding 'src-0.0.1/src/processing/utils.py'
+adding 'src-0.0.1/src.egg-info/PKG-INFO'
+adding 'src-0.0.1/src.egg-info/SOURCES.txt'
+adding 'src-0.0.1/src.egg-info/dependency_links.txt'
+adding 'src-0.0.1/src.egg-info/top_level.txt'
+removing 'src-0.0.1' (and everything under it)

@@ -1,7 +1,7 @@
 import pytest
 
-from pandas import Timestamp
-from src.processing.utils import generate_blank_record, key_map, apply_key_map, parse_date, assign_id
+import pandas as pd
+from src.processing.utils import generate_blank_record, key_map, apply_key_map, parse_date, assign_id, assign_who_country_name
 
 
 class Test_generate_blank_record:
@@ -68,7 +68,7 @@ class Test_parse_date:
 
         a = parse_date(a)
 
-        assert type(a['date_start']) == Timestamp
+        assert type(a['date_start']) == pd.Timestamp
 
     def test_parse_date_usa_format(self):
 
@@ -76,7 +76,7 @@ class Test_parse_date:
 
         a = parse_date(a)
 
-        assert type(a['date_start']) == Timestamp
+        assert type(a['date_start']) == pd.Timestamp
 
         assert a['date_start'].month == 4
 
@@ -86,7 +86,7 @@ class Test_parse_date:
 
         a = parse_date(a)
 
-        assert type(a['date_start']) == Timestamp
+        assert type(a['date_start']) == pd.Timestamp
 
         assert a['date_start'].month == 4
 
@@ -101,3 +101,32 @@ class Test_assign_id:
         assert type(a['who_id']) == str
 
         assert len(a['who_id']) == 36
+
+class Test_assign_who_country_name:
+
+    def test_assign_who_country_name(self):
+
+        a = {'iso': 'AFG'}
+        country_ref = pd.DataFrame({'iso': ['AFG'],
+                                    'who_region': ['REGION'],
+                                    'country_territory_area': ['NAME'],
+                                    'iso_3166_1_numeric': [1]})
+
+        a = assign_who_country_name(a, country_ref)
+
+        assert a['iso'] == 'AFG'
+
+        assert a['who_region'] == 'REGION'
+
+        assert a['country_territory_area'] == 'NAME'
+
+        assert a['iso_3166_1_numeric'] == 1
+
+    def test_assign_who_country_name_errors(self):
+
+        a = {'iso': 'AFG'}
+
+        country_ref = pd.DataFrame({'iso': ['USA']})
+
+        with pytest.raises(KeyError):
+            assign_who_country_name(a, country_ref)
