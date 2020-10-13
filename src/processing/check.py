@@ -9,7 +9,13 @@ import pandas as pd
 
 
 def check_missing_iso(record: dict):
-    '''Function to check for missing ISO codes'''
+    '''
+    Function to check for missing ISO codes
+
+    Note: will not throw an error for "unknown" values which much be
+    handled later
+
+    '''
 
     if pd.isnull(record['iso']):
 

@@ -112,7 +112,7 @@ def assign_id(record):
     return(record)
 
 
-def assign_who_country_name(record: dict, country_ref: pd.DataFrame):
+def assign_who_country_name(record: dict, country_ref: pd.DataFrame, missing_value: str = 'unknown'):
     '''
     Function to assign country names by ISO code
 
@@ -122,6 +122,20 @@ def assign_who_country_name(record: dict, country_ref: pd.DataFrame):
 
     country_ref = country_ref.loc[country_ref['iso'] == record['iso'], :]
 
+    try:
+
+        assert len(country_ref.iloc[:, 1]) == 1
+
+    except Exception as e:
+
+        print(record['iso'])
+
+        record['who_region'] = missing_value
+        record['country_territory_area'] = missing_value
+        record['iso_3166_1_numeric'] = missing_value
+
+        return(record)
+
     record['who_region'] = str(country_ref['who_region'].iloc[0])
 
     record['country_territory_area'] = str(country_ref['country_territory_area'].iloc[0])
@@ -130,7 +144,6 @@ def assign_who_country_name(record: dict, country_ref: pd.DataFrame):
 
     return(record)
 
-
 def assign_who_coding(record: dict, who_coding: pd.DataFrame, missing_value: str = 'unknown'):
     '''
         Function to assign WHO coding to a record
@@ -138,8 +151,6 @@ def assign_who_coding(record: dict, who_coding: pd.DataFrame, missing_value: str
         Test this thoroughly
 
         Still need to account for possible targeted values
-
-        Currently throwing error on no coding - could recover differently
 
     '''
 
@@ -156,8 +167,8 @@ def assign_who_coding(record: dict, who_coding: pd.DataFrame, missing_value: str
     except Exception as e:
 
         # replace this with logging
-        print('Coding values found: ' + str(len(coding.iloc[:, 1])))
-        print('No coding found for dataset: {} prov_measure: {} prov_subcategory: {} prov_category: {}'.format(record['dataset'], record['prov_measure'], record['prov_subcategory'], record['prov_category']))
+        # print('Coding values found: ' + str(len(coding.iloc[:, 1])))
+        # print('No coding found for dataset: {} prov_measure: {} prov_subcategory: {} prov_category: {}'.format(record['dataset'], record['prov_measure'], record['prov_subcategory'], record['prov_category']))
 
         record['who_code'] = missing_value
         record['who_measure'] = missing_value
@@ -170,5 +181,37 @@ def assign_who_coding(record: dict, who_coding: pd.DataFrame, missing_value: str
     record['who_measure'] = coding['who_measure'].iloc[0]
     record['who_subcategory'] = coding['who_subcategory'].iloc[0]
     record['who_category'] = coding['who_category'].iloc[0]
+
+    # try to assign a who_targeted (missing for most records)
+    # WARNING: this could overwrite an existing targeted value
+    try:
+
+        if coding['who_targeted'].iloc[0] == '':
+
+            raise ValueError
+
+        else:
+
+            record['targeted'] = coding['who_targeted'].iloc[0]
+
+    except Exception as e:
+
+        pass
+
+    # try to assign a non_compliance (missing for most records)
+    # WARNING: this could overwrite an existing non_compliance value
+    try:
+
+        if coding['non_compliance'].iloc[0] == '':
+
+            raise ValueError
+
+        else:
+
+            record['non_compliance'] = coding['non_compliance'].iloc[0]
+
+    except Exception as e:
+
+        pass
 
     return(record)
