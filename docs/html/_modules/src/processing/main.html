@@ -54,13 +54,13 @@
 <span class="kn">from</span> <span class="nn">processing</span> <span class="k">import</span> <span class="n">JH_HIT</span>
 
 
-<div class="viewcode-block" id="process"><a class="viewcode-back" href="../../../source/src.processing.html#src.processing.main.process">[docs]</a><span class="k">def</span> <span class="nf">process</span><span class="p">(</span><span class="n">record</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span> <span class="n">key_ref</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span> <span class="n">country_ref</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">):</span>
+<div class="viewcode-block" id="process"><a class="viewcode-back" href="../../../source/src.processing.html#src.processing.main.process">[docs]</a><span class="k">def</span> <span class="nf">process</span><span class="p">(</span><span class="n">record</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span> <span class="n">key_ref</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span> <span class="n">country_ref</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span> <span class="n">who_coding</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">):</span>
     <span class="sd">&#39;&#39;&#39;Unify individual dataset transformers&#39;&#39;&#39;</span>
 
     <span class="k">if</span> <span class="n">record</span><span class="p">[</span><span class="s1">&#39;dataset&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;JH_HIT&#39;</span><span class="p">:</span>
 
         <span class="c1"># apply JH transformer here</span>
-        <span class="n">record</span> <span class="o">=</span> <span class="n">JH_HIT</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">record</span><span class="p">,</span> <span class="n">key_ref</span><span class="p">,</span> <span class="n">country_ref</span><span class="p">)</span>
+        <span class="n">record</span> <span class="o">=</span> <span class="n">JH_HIT</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">record</span><span class="p">,</span> <span class="n">key_ref</span><span class="p">,</span> <span class="n">country_ref</span><span class="p">,</span> <span class="n">who_coding</span><span class="p">)</span>
 
     <span class="k">else</span><span class="p">:</span>
 
