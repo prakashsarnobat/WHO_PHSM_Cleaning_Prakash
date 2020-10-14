@@ -8,11 +8,22 @@ Transform CDC_ITF records to WHO PHSM format.
 
 **Processing Steps:**
 
-1. Generate a blank record with required keys.
-2. Move data from provider record to new record with ``apply_key_map`` using key mapping in ``config/key_map/CDC_ITF.csv``.
-
-
-https://pypi.org/project/countrycode/
+1. Join comments in ``Concise Notes`` and ``Notes`` columns
+2. Generate a blank record with required keys.
+3. Move data from provider record to new record with ``apply_key_map`` using key mapping in ``config/key_map/CDC_ITF.csv``.
+4. Assign merged comments to new record
+5. Handle date formatting
+6. Assign ``date_end`` equal to ``date_start`` if ``measure_stage`` == "Lift"
+7. Make manual country name changes
+8. replace sensitive country names
+9. assign ISO code
+10. check missing ISO
+ 11. Join WHO accepted country names (shared)
+ 12. Join who coding from lookup (shared)
+ 13. check for missing WHO codes (shared)
+ 14. replace un-specific area_covered values
+ 15. Replace measure_stage extension
+ 16. Add WHO PHSM admin_level values
 
 """
 import pandas as pd
@@ -32,24 +43,25 @@ except Exception as e:
 
 def transform(record: dict, key_ref: dict, country_ref: pd.DataFrame, who_coding: pd.DataFrame):
 
+    # 1. Join comments in ``Concise Notes`` and ``Notes`` columns
     comments = join_comments(record)
 
-    # 1. Create a new blank record
+    # 2. Create a new blank record
     new_record = utils.generate_blank_record()
 
-    # 2. replace data in new record with data from old record using key_ref
+    # 3. replace data in new record with data from old record using key_ref
     record = utils.apply_key_map(new_record, record, key_ref)
 
-    # 4. Assign merged comments
+    # 4. Assign merged comments to new record
     record['comments'] = comments
 
-    # 5. Handle date
+    # 5. Handle date formatting
     record = utils.parse_date(record)
 
-    # 1. Assign date_end
+    # 6. Assign date_end with measure_stage value
     record = add_date_end(record)
 
-    # 1. Make manual country name changes
+    # 7. Make manual country name changes
     record = utils.replace_conditional(record, 'country_territory_area', 'Saint Martin', 'French Saint Martin')
     record = utils.replace_conditional(record, 'country_territory_area', 'RÃ©union', 'Reunion')
     record = utils.replace_conditional(record, 'country_territory_area', 'CuraÃ§ao', 'Curacao')
@@ -60,31 +72,31 @@ def transform(record: dict, key_ref: dict, country_ref: pd.DataFrame, who_coding
     record = utils.replace_conditional(record, 'country_territory_area', 'South Korea', 'Korea')
     record = utils.replace_conditional(record, 'country_territory_area', 'Bonaire, Saint Eustatius and Saba', 'Carribean Netherlands')
 
-    # replace sensitive country names by ISO (utils)
+    # 8. replace sensitive country names
     record = utils.replace_sensitive_regions(record)
 
-    # assign ISO code
+    # 9. assign ISO code
     record['iso'] = countrycode(codes=record['country_territory_area'], origin='country_name', target='iso3c')
 
-    # check missing ISO
+    # 10. check missing ISO
     check.check_missing_iso(record)
 
-    # 9. Join WHO accepted country names (shared)
+    # 11. Join WHO accepted country names (shared)
     record = utils.assign_who_country_name(record, country_ref)
 
-    # 10. Join who coding from lookup (shared)
+    # 12. Join who coding from lookup (shared)
     record = utils.assign_who_coding(record, who_coding)
 
-    # 11. check for missing WHO codes (shared)
+    # 13. check for missing WHO codes (shared)
     check.check_missing_who_code(record)
 
-    # 12. replace un-specific area_covered values
+    # 14. replace un-specific area_covered values
     record = utils.replace_conditional(record, 'area_covered', 'Subnational/regional only', '')
 
-    # 1. Replace measure_stage extension
+    # 15. Replace measure_stage extension
     record = utils.replace_conditional(record, 'measure_stage', 'Extend with same stringency', 'extension')
 
-    # 1. Add WHO PHSM admin_level values
+    # 16. Add WHO PHSM admin_level values
     record = add_admin_level(record)
 
     return(record)
