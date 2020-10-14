@@ -19,7 +19,7 @@ General checks for record numbers etc
 """
 
 import pandas as pd
-from processing import JH_HIT
+from processing import JH_HIT, CDC_ITF
 
 
 def process(record: dict, key_ref: dict, country_ref: pd.DataFrame, who_coding: dict, prov_measure_filter: dict):
@@ -33,6 +33,10 @@ def process(record: dict, key_ref: dict, country_ref: pd.DataFrame, who_coding: 
                                   country_ref,
                                   who_coding['JH_HIT'],
                                   prov_measure_filter['JH_HIT'])
+
+    elif record['dataset'] == 'CDC_ITF':
+
+        CDC_ITF.transform(record)
 
     else:
 
