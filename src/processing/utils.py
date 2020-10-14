@@ -157,7 +157,6 @@ def assign_who_country_name(record: dict, country_ref: pd.DataFrame, missing_val
 
         #Replace with logging
         print('Unknown ISO code: ' + record['iso'])
-        print('Original Country Name: ' + record['country_territory_area'])
 
         record['who_region'] = missing_value
         record['country_territory_area'] = missing_value

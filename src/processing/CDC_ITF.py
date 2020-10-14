@@ -78,9 +78,14 @@ def transform(record: dict, key_ref: dict, country_ref: pd.DataFrame, who_coding
     # 11. check for missing WHO codes (shared)
     check.check_missing_who_code(record)
 
+    # 12. replace un-specific area_covered values
+    record = utils.replace_conditional(record, 'area_covered', 'Subnational/regional only', '')
+
     # 1. Replace measure_stage extension
     record = utils.replace_conditional(record, 'measure_stage', 'Extend with same stringency', 'extension')
 
+    # 1. Add WHO PHSM admin_level values
+    record = add_admin_level(record)
 
     return(record)
 
@@ -109,3 +114,17 @@ def join_comments(record: dict):
     comments = record['Concise Notes'] + '. ' + record['Notes']
 
     return(comments)
+
+
+def add_admin_level(record: dict):
+    '''Function to set admin_level values'''
+
+    if record['admin_level'] == '':
+
+        record['admin_level'] = 'national'
+
+    else:
+
+        record['admin_level'] = 'other'
+
+    return(record)
