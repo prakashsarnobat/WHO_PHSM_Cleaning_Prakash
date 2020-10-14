@@ -11,19 +11,19 @@ Transform CDC_ITF records to WHO PHSM format.
 1. Join comments in ``Concise Notes`` and ``Notes`` columns
 2. Generate a blank record with required keys.
 3. Move data from provider record to new record with ``apply_key_map`` using key mapping in ``config/key_map/CDC_ITF.csv``.
-4. Assign merged comments to new record
-5. Handle date formatting
-6. Assign ``date_end`` equal to ``date_start`` if ``measure_stage`` == "Lift"
-7. Make manual country name changes
-8. replace sensitive country names
-9. assign ISO code
-10. check missing ISO
- 11. Join WHO accepted country names (shared)
- 12. Join who coding from lookup (shared)
- 13. check for missing WHO codes (shared)
- 14. replace un-specific area_covered values
- 15. Replace measure_stage extension
- 16. Add WHO PHSM admin_level values
+4. Assign merged comments to new record.
+5. Handle date formatting.
+6. Assign ``date_end`` equal to ``date_start`` if ``measure_stage`` == "Lift".
+7. Make manual country name changes.
+8. Replace sensitive country names.
+9. Assign ISO code.
+10. Check for missing ISO codes.
+11. Join WHO accepted country names (shared).
+12. Join who coding from lookup (shared).
+13. Check for missing WHO codes (shared).
+14. Replace non-specific area_covered value.
+15. Replace measure_stage extension.
+16. Add WHO PHSM admin_level values.
 
 """
 import pandas as pd
@@ -113,7 +113,7 @@ def add_date_end(record: dict):
 
 
 def join_comments(record: dict):
-    '''Function to combine comments from two provider fields'''
+    '''Function to combine comments from "Concise Notes" and "Notes" fields'''
 
     if type(record['Concise Notes']) != str:
 
@@ -129,7 +129,7 @@ def join_comments(record: dict):
 
 
 def add_admin_level(record: dict):
-    '''Function to set admin_level values'''
+    '''Function to set admin_level values to "national" or "other"'''
 
     if record['admin_level'] == '':
 

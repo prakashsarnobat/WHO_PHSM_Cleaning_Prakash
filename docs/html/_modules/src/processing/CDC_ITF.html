@@ -43,19 +43,19 @@
 <span class="sd">1. Join comments in ``Concise Notes`` and ``Notes`` columns</span>
 <span class="sd">2. Generate a blank record with required keys.</span>
 <span class="sd">3. Move data from provider record to new record with ``apply_key_map`` using key mapping in ``config/key_map/CDC_ITF.csv``.</span>
-<span class="sd">4. Assign merged comments to new record</span>
-<span class="sd">5. Handle date formatting</span>
-<span class="sd">6. Assign ``date_end`` equal to ``date_start`` if ``measure_stage`` == &quot;Lift&quot;</span>
-<span class="sd">7. Make manual country name changes</span>
-<span class="sd">8. replace sensitive country names</span>
-<span class="sd">9. assign ISO code</span>
-<span class="sd">10. check missing ISO</span>
-<span class="sd"> 11. Join WHO accepted country names (shared)</span>
-<span class="sd"> 12. Join who coding from lookup (shared)</span>
-<span class="sd"> 13. check for missing WHO codes (shared)</span>
-<span class="sd"> 14. replace un-specific area_covered values</span>
-<span class="sd"> 15. Replace measure_stage extension</span>
-<span class="sd"> 16. Add WHO PHSM admin_level values</span>
+<span class="sd">4. Assign merged comments to new record.</span>
+<span class="sd">5. Handle date formatting.</span>
+<span class="sd">6. Assign ``date_end`` equal to ``date_start`` if ``measure_stage`` == &quot;Lift&quot;.</span>
+<span class="sd">7. Make manual country name changes.</span>
+<span class="sd">8. Replace sensitive country names.</span>
+<span class="sd">9. Assign ISO code.</span>
+<span class="sd">10. Check for missing ISO codes.</span>
+<span class="sd">11. Join WHO accepted country names (shared).</span>
+<span class="sd">12. Join who coding from lookup (shared).</span>
+<span class="sd">13. Check for missing WHO codes (shared).</span>
+<span class="sd">14. Replace non-specific area_covered value.</span>
+<span class="sd">15. Replace measure_stage extension.</span>
+<span class="sd">16. Add WHO PHSM admin_level values.</span>
 
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
@@ -145,7 +145,7 @@
 
 
 <div class="viewcode-block" id="join_comments"><a class="viewcode-back" href="../../../source/src.processing.html#src.processing.CDC_ITF.join_comments">[docs]</a><span class="k">def</span> <span class="nf">join_comments</span><span class="p">(</span><span class="n">record</span><span class="p">:</span> <span class="nb">dict</span><span class="p">):</span>
-    <span class="sd">&#39;&#39;&#39;Function to combine comments from two provider fields&#39;&#39;&#39;</span>
+    <span class="sd">&#39;&#39;&#39;Function to combine comments from &quot;Concise Notes&quot; and &quot;Notes&quot; fields&#39;&#39;&#39;</span>
 
     <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">record</span><span class="p">[</span><span class="s1">&#39;Concise Notes&#39;</span><span class="p">])</span> <span class="o">!=</span> <span class="nb">str</span><span class="p">:</span>
 
@@ -161,7 +161,7 @@
 
 
 <div class="viewcode-block" id="add_admin_level"><a class="viewcode-back" href="../../../source/src.processing.html#src.processing.CDC_ITF.add_admin_level">[docs]</a><span class="k">def</span> <span class="nf">add_admin_level</span><span class="p">(</span><span class="n">record</span><span class="p">:</span> <span class="nb">dict</span><span class="p">):</span>
-    <span class="sd">&#39;&#39;&#39;Function to set admin_level values&#39;&#39;&#39;</span>
+    <span class="sd">&#39;&#39;&#39;Function to set admin_level values to &quot;national&quot; or &quot;other&quot;&#39;&#39;&#39;</span>
 
     <span class="k">if</span> <span class="n">record</span><span class="p">[</span><span class="s1">&#39;admin_level&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;&#39;</span><span class="p">:</span>
 

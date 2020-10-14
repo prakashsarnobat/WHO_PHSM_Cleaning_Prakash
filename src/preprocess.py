@@ -13,6 +13,7 @@ from preprocess.utils import df_to_records, write_records
 # Dataset sources: these should be in makefile when ready
 jh = "https://raw.githubusercontent.com/HopkinsIDD/hit-covid/master/data/hit-covid-longdata.csv"
 cdc = "raw_data/CDC_ITF_latest.xlsx"
+acaps = "raw_data/ACAPS_latest.xlsx"
 
 # replace this with logging
 print("Reading JH_HIT...")
@@ -25,9 +26,13 @@ cdc = pd.read_excel(cdc, sheet_name='Line list')
 
 cdc = df_to_records(cdc, "CDC_ITF")
 
+print("Reading ACAPS...")
+acaps = pd.read_excel(acaps, sheet_name='Dataset')
+
+acaps = df_to_records(acaps, "ACAPS")
 
 # concat all record lists
-records = jh + cdc
+records = jh + cdc + acaps
 
 # write list to a pickle file
 write_records(records, "preprocess", "records.pickle")
