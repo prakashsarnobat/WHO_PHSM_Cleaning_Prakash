@@ -4,6 +4,14 @@ src.processing package
 Submodules
 ----------
 
+src.processing.CDC\_ITF module
+------------------------------
+
+.. automodule:: src.processing.CDC_ITF
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 src.processing.JH\_HIT module
 -----------------------------
 

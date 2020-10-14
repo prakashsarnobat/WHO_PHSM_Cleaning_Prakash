@@ -1,5 +1,6 @@
 src.egg-info
 .tox
+raw_data
 **/__pycache__
 .DS_Store
 

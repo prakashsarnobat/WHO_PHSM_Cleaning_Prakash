@@ -19,28 +19,30 @@ General checks for record numbers etc
 """
 
 import pandas as pd
+from processing import JH_HIT, CDC_ITF
 
-from processing import JH_HIT
 
+def process(record: dict, key_ref: dict, country_ref: pd.DataFrame, who_coding: dict, prov_measure_filter: dict):
+    '''Unify individual dataset transformers'''
 
-def process(
-    record: dict,
-    key_ref: dict,
-    country_ref: pd.DataFrame,
-    who_coding: pd.DataFrame,
-    prov_measure_filter: pd.DataFrame,
-):
-    """Unify individual dataset transformers"""
-
-    if record["dataset"] == "JH_HIT":
+    if record['dataset'] == 'JH_HIT':
 
         # apply JH transformer here
-        record = JH_HIT.transform(
-            record, key_ref, country_ref, who_coding, prov_measure_filter
-        )
+        record = JH_HIT.transform(record,
+                                  key_ref['JH_HIT'],
+                                  country_ref,
+                                  who_coding['JH_HIT'],
+                                  prov_measure_filter['JH_HIT'])
+
+    elif record['dataset'] == 'CDC_ITF':
+
+        record = CDC_ITF.transform(record,
+                          key_ref['CDC_ITF'],
+                          country_ref,
+                          who_coding['CDC_ITF'])
 
     else:
 
-        raise ValueError("Unknown dataset value.")
+        raise ValueError('Unknown dataset value.')
 
-    return record
+    return(record)
