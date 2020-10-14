@@ -9,9 +9,9 @@ Transform JH_HIT records to WHO PHSM format.
 **Processing Steps:**
 
 1. Remove records with null ``locality`` AND null ``usa_county`` values.
-2. Remove a subset of ``prov_measure`` values. See ``config/prov_measure_filter/JH_HIT.csv`` for exact values.
-3. Generate a blank record with required keys.
-4. Move data from provider record to new record with ``apply_key_map`` using key mapping in ``config/key_map/JH_HIT.csv``.
+2. Generate a blank record with required keys.
+3. Move data from provider record to new record with ``apply_key_map`` using key mapping in ``config/key_map/JH_HIT.csv``.
+4. Remove a subset of ``prov_measure`` values. See ``config/prov_measure_filter/JH_HIT.csv`` for exact values.
 5. Parse date formats in ``date_start``, ``date_end``, ``date_entry``.
 6. Assign a unique record ID.
 7. Map non-ascii characters to their closest ascii equivalent.
@@ -19,33 +19,49 @@ Transform JH_HIT records to WHO PHSM format.
 9. Assign WHO-accepted ``country_territory_area``, ``who_region``, ``iso_3166_1_numeric``
 10. Assign WHO PHSM dataset coding using ``prov_measure``, ``prov_subcategory``, ``prov_category``
 11. Check for missing ``who_code`` values.
+12. Replace ``admin_level`` values: null -> 'unknown', 'Yes' -> 'national', 'No' -> 'state'
+13. Replace ``prov_measure`` and ``prov_category`` with 'not_enough_to_code' if ``comments`` are blank and ``prov_category`` no 'school_closed'
+14. Replace ``non_compliance_penalty`` "non_compliance_penalty" -> "Not Known"
 12. Custom JH things (development in progress)
 
 """
 import pandas as pd
-from processing import utils
-from processing import check
+
+# hot fix for sys.path issues in test environment
+try:
+
+    from processing import check, utils
+
+except Exception as e:
+
+    from src.processing import check, utils
 
 
-def transform(record: dict, key_ref: dict, country_ref: pd.DataFrame, who_coding: pd.DataFrame, prov_measure_filter: pd.DataFrame):
+def transform(
+    record: dict,
+    key_ref: dict,
+    country_ref: pd.DataFrame,
+    who_coding: pd.DataFrame,
+    prov_measure_filter: pd.DataFrame,
+):
 
     # 1.
-    if pd.isnull(record['locality']) and pd.isnull(record['usa_county']):
-        return(None)
+    if pd.isnull(record["locality"]) and pd.isnull(record["usa_county"]):
+        return None
 
-    # 3. generator function of new record with correct keys (shared)
+    # 2. generator function of new record with correct keys (shared)
     new_record = utils.generate_blank_record()
 
-    # 4. replace data in new record with data from old record using column
+    # 3. replace data in new record with data from old record using column
     # reference (shared)
     record = utils.apply_key_map(new_record, record, key_ref)
 
-    # 2.
+    # 4.
     record = apply_prov_measure_filter(record, prov_measure_filter)
 
     # replace with a None - passing decorator
     if record is None:
-        return(None)
+        return None
 
     # 5. Handle date - infer format (shared)
     record = utils.parse_date(record)
@@ -67,17 +83,92 @@ def transform(record: dict, key_ref: dict, country_ref: pd.DataFrame, who_coding
     # 11. check for missing WHO codes (shared)
     check.check_missing_who_code(record)
 
+    # 12. replace admin_level values
+    record = replace_admin_level(record)
+
+    # 13. fill_not_enough_to_code
+    record = fill_not_enough_to_code(record)
+
+    # 14. replace unknown non_compliance_penalty
+    record = replace_non_compliance_penalty(record)
+
+    # join school closures on the same day together
+
+    # combine border_closures _leaving and _entering to border_closures
+
+    # combine symptom screening
+
+    # checks
+
     # 12. custom JH things here
 
-    return(record)
+    return record
+
 
 def apply_prov_measure_filter(record: dict, prov_measure_filter: pd.DataFrame):
-    '''Function to filter only some prov_measure and prov_category values'''
+    """Function to filter only some prov_measure and prov_category values"""
 
-    if record['prov_category'] in list(prov_measure_filter['prov_category']) and record['prov_measure'] in list(prov_measure_filter['prov_measure']):
+    if record["prov_category"] in list(prov_measure_filter["prov_category"]) and record[
+        "prov_measure"
+    ] in list(prov_measure_filter["prov_measure"]):
 
         return record
 
     else:
 
-        return(None)
+        return None
+
+
+def replace_admin_level(record: dict):
+    """Replace admin_level values with WHO PHSM values"""
+
+    record = null_admin_level(record)
+
+    record = fill_admin_level(record)
+
+    return record
+
+
+def null_admin_level(record: dict, replacement: str = "unknown"):
+    """Function to replace null admin level values"""
+
+    if record["admin_level"] == "":
+
+        record["admin_level"] = replacement
+
+    return record
+
+
+def fill_admin_level(record: dict):
+    """Replace default JH_HIT admin_level values"""
+
+    if record["admin_level"] == "Yes":
+
+        record["admin_level"] = "national"
+
+    elif record["admin_level"] == "No":
+
+        record["admin_level"] = "state"
+
+    return record
+
+
+def fill_not_enough_to_code(record: dict):
+    """Function to add "not enough to code" label to specific records"""
+
+    if record["comments"] == "" and record["prov_category"] != "school_closed":
+
+        record["prov_measure"] = "not_enough_to_code"
+        record["prov_category"] = "not_enough_to_code"
+
+    return record
+
+
+def replace_non_compliance_penalty(record: dict):
+    """Function to replace non_compliance_penalty values"""
+
+    if record["non_compliance_penalty"] == "unknown":
+
+        record["non_compliance_penalty"] = "Not Known"
+
+    return record

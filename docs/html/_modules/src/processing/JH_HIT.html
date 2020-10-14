@@ -41,9 +41,9 @@
 <span class="sd">**Processing Steps:**</span>
 
 <span class="sd">1. Remove records with null ``locality`` AND null ``usa_county`` values.</span>
-<span class="sd">2. Remove a subset of ``prov_measure`` values. See ``config/prov_measure_filter/JH_HIT.csv`` for exact values.</span>
-<span class="sd">3. Generate a blank record with required keys.</span>
-<span class="sd">4. Move data from provider record to new record with ``apply_key_map`` using key mapping in ``config/key_map/JH_HIT.csv``.</span>
+<span class="sd">2. Generate a blank record with required keys.</span>
+<span class="sd">3. Move data from provider record to new record with ``apply_key_map`` using key mapping in ``config/key_map/JH_HIT.csv``.</span>
+<span class="sd">4. Remove a subset of ``prov_measure`` values. See ``config/prov_measure_filter/JH_HIT.csv`` for exact values.</span>
 <span class="sd">5. Parse date formats in ``date_start``, ``date_end``, ``date_entry``.</span>
 <span class="sd">6. Assign a unique record ID.</span>
 <span class="sd">7. Map non-ascii characters to their closest ascii equivalent.</span>
@@ -51,25 +51,49 @@
 <span class="sd">9. Assign WHO-accepted ``country_territory_area``, ``who_region``, ``iso_3166_1_numeric``</span>
 <span class="sd">10. Assign WHO PHSM dataset coding using ``prov_measure``, ``prov_subcategory``, ``prov_category``</span>
 <span class="sd">11. Check for missing ``who_code`` values.</span>
+<span class="sd">12. Replace ``admin_level`` values: null -&gt; &#39;unknown&#39;, &#39;Yes&#39; -&gt; &#39;national&#39;, &#39;No&#39; -&gt; &#39;state&#39;</span>
+<span class="sd">13. Replace ``prov_measure`` and ``prov_category`` with &#39;not_enough_to_code&#39; if ``comments`` are blank and ``prov_category`` no &#39;school_closed&#39;</span>
+<span class="sd">14. Replace ``non_compliance_penalty`` &quot;non_compliance_penalty&quot; -&gt; &quot;Not Known&quot;</span>
 <span class="sd">12. Custom JH things (development in progress)</span>
 
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="kn">from</span> <span class="nn">processing</span> <span class="k">import</span> <span class="n">utils</span>
-<span class="kn">from</span> <span class="nn">processing</span> <span class="k">import</span> <span class="n">check</span>
 
-<div class="viewcode-block" id="transform"><a class="viewcode-back" href="../../../source/src.processing.html#src.processing.JH_HIT.transform">[docs]</a><span class="k">def</span> <span class="nf">transform</span><span class="p">(</span><span class="n">record</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span> <span class="n">key_ref</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span> <span class="n">country_ref</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span> <span class="n">who_coding</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">):</span>
+<span class="c1"># hot fix for sys.path issues in test environment</span>
+<span class="k">try</span><span class="p">:</span>
+
+    <span class="kn">from</span> <span class="nn">processing</span> <span class="k">import</span> <span class="n">check</span><span class="p">,</span> <span class="n">utils</span>
+
+<span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+
+    <span class="kn">from</span> <span class="nn">src.processing</span> <span class="k">import</span> <span class="n">check</span><span class="p">,</span> <span class="n">utils</span>
+
+
+<div class="viewcode-block" id="transform"><a class="viewcode-back" href="../../../source/src.processing.html#src.processing.JH_HIT.transform">[docs]</a><span class="k">def</span> <span class="nf">transform</span><span class="p">(</span>
+    <span class="n">record</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span>
+    <span class="n">key_ref</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span>
+    <span class="n">country_ref</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span>
+    <span class="n">who_coding</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span>
+    <span class="n">prov_measure_filter</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span>
+<span class="p">):</span>
 
     <span class="c1"># 1.</span>
+    <span class="k">if</span> <span class="n">pd</span><span class="o">.</span><span class="n">isnull</span><span class="p">(</span><span class="n">record</span><span class="p">[</span><span class="s2">&quot;locality&quot;</span><span class="p">])</span> <span class="ow">and</span> <span class="n">pd</span><span class="o">.</span><span class="n">isnull</span><span class="p">(</span><span class="n">record</span><span class="p">[</span><span class="s2">&quot;usa_county&quot;</span><span class="p">]):</span>
+        <span class="k">return</span> <span class="kc">None</span>
 
-    <span class="c1"># 2.</span>
-
-    <span class="c1"># 3. generator function of new record with correct keys (shared)</span>
+    <span class="c1"># 2. generator function of new record with correct keys (shared)</span>
     <span class="n">new_record</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">generate_blank_record</span><span class="p">()</span>
 
-    <span class="c1"># 4. replace data in new record with data from old record using column</span>
+    <span class="c1"># 3. replace data in new record with data from old record using column</span>
     <span class="c1"># reference (shared)</span>
     <span class="n">record</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">apply_key_map</span><span class="p">(</span><span class="n">new_record</span><span class="p">,</span> <span class="n">record</span><span class="p">,</span> <span class="n">key_ref</span><span class="p">)</span>
+
+    <span class="c1"># 4.</span>
+    <span class="n">record</span> <span class="o">=</span> <span class="n">apply_prov_measure_filter</span><span class="p">(</span><span class="n">record</span><span class="p">,</span> <span class="n">prov_measure_filter</span><span class="p">)</span>
+
+    <span class="c1"># replace with a None - passing decorator</span>
+    <span class="k">if</span> <span class="n">record</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">None</span>
 
     <span class="c1"># 5. Handle date - infer format (shared)</span>
     <span class="n">record</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">parse_date</span><span class="p">(</span><span class="n">record</span><span class="p">)</span>
@@ -91,13 +115,95 @@
     <span class="c1"># 11. check for missing WHO codes (shared)</span>
     <span class="n">check</span><span class="o">.</span><span class="n">check_missing_who_code</span><span class="p">(</span><span class="n">record</span><span class="p">)</span>
 
+    <span class="c1"># 12. replace admin_level values</span>
+    <span class="n">record</span> <span class="o">=</span> <span class="n">replace_admin_level</span><span class="p">(</span><span class="n">record</span><span class="p">)</span>
+
+    <span class="c1"># 13. fill_not_enough_to_code</span>
+    <span class="n">record</span> <span class="o">=</span> <span class="n">fill_not_enough_to_code</span><span class="p">(</span><span class="n">record</span><span class="p">)</span>
+
+    <span class="c1"># 14. replace unknown non_compliance_penalty</span>
+    <span class="n">record</span> <span class="o">=</span> <span class="n">replace_non_compliance_penalty</span><span class="p">(</span><span class="n">record</span><span class="p">)</span>
+
+    <span class="c1"># join school closures on the same day together</span>
+
+    <span class="c1"># combine border_closures _leaving and _entering to border_closures</span>
+
+    <span class="c1"># combine symptom screening</span>
+
+    <span class="c1"># checks</span>
+
     <span class="c1"># 12. custom JH things here</span>
 
-    <span class="c1"># Currently removing records with null &quot;locality&quot; and &quot;usa_county&quot; fields</span>
-    <span class="c1">#if pd.isnull(record[&#39;locality&#39;]) and pd.isnull(record[&#39;usa_county&#39;]):</span>
-    <span class="c1">#    return(None)</span>
+    <span class="k">return</span> <span class="n">record</span></div>
 
-    <span class="k">return</span><span class="p">(</span><span class="n">record</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="apply_prov_measure_filter"><a class="viewcode-back" href="../../../source/src.processing.html#src.processing.JH_HIT.apply_prov_measure_filter">[docs]</a><span class="k">def</span> <span class="nf">apply_prov_measure_filter</span><span class="p">(</span><span class="n">record</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span> <span class="n">prov_measure_filter</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Function to filter only some prov_measure and prov_category values&quot;&quot;&quot;</span>
+
+    <span class="k">if</span> <span class="n">record</span><span class="p">[</span><span class="s2">&quot;prov_category&quot;</span><span class="p">]</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="n">prov_measure_filter</span><span class="p">[</span><span class="s2">&quot;prov_category&quot;</span><span class="p">])</span> <span class="ow">and</span> <span class="n">record</span><span class="p">[</span>
+        <span class="s2">&quot;prov_measure&quot;</span>
+    <span class="p">]</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="n">prov_measure_filter</span><span class="p">[</span><span class="s2">&quot;prov_measure&quot;</span><span class="p">]):</span>
+
+        <span class="k">return</span> <span class="n">record</span>
+
+    <span class="k">else</span><span class="p">:</span>
+
+        <span class="k">return</span> <span class="kc">None</span></div>
+
+
+<div class="viewcode-block" id="replace_admin_level"><a class="viewcode-back" href="../../../source/src.processing.html#src.processing.JH_HIT.replace_admin_level">[docs]</a><span class="k">def</span> <span class="nf">replace_admin_level</span><span class="p">(</span><span class="n">record</span><span class="p">:</span> <span class="nb">dict</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Replace admin_level values with WHO PHSM values&quot;&quot;&quot;</span>
+
+    <span class="n">record</span> <span class="o">=</span> <span class="n">null_admin_level</span><span class="p">(</span><span class="n">record</span><span class="p">)</span>
+
+    <span class="n">record</span> <span class="o">=</span> <span class="n">fill_admin_level</span><span class="p">(</span><span class="n">record</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">record</span></div>
+
+
+<div class="viewcode-block" id="null_admin_level"><a class="viewcode-back" href="../../../source/src.processing.html#src.processing.JH_HIT.null_admin_level">[docs]</a><span class="k">def</span> <span class="nf">null_admin_level</span><span class="p">(</span><span class="n">record</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span> <span class="n">replacement</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;unknown&quot;</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Function to replace null admin level values&quot;&quot;&quot;</span>
+
+    <span class="k">if</span> <span class="n">record</span><span class="p">[</span><span class="s2">&quot;admin_level&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;&quot;</span><span class="p">:</span>
+
+        <span class="n">record</span><span class="p">[</span><span class="s2">&quot;admin_level&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">replacement</span>
+
+    <span class="k">return</span> <span class="n">record</span></div>
+
+
+<div class="viewcode-block" id="fill_admin_level"><a class="viewcode-back" href="../../../source/src.processing.html#src.processing.JH_HIT.fill_admin_level">[docs]</a><span class="k">def</span> <span class="nf">fill_admin_level</span><span class="p">(</span><span class="n">record</span><span class="p">:</span> <span class="nb">dict</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Replace default JH_HIT admin_level values&quot;&quot;&quot;</span>
+
+    <span class="k">if</span> <span class="n">record</span><span class="p">[</span><span class="s2">&quot;admin_level&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;Yes&quot;</span><span class="p">:</span>
+
+        <span class="n">record</span><span class="p">[</span><span class="s2">&quot;admin_level&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;national&quot;</span>
+
+    <span class="k">elif</span> <span class="n">record</span><span class="p">[</span><span class="s2">&quot;admin_level&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;No&quot;</span><span class="p">:</span>
+
+        <span class="n">record</span><span class="p">[</span><span class="s2">&quot;admin_level&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;state&quot;</span>
+
+    <span class="k">return</span> <span class="n">record</span></div>
+
+
+<div class="viewcode-block" id="fill_not_enough_to_code"><a class="viewcode-back" href="../../../source/src.processing.html#src.processing.JH_HIT.fill_not_enough_to_code">[docs]</a><span class="k">def</span> <span class="nf">fill_not_enough_to_code</span><span class="p">(</span><span class="n">record</span><span class="p">:</span> <span class="nb">dict</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Function to add &quot;not enough to code&quot; label to specific records&quot;&quot;&quot;</span>
+
+    <span class="k">if</span> <span class="n">record</span><span class="p">[</span><span class="s2">&quot;comments&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;&quot;</span> <span class="ow">and</span> <span class="n">record</span><span class="p">[</span><span class="s2">&quot;prov_category&quot;</span><span class="p">]</span> <span class="o">!=</span> <span class="s2">&quot;school_closed&quot;</span><span class="p">:</span>
+
+        <span class="n">record</span><span class="p">[</span><span class="s2">&quot;prov_measure&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;not_enough_to_code&quot;</span>
+        <span class="n">record</span><span class="p">[</span><span class="s2">&quot;prov_category&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;not_enough_to_code&quot;</span>
+
+    <span class="k">return</span> <span class="n">record</span></div>
+
+
+<div class="viewcode-block" id="replace_non_compliance_penalty"><a class="viewcode-back" href="../../../source/src.processing.html#src.processing.JH_HIT.replace_non_compliance_penalty">[docs]</a><span class="k">def</span> <span class="nf">replace_non_compliance_penalty</span><span class="p">(</span><span class="n">record</span><span class="p">:</span> <span class="nb">dict</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Function to replace non_compliance_penalty values&quot;&quot;&quot;</span>
+
+    <span class="k">if</span> <span class="n">record</span><span class="p">[</span><span class="s2">&quot;non_compliance_penalty&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;unknown&quot;</span><span class="p">:</span>
+
+        <span class="n">record</span><span class="p">[</span><span class="s2">&quot;non_compliance_penalty&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;Not Known&quot;</span>
+
+    <span class="k">return</span> <span class="n">record</span></div>
 </pre></div>
 
           </div>

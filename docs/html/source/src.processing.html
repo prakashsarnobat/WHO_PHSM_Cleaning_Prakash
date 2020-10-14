@@ -44,9 +44,9 @@
 <p><strong>Processing Steps:</strong></p>
 <ol class="arabic simple">
 <li>Remove records with null <code class="docutils literal notranslate"><span class="pre">locality</span></code> AND null <code class="docutils literal notranslate"><span class="pre">usa_county</span></code> values.</li>
-<li>Remove a subset of <code class="docutils literal notranslate"><span class="pre">prov_measure</span></code> values. See <code class="docutils literal notranslate"><span class="pre">config/prov_measure_filter/JH_HIT.csv</span></code> for exact values.</li>
 <li>Generate a blank record with required keys.</li>
 <li>Move data from provider record to new record with <code class="docutils literal notranslate"><span class="pre">apply_key_map</span></code> using key mapping in <code class="docutils literal notranslate"><span class="pre">config/key_map/JH_HIT.csv</span></code>.</li>
+<li>Remove a subset of <code class="docutils literal notranslate"><span class="pre">prov_measure</span></code> values. See <code class="docutils literal notranslate"><span class="pre">config/prov_measure_filter/JH_HIT.csv</span></code> for exact values.</li>
 <li>Parse date formats in <code class="docutils literal notranslate"><span class="pre">date_start</span></code>, <code class="docutils literal notranslate"><span class="pre">date_end</span></code>, <code class="docutils literal notranslate"><span class="pre">date_entry</span></code>.</li>
 <li>Assign a unique record ID.</li>
 <li>Map non-ascii characters to their closest ascii equivalent.</li>
@@ -54,11 +54,50 @@
 <li>Assign WHO-accepted <code class="docutils literal notranslate"><span class="pre">country_territory_area</span></code>, <code class="docutils literal notranslate"><span class="pre">who_region</span></code>, <code class="docutils literal notranslate"><span class="pre">iso_3166_1_numeric</span></code></li>
 <li>Assign WHO PHSM dataset coding using <code class="docutils literal notranslate"><span class="pre">prov_measure</span></code>, <code class="docutils literal notranslate"><span class="pre">prov_subcategory</span></code>, <code class="docutils literal notranslate"><span class="pre">prov_category</span></code></li>
 <li>Check for missing <code class="docutils literal notranslate"><span class="pre">who_code</span></code> values.</li>
-<li>Custom JH things (development in progress)</li>
+<li>Replace <code class="docutils literal notranslate"><span class="pre">admin_level</span></code> values: null -&gt; ‘unknown’, ‘Yes’ -&gt; ‘national’, ‘No’ -&gt; ‘state’</li>
+<li>Replace <code class="docutils literal notranslate"><span class="pre">prov_measure</span></code> and <code class="docutils literal notranslate"><span class="pre">prov_category</span></code> with ‘not_enough_to_code’ if <code class="docutils literal notranslate"><span class="pre">comments</span></code> are blank and <code class="docutils literal notranslate"><span class="pre">prov_category</span></code> no ‘school_closed’</li>
 </ol>
+<p>14. Replace <code class="docutils literal notranslate"><span class="pre">non_compliance_penalty</span></code> “non_compliance_penalty” -&gt; “Not Known”
+12. Custom JH things (development in progress)</p>
+<dl class="function">
+<dt id="src.processing.JH_HIT.apply_prov_measure_filter">
+<code class="descclassname">src.processing.JH_HIT.</code><code class="descname">apply_prov_measure_filter</code><span class="sig-paren">(</span><em>record: dict</em>, <em>prov_measure_filter: &lt;sphinx.ext.autodoc.importer._MockObject object at 0x7f629dd4c1d0&gt;</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/src/processing/JH_HIT.html#apply_prov_measure_filter"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.processing.JH_HIT.apply_prov_measure_filter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function to filter only some prov_measure and prov_category values</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="src.processing.JH_HIT.fill_admin_level">
+<code class="descclassname">src.processing.JH_HIT.</code><code class="descname">fill_admin_level</code><span class="sig-paren">(</span><em>record: dict</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/src/processing/JH_HIT.html#fill_admin_level"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.processing.JH_HIT.fill_admin_level" title="Permalink to this definition">¶</a></dt>
+<dd><p>Replace default JH_HIT admin_level values</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="src.processing.JH_HIT.fill_not_enough_to_code">
+<code class="descclassname">src.processing.JH_HIT.</code><code class="descname">fill_not_enough_to_code</code><span class="sig-paren">(</span><em>record: dict</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/src/processing/JH_HIT.html#fill_not_enough_to_code"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.processing.JH_HIT.fill_not_enough_to_code" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function to add “not enough to code” label to specific records</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="src.processing.JH_HIT.null_admin_level">
+<code class="descclassname">src.processing.JH_HIT.</code><code class="descname">null_admin_level</code><span class="sig-paren">(</span><em>record: dict</em>, <em>replacement: str = 'unknown'</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/src/processing/JH_HIT.html#null_admin_level"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.processing.JH_HIT.null_admin_level" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function to replace null admin level values</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="src.processing.JH_HIT.replace_admin_level">
+<code class="descclassname">src.processing.JH_HIT.</code><code class="descname">replace_admin_level</code><span class="sig-paren">(</span><em>record: dict</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/src/processing/JH_HIT.html#replace_admin_level"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.processing.JH_HIT.replace_admin_level" title="Permalink to this definition">¶</a></dt>
+<dd><p>Replace admin_level values with WHO PHSM values</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="src.processing.JH_HIT.replace_non_compliance_penalty">
+<code class="descclassname">src.processing.JH_HIT.</code><code class="descname">replace_non_compliance_penalty</code><span class="sig-paren">(</span><em>record: dict</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/src/processing/JH_HIT.html#replace_non_compliance_penalty"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.processing.JH_HIT.replace_non_compliance_penalty" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function to replace non_compliance_penalty values</p>
+</dd></dl>
+
 <dl class="function">
 <dt id="src.processing.JH_HIT.transform">
-<code class="descclassname">src.processing.JH_HIT.</code><code class="descname">transform</code><span class="sig-paren">(</span><em>record: dict</em>, <em>key_ref: dict</em>, <em>country_ref: &lt;sphinx.ext.autodoc.importer._MockObject object at 0x7ffbecab5ef0&gt;</em>, <em>who_coding: &lt;sphinx.ext.autodoc.importer._MockObject object at 0x7ffbecab5e48&gt;</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/src/processing/JH_HIT.html#transform"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.processing.JH_HIT.transform" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">src.processing.JH_HIT.</code><code class="descname">transform</code><span class="sig-paren">(</span><em>record: dict</em>, <em>key_ref: dict</em>, <em>country_ref: &lt;sphinx.ext.autodoc.importer._MockObject object at 0x7f629dd4c588&gt;</em>, <em>who_coding: &lt;sphinx.ext.autodoc.importer._MockObject object at 0x7f629dd4c048&gt;</em>, <em>prov_measure_filter: &lt;sphinx.ext.autodoc.importer._MockObject object at 0x7f629dd4c128&gt;</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/src/processing/JH_HIT.html#transform"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.processing.JH_HIT.transform" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </div>
@@ -100,7 +139,7 @@ handled later</p>
 <p>General checks for record numbers etc</p>
 <dl class="function">
 <dt id="src.processing.main.process">
-<code class="descclassname">src.processing.main.</code><code class="descname">process</code><span class="sig-paren">(</span><em>record: dict</em>, <em>key_ref: dict</em>, <em>country_ref: &lt;sphinx.ext.autodoc.importer._MockObject object at 0x7ffbec915400&gt;</em>, <em>who_coding: &lt;sphinx.ext.autodoc.importer._MockObject object at 0x7ffbec9154e0&gt;</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/src/processing/main.html#process"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.processing.main.process" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">src.processing.main.</code><code class="descname">process</code><span class="sig-paren">(</span><em>record: dict</em>, <em>key_ref: dict</em>, <em>country_ref: &lt;sphinx.ext.autodoc.importer._MockObject object at 0x7f629dcada58&gt;</em>, <em>who_coding: &lt;sphinx.ext.autodoc.importer._MockObject object at 0x7f629dcad320&gt;</em>, <em>prov_measure_filter: &lt;sphinx.ext.autodoc.importer._MockObject object at 0x7f629dcad2e8&gt;</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/src/processing/main.html#process"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.processing.main.process" title="Permalink to this definition">¶</a></dt>
 <dd><p>Unify individual dataset transformers</p>
 </dd></dl>
 
@@ -122,7 +161,7 @@ handled later</p>
 
 <dl class="function">
 <dt id="src.processing.utils.assign_who_coding">
-<code class="descclassname">src.processing.utils.</code><code class="descname">assign_who_coding</code><span class="sig-paren">(</span><em>record: dict</em>, <em>who_coding: &lt;sphinx.ext.autodoc.importer._MockObject object at 0x7ffbec9281d0&gt;</em>, <em>missing_value: str = 'unknown'</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/src/processing/utils.html#assign_who_coding"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.processing.utils.assign_who_coding" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">src.processing.utils.</code><code class="descname">assign_who_coding</code><span class="sig-paren">(</span><em>record: dict</em>, <em>who_coding: &lt;sphinx.ext.autodoc.importer._MockObject object at 0x7f629dcc21d0&gt;</em>, <em>missing_value: str = 'unknown'</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/src/processing/utils.html#assign_who_coding"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.processing.utils.assign_who_coding" title="Permalink to this definition">¶</a></dt>
 <dd><p>Function to assign WHO coding to a record</p>
 <p>Test this thoroughly</p>
 <p>Still need to account for possible targeted values</p>
@@ -130,9 +169,15 @@ handled later</p>
 
 <dl class="function">
 <dt id="src.processing.utils.assign_who_country_name">
-<code class="descclassname">src.processing.utils.</code><code class="descname">assign_who_country_name</code><span class="sig-paren">(</span><em>record: dict</em>, <em>country_ref: &lt;sphinx.ext.autodoc.importer._MockObject object at 0x7ffbec928198&gt;</em>, <em>missing_value: str = 'unknown'</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/src/processing/utils.html#assign_who_country_name"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.processing.utils.assign_who_country_name" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">src.processing.utils.</code><code class="descname">assign_who_country_name</code><span class="sig-paren">(</span><em>record: dict</em>, <em>country_ref: &lt;sphinx.ext.autodoc.importer._MockObject object at 0x7f629dcc2160&gt;</em>, <em>missing_value: str = 'unknown'</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/src/processing/utils.html#assign_who_country_name"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.processing.utils.assign_who_country_name" title="Permalink to this definition">¶</a></dt>
 <dd><p>Function to assign country names by ISO code</p>
 <p>also adds: who_region, country_territory_area, iso_3166_1_numeric</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="src.processing.utils.create_id">
+<code class="descclassname">src.processing.utils.</code><code class="descname">create_id</code><span class="sig-paren">(</span><em>length: int = 6</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/src/processing/utils.html#create_id"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.processing.utils.create_id" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function to create a random id of characters and numbers</p>
 </dd></dl>
 
 <dl class="function">
@@ -146,6 +191,12 @@ handled later</p>
 <code class="descclassname">src.processing.utils.</code><code class="descname">key_map</code><span class="sig-paren">(</span><em>new_record: dict</em>, <em>old_record: dict</em>, <em>new_key: str</em>, <em>old_key: str</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/src/processing/utils.html#key_map"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.processing.utils.key_map" title="Permalink to this definition">¶</a></dt>
 <dd><p>Function to move data between records from one key to another</p>
 <p>if a new key is null, data will not be copied. Occurs when some data in a provider dataset is not used in WHO dataset</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="src.processing.utils.new_id">
+<code class="descclassname">src.processing.utils.</code><code class="descname">new_id</code><span class="sig-paren">(</span><em>length: int = 6, existing_ids: list = [None]</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/src/processing/utils.html#new_id"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.processing.utils.new_id" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function to create a unique id given a list of existing ids</p>
 </dd></dl>
 
 <dl class="function">
