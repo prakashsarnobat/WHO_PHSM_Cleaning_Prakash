@@ -40,7 +40,7 @@ for record in records:
 
     record = process(record, key_ref, country_ref, who_coding, prov_measure_filter)
 
-    if not record is None:
+    if record is not None:
 
         try:
 
