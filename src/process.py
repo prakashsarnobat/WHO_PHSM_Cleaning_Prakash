@@ -55,4 +55,4 @@ for record in records:
 
     processed_records.append(record)
 
-print([x for x in processed_records if x is not None])
+#print([x for x in processed_records if x is not None])
