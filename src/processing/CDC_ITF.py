@@ -8,7 +8,7 @@ Transform JH_HIT records to WHO PHSM format.
 
 **Processing Steps:**
 
-1. 
+1.
 
 """
 import pandas as pd
@@ -25,6 +25,6 @@ except Exception as e:
     from src.processing import check
 
 
-def transform(record: dict):
+def transform(record: dict, key_ref: dict, country_ref: pd.DataFrame, who_coding: pd.DataFrame):
 
     return(record)

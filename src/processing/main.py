@@ -36,7 +36,10 @@ def process(record: dict, key_ref: dict, country_ref: pd.DataFrame, who_coding: 
 
     elif record['dataset'] == 'CDC_ITF':
 
-        CDC_ITF.transform(record)
+        record = CDC_ITF.transform(record,
+                          key_ref['CDC_ITF'],
+                          country_ref,
+                          who_coding['CDC_ITF'])
 
     else:
 
