@@ -30,24 +30,20 @@ import pandas as pd
 # hot fix for sys.path issues in test environment
 try:
 
-    from processing import check, utils
+    from processing import utils
+    from processing import check
 
 except Exception as e:
 
-    from src.processing import check, utils
+    from src.processing import utils
+    from src.processing import check
 
 
-def transform(
-    record: dict,
-    key_ref: dict,
-    country_ref: pd.DataFrame,
-    who_coding: pd.DataFrame,
-    prov_measure_filter: pd.DataFrame,
-):
+def transform(record: dict, key_ref: dict, country_ref: pd.DataFrame, who_coding: pd.DataFrame, prov_measure_filter: pd.DataFrame):
 
     # 1.
-    if pd.isnull(record["locality"]) and pd.isnull(record["usa_county"]):
-        return None
+    if pd.isnull(record['locality']) and pd.isnull(record['usa_county']):
+        return(None)
 
     # 2. generator function of new record with correct keys (shared)
     new_record = utils.generate_blank_record()
@@ -61,7 +57,7 @@ def transform(
 
     # replace with a None - passing decorator
     if record is None:
-        return None
+        return(None)
 
     # 5. Handle date - infer format (shared)
     record = utils.parse_date(record)
@@ -84,91 +80,37 @@ def transform(
     check.check_missing_who_code(record)
 
     # 12. replace admin_level values
-    record = replace_admin_level(record)
+    record = utils.replace_conditional(record, 'admin_level', '', 'unknown')
+    record = utils.replace_conditional(record, 'admin_level', 'Yes', 'national')
+    record = utils.replace_conditional(record, 'admin_level', 'No', 'state')
 
     # 13. fill_not_enough_to_code
     record = fill_not_enough_to_code(record)
 
     # 14. replace unknown non_compliance_penalty
-    record = replace_non_compliance_penalty(record)
+    record = utils.replace_conditional(record, 'non_compliance_penalty', 'unknown', 'Not Known')
 
-    # join school closures on the same day together
-
-    # combine border_closures _leaving and _entering to border_closures
-
-    # combine symptom screening
-
-    # checks
-
-    # 12. custom JH things here
-
-    return record
+    return(record)
 
 
 def apply_prov_measure_filter(record: dict, prov_measure_filter: pd.DataFrame):
-    """Function to filter only some prov_measure and prov_category values"""
+    '''Function to filter only some prov_measure and prov_category values'''
 
-    if record["prov_category"] in list(prov_measure_filter["prov_category"]) and record[
-        "prov_measure"
-    ] in list(prov_measure_filter["prov_measure"]):
+    if record['prov_category'] in list(prov_measure_filter['prov_category']) and record['prov_measure'] in list(prov_measure_filter['prov_measure']):
 
         return record
 
     else:
 
-        return None
-
-
-def replace_admin_level(record: dict):
-    """Replace admin_level values with WHO PHSM values"""
-
-    record = null_admin_level(record)
-
-    record = fill_admin_level(record)
-
-    return record
-
-
-def null_admin_level(record: dict, replacement: str = "unknown"):
-    """Function to replace null admin level values"""
-
-    if record["admin_level"] == "":
-
-        record["admin_level"] = replacement
-
-    return record
-
-
-def fill_admin_level(record: dict):
-    """Replace default JH_HIT admin_level values"""
-
-    if record["admin_level"] == "Yes":
-
-        record["admin_level"] = "national"
-
-    elif record["admin_level"] == "No":
-
-        record["admin_level"] = "state"
-
-    return record
+        return(None)
 
 
 def fill_not_enough_to_code(record: dict):
-    """Function to add "not enough to code" label to specific records"""
+    '''Function to add "not enough to code" label to specific records'''
 
-    if record["comments"] == "" and record["prov_category"] != "school_closed":
+    if record['comments'] == '' and record['prov_category'] != 'school_closed':
 
-        record["prov_measure"] = "not_enough_to_code"
-        record["prov_category"] = "not_enough_to_code"
+        record['prov_measure'] = 'not_enough_to_code'
+        record['prov_category'] = 'not_enough_to_code'
 
-    return record
-
-
-def replace_non_compliance_penalty(record: dict):
-    """Function to replace non_compliance_penalty values"""
-
-    if record["non_compliance_penalty"] == "unknown":
-
-        record["non_compliance_penalty"] = "Not Known"
-
-    return record
+    return(record)

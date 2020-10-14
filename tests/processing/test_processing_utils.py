@@ -299,3 +299,14 @@ class Test_assign_who_coding:
         record = assign_who_coding(record, who_coding)
 
         assert record['non_compliance_penalty'] == 'f'
+
+
+class Test_replace_conditional:
+
+    def test_replace_conditional(self):
+
+        record = {'anything': 'a'}
+
+        record = utils.replace_conditional(record, 'anything', 'a', 'b')
+
+        assert record['anything'] == 'b'
