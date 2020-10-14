@@ -2,7 +2,7 @@ import pytest
 
 import pandas as pd
 from src.processing.utils import generate_blank_record, key_map, apply_key_map, parse_date, assign_id, assign_who_country_name, assign_who_coding
-
+from src.processing import utils
 
 class Test_generate_blank_record:
 
@@ -13,6 +13,33 @@ class Test_generate_blank_record:
     def test_dict_key_number(self):
 
         assert len(generate_blank_record().keys()) == 42
+
+
+def test_create_id():
+
+    id = utils.create_id(6)
+
+    assert len(id) == 6
+
+
+class Test_new_id:
+
+    def test_new_id(self):
+
+        id = utils.new_id(6)
+
+        assert len(id) == 6
+
+    def test_new_id_plausibly_unique(self):
+
+        ids = []
+
+        for i in range(0, 10000):
+
+            ids.append(utils.new_id(existing_ids=ids))
+
+        assert len(pd.unique(ids)) == len(ids)
+
 
 class Test_key_map:
 
@@ -100,7 +127,7 @@ class Test_assign_id:
 
         assert type(a['who_id']) == str
 
-        assert len(a['who_id']) == 36
+        assert len(a['who_id']) == 6
 
 class Test_assign_who_country_name:
 

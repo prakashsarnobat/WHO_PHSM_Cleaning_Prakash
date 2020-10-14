@@ -1,10 +1,10 @@
-Welcome to WHO PHSM Cleaning's documentation!
+Welcome to WHO PHSM Cleaning's documentation
 =============================================
+
 
 .. toctree::
    :maxdepth: 2
    :caption: Contents:
-
 
 
 Indices and tables
