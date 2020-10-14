@@ -157,6 +157,7 @@ def assign_who_country_name(record: dict, country_ref: pd.DataFrame, missing_val
 
         #Replace with logging
         print('Unknown ISO code: ' + record['iso'])
+        print('Original Country Name: ' + record['country_territory_area'])
 
         record['who_region'] = missing_value
         record['country_territory_area'] = missing_value
@@ -276,5 +277,19 @@ def shift_sensitive_region(record: dict, original_name: str, new_name: str):
         record['area_covered'] = record['country_territory_area']
 
         record['country_territory_area'] = new_name
+
+    return(record)
+
+
+def add_admin_level(record: dict):
+    '''Function to set admin_level values to "national" or "other"'''
+
+    if record['admin_level'] == '':
+
+        record['admin_level'] = 'national'
+
+    else:
+
+        record['admin_level'] = 'other'
 
     return(record)
