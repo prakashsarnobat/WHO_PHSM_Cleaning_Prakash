@@ -26,11 +26,12 @@ import pandas as pd
 from processing import utils
 from processing import check
 
-def transform(record: dict, key_ref: dict, country_ref: pd.DataFrame, who_coding: pd.DataFrame):
+
+def transform(record: dict, key_ref: dict, country_ref: pd.DataFrame, who_coding: pd.DataFrame, prov_measure_filter: pd.DataFrame):
 
     # 1.
-
-    # 2.
+    if pd.isnull(record['locality']) and pd.isnull(record['usa_county']):
+        return(None)
 
     # 3. generator function of new record with correct keys (shared)
     new_record = utils.generate_blank_record()
@@ -38,6 +39,13 @@ def transform(record: dict, key_ref: dict, country_ref: pd.DataFrame, who_coding
     # 4. replace data in new record with data from old record using column
     # reference (shared)
     record = utils.apply_key_map(new_record, record, key_ref)
+
+    # 2.
+    record = apply_prov_measure_filter(record, prov_measure_filter)
+
+    # replace with a None - passing decorator
+    if record is None:
+        return(None)
 
     # 5. Handle date - infer format (shared)
     record = utils.parse_date(record)
@@ -61,8 +69,15 @@ def transform(record: dict, key_ref: dict, country_ref: pd.DataFrame, who_coding
 
     # 12. custom JH things here
 
-    # Currently removing records with null "locality" and "usa_county" fields
-    #if pd.isnull(record['locality']) and pd.isnull(record['usa_county']):
-    #    return(None)
-
     return(record)
+
+def apply_prov_measure_filter(record: dict, prov_measure_filter: pd.DataFrame):
+    '''Function to filter only some prov_measure and prov_category values'''
+
+    if record['prov_category'] in list(prov_measure_filter['prov_category']) and record['prov_measure'] in list(prov_measure_filter['prov_measure']):
+
+        return record
+
+    else:
+
+        return(None)
