@@ -155,7 +155,9 @@ def assign_who_country_name(record: dict, country_ref: pd.DataFrame, missing_val
 
     except Exception as e:
 
-        print(record['iso'])
+        #Replace with logging
+        print('Unknown ISO code: ' + record['iso'])
+        print('Original Country Name: ' + record['country_territory_area'])
 
         record['who_region'] = missing_value
         record['country_territory_area'] = missing_value
@@ -250,5 +252,30 @@ def replace_conditional(record: dict, field: str, value: str, replacement: str):
     if record[field] == value:
 
         record[field] = replacement
+
+    return(record)
+
+
+def replace_sensitive_regions(record):
+    '''Replace a selection of commonly occuring admin level conflicts'''
+
+    record = shift_sensitive_region(record, 'Kosovo', 'Serbia')
+    record = shift_sensitive_region(record, 'Hong Kong', 'China')
+    record = shift_sensitive_region(record, 'Taiwan', 'China')
+    record = shift_sensitive_region(record, 'Macau', 'China')
+    record = shift_sensitive_region(record, 'Macao', 'China')
+    record = shift_sensitive_region(record, 'Guadeloupe', 'France')
+
+    return(record)
+
+
+def shift_sensitive_region(record: dict, original_name: str, new_name: str):
+    '''Function to demote sensitive country names to area_covered from country_territory_area'''
+
+    if record['country_territory_area'] == original_name:
+
+        record['area_covered'] = record['country_territory_area']
+
+        record['country_territory_area'] = new_name
 
     return(record)

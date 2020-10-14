@@ -15,17 +15,19 @@ Transform JH_HIT records to WHO PHSM format.
 5. Parse date formats in ``date_start``, ``date_end``, ``date_entry``.
 6. Assign a unique record ID.
 7. Map non-ascii characters to their closest ascii equivalent.
-8. Check for missing ``iso`` codes.
-9. Assign WHO-accepted ``country_territory_area``, ``who_region``, ``iso_3166_1_numeric``
-10. Assign WHO PHSM dataset coding using ``prov_measure``, ``prov_subcategory``, ``prov_category``
-11. Check for missing ``who_code`` values.
-12. Replace ``admin_level`` values: null -> 'unknown', 'Yes' -> 'national', 'No' -> 'state'
-13. Replace ``prov_measure`` and ``prov_category`` with 'not_enough_to_code' if ``comments`` are blank and ``prov_category`` no 'school_closed'
-14. Replace ``non_compliance_penalty`` "non_compliance_penalty" -> "Not Known"
-12. Custom JH things (development in progress)
+8. Shift sensitive country names to ``area_covered``.
+9. Assign ISO codes using ``country_territory_area``.
+10. Check for missing ``iso`` codes.
+11. Assign WHO-accepted ``country_territory_area``, ``who_region``, ``iso_3166_1_numeric``
+12. Assign WHO PHSM dataset coding using ``prov_measure``, ``prov_subcategory``, ``prov_category``
+13. Check for missing ``who_code`` values.
+14. Replace ``admin_level`` values: null -> 'unknown', 'Yes' -> 'national', 'No' -> 'state'
+15. Replace ``prov_measure`` and ``prov_category`` with 'not_enough_to_code' if ``comments`` are blank and ``prov_category`` no 'school_closed'
+16. Replace ``non_compliance_penalty`` "non_compliance_penalty" -> "Not Known"
 
 """
 import pandas as pd
+from countrycode.countrycode import countrycode
 
 # hot fix for sys.path issues in test environment
 try:
@@ -67,27 +69,33 @@ def transform(record: dict, key_ref: dict, country_ref: pd.DataFrame, who_coding
 
     # 7. replace non ascii characters (shared)
 
-    # 8. check for missing ISO codes (shared)
+    # 8. replace sensitive country names by ISO (utils)
+    record = utils.replace_sensitive_regions(record)
+
+    # 9. assign ISO code
+    record['iso'] = countrycode(codes=record['country_territory_area'], origin='country_name', target='iso3c')
+
+    # 10. check for missing ISO codes (shared)
     check.check_missing_iso(record)
 
-    # 9. Join WHO accepted country names (shared)
+    # 11. Join WHO accepted country names (shared)
     record = utils.assign_who_country_name(record, country_ref)
 
-    # 10. Join who coding from lookup (shared)
+    # 12. Join who coding from lookup (shared)
     record = utils.assign_who_coding(record, who_coding)
 
-    # 11. check for missing WHO codes (shared)
+    # 13. check for missing WHO codes (shared)
     check.check_missing_who_code(record)
 
-    # 12. replace admin_level values
+    # 14. replace admin_level values
     record = utils.replace_conditional(record, 'admin_level', '', 'unknown')
     record = utils.replace_conditional(record, 'admin_level', 'Yes', 'national')
     record = utils.replace_conditional(record, 'admin_level', 'No', 'state')
 
-    # 13. fill_not_enough_to_code
+    # 15. fill_not_enough_to_code
     record = fill_not_enough_to_code(record)
 
-    # 14. replace unknown non_compliance_penalty
+    # 16. replace unknown non_compliance_penalty
     record = utils.replace_conditional(record, 'non_compliance_penalty', 'unknown', 'Not Known')
 
     return(record)

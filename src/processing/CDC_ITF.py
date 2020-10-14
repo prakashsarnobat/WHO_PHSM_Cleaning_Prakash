@@ -16,6 +16,7 @@ https://pypi.org/project/countrycode/
 
 """
 import pandas as pd
+from countrycode.countrycode import countrycode
 
 # hot fix for sys.path issues in test environment
 try:
@@ -53,18 +54,29 @@ def transform(record: dict, key_ref: dict, country_ref: pd.DataFrame, who_coding
     record = utils.replace_conditional(record, 'country_territory_area', 'RÃ©union', 'Reunion')
     record = utils.replace_conditional(record, 'country_territory_area', 'CuraÃ§ao', 'Curacao')
     record = utils.replace_conditional(record, 'country_territory_area', 'St. Barts', 'Saint Barthelemy')
+    record = utils.replace_conditional(record, 'country_territory_area', 'Czechia', 'Czech Republic')
+    record = utils.replace_conditional(record, 'country_territory_area', 'D. P. R. of Korea', 'North Korea')
+    record = utils.replace_conditional(record, 'country_territory_area', 'Eswatini', 'Swaziland')
+    record = utils.replace_conditional(record, 'country_territory_area', 'South Korea', 'Korea')
+    record = utils.replace_conditional(record, 'country_territory_area', 'Bonaire, Saint Eustatius and Saba', 'Carribean Netherlands')
+
+    # replace sensitive country names by ISO (utils)
+    record = utils.replace_sensitive_regions(record)
 
     # assign ISO code
+    record['iso'] = countrycode(codes=record['country_territory_area'], origin='country_name', target='iso3c')
 
     # check missing ISO
+    check.check_missing_iso(record)
 
-    # replace sensitive country names (utils)
+    # 9. Join WHO accepted country names (shared)
+    record = utils.assign_who_country_name(record, country_ref)
 
-    # join country names
+    # 10. Join who coding from lookup (shared)
+    record = utils.assign_who_coding(record, who_coding)
 
-    # join who Coding
-
-    # test missing who codes
+    # 11. check for missing WHO codes (shared)
+    check.check_missing_who_code(record)
 
     # 1. Replace measure_stage extension
     record = utils.replace_conditional(record, 'measure_stage', 'Extend with same stringency', 'extension')
@@ -85,6 +97,14 @@ def add_date_end(record: dict):
 
 def join_comments(record: dict):
     '''Function to combine comments from two provider fields'''
+
+    if type(record['Concise Notes']) != str:
+
+        record['Concise Notes'] = ''
+
+    if type(record['Notes']) != str:
+
+        record['Notes'] = ''
 
     comments = record['Concise Notes'] + '. ' + record['Notes']
 

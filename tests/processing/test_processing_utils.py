@@ -310,3 +310,14 @@ class Test_replace_conditional:
         record = utils.replace_conditional(record, 'anything', 'a', 'b')
 
         assert record['anything'] == 'b'
+
+
+def test_shift_sensitive_region():
+
+    record = record = {'country_territory_area': 'Kosovo'}
+
+    record = utils.shift_sensitive_region(record, 'Kosovo', 'Serbia')
+
+    assert record['country_territory_area'] == 'Serbia'
+
+    assert record['area_covered'] == 'Kosovo'
