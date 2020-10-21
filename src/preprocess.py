@@ -28,7 +28,8 @@ check_dir = 'config/input_check'
 
 jh = pd.read_csv(jh)
 
-check.check_column_names(jh, pd.read_csv(check_dir + '/columns/JH_HIT.csv'))
+check.check_input(records = jh,
+                  column_config = pd.read_csv(check_dir + '/columns/JH_HIT.csv'))
 
 jh = utils.df_to_records(jh, "JH_HIT")
 
@@ -36,11 +37,17 @@ logging.info("JH_HIT_RECORDS=%d" % len(jh))
 
 cdc = pd.read_excel(cdc, sheet_name='Line list')
 
+check.check_input(records = cdc,
+                  column_config = pd.read_csv(check_dir + '/columns/CDC_ITF.csv'))
+
 cdc = utils.df_to_records(cdc, "CDC_ITF")
 
 logging.info("CDC_ITF_RECORDS=%d" % len(cdc))
 
 acaps = pd.read_excel(acaps, sheet_name='Dataset')
+
+check.check_input(records = acaps,
+                  column_config = pd.read_csv(check_dir + '/columns/ACAPS.csv'))
 
 acaps = utils.df_to_records(acaps, "ACAPS")
 

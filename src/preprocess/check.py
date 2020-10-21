@@ -3,15 +3,22 @@ main.py
 ====================================
 Functions to check input datasets during preprocessing.
 
+test these functions!
+
 """
 
 import pandas as pd
 import logging
 
+
+def check_input(records: pd.DataFrame, column_config: pd.DataFrame):
+    '''Function to unify all input checks'''
+
+    check_column_names(records, column_config)
+
+
 def check_column_names(records: pd.DataFrame, config: pd.DataFrame):
-    '''Function to check that column names agree with config or raise exception
-    Hold this in a larger function that does all the checks
-    '''
+    '''Function to check that column names agree with config or raise exception'''
 
     dataset = list(config['dataset'].unique())[0]
 
