@@ -2,7 +2,8 @@ import pytest
 import os
 import shutil
 import pandas as pd
-from src.preprocess.utils import df_to_records, create_tmp
+from src.preprocess.utils import df_to_records
+from src.preprocess import utils
 
 
 class Test_df_to_records:
@@ -47,12 +48,12 @@ class Test_df_to_records:
             df_to_records(df, dataset)
 
 
-class Test_create_tmp:
+class Test_create_dir:
 
     def test_dir_created(self):
         '''test that a tmp dir is created'''
 
-        create_tmp()
+        utils.create_dir('tmp')
 
         assert os.path.exists('tmp')
 
@@ -66,7 +67,7 @@ class Test_create_tmp:
 
         assert os.path.exists('tmp/misc')
 
-        create_tmp()
+        utils.create_dir('tmp')
 
         assert not os.path.exists('tmp/misc')
 

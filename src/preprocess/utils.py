@@ -26,9 +26,8 @@ def df_to_records(df: DataFrame, dataset: str):
     return records
 
 
-def create_tmp():
+def create_dir(dir: str):
     """Function to create or replace a "tmp" directory"""
-    dir = "tmp"
 
     if os.path.exists(dir):
 
@@ -36,18 +35,17 @@ def create_tmp():
 
     os.mkdir(dir)
 
-def write_records(records: list, subdir: str, fn: str):
+
+def write_records(records: list, dir: str, fn: str):
 
     try:
-        create_tmp()
-        os.mkdir("tmp" + "/" + subdir)
 
         print("Writing records.pickle...")
 
-        pickle.dump(records, open("tmp" + "/" + subdir + "/" + "records.pickle", "wb"))
+        pickle.dump(records, open(dir + "/" + "records.pickle", "wb"))
 
     except Exception as e:
 
-        shutil.rmtree("tmp")
+        shutil.rmtree(dir)
 
         raise e("Unable to write tmp/preprocess/records.p.")
