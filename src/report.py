@@ -1,7 +1,8 @@
 import pickle
 from utils import parse_log
 
-#parse logs here
+print('Parsing logs...')
+
 preprocess_path = 'tmp/preprocess/preprocess.log'
 process_logs = 'tmp/process/process.log'
 postprocess_logs = 'tmp/postprocess/postprocess.log'
@@ -19,7 +20,7 @@ for line in preprocess:
 
     logs['preprocess'].append(parse_log(line))
 
-#parse processing logs
+# parse processing logs
 for line in process:
 
     logs['process'].append(parse_log(line))
@@ -29,10 +30,8 @@ for line in postprocess:
 
     logs['postprocess'].append(parse_log(line))
 
-print(logs)
+print('Writing report.pickle...')
 
+pickle.dump(logs, open("tmp/report.pickle", "wb"))
 
-
-#output log data in easy format
-
-#make report with make
+print('Success.')
