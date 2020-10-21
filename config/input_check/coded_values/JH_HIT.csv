@@ -1,0 +1,49 @@
+column,value,dataset
+entry_quality,Verified,JH_HIT
+entry_quality,Unverified,JH_HIT
+national_entry,No,JH_HIT
+national_entry,Yes,JH_HIT
+national_entry,NA,JH_HIT
+reduced_capacity,NA,JH_HIT
+reduced_capacity,Yes,JH_HIT
+reduced_capacity,No,JH_HIT
+reduced_capacity,Unknown,JH_HIT
+required,required,JH_HIT
+required,NA,JH_HIT
+required,recommended,JH_HIT
+required,unknown,JH_HIT
+status,required,JH_HIT
+status,complete contact tracing,JH_HIT
+status,some,JH_HIT
+status,partially closed,JH_HIT
+status,fully restricted,JH_HIT
+status,closed,JH_HIT
+status,recommended,JH_HIT
+status,yes,JH_HIT
+status,all,JH_HIT
+status,partially restricted,JH_HIT
+status,partial contact tracing,JH_HIT
+status,none,JH_HIT
+status,NA,JH_HIT
+status,open,JH_HIT
+status,no,JH_HIT
+status,unrestricted,JH_HIT
+status,unknown,JH_HIT
+status,no policy,JH_HIT
+status_simp,Strongly Implemented,JH_HIT
+status_simp,Partially Implemented,JH_HIT
+status_simp,Implementation Suspended,JH_HIT
+status_simp,NA,JH_HIT
+status_simp,Unknown,JH_HIT
+subpopulation,geographic subpopulation,JH_HIT
+subpopulation,NA,JH_HIT
+subpopulation,other subpopulation,JH_HIT
+subpopulation,entire population,JH_HIT
+subpopulation,random sample,JH_HIT
+subpopulation,demographic subpopulation,JH_HIT
+symp_screening,NA,JH_HIT
+symp_screening,No,JH_HIT
+symp_screening,Unknown,JH_HIT
+symp_screening,Yes,JH_HIT
+update,Update,JH_HIT
+update,No Update,JH_HIT

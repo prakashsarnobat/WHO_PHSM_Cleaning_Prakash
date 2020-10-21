@@ -17,18 +17,18 @@ class Test_generate_blank_record:
 
 def test_create_id():
 
-    id = utils.create_id(6)
+    id = utils.create_id('ACAPS', 6)
 
-    assert len(id) == 6
+    assert len(id) == 12
 
 
 class Test_new_id:
 
     def test_new_id(self):
 
-        id = utils.new_id(6)
+        id = utils.new_id('ACAPS', 6)
 
-        assert len(id) == 6
+        assert len(id) == 12
 
     def test_new_id_plausibly_unique(self):
 
@@ -36,7 +36,7 @@ class Test_new_id:
 
         for i in range(0, 10000):
 
-            ids.append(utils.new_id(existing_ids=ids))
+            ids.append(utils.new_id('ACAPS', existing_ids=ids))
 
         assert len(pd.unique(ids)) == len(ids)
 
@@ -121,25 +121,28 @@ class Test_assign_id:
 
     def test_assign_id(self):
 
-        a = {'a': None}
+        a = {'a': None,
+             'dataset': 'ACAPS'}
 
         a = assign_id(a)
 
         assert type(a['who_id']) == str
 
-        assert len(a['who_id']) == 6
+        assert len(a['who_id']) == 12
 
 class Test_assign_who_country_name:
 
     def test_assign_who_country_name(self):
 
-        a = {'iso': 'AFG'}
+        a = {'iso': 'AFG',
+             'country_territory_area': 'Afghanistan'}
+
         country_ref = pd.DataFrame({'iso': ['AFG'],
                                     'who_region': ['REGION'],
                                     'country_territory_area': ['NAME'],
                                     'iso_3166_1_numeric': [1]})
 
-        a = assign_who_country_name(a, country_ref)
+        a = assign_who_country_name(a, country_ref, log=False)
 
         assert a['iso'] == 'AFG'
 
@@ -151,11 +154,12 @@ class Test_assign_who_country_name:
 
     def test_assign_who_country_name_errors(self):
 
-        a = {'iso': 'AFG'}
+        a = {'iso': 'AFG',
+             'country_territory_area': 'Afghanistan'}
 
         country_ref = pd.DataFrame({'iso': ['USA']})
 
-        a = assign_who_country_name(a, country_ref)
+        a = assign_who_country_name(a, country_ref, log=False)
 
         assert a['iso'] == 'AFG'
 
@@ -186,7 +190,7 @@ class Test_assign_who_coding:
                                    'non_compliance': ['d'],
                                    'who_targeted': ['e']})
 
-        record = assign_who_coding(record, who_coding)
+        record = assign_who_coding(record, who_coding, log=False)
 
         assert record['who_code'] == 1
 
@@ -217,7 +221,7 @@ class Test_assign_who_coding:
                                    'who_subcategory': ['b'],
                                    'who_category': ['c']})
 
-        record = assign_who_coding(record, who_coding)
+        record = assign_who_coding(record, who_coding, log=False)
 
         assert record['who_code'] == 'unknown'
 
@@ -244,7 +248,7 @@ class Test_assign_who_coding:
                                    'who_subcategory': ['b', 'b'],
                                    'who_category': ['c', 'c']})
 
-        record = assign_who_coding(record, who_coding)
+        record = assign_who_coding(record, who_coding, log=False)
 
         assert record['who_code'] == 'unknown'
 
@@ -273,7 +277,7 @@ class Test_assign_who_coding:
                                    'non_compliance': ['d'],
                                    'who_targeted': ['']})
 
-        record = assign_who_coding(record, who_coding)
+        record = assign_who_coding(record, who_coding, log=False)
 
         assert record['targeted'] == 'd'
 
@@ -296,7 +300,7 @@ class Test_assign_who_coding:
                                    'non_compliance': [''],
                                    'who_targeted': ['a']})
 
-        record = assign_who_coding(record, who_coding)
+        record = assign_who_coding(record, who_coding, log=False)
 
         assert record['non_compliance_penalty'] == 'f'
 
@@ -321,3 +325,21 @@ def test_shift_sensitive_region():
     assert record['country_territory_area'] == 'Serbia'
 
     assert record['area_covered'] == 'Kosovo'
+
+class Test_add_admin_level:
+
+    def test_add_admin_level_national(self):
+
+        record = {'admin_level': ''}
+
+        record = utils.add_admin_level(record)
+
+        assert record['admin_level'] == 'national'
+
+    def test_add_admin_level_other(self):
+
+        record = {'admin_level': 'Anything'}
+
+        record = utils.add_admin_level(record)
+
+        assert record['admin_level'] == 'other'

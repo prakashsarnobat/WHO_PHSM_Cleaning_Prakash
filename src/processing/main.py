@@ -19,7 +19,7 @@ General checks for record numbers etc
 """
 
 import pandas as pd
-from processing import JH_HIT, CDC_ITF
+from processing import JH_HIT, CDC_ITF, ACAPS
 
 
 def process(record: dict, key_ref: dict, country_ref: pd.DataFrame, who_coding: dict, prov_measure_filter: dict):
@@ -40,6 +40,13 @@ def process(record: dict, key_ref: dict, country_ref: pd.DataFrame, who_coding: 
                           key_ref['CDC_ITF'],
                           country_ref,
                           who_coding['CDC_ITF'])
+
+    elif record['dataset'] == 'ACAPS':
+
+        record = ACAPS.transform(record,
+                                 key_ref['ACAPS'],
+                                 country_ref,
+                                 who_coding['ACAPS'])
 
     else:
 

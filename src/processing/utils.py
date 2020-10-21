@@ -55,28 +55,30 @@ def generate_blank_record():
     return record
 
 
-def new_id(length: int = 6, existing_ids: list = [None]):
+def new_id(dataset: str, length: int = 6, existing_ids: list = [None]):
     '''Function to create a unique id given a list of existing ids'''
 
-    id = create_id(length)
+    id = create_id(dataset, length)
 
     while id in existing_ids:
 
-        id = create_id()
+        id = create_id(dataset)
 
     return(id)
 
 
-def create_id(length: int = 6):
+def create_id(dataset: str, length: int = 6):
     '''Function to create a random id of characters and numbers'''
 
-    characters = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz-_'
+    characters = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz-'
 
     id = ''
 
     for i in range(0, length):
 
         id += random.choice(characters)
+
+    id = dataset + '_' + str(id)
 
     return id
 
@@ -131,15 +133,15 @@ def parse_date(record: dict):
     return(record)
 
 
-def assign_id(record):
+def assign_id(record: dict):
     '''Function to assign a unique ID to each record'''
 
-    record['who_id'] = str(new_id())
+    record['who_id'] = str(new_id(dataset=record['dataset']))
 
     return(record)
 
 
-def assign_who_country_name(record: dict, country_ref: pd.DataFrame, missing_value: str = 'unknown'):
+def assign_who_country_name(record: dict, country_ref: pd.DataFrame, missing_value: str='unknown', log=True):
     '''
     Function to assign country names by ISO code
 
@@ -155,8 +157,9 @@ def assign_who_country_name(record: dict, country_ref: pd.DataFrame, missing_val
 
     except Exception as e:
 
-        #Replace with logging
-        print('Unknown ISO code: ' + record['iso'])
+        if log:
+            logging.error('Unknown ISO code: ' + record['iso'])
+            logging.error('Original Country Name: ' + record['country_territory_area'])
 
         record['who_region'] = missing_value
         record['country_territory_area'] = missing_value
@@ -172,7 +175,7 @@ def assign_who_country_name(record: dict, country_ref: pd.DataFrame, missing_val
 
     return(record)
 
-def assign_who_coding(record: dict, who_coding: pd.DataFrame, missing_value: str = 'unknown'):
+def assign_who_coding(record: dict, who_coding: pd.DataFrame, missing_value: str = 'unknown', log=True):
     '''
         Function to assign WHO coding to a record
 
@@ -194,9 +197,9 @@ def assign_who_coding(record: dict, who_coding: pd.DataFrame, missing_value: str
 
     except Exception as e:
 
-        # replace this with logging
-        # print('Coding values found: ' + str(len(coding.iloc[:, 1])))
-        # print('No coding found for dataset: {} prov_measure: {} prov_subcategory: {} prov_category: {}'.format(record['dataset'], record['prov_measure'], record['prov_subcategory'], record['prov_category']))
+        if log:
+            logging.error('Coding values found: ' + str(len(coding.iloc[:, 1])))
+            logging.error('No coding found for dataset: {} prov_measure: {} prov_subcategory: {} prov_category: {}'.format(record['dataset'], record['prov_measure'], record['prov_subcategory'], record['prov_category']))
 
         record['who_code'] = missing_value
         record['who_measure'] = missing_value
@@ -276,5 +279,19 @@ def shift_sensitive_region(record: dict, original_name: str, new_name: str):
         record['area_covered'] = record['country_territory_area']
 
         record['country_territory_area'] = new_name
+
+    return(record)
+
+
+def add_admin_level(record: dict):
+    '''Function to set admin_level values to "national" or "other"'''
+
+    if record['admin_level'] == '':
+
+        record['admin_level'] = 'national'
+
+    else:
+
+        record['admin_level'] = 'other'
 
     return(record)

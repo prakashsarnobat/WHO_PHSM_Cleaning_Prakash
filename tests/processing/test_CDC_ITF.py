@@ -23,28 +23,10 @@ class Test_add_date_end:
 
         assert record['date_end'] == 'b'
 
+
 def test_join_comments():
 
     record = {'Concise Notes': 'a',
               'Notes': 'b'}
 
     assert CDC_ITF.join_comments(record) == 'a. b'
-
-
-class Test_add_admin_level:
-
-    def test_add_admin_level_national(self):
-
-        record = {'admin_level': ''}
-
-        record = CDC_ITF.add_admin_level(record)
-
-        assert record['admin_level'] == 'national'
-
-    def test_add_admin_level_other(self):
-
-        record = {'admin_level': 'Anything'}
-
-        record = CDC_ITF.add_admin_level(record)
-
-        assert record['admin_level'] == 'other'

@@ -4,6 +4,14 @@ src.processing package
 Submodules
 ----------
 
+src.processing.ACAPS module
+---------------------------
+
+.. automodule:: src.processing.ACAPS
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 src.processing.CDC\_ITF module
 ------------------------------
 
