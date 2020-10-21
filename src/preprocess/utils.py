@@ -36,7 +36,6 @@ def create_tmp():
 
     os.mkdir(dir)
 
-
 def write_records(records: list, subdir: str, fn: str):
 
     try:

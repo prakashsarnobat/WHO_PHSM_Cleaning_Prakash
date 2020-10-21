@@ -5,6 +5,7 @@ Script to convert provider datasets individual record dictionaries
 """
 
 import pandas as pd
+import logging
 
 from preprocess.utils import df_to_records, write_records
 
@@ -16,7 +17,7 @@ cdc = "raw_data/CDC_ITF_latest.xlsx"
 acaps = "raw_data/ACAPS_latest.xlsx"
 
 # replace this with logging
-print("Reading JH_HIT...")
+logging.info("Reading JH_HIT...")
 jh = pd.read_csv(jh)
 
 jh = df_to_records(jh, "JH_HIT")
