@@ -17,7 +17,7 @@ def check_input(records: pd.DataFrame, column_config: pd.DataFrame):
     check_column_names(records, column_config)
 
 
-def check_column_names(records: pd.DataFrame, config: pd.DataFrame):
+def check_column_names(records: pd.DataFrame, config: pd.DataFrame, logging: bool = True):
     '''Function to check that column names agree with config or raise exception'''
 
     dataset = list(config['dataset'].unique())[0]
@@ -25,12 +25,17 @@ def check_column_names(records: pd.DataFrame, config: pd.DataFrame):
     try:
 
         assert set(records.columns) == set(config['column'])
-        logging.info('%s input columns OK.' % dataset)
+
+        if logging:
+
+            logging.info('%s input columns OK.' % dataset)
 
     except Exception as e:
 
         message = 'Unexpected %s columns.' % dataset
 
-        logging.error(message)
+        if logging:
+
+            logging.error(message)
 
         raise e
