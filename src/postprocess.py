@@ -11,6 +11,8 @@ import logging
 
 from utils import create_dir
 from postprocess.main import postprocess
+from check import check_output
+
 argv = sys.argv
 
 create_dir('tmp/postprocess')
@@ -27,11 +29,15 @@ logging.info("Postprocessing Data...")
 records = records.groupby('dataset')
 records = [records.get_group(x) for x in records.groups]
 
+postprocessed = []
+
 for data in records:
 
-    postprocess(data)
+    postprocessed.append(postprocess(data))
 
-''' OUTPUT CHECKS HERE (work for all processed datasets) '''
+records = pd.concat(postprocessed)
+
+check_output(records)
 
 print("Success.")
 logging.info("Success.")

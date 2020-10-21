@@ -50,7 +50,7 @@ blank_record = generate_blank_record()
 processed_records = []
 
 bar = Bar('Processing Data...', max=len(records))
-for record in records[1:10000]:
+for record in records:
 
     record = process(record, key_ref, country_ref, who_coding, prov_measure_filter)
 

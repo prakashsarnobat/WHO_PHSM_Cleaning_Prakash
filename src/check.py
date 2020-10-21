@@ -13,7 +13,6 @@ except:
 def check_output(data: pd.DataFrame):
     '''Function to check output from master, mistress, and output'''
 
-    print(data)
     # check columns are correct
     check_column_names(data)
 
@@ -153,7 +152,3 @@ def check_coded_values(data: pd.DataFrame, config: pd.DataFrame, log: bool = Tru
                 logging.error('OUTPUT_CHECK_FAILURE=Unexpected values in %s: %s.' % (column_name, ', '.join([str(x) for x in difference])))
 
             pass
-
-        print(column_name)
-        print(set(obs).difference(expected))
-        print(len(set(obs).difference(expected)))
