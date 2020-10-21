@@ -1,0 +1,19 @@
+dataset,column
+CDC_ITF,Unique Identifier
+CDC_ITF,WHO Region
+CDC_ITF,Country
+CDC_ITF,Date Entered
+CDC_ITF,Date implemented or lifted
+CDC_ITF,Action taken
+CDC_ITF,Focus area
+CDC_ITF,Restriction Type
+CDC_ITF,Mitigation measure
+CDC_ITF,Concise Notes
+CDC_ITF,Notes
+CDC_ITF,Mandatory
+CDC_ITF,Subnational/regional only
+CDC_ITF,Source
+CDC_ITF,Secondary Source
+CDC_ITF,ISO Code 2
+CDC_ITF,ISO Code 3
+CDC_ITF,WHO Member Status

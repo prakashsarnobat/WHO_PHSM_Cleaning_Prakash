@@ -1,0 +1,17 @@
+column,value,dataset
+Action taken,Impose,CDC_ITF
+Action taken,Lift,CDC_ITF
+Action taken,Ease,CDC_ITF
+Action taken,Strengthen,CDC_ITF
+Action taken,Extend with same stringency,CDC_ITF
+Action taken,Pause,CDC_ITF
+Focus area,International,CDC_ITF
+Focus area,Domestic,CDC_ITF
+Mandatory,Yes,CDC_ITF
+Mandatory,No,CDC_ITF
+Mandatory,NA,CDC_ITF
+Mandatory,yes,CDC_ITF
+Mandatory,No',CDC_ITF
+Subnational/regional only,National,CDC_ITF
+Subnational/regional only,Subnational/regional only,CDC_ITF
+Subnational/regional only,subnational/regional only,CDC_ITF

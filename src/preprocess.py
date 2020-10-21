@@ -7,7 +7,7 @@ Script to convert provider datasets individual record dictionaries
 import pandas as pd
 import logging
 
-from preprocess import utils
+from preprocess import utils, check
 
 utils.create_dir('tmp')
 utils.create_dir('tmp/preprocess')
@@ -24,8 +24,11 @@ logging.info("Preprocessing Data...")
 jh = "https://raw.githubusercontent.com/HopkinsIDD/hit-covid/master/data/hit-covid-longdata.csv"
 cdc = "raw_data/CDC_ITF_latest.xlsx"
 acaps = "raw_data/ACAPS_latest.xlsx"
+check_dir = 'config/input_check'
 
 jh = pd.read_csv(jh)
+
+check.check_column_names(jh, pd.read_csv(check_dir + '/columns/JH_HIT.csv'))
 
 jh = utils.df_to_records(jh, "JH_HIT")
 
