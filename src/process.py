@@ -57,4 +57,6 @@ for record in records:
 
     processed_records.append(record)
 
-#print([x for x in processed_records if x is not None])
+records = pd.concat([pd.DataFrame.from_dict(x, orient = 'index').T for x in processed_records if x is not None])
+
+print(records)

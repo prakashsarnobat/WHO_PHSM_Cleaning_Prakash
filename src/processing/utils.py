@@ -55,28 +55,30 @@ def generate_blank_record():
     return record
 
 
-def new_id(length: int = 6, existing_ids: list = [None]):
+def new_id(dataset: str, length: int = 6, existing_ids: list = [None]):
     '''Function to create a unique id given a list of existing ids'''
 
-    id = create_id(length)
+    id = create_id(dataset, length)
 
     while id in existing_ids:
 
-        id = create_id()
+        id = create_id(dataset)
 
     return(id)
 
 
-def create_id(length: int = 6):
+def create_id(dataset: str, length: int = 6):
     '''Function to create a random id of characters and numbers'''
 
-    characters = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz-_'
+    characters = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz-'
 
     id = ''
 
     for i in range(0, length):
 
         id += random.choice(characters)
+
+    id = dataset + '_' + str(id)
 
     return id
 
@@ -131,10 +133,10 @@ def parse_date(record: dict):
     return(record)
 
 
-def assign_id(record):
+def assign_id(record: dict):
     '''Function to assign a unique ID to each record'''
 
-    record['who_id'] = str(new_id())
+    record['who_id'] = str(new_id(dataset=record['dataset']))
 
     return(record)
 
