@@ -50,6 +50,8 @@ process:
 
 postprocess:
 	python src/postprocess.py
+
+data: preprocess process postprocess
 #Phony target to force rebuilds
 .PHONY: FORCE
 FORCE:

@@ -3,7 +3,7 @@ src.egg-info
 raw_data
 **/__pycache__
 .DS_Store
-
+__pycache__
 # History files
 .Rhistory
 .Rapp.history
