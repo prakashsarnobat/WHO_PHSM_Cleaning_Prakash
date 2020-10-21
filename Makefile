@@ -47,6 +47,9 @@ preprocess:
 
 process:
 	python src/process.py
+
+postprocess:
+	python src/postprocess.py
 #Phony target to force rebuilds
 .PHONY: FORCE
 FORCE:

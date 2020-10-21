@@ -2,7 +2,6 @@ import pytest
 import os
 import shutil
 import pandas as pd
-from src.preprocess.utils import df_to_records
 from src.preprocess import utils
 
 
@@ -13,7 +12,7 @@ class Test_df_to_records:
 
         df = pd.DataFrame({'a': [1, 2, 3]})
 
-        records = df_to_records(df, 'ACAPS')
+        records = utils.df_to_records(df, 'ACAPS')
 
         assert type(records) == list
 
@@ -22,7 +21,7 @@ class Test_df_to_records:
 
         df = pd.DataFrame({'a': [1, 2, 3]})
 
-        records = df_to_records(df, 'ACAPS')
+        records = utils.df_to_records(df, 'ACAPS')
 
         assert type(records[0]) == dict
 
@@ -33,7 +32,7 @@ class Test_df_to_records:
 
         dataset = 'ACAPS'
 
-        records = df_to_records(df, dataset)
+        records = utils.df_to_records(df, dataset)
 
         assert records[0]['dataset'] == dataset
 
@@ -45,30 +44,4 @@ class Test_df_to_records:
         dataset = 'ACAPS'
 
         with pytest.raises(ValueError):
-            df_to_records(df, dataset)
-
-
-class Test_create_dir:
-
-    def test_dir_created(self):
-        '''test that a tmp dir is created'''
-
-        utils.create_dir('tmp')
-
-        assert os.path.exists('tmp')
-
-        shutil.rmtree('tmp')
-
-    def test_dir_replaced(self):
-        '''test that a tmp dir is replaced if it exists'''
-
-        os.mkdir('tmp')
-        os.mkdir('tmp/misc')
-
-        assert os.path.exists('tmp/misc')
-
-        utils.create_dir('tmp')
-
-        assert not os.path.exists('tmp/misc')
-
-        shutil.rmtree('tmp')
+            utils.df_to_records(df, dataset)

@@ -7,11 +7,23 @@ Script to apply dataset-specific transformers to individual dataset records.
 import pickle
 import sys
 import pandas as pd
+import logging
+from progress.bar import Bar
 
 from processing.main import process
 from processing.utils import generate_blank_record
+from utils import create_dir
+from processing import check
 
 argv = sys.argv
+
+create_dir('tmp/process')
+
+logging.basicConfig(filename='tmp/process/process.log',
+                    level=logging.DEBUG,
+                    format='%(asctime)s - %(levelname)s - %(message)s')
+
+logging.info("Processing Data...")
 
 fn = "tmp/preprocess/records.pickle"
 
@@ -36,27 +48,21 @@ blank_record = generate_blank_record()
 
 processed_records = []
 
+bar = Bar('Processing Data...', max=len(records))
 for record in records:
 
     record = process(record, key_ref, country_ref, who_coding, prov_measure_filter)
 
+    check.check_record_keys_agree(record, blank_record)
+
     if record is not None:
 
-        try:
+        processed_records.append(pd.DataFrame.from_dict(record, orient = 'index').T)
 
-            assert set(blank_record.keys()) == set(record.keys())
+    bar.next()
 
-        except Exception as e:
+records = pd.concat(processed_records)
 
-            #replace with Logging
-            print('Record keys do not agree.')
-            print('Keys missing in Record: ' + ', '.join(str(x) for x in set(blank_record.keys()).difference(set(record.keys()))))
-            print('Keys present in Record: ' + ', '.join(str(x) for x in set(record.keys()).difference(set(blank_record.keys()))))
-
-            raise e
-
-    processed_records.append(record)
-
-records = pd.concat([pd.DataFrame.from_dict(x, orient = 'index').T for x in processed_records if x is not None])
-
-print(records)
+records.to_csv('tmp/process/records.csv', index=False)
+print('Success.')
+logging.info("Success.")

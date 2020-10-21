@@ -7,10 +7,11 @@ Script to convert provider datasets individual record dictionaries
 import pandas as pd
 import logging
 
+from utils import create_dir
 from preprocess import utils, check
 
-utils.create_dir('tmp')
-utils.create_dir('tmp/preprocess')
+create_dir('tmp')
+create_dir('tmp/preprocess')
 
 # Source of config file - also move to Makefile when ready
 logging.basicConfig(filename='tmp/preprocess/preprocess.log',
@@ -26,10 +27,15 @@ cdc = "raw_data/CDC_ITF_latest.xlsx"
 acaps = "raw_data/ACAPS_latest.xlsx"
 check_dir = 'config/input_check'
 
+# Load column config
+column_config = {'JH_HIT':pd.read_csv(check_dir + '/columns/JH_HIT.csv'),
+                 'CDC_ITF':pd.read_csv(check_dir + '/columns/CDC_ITF.csv'),
+                 'ACAPS':pd.read_csv(check_dir + '/columns/ACAPS.csv')}
+
 jh = pd.read_csv(jh)
 
-check.check_input(records = jh,
-                  column_config = pd.read_csv(check_dir + '/columns/JH_HIT.csv'))
+check.check_input(records=jh,
+                  column_config=column_config['JH_HIT'])
 
 jh = utils.df_to_records(jh, "JH_HIT")
 
@@ -37,8 +43,8 @@ logging.info("JH_HIT_RECORDS=%d" % len(jh))
 
 cdc = pd.read_excel(cdc, sheet_name='Line list')
 
-check.check_input(records = cdc,
-                  column_config = pd.read_csv(check_dir + '/columns/CDC_ITF.csv'))
+check.check_input(records=cdc,
+                  column_config=column_config['CDC_ITF'])
 
 cdc = utils.df_to_records(cdc, "CDC_ITF")
 
@@ -46,8 +52,8 @@ logging.info("CDC_ITF_RECORDS=%d" % len(cdc))
 
 acaps = pd.read_excel(acaps, sheet_name='Dataset')
 
-check.check_input(records = acaps,
-                  column_config = pd.read_csv(check_dir + '/columns/ACAPS.csv'))
+check.check_input(records=acaps,
+                  column_config=column_config['ACAPS'])
 
 acaps = utils.df_to_records(acaps, "ACAPS")
 

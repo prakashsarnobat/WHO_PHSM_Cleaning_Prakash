@@ -9,7 +9,7 @@ class Test_check_column_names:
         records = pd.DataFrame({'a': [1]})
         config = pd.DataFrame({'column': ['a'], 'dataset': ['ACAPS']})
 
-        res = check.check_column_names(records, config, logging=False)
+        res = check.check_column_names(records, config, log=False)
 
         assert res is None
 
@@ -19,4 +19,4 @@ class Test_check_column_names:
         config = pd.DataFrame({'column': ['b'], 'dataset': ['ACAPS']})
 
         with pytest.raises(AssertionError):
-            check.check_column_names(records, config, logging=False)
+            check.check_column_names(records, config, log=False)

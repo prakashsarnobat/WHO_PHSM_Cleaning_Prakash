@@ -26,16 +26,6 @@ def df_to_records(df: DataFrame, dataset: str):
     return records
 
 
-def create_dir(dir: str):
-    """Function to create or replace a "tmp" directory"""
-
-    if os.path.exists(dir):
-
-        shutil.rmtree(dir)
-
-    os.mkdir(dir)
-
-
 def write_records(records: list, dir: str, fn: str):
 
     try:

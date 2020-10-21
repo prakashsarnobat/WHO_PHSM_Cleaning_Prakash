@@ -6,6 +6,6 @@ flake8>=3.8.4
 tox>=3.13.2
 xlrd>=1.1.0
 countrycode>=0.2
-
+progress>=1.5
 
 
