@@ -14,6 +14,7 @@ from processing.main import process
 from processing.utils import generate_blank_record
 from utils import create_dir
 from processing import check
+from check import check_output
 
 argv = sys.argv
 
@@ -49,7 +50,7 @@ blank_record = generate_blank_record()
 processed_records = []
 
 bar = Bar('Processing Data...', max=len(records))
-for record in records:
+for record in records[1:10000]:
 
     record = process(record, key_ref, country_ref, who_coding, prov_measure_filter)
 
@@ -61,9 +62,10 @@ for record in records:
 
     bar.next()
 
-''' OUTPUT CHECKS HERE (work for all processed datasets) '''
-
 records = pd.concat(processed_records)
+
+''' OUTPUT CHECKS HERE (work for all processed datasets) '''
+check_output(records)
 
 records.to_csv('tmp/process/records.csv', index=False)
 print('Success.')
