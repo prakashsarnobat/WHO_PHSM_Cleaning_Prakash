@@ -30,3 +30,6 @@ records = [records.get_group(x) for x in records.groups]
 for data in records:
 
     postprocess(data)
+
+print("Success.")
+logging.info("Success.")

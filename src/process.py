@@ -61,6 +61,8 @@ for record in records:
 
     bar.next()
 
+#need checks of missing prov_ids and other issues - these hsould also work for mistress
+
 records = pd.concat(processed_records)
 
 records.to_csv('tmp/process/records.csv', index=False)

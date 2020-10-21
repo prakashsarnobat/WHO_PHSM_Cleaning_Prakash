@@ -1,5 +1,5 @@
 import pandas as pd
-from CDC_ITF
+from postprocess import CDC_ITF
 
 def postprocess(data: pd.DataFrame):
     '''Function to apply manual changes to individual records'''
@@ -9,7 +9,7 @@ def postprocess(data: pd.DataFrame):
     if dataset == 'CDC_ITF':
 
         data = CDC_ITF.postprocess(data)
-        print(data)
+
 
     else:
 
