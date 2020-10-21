@@ -17,18 +17,18 @@ class Test_generate_blank_record:
 
 def test_create_id():
 
-    id = utils.create_id(6)
+    id = utils.create_id('ACAPS', 6)
 
-    assert len(id) == 6
+    assert len(id) == 12
 
 
 class Test_new_id:
 
     def test_new_id(self):
 
-        id = utils.new_id(6)
+        id = utils.new_id('ACAPS', 6)
 
-        assert len(id) == 6
+        assert len(id) == 12
 
     def test_new_id_plausibly_unique(self):
 
@@ -36,7 +36,7 @@ class Test_new_id:
 
         for i in range(0, 10000):
 
-            ids.append(utils.new_id(existing_ids=ids))
+            ids.append(utils.new_id('ACAPS', existing_ids=ids))
 
         assert len(pd.unique(ids)) == len(ids)
 
@@ -121,19 +121,22 @@ class Test_assign_id:
 
     def test_assign_id(self):
 
-        a = {'a': None}
+        a = {'a': None,
+             'dataset': 'ACAPS'}
 
         a = assign_id(a)
 
         assert type(a['who_id']) == str
 
-        assert len(a['who_id']) == 6
+        assert len(a['who_id']) == 12
 
 class Test_assign_who_country_name:
 
     def test_assign_who_country_name(self):
 
-        a = {'iso': 'AFG'}
+        a = {'iso': 'AFG',
+             'country_territory_area': 'Afghanistan'}
+
         country_ref = pd.DataFrame({'iso': ['AFG'],
                                     'who_region': ['REGION'],
                                     'country_territory_area': ['NAME'],
@@ -151,7 +154,8 @@ class Test_assign_who_country_name:
 
     def test_assign_who_country_name_errors(self):
 
-        a = {'iso': 'AFG'}
+        a = {'iso': 'AFG',
+             'country_territory_area': 'Afghanistan'}
 
         country_ref = pd.DataFrame({'iso': ['USA']})
 
