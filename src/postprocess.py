@@ -31,5 +31,7 @@ for data in records:
 
     postprocess(data)
 
+''' OUTPUT CHECKS HERE (work for all processed datasets) '''
+
 print("Success.")
 logging.info("Success.")

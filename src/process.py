@@ -61,7 +61,7 @@ for record in records:
 
     bar.next()
 
-#need checks of missing prov_ids and other issues - these hsould also work for mistress
+''' OUTPUT CHECKS HERE (work for all processed datasets) '''
 
 records = pd.concat(processed_records)
 

@@ -52,6 +52,12 @@ postprocess:
 	python src/postprocess.py
 
 data: preprocess process postprocess
+
+report: tech_report
+
+tech_report:
+	jupyter nbconvert --to html --TemplateExporter.exclude_input=True --execute reporting/technical_report.ipynb
+
 #Phony target to force rebuilds
 .PHONY: FORCE
 FORCE:
