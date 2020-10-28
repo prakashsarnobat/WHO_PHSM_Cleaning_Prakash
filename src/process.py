@@ -14,6 +14,7 @@ from processing.main import process
 from processing.utils import generate_blank_record
 from utils import create_dir
 from processing import check
+from check import check_output
 
 argv = sys.argv
 
@@ -61,9 +62,10 @@ for record in records:
 
     bar.next()
 
-#need checks of missing prov_ids and other issues - these hsould also work for mistress
-
 records = pd.concat(processed_records)
+
+''' OUTPUT CHECKS HERE (work for all processed datasets) '''
+check_output(records)
 
 records.to_csv('tmp/process/records.csv', index=False)
 print('Success.')

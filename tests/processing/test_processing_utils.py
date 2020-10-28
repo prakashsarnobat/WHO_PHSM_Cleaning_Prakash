@@ -142,7 +142,7 @@ class Test_assign_who_country_name:
                                     'country_territory_area': ['NAME'],
                                     'iso_3166_1_numeric': [1]})
 
-        a = assign_who_country_name(a, country_ref, log=False)
+        a = assign_who_country_name(a, country_ref)
 
         assert a['iso'] == 'AFG'
 
@@ -159,7 +159,7 @@ class Test_assign_who_country_name:
 
         country_ref = pd.DataFrame({'iso': ['USA']})
 
-        a = assign_who_country_name(a, country_ref, log=False)
+        a = assign_who_country_name(a, country_ref)
 
         assert a['iso'] == 'AFG'
 
@@ -190,7 +190,7 @@ class Test_assign_who_coding:
                                    'non_compliance': ['d'],
                                    'who_targeted': ['e']})
 
-        record = assign_who_coding(record, who_coding, log=False)
+        record = assign_who_coding(record, who_coding)
 
         assert record['who_code'] == 1
 
@@ -221,7 +221,7 @@ class Test_assign_who_coding:
                                    'who_subcategory': ['b'],
                                    'who_category': ['c']})
 
-        record = assign_who_coding(record, who_coding, log=False)
+        record = assign_who_coding(record, who_coding)
 
         assert record['who_code'] == 'unknown'
 
@@ -248,7 +248,7 @@ class Test_assign_who_coding:
                                    'who_subcategory': ['b', 'b'],
                                    'who_category': ['c', 'c']})
 
-        record = assign_who_coding(record, who_coding, log=False)
+        record = assign_who_coding(record, who_coding)
 
         assert record['who_code'] == 'unknown'
 
@@ -277,7 +277,7 @@ class Test_assign_who_coding:
                                    'non_compliance': ['d'],
                                    'who_targeted': ['']})
 
-        record = assign_who_coding(record, who_coding, log=False)
+        record = assign_who_coding(record, who_coding)
 
         assert record['targeted'] == 'd'
 
@@ -300,7 +300,7 @@ class Test_assign_who_coding:
                                    'non_compliance': [''],
                                    'who_targeted': ['a']})
 
-        record = assign_who_coding(record, who_coding, log=False)
+        record = assign_who_coding(record, who_coding)
 
         assert record['non_compliance_penalty'] == 'f'
 

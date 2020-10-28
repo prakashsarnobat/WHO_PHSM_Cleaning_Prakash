@@ -41,6 +41,17 @@ cdc <- cdc %>%
 
 write_csv(cdc, '/Users/hamishgibbs/Documents/Covid-19/WHO_PHSM_Cleaning/config/input_check/coded_values/CDC_ITF.csv')
 
+master <- read_csv('/Users/hamishgibbs/Documents/Covid-19/WHO_Interventions/WHO_Intervention_Cleaning/output/output_manual/master_2020_10_21.csv') 
+
+master <- master %>% 
+  select(processed, keep, ) %>% 
+  mutate(n = row_number()) %>% 
+  pivot_longer(!n, names_to = "column", values_to = "value") %>% 
+  select(-n) %>% 
+  distinct() %>% 
+  arrange(column) %>% 
+  mutate(dataset = 'CDC_ITF')
+
 
 
 

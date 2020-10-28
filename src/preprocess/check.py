@@ -28,11 +28,11 @@ def check_column_names(records: pd.DataFrame, config: pd.DataFrame, log: bool = 
 
         if log:
 
-            logging.info('%s input columns OK.' % dataset)
+            logging.info('INPUT_CHECK_SUCCESS=%s input columns OK.' % dataset)
 
     except Exception as e:
 
-        message = 'Unexpected %s columns.' % dataset
+        message = 'INPUT_CHECK_SUCCESS=Unexpected %s columns.' % dataset
 
         if log:
 
