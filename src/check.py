@@ -54,7 +54,7 @@ def check_duplicate_id(data: pd.DataFrame, key: str, log: bool = True):
 
             logging.error('OUTPUT_CHECK_FAILURE=Duplicate %s detected.' % key)
 
-        raise e
+        pass
 
 
 def check_column_names(data: pd.DataFrame, log: bool = True):
@@ -71,11 +71,20 @@ def check_column_names(data: pd.DataFrame, log: bool = True):
 
     except Exception as e:
 
+        exp_diff = set(expected).difference(set(data.columns))
+        new_diff = set(data.columns).difference(set(expected))
+
         if log:
 
-            logging.error('OUTPUT_CHECK_FAILURE=Column names do not agree.')
+            if len(exp_diff) > 0:
 
-        raise e
+                logging.error('OUTPUT_CHECK_FAILURE=Column names do not agree. Present in expected: %s' % ', '.join(list(exp_diff)))
+
+            if len(new_diff) > 0:
+
+                logging.error('OUTPUT_CHECK_FAILURE=Column names do not agree. Present in input: %s' % ', '.join(list(new_diff)))
+
+        pass
 
 
 def check_unknown_values(data: pd.DataFrame, key: str, log: bool = True):

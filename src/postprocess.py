@@ -39,5 +39,7 @@ records = pd.concat(postprocessed)
 
 check_output(records)
 
+records.to_csv('tmp/postprocess/records.csv', index=False)
+
 print("Success.")
 logging.info("Success.")
