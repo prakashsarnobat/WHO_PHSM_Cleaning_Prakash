@@ -67,7 +67,7 @@ def check_column_names(data: pd.DataFrame, log: bool = True):
 
         if log:
 
-            logging.info('OUTPUT_CHECK_SUCCESS=Column names agree.')
+            logging.info('OUTPUT_CHECK_SUCCESS=Data has expected column names.')
 
     except Exception as e:
 

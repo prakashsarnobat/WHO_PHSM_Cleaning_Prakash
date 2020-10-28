@@ -41,7 +41,8 @@ docs: FORCE
 	sphinx-apidoc -f -o docs/source tests
 	cd ./docs && $(MAKE) html
 
-#dummy test target
+data: preprocess process postprocess logs report
+
 preprocess:
 	python src/preprocess.py
 
@@ -51,13 +52,11 @@ process:
 postprocess:
 	python src/postprocess.py
 
-data: preprocess process postprocess logs
-
-report: tech_report
-
 logs:
 	python src/report.py
 
+report: tech_report
+	
 tech_report:
 	jupyter nbconvert --to html --TemplateExporter.exclude_input=True --execute reporting/technical_report.ipynb
 
