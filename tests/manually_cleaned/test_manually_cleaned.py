@@ -2,6 +2,10 @@ import pytest
 import pandas as pd
 from src.manually_cleaned import main
 
+def test_fail():
+
+    assert 0
+
 class Test_update_following_measures():
 
     def test_update_following_measures(self):
