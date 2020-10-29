@@ -78,7 +78,7 @@ records = jh + cdc + acaps
 
 # write list to a pickle file
 utils.write_records(records, "tmp/preprocess", "records.pickle")
-logging.info("INPUT_RECORDS=%d" % len(records))
+logging.info("TOTAL_INPUT_RECORDS=%d" % len(records))
 
 # replace this with logging
 print("Success.")

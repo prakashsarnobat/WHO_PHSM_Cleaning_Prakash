@@ -1,6 +1,6 @@
 import pytest
 import pandas as pd
-from src.combine import main
+from src.manually_cleaned import main
 
 class Test_update_following_measures():
 

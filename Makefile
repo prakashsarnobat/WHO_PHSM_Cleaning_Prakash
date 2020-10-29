@@ -41,7 +41,7 @@ docs: FORCE
 	sphinx-apidoc -f -o docs/source tests
 	cd ./docs && $(MAKE) html
 
-data: preprocess process postprocess combine logs report
+data: preprocess process postprocess manually_cleaned logs report
 
 preprocess:
 	python src/preprocess.py
@@ -52,8 +52,11 @@ process:
 postprocess:
 	python src/postprocess.py
 
-combine:
-	python src/combine.py
+manually_cleaned:
+	python src/manually_cleaned.py
+
+master:
+	python src/master.py
 
 logs:
 	python src/report.py
