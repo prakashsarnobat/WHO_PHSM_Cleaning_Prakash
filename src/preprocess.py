@@ -32,10 +32,14 @@ column_config = {'JH_HIT':pd.read_csv(check_dir + '/columns/JH_HIT.csv'),
                  'CDC_ITF':pd.read_csv(check_dir + '/columns/CDC_ITF.csv'),
                  'ACAPS':pd.read_csv(check_dir + '/columns/ACAPS.csv')}
 
+date_config = pd.read_csv(check_dir + '/date_format/date_format.csv')
+
 jh = pd.read_csv(jh)
 
 check.check_input(records=jh,
                   column_config=column_config['JH_HIT'])
+
+check.check_date_format(jh, date_config, "JH_HIT")
 
 jh = utils.df_to_records(jh, "JH_HIT")
 

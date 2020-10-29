@@ -35,14 +35,20 @@ def check_output(data: pd.DataFrame):
     check_unknown_values(data, 'who_subcategory')
     check_unknown_values(data, 'who_category')
 
+    check_values_present(data, 'duplicate_record_id', 'who_id')
+    check_values_present(data, 'prev_measure_number', 'who_id')
+    check_values_present(data, 'following_measure_number', 'who_id')
+
     return(data)
 
 
 def check_duplicate_id(data: pd.DataFrame, key: str, log: bool = True):
 
+    res = len(data['who_id']) == len(data['who_id'].unique())
+
     try:
 
-        assert len(data['who_id']) == len(data['who_id'].unique())
+        assert res
 
         if log:
 
@@ -55,6 +61,8 @@ def check_duplicate_id(data: pd.DataFrame, key: str, log: bool = True):
             logging.error('OUTPUT_CHECK_FAILURE=Duplicate %s detected.' % key)
 
         pass
+
+    return(res)
 
 
 def check_column_names(data: pd.DataFrame, log: bool = True):
@@ -128,6 +136,32 @@ def check_unknown_values(data: pd.DataFrame, key: str, log: bool = True):
                     logging.error('OUTPUT_CHECK_FAILURE=Unknown coding %s.' % (' '.join(['%s=%s' % (key, value) for (key, value) in row.items()])))
 
         pass
+
+
+def check_values_present(data: pd.DataFrame, focus_col: str, ref_col: str, log: bool = True):
+    '''Function to check if values present in one column can also be found in another column'''
+
+    diff = list(set(data[focus_col].dropna()).difference(set(data[ref_col].dropna())))
+
+    res = len(diff) == 0
+
+    try:
+
+        assert res
+
+        if log:
+
+            logging.info('OUTPUT_CHECK_SUCCESS=All values in %s are present in %s.' % (focus_col, ref_col))
+
+    except:
+
+        if log:
+
+            logging.info('OUTPUT_CHECK_FAILURE=%d values in %s are missing from %s.' % (len(diff), focus_col, ref_col))
+
+        pass
+
+    return(res)
 
 
 def check_coded_values(data: pd.DataFrame, config: pd.DataFrame, log: bool = True):

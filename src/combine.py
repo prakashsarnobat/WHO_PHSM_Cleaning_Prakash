@@ -13,7 +13,7 @@ import logging
 from utils import create_dir
 from postprocess.main import postprocess
 from check import check_output
-from combine.main import adjust_manually_cleaned
+from combine.main import adjust_manually_cleaned, get_new_records
 
 argv = sys.argv
 
@@ -43,3 +43,12 @@ logging.info("Adjusting manually cleaned...")
 manually_cleaned = adjust_manually_cleaned(manually_cleaned)
 
 # Combine with new data (independent from IDs)
+new_records = get_new_records(records, manually_cleaned, ['country_territory_area', 'dataset', 'area_covered', 'who_code', 'date_start'])
+
+print(new_records)
+
+master = pd.concat([manually_cleaned, new_records])
+
+check_output(master)
+
+#log number of records here, number of cleansed etc.

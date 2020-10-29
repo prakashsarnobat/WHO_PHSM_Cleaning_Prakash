@@ -12,7 +12,7 @@ import pandas as pd
 
 def adjust_manually_cleaned(manually_cleaned):
 
-    manually_cleaned = update_following_measures(manually_cleaned)
+    #manually_cleaned = update_following_measures(manually_cleaned)
 
     manually_cleaned = update_measure_stage_date(manually_cleaned)
 
@@ -38,8 +38,15 @@ def update_following_measures(manually_cleaned):
 
         new_reason_ended = following_measure['measure_stage']
 
-        row['date_end'] = new_date_end
-        row['reason_ended'] = new_reason_ended
+        if len(new_date_end) > 0:
+
+            row['date_end'] = new_date_end
+            row['reason_ended'] = new_reason_ended
+
+        else:
+
+            row['date_end'] = row['date_end']
+            row['reason_ended'] = row['reason_ended']
 
         to_alter_res.append(row)
 
@@ -60,3 +67,22 @@ def update_measure_stage_date(manually_cleaned):
     manually_cleaned.loc[(is_null_date_end) & (is_finish), "date_end"] = manually_cleaned.loc[(is_null_date_end) & (is_finish), "date_start"]
 
     return(manually_cleaned)
+
+def get_new_records(records, manually_cleaned, cols):
+    ''' This needs to be replaced with an interfeace between old_ids and new_ids'''
+
+    records['combo_string'] = get_combo_string(records, cols)
+    manually_cleaned['combo_string'] = get_combo_string(manually_cleaned, cols)
+
+    new_combo_strings = set(records['combo_string']).difference(set(manually_cleaned['combo_string']))
+
+    new_records = records.loc[[x in new_combo_strings for x in records['combo_string']], :]
+
+    return(new_records)
+
+
+def get_combo_string(records, cols):
+
+    combo_string = records[cols].apply(lambda x: x.astype(str)).agg('_'.join, axis=1)
+
+    return(combo_string)
