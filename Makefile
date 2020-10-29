@@ -3,10 +3,6 @@
 #wants logging & change history and reporting (basic) & custom github CI
 
 # Search for .env file variables
-ifneq (,$(wildcard ./.env))
-    include .env
-    export
-endif
 
 #Build a new docker image
 build:
