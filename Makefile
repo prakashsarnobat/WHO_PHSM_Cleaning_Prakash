@@ -41,7 +41,7 @@ docs: FORCE
 	sphinx-apidoc -f -o docs/source tests
 	cd ./docs && $(MAKE) html
 
-data: preprocess process postprocess logs report
+data: preprocess process postprocess combine logs report
 
 preprocess:
 	python src/preprocess.py

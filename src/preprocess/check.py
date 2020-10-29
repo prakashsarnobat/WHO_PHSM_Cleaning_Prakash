@@ -12,10 +12,12 @@ import logging
 from datetime import datetime
 
 
-def check_input(records: pd.DataFrame, column_config: pd.DataFrame):
+def check_input(records: pd.DataFrame, column_config: pd.DataFrame, date_config: pd.DataFrame, dataset: str):
     '''Function to unify all input checks'''
 
     check_column_names(records, column_config)
+
+    check_date_format(records, date_config, dataset)
 
 
 def check_column_names(records: pd.DataFrame, config: pd.DataFrame, log: bool = True):
@@ -55,7 +57,7 @@ def check_date_format(data: pd.DataFrame, config: pd.DataFrame, dataset: str, lo
 
         if log:
 
-            logging.info('INPUT_CHECK_SUCCESS=%s %s date format is %s OK.' % (dataset, date_column, format))
+            logging.info('INPUT_CHECK_SUCCESS=%s %s date format is %s.' % (dataset, date_column, format))
 
     except:
 

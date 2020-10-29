@@ -2,6 +2,8 @@
 postprocess.py
 ====================================
 Script to combine previously updated data with a new data.
+
+Preprocessing Mistress should be separate from master creation
 """
 
 # Import data
@@ -10,7 +12,7 @@ import sys
 import pandas as pd
 import logging
 
-from utils import create_dir
+from utils import create_dir, log_records_per
 from postprocess.main import postprocess
 from check import check_output
 from combine.main import adjust_manually_cleaned, get_new_records
@@ -42,6 +44,9 @@ logging.info("Adjusting manually cleaned...")
 # Apply changes to mistress
 manually_cleaned = adjust_manually_cleaned(manually_cleaned)
 
+log_records_per(manually_cleaned, 'dataset')
+log_records_per(manually_cleaned, 'processed')
+
 # Combine with new data (independent from IDs)
 new_records = get_new_records(records, manually_cleaned, ['country_territory_area', 'dataset', 'area_covered', 'who_code', 'date_start'])
 
@@ -49,6 +54,9 @@ print(new_records)
 
 master = pd.concat([manually_cleaned, new_records])
 
-check_output(master)
+print("Success.")
+logging.info("Success.")
+
+
 
 #log number of records here, number of cleansed etc.

@@ -1,6 +1,7 @@
 import os
 import shutil
 import pandas as pd
+import logging
 
 def create_dir(dir: str):
     """Function to create or replace a "tmp" directory"""
@@ -14,13 +15,13 @@ def create_dir(dir: str):
 def log_records_per(data: pd.DataFrame, group: str):
     '''Function to log the number of records in each group'''
 
-    groups = data.groupby([group]).count()
+    data['n_records'] = 1
 
-    count_col = groups.columns[1]
+    groups = data.groupby([group]).count().reset_index()
 
     for i, row in groups.iterrows():
 
-        logging.info("%s_RECORDS=%d" % (row.index, row[count_col]))
+        logging.info("%s_RECORDS=%d" % (row[group], row['n_records']))
 
 def parse_log(line: str):
     '''Function to parse a log line and return a message dict for reporting'''
