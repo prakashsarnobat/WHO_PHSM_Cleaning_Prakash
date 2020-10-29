@@ -41,7 +41,6 @@ logging.info("Adjusting manually cleaned...")
 # Apply changes to mistress
 manually_cleaned = adjust_manually_cleaned(manually_cleaned)
 
-
 # Check mistress
 check_output(manually_cleaned)
 
@@ -49,6 +48,7 @@ log_records_per(manually_cleaned, 'dataset')
 log_records_per(manually_cleaned, 'processed')
 
 manually_cleaned.to_csv('tmp/manually_cleaned/records.csv', index=False)
+
 
 print("Success.")
 logging.info("Success.")
