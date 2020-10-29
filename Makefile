@@ -22,7 +22,7 @@ bash:
 
 #Run tests in container
 test:
-	docker run -it --rm --mount type=bind,source=${PWD},target=/usr/who_clean/ who_clean tox
+	docker run --rm --mount type=bind,source=${PWD},target=/usr/who_clean/ who_clean tox
 
 #Lint code with isort -> black -> flake8
 lint: isort black flake8
