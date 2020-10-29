@@ -23,8 +23,8 @@ logging.info("Preprocessing Data...")
 
 # Dataset sources: these should be in makefile when ready
 jh = "https://raw.githubusercontent.com/HopkinsIDD/hit-covid/master/data/hit-covid-longdata.csv"
-cdc = "raw_data/CDC_ITF_latest.xlsx"
-acaps = "raw_data/ACAPS_latest.xlsx"
+cdc = "data/raw/CDC_ITF_latest.xlsx"
+acaps = "data/raw/ACAPS_latest.xlsx"
 check_dir = 'config/input_check'
 
 # Load column config
@@ -32,28 +32,42 @@ column_config = {'JH_HIT':pd.read_csv(check_dir + '/columns/JH_HIT.csv'),
                  'CDC_ITF':pd.read_csv(check_dir + '/columns/CDC_ITF.csv'),
                  'ACAPS':pd.read_csv(check_dir + '/columns/ACAPS.csv')}
 
+date_config = pd.read_csv(check_dir + '/date_format/date_format.csv')
+
+# Read JH Data
 jh = pd.read_csv(jh)
 
+# Check JH Data
 check.check_input(records=jh,
-                  column_config=column_config['JH_HIT'])
+                  column_config=column_config['JH_HIT'],
+                  date_config=date_config,
+                  dataset = 'JH_HIT')
 
 jh = utils.df_to_records(jh, "JH_HIT")
 
 logging.info("JH_HIT_RECORDS=%d" % len(jh))
 
+# Read CDC Data
 cdc = pd.read_excel(cdc, sheet_name='Line list')
 
+# Check CDC Data
 check.check_input(records=cdc,
-                  column_config=column_config['CDC_ITF'])
+                  column_config=column_config['CDC_ITF'],
+                  date_config=date_config,
+                  dataset = 'CDC_ITF')
 
 cdc = utils.df_to_records(cdc, "CDC_ITF")
 
 logging.info("CDC_ITF_RECORDS=%d" % len(cdc))
 
+# Read ACAPS Data
 acaps = pd.read_excel(acaps, sheet_name='Dataset')
 
+# Check ACAPS Data
 check.check_input(records=acaps,
-                  column_config=column_config['ACAPS'])
+                  column_config=column_config['ACAPS'],
+                  date_config=date_config,
+                  dataset = 'ACAPS')
 
 acaps = utils.df_to_records(acaps, "ACAPS")
 
@@ -64,7 +78,7 @@ records = jh + cdc + acaps
 
 # write list to a pickle file
 utils.write_records(records, "tmp/preprocess", "records.pickle")
-logging.info("INPUT_RECORDS=%d" % len(records))
+logging.info("TOTAL_INPUT_RECORDS=%d" % len(records))
 
 # replace this with logging
 print("Success.")

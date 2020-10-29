@@ -12,7 +12,7 @@ from progress.bar import Bar
 
 from processing.main import process
 from processing.utils import generate_blank_record
-from utils import create_dir
+from utils import create_dir, log_records_per
 from processing import check
 from check import check_output
 
@@ -66,6 +66,8 @@ records = pd.concat(processed_records)
 
 ''' OUTPUT CHECKS HERE (work for all processed datasets) '''
 check_output(records)
+
+log_records_per(records, 'dataset')
 
 records.to_csv('tmp/process/records.csv', index=False)
 print('Success.')

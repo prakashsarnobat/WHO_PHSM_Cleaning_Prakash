@@ -9,12 +9,15 @@ test these functions!
 
 import pandas as pd
 import logging
+from datetime import datetime
 
 
-def check_input(records: pd.DataFrame, column_config: pd.DataFrame):
+def check_input(records: pd.DataFrame, column_config: pd.DataFrame, date_config: pd.DataFrame, dataset: str):
     '''Function to unify all input checks'''
 
     check_column_names(records, column_config)
+
+    check_date_format(records, date_config, dataset)
 
 
 def check_column_names(records: pd.DataFrame, config: pd.DataFrame, log: bool = True):
@@ -39,3 +42,36 @@ def check_column_names(records: pd.DataFrame, config: pd.DataFrame, log: bool = 
             logging.error(message)
 
         raise e
+
+def check_date_format(data: pd.DataFrame, config: pd.DataFrame, dataset: str, log: bool = True):
+    '''Function to check that an input date is in the expected format'''
+
+    format = config.loc[config['dataset'] == dataset, 'format'].item()
+    date_column = config.loc[config['dataset'] == dataset, 'date_column'].item()
+
+    res = [validate_date_format(x, format) for x in data[date_column] if x is None]
+
+    try:
+
+        assert len(res) == 0
+
+        if log:
+
+            logging.info('INPUT_CHECK_SUCCESS=%s %s date format is %s.' % (dataset, date_column, format))
+
+    except:
+
+        if log:
+
+            logging.info('INPUT_CHECK_FAILURE=%s %s %d dates not in the format %s.' % (dataset, date_column, len(res), format))
+
+def validate_date_format(date, format):
+    '''Function to return None if a date format does not parse'''
+
+    try:
+
+        return(datetime.strptime(date, format))
+
+    except:
+
+        return(None)
