@@ -100,6 +100,9 @@ def check_unknown_values(data: pd.DataFrame, key: str, log: bool = True):
 
     unknown_vals = data.loc[data[key] == 'unknown']
 
+    datasets = list(unknown_vals['dataset'].unique())
+    datasets = ', '.join(datasets)
+
     n_unknown = len(unknown_vals.iloc[:, 1])
 
     try:
@@ -117,7 +120,7 @@ def check_unknown_values(data: pd.DataFrame, key: str, log: bool = True):
             logging.error('OUTPUT_CHECK_FAILURE=%d unknown values in %s.' % (n_unknown, key))
 
             country_keys = ['iso', 'iso_3166_1_numeric', 'who_region', 'country_territory_area']
-            coding_keys = ['who_code', 'who_measure', 'who_subcategory', 'who_category', 'prov_category', 'prov_subcategory', 'prov_category']
+            coding_keys = ['who_code', 'who_measure', 'who_subcategory', 'who_category', 'prov_category', 'prov_subcategory', 'prov_measure']
 
             if key in country_keys:
 
@@ -125,7 +128,7 @@ def check_unknown_values(data: pd.DataFrame, key: str, log: bool = True):
 
                 for k, row in unknown_vals.iterrows():
 
-                    logging.error('OUTPUT_CHECK_FAILURE=Unknown country %s.' % (' '.join(['%s=%s' % (key, value) for (key, value) in row.items()])))
+                    logging.error('OUTPUT_CHECK_FAILURE=Unknown country in dataset: %s; %s.' % (datasets, ' '.join(['%s=%s' % (key, value) for (key, value) in row.items()])))
 
             elif key in coding_keys:
 
@@ -133,7 +136,7 @@ def check_unknown_values(data: pd.DataFrame, key: str, log: bool = True):
 
                 for k, row in unknown_vals.iterrows():
 
-                    logging.error('OUTPUT_CHECK_FAILURE=Unknown coding %s.' % (' '.join(['%s=%s' % (key, value) for (key, value) in row.items()])))
+                    logging.error('OUTPUT_CHECK_FAILURE=Unknown coding in dataset: %s; %s.' % (datasets, ' '.join(['%s: %s' % (key, value) for (key, value) in row.items()])))
 
         pass
 
@@ -174,7 +177,7 @@ def check_coded_values(data: pd.DataFrame, config: pd.DataFrame, log: bool = Tru
 
         column_name = list(column['column'].unique())[0]
 
-        expected = list(column['value']) + ['']
+        expected = list(column['value']) + [None]
 
         obs = list(data[column_name].unique())
 
