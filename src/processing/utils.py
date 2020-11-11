@@ -9,6 +9,7 @@ def generate_blank_record():
 
     record = {
         "processed": None,
+        "uuid": str(uuid.uuid4()),
         "who_id": None,
         "dataset": None,
         "prop_id": None,
