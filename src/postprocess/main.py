@@ -10,7 +10,6 @@ def postprocess(data: pd.DataFrame):
 
         data = CDC_ITF.postprocess(data)
 
-
     else:
 
         return(data)

@@ -28,8 +28,8 @@ non_compliance_penalty,arrest/detention
 non_compliance_penalty,other
 non_compliance_penalty,refused exit
 non_compliance_penalty,legal action
-non_compliance_penalty,Refused entry to country
-non_compliance_penalty,Deportation
+non_compliance_penalty,refused entry to country
+non_compliance_penalty,deportation
 non_compliance_penalty,not available
 processed,sequenced
 processed,cleansed

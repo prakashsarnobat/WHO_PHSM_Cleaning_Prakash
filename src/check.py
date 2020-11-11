@@ -1,5 +1,6 @@
 import logging
 import pandas as pd
+import numpy as np
 
 try:
 
@@ -180,6 +181,9 @@ def check_coded_values(data: pd.DataFrame, config: pd.DataFrame, log: bool = Tru
         expected = list(column['value']) + [None]
 
         obs = list(data[column_name].unique())
+
+        # Does not detect nan values
+        obs = [x for x in obs if str(x) != 'nan']
 
         difference = set(obs).difference(set(expected))
 

@@ -49,6 +49,25 @@ def transform(record: dict, key_ref: dict, country_ref: pd.DataFrame, who_coding
     record = utils.replace_conditional(record, 'country_territory_area', 'DPRK', 'North Korea')
     record = utils.replace_conditional(record, 'country_territory_area', 'Eswatini', 'Swaziland')
 
+    # Make manual measure_stage changes
+    record = utils.replace_conditional(record, 'measure_stage', 'Introduction / extension of measures', 'new')
+    record = utils.replace_conditional(record, 'measure_stage', 'Phase-out measure', 'phase-out')
+
+    # Make manual non_compliance_penalty changes
+    record = utils.replace_conditional(record, 'non_compliance_penalty', 'Legal Action', 'legal action')
+    record = utils.replace_conditional(record, 'non_compliance_penalty', 'Legal action', 'legal action')
+    record = utils.replace_conditional(record, 'non_compliance_penalty', 'Up to detention', 'up to detention')
+    record = utils.replace_conditional(record, 'non_compliance_penalty', 'Arrest/Detention', 'arrest/detention')
+    record = utils.replace_conditional(record, 'non_compliance_penalty', 'Refusal to enter the country', 'refused entry to country')
+    record = utils.replace_conditional(record, 'non_compliance_penalty', 'Other (add in comments)', 'not known')
+    record = utils.replace_conditional(record, 'non_compliance_penalty', 'Fines', 'fines')
+    record = utils.replace_conditional(record, 'non_compliance_penalty', 'Other', 'not known')
+    record = utils.replace_conditional(record, 'non_compliance_penalty', 'Not Available', 'not available')
+    record = utils.replace_conditional(record, 'non_compliance_penalty', 'Not available', 'not available')
+    record = utils.replace_conditional(record, 'non_compliance_penalty', 'Not available ', 'not available')
+    record = utils.replace_conditional(record, 'non_compliance_penalty', 'Not Applicable', 'not applicable')
+    record = utils.replace_conditional(record, 'non_compliance_penalty', 'Not applicable', 'not applicable')
+
     # 4. replace sensitive country names by ISO (utils)
     record = utils.replace_sensitive_regions(record)
 

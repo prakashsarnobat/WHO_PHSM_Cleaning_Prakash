@@ -75,6 +75,18 @@ def transform(record: dict, key_ref: dict, country_ref: pd.DataFrame, who_coding
     record = utils.replace_conditional(record, 'country_territory_area', 'South Korea', 'Korea')
     record = utils.replace_conditional(record, 'country_territory_area', 'Bonaire, Saint Eustatius and Saba', 'Carribean Netherlands')
 
+    # 7. Make manual measure_stage name changes
+    record = utils.replace_conditional(record, 'measure_stage', 'Impose', 'new')
+    record = utils.replace_conditional(record, 'measure_stage', 'Lift', 'phase-out')
+    record = utils.replace_conditional(record, 'measure_stage', 'Ease', 'modification')
+    record = utils.replace_conditional(record, 'measure_stage', 'Strengthen', 'modification')
+
+    # 7. Make manual non_compliance_penalty name changes
+    record = utils.replace_conditional(record, 'non_compliance_penalty', 'Yes', 'not known')
+    record = utils.replace_conditional(record, 'non_compliance_penalty', 'Yes ', 'not known')
+    record = utils.replace_conditional(record, 'non_compliance_penalty', 'No', None)
+    record = utils.replace_conditional(record, 'non_compliance_penalty', "No'", None)
+
     # 8. replace sensitive country names
     record = utils.replace_sensitive_regions(record)
 

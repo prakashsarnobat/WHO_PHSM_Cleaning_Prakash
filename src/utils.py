@@ -15,6 +15,8 @@ def create_dir(dir: str):
 def log_records_per(data: pd.DataFrame, group: str):
     '''Function to log the number of records in each group'''
 
+    data = data.copy()
+
     data['n_records'] = 1
 
     groups = data.groupby([group]).count().reset_index()
@@ -22,6 +24,7 @@ def log_records_per(data: pd.DataFrame, group: str):
     for i, row in groups.iterrows():
 
         logging.info("%s_RECORDS=%d" % (row[group], row['n_records']))
+
 
 def parse_log(line: str):
     '''Function to parse a log line and return a message dict for reporting'''
