@@ -29,7 +29,7 @@ except Exception as e:
     from src.processing import check
 
 
-def transform(record: dict, key_ref: dict, country_ref: pd.DataFrame, who_coding: pd.DataFrame):
+def transform(record: dict, key_ref: dict, country_ref: pd.DataFrame, who_coding: pd.DataFrame, no_update_phrase: pd.DataFrame):
 
     # 1. generator function of new record with correct keys (shared)
     new_record = utils.generate_blank_record()
@@ -38,7 +38,10 @@ def transform(record: dict, key_ref: dict, country_ref: pd.DataFrame, who_coding
     # reference (shared)
     record = utils.apply_key_map(new_record, record, key_ref)
 
-    #handle financial measures - move values to value_usd column, replace with 1 in prov_measure
+    # Filter out records with "no update" phrases
+    if record['comments'] in list(no_update_phrase['phrase']):
+
+        return(None)
 
     # 3. Assign unique ID (shared)
     record = utils.assign_id(record)

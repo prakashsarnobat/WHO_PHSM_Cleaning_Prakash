@@ -47,6 +47,8 @@ who_coding = {'JH_HIT': pd.read_csv('config/who_coding/JH_HIT.csv').fillna(''),
 
 prov_measure_filter = {'JH_HIT': pd.read_csv('config/prov_measure_filter/JH_HIT.csv')}
 
+no_update_phrase = {'OXCGRT': pd.read_csv('config/no_update_phrase/OXCGRT.csv')}
+
 blank_record = generate_blank_record()
 
 processed_records = []
@@ -54,7 +56,7 @@ processed_records = []
 bar = Bar('Processing Data...', max=len(records))
 for record in records:
 
-    record = process(record, key_ref, country_ref, who_coding, prov_measure_filter)
+    record = process(record, key_ref, country_ref, who_coding, prov_measure_filter, no_update_phrase)
 
     check.check_record_keys_agree(record, blank_record)
 

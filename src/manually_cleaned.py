@@ -28,7 +28,7 @@ logging.basicConfig(filename='tmp/manually_cleaned/manually_cleaned.log',
 print("Reading manually cleaned data...")
 logging.info("Reading manually cleaned data...")
 
-manually_cleaned = pd.read_csv('data/not_cleansed/mistress_latest.csv')
+manually_cleaned = pd.read_csv('data/not_cleansed/mistress_latest.csv', low_memory=False)
 
 records = pd.read_csv('tmp/postprocess/records.csv')
 
