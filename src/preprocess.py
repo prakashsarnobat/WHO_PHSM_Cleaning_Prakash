@@ -79,7 +79,7 @@ acaps = utils.df_to_records(acaps, "ACAPS")
 logging.info("ACAPS_RECORDS=%d" % len(acaps))
 
 # Read OXCGRT Data
-oxcgrt = pd.read_csv(oxcgrt, parse_dates=["Date"])
+oxcgrt = pd.read_csv(oxcgrt, parse_dates=["Date"], low_memory=False)
 
 # Check OXCGRT Data
 check.check_input(records=oxcgrt,

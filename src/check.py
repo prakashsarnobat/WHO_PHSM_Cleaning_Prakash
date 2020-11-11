@@ -19,8 +19,6 @@ def check_output(data: pd.DataFrame):
 
     # check duplicate who_id
     check_duplicate_id(data, 'who_id')
-    check_duplicate_id(data, 'prev_measure_number')
-    check_duplicate_id(data, 'following_measure_number')
 
     # check for coded values from config
     coded_config = pd.read_csv('config/output_check/coded_values.csv')
