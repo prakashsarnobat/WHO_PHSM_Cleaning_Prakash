@@ -56,7 +56,7 @@ def transform(record: dict, key_ref: dict, country_ref: pd.DataFrame, who_coding
     record['comments'] = comments
 
     # 6. Assign unique ID (shared)
-    record = utils.assign_id(record)
+    #record = utils.assign_id(record)
 
     # 5. Handle date formatting
     record = utils.parse_date(record)

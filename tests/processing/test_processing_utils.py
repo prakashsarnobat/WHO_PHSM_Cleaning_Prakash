@@ -12,7 +12,7 @@ class Test_generate_blank_record:
 
     def test_dict_key_number(self):
 
-        assert len(generate_blank_record().keys()) == 42
+        assert len(generate_blank_record().keys()) == 45
 
 
 def test_create_id():
@@ -330,7 +330,7 @@ class Test_add_admin_level:
 
     def test_add_admin_level_national(self):
 
-        record = {'admin_level': ''}
+        record = {'area_covered':None, 'admin_level': ''}
 
         record = utils.add_admin_level(record)
 
@@ -338,7 +338,7 @@ class Test_add_admin_level:
 
     def test_add_admin_level_other(self):
 
-        record = {'admin_level': 'Anything'}
+        record = {'area_covered':'Anything', 'admin_level': ''}
 
         record = utils.add_admin_level(record)
 

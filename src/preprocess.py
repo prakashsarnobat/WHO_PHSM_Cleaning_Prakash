@@ -94,7 +94,7 @@ drop_columns = ['ConfirmedCases',
        'ContainmentHealthIndex', 'ContainmentHealthIndexForDisplay',
        'EconomicSupportIndex', 'EconomicSupportIndexForDisplay']
 
-oxcgrt.drop(drop_columns, axis = 1, inplace = True)       
+oxcgrt.drop(drop_columns, axis = 1, inplace = True)
 
 oxcgrt.fillna(0.0, inplace = True)
 

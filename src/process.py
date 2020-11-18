@@ -68,8 +68,10 @@ for record in records:
 
 records = pd.concat(processed_records)
 
-''' OUTPUT CHECKS HERE (work for all processed datasets) '''
 check_output(records)
+
+# Assign who codes to the original WHO codes
+records['original_who_code'] = records['who_code']
 
 log_records_per(records, 'dataset')
 

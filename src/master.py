@@ -8,7 +8,7 @@ from check import check_output
 from master.main import get_new_records
 
 argv = sys.argv
-pd.set_option('display.max_columns', 500)
+pd.set_option('display.max_columns', 5)
 
 create_dir("tmp/master")
 
@@ -36,24 +36,30 @@ logging.info("Combining manually cleaned and update data...")
 
 combo_cols = ["country_territory_area", "dataset", "area_covered", "who_code", "date_start"]
 
-print(previous_update[['prop_id'] + combo_cols].loc[(previous_update['dataset'] == 'OXCGRT'), :])
-print(update[['prop_id'] + combo_cols].loc[(update['dataset'] == 'OXCGRT'), :])
+previous_update_not_ox = previous_update.loc[(previous_update['dataset'] != 'OXCGRT'), :]
+update_not_ox = update.loc[(update['dataset'] != 'OXCGRT'), :]
 
-new_ids = set(update['prop_id']).difference(set(previous_update['prop_id']))
+previous_update_ox = previous_update.loc[(previous_update['dataset'] == 'OXCGRT'), :]
+update_ox = update.loc[(update['dataset'] == 'OXCGRT'), :]
 
-print('THESE ARE THE NEW IDs')
-print(len(new_ids))
-#print([x in new_ids for x in update['prop_id']])
-#print(update.loc[[x in new_ids for x in update['prop_id']], 'dataset'].value_counts())
+assert (len(previous_update_not_ox.index) + len(previous_update_ox.index)) == len(previous_update.index)
+assert (len(update_not_ox.index) + len(update_ox.index)) == len(update.index)
 
-new_records = get_new_records(
-    update,
-    previous_update,
+new_records_ox = get_new_records(
+    update_ox,
+    previous_update_ox,
     combo_cols,
 )
 
-print(new_records)
-new_records.to_csv('tmp/new_records.csv')
+new_ids = set(update_not_ox['prop_id']).difference(set(previous_update_not_ox['prop_id']))
+
+new_ids = [x for x in new_ids if not pd.isna(x)]
+
+new_records_not_ox = update.loc[[x in new_ids for x in update['prop_id']], :]
+
+new_records = pd.concat([new_records_not_ox, new_records_ox])
+
+new_records_ox.to_csv('tmp/new_records.csv')
 
 new_records["processed"] = "not_cleansed"
 

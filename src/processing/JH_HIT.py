@@ -65,7 +65,7 @@ def transform(record: dict, key_ref: dict, country_ref: pd.DataFrame, who_coding
     record = utils.parse_date(record)
 
     # 6. Assign unique ID (shared)
-    record = utils.assign_id(record)
+    #record = utils.assign_id(record)
 
     # 7. replace non ascii characters (shared)
 
