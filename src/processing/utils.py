@@ -1,4 +1,5 @@
 import pandas as pd
+import re
 import os
 import logging
 import uuid
@@ -134,6 +135,18 @@ def parse_date(record: dict):
     record['date_entry'] = pd.to_datetime(record['date_entry'])
 
     return(record)
+
+
+def get_min_id(fn: str, id_column: str = 'who_id'):
+    '''
+    Function to open a file and extract the maximum numeric # IDEA:
+
+    This will be the new min id to be incremented.
+    '''
+
+    data = pd.read_csv(fn, encoding='latin1', low_memory=False)
+
+    return(max([int(re.findall(r'\d+', x)[0]) for x in data[id_column]]))
 
 
 def assign_id(records: dict, min_id: int = 1):

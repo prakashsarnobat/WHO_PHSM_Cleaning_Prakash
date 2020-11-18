@@ -11,7 +11,7 @@ import logging
 from progress.bar import Bar
 
 from processing.main import process
-from processing.utils import generate_blank_record, assign_id
+from processing.utils import generate_blank_record, assign_id, get_min_id
 from utils import create_dir, log_records_per
 from processing import check
 from check import check_output
@@ -49,6 +49,8 @@ prov_measure_filter = {'JH_HIT': pd.read_csv('config/prov_measure_filter/JH_HIT.
 
 no_update_phrase = {'OXCGRT': pd.read_csv('config/no_update_phrase/OXCGRT.csv')}
 
+min_id = get_min_id('data/not_cleansed/update_latest_new.csv')
+
 blank_record = generate_blank_record()
 
 processed_records = []
@@ -72,12 +74,15 @@ records = pd.concat(processed_records)
 # Assign who codes to the original WHO codes
 records['original_who_code'] = records['who_code']
 
-records = assign_id(records)
+records = assign_id(records, min_id)
 
 check_output(records)
 
 log_records_per(records, 'dataset')
 
 records.to_csv('tmp/process/records.csv', index=False)
+
+records[['uuid', 'who_id']].to_csv('tmp/process/id_ref.csv', index=False)
+
 print('Success.')
 logging.info("Success.")
