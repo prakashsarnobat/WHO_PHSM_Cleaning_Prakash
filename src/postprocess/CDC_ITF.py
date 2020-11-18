@@ -22,7 +22,7 @@ def remove_id_duplicates(data: pd.DataFrame):
                 'link',
                 'date_start']
 
-    dup_ref = data.groupby(ref_cols).count().reset_index()[ref_cols + ['dataset']].copy()
+    dup_ref = data.groupby(ref_cols).count().reset_index()[ref_cols + ['dataset']]
 
     dup_ref = dup_ref.loc[dup_ref['dataset'] > 1, :]
 
@@ -43,6 +43,8 @@ def remove_id_duplicates(data: pd.DataFrame):
     data = data.loc[([x not in dup_ids for x in data['prop_id']]), :]
 
     data = pd.concat([data, dups])
+
+    data = data.drop('duplicate', axis = 1)
 
     logging.warning('Missing %d CDC Duplicates.' % (n_records - len(data.iloc[:, 1])))
 

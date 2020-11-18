@@ -98,6 +98,8 @@ def transform(record: dict, key_ref: dict, country_ref: pd.DataFrame, who_coding
     # 16. replace unknown non_compliance_penalty
     record = utils.replace_conditional(record, 'non_compliance_penalty', 'unknown', 'Not Known')
 
+    record = utils.remove_tags(record)
+
     return(record)
 
 

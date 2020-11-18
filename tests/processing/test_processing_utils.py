@@ -342,3 +342,35 @@ class Test_add_admin_level:
         record = utils.add_admin_level(record)
 
         assert record['admin_level'] == 'other'
+
+class Test_remove_tags:
+
+    def test_remove_tags_text(self):
+        '''test that plain text is left alone'''
+
+        sent = 'A sentence'
+
+        record = {'comments':sent}
+
+        record = utils.remove_tags(record, ['comments'])
+
+        assert record['comments'] == sent
+
+    def test_remove_tags_li(self):
+        '''test that html tags are removed'''
+
+        sent = '<li>A sentence</li>'
+
+        record = {'comments':sent}
+
+        record = utils.remove_tags(record, ['comments'])
+
+        assert record['comments'] == 'A sentence'
+
+    def test_remove_tags_none(self):
+
+        record = {'comments':None}
+
+        record = utils.remove_tags(record, ['comments'])
+
+        assert record['comments'] is None

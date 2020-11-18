@@ -59,9 +59,10 @@ new_records_not_ox = update.loc[[x in new_ids for x in update['prop_id']], :]
 
 new_records = pd.concat([new_records_not_ox, new_records_ox])
 
-new_records_ox.to_csv('tmp/new_records.csv')
+new_records.to_csv('tmp/new_records.csv')
 
 new_records["processed"] = "not_cleansed"
+new_records["date_processed"] = pd.to_datetime('today')
 
 master = pd.concat([manually_cleaned, new_records])
 

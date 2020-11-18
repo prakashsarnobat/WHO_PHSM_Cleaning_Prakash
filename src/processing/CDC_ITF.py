@@ -86,6 +86,7 @@ def transform(record: dict, key_ref: dict, country_ref: pd.DataFrame, who_coding
     record = utils.replace_conditional(record, 'non_compliance_penalty', 'Yes', 'not known')
     record = utils.replace_conditional(record, 'non_compliance_penalty', 'Yes ', 'not known')
     record = utils.replace_conditional(record, 'non_compliance_penalty', 'yes ', 'not known')
+    record = utils.replace_conditional(record, 'non_compliance_penalty', 'yes', 'not known')
     record = utils.replace_conditional(record, 'non_compliance_penalty', 'No', None)
     record = utils.replace_conditional(record, 'non_compliance_penalty', "No'", None)
 
@@ -115,6 +116,8 @@ def transform(record: dict, key_ref: dict, country_ref: pd.DataFrame, who_coding
 
     # 16. Add WHO PHSM admin_level values
     record = utils.add_admin_level(record)
+
+    record = utils.remove_tags(record)
 
     return(record)
 

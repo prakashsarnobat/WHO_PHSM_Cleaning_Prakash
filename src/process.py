@@ -78,6 +78,8 @@ records = assign_id(records, min_id)
 
 check_output(records)
 
+# set date processed to NOW
+
 log_records_per(records, 'dataset')
 
 records.to_csv('tmp/process/records.csv', index=False)

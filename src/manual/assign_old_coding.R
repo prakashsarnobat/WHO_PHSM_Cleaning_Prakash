@@ -69,6 +69,17 @@ new_master <- rbind(odd_values, values) %>%
   mutate(country_territory_area = str_to_lower(country_territory_area)) #%>% 
   #mutate(area_covered = str_to_lower(area_covered))
 
+jh_num_ids <- new_master %>% 
+  filter(dataset == 'JH_HIT', who_code == '4.1.2') %>% 
+  pull(prop_id) %>% 
+  gsub("[^0-9.]", "",  .)
+
+#Need to correct the JS schools IDs
+jh_schools <- tibble(prop_id = c(paste0(jh_num_ids, '_primary_school'),
+ paste0(jh_num_ids, '_sec_school'),
+ paste0(jh_num_ids, '_nursery_school')))
+
+new_master <- plyr::rbind.fill(new_master, jh_schools) %>% as_tibble()
 
 write_csv(new_master, '/Users/hamishgibbs/Documents/Covid-19/WHO_PHSM_Cleaning/data/not_cleansed/update_latest_new.csv')
 

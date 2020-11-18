@@ -319,3 +319,21 @@ def add_admin_level(record: dict):
         record['admin_level'] = 'other'
 
     return(record)
+
+
+def remove_tags(record: dict, keys: list = ['comments']):
+    '''Function to remove HTML tags from comments'''
+
+    exp = re.compile(r'<[^>]+>')
+
+    for key in keys:
+
+        try:
+
+            record[key] = exp.sub('', record[key])
+
+        except:
+
+            record[key] = None
+
+    return(record)
