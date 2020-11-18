@@ -61,7 +61,10 @@ new_records = pd.concat([new_records_not_ox, new_records_ox])
 
 new_records.to_csv('tmp/new_records.csv')
 
+# Label records as not_cleansed
 new_records["processed"] = "not_cleansed"
+
+# Assign date processed to today
 new_records["date_processed"] = pd.to_datetime('today')
 
 master = pd.concat([manually_cleaned, new_records])
