@@ -11,7 +11,7 @@ import logging
 from progress.bar import Bar
 
 from processing.main import process
-from processing.utils import generate_blank_record
+from processing.utils import generate_blank_record, assign_id
 from utils import create_dir, log_records_per
 from processing import check
 from check import check_output
@@ -68,10 +68,13 @@ for record in records:
 
 records = pd.concat(processed_records)
 
-check_output(records)
 
 # Assign who codes to the original WHO codes
 records['original_who_code'] = records['who_code']
+
+records = assign_id(records)
+
+check_output(records)
 
 log_records_per(records, 'dataset')
 

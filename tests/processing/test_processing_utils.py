@@ -121,14 +121,13 @@ class Test_assign_id:
 
     def test_assign_id(self):
 
-        a = {'a': None,
-             'dataset': 'ACAPS'}
+        a = pd.DataFrame({'dataset':['ACAPS'],
+                          'a':['Anything']
+         })
 
-        a = assign_id(a)
+        a = assign_id(a, min_id=0)
 
-        assert type(a['who_id']) == str
-
-        assert len(a['who_id']) == 12
+        assert 'ACAPS_1' in list(a['who_id'])
 
 class Test_assign_who_country_name:
 

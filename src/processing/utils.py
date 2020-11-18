@@ -136,12 +136,21 @@ def parse_date(record: dict):
     return(record)
 
 
-def assign_id(record: dict):
+def assign_id(records: dict, min_id: int = 1):
     '''Function to assign a unique ID to each record'''
 
-    record['who_id'] = str(new_id(dataset=record['dataset']))
+    #Ensure that no IDs are duplicated by incrementing by 1
+    min_id = min_id + 1
 
-    return(record)
+    datasets = records['dataset']
+
+    ids = range(min_id, min_id + len(datasets))
+
+    ids = [x + '_' + str(y) for x, y in zip(datasets, ids)]
+
+    records['who_id'] = ids
+
+    return(records)
 
 
 def assign_who_country_name(record: dict, country_ref: pd.DataFrame, missing_value: str='unknown'):
