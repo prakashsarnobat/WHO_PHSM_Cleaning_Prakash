@@ -4,10 +4,15 @@ bundle.py
 Script to bundle output datasets from the tmp directory
 into the data directory.
 
+should be able to run without adding files to an existing dir
+
+
 """
 
 from datetime import datetime
 import shutil
+
+print('Creating output bundle...')
 
 date_string = datetime.today().strftime('%Y_%m_%d')
 
@@ -46,3 +51,5 @@ shutil.copy(summary_report, output_summary_report)
 
 # Make a zip file of the output
 shutil.make_archive(zip_archive, 'zip', zip_dir)
+
+print('Success.')
