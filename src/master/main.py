@@ -4,6 +4,10 @@ import pandas as pd
 def get_new_records(records: pd.DataFrame, previous_update: pd.DataFrame, cols):
     '''Identify new records in an update data and a previous update data'''
 
+    records = records.copy()
+
+    previous_update = previous_update.copy()
+
     # Concatenate values in `cols` separated by "_" in update data
     records['combo_string'] = get_combo_string(records, cols)
 
@@ -13,8 +17,13 @@ def get_new_records(records: pd.DataFrame, previous_update: pd.DataFrame, cols):
     # Identify which concatenated strings are unique in the new data
     new_combo_strings = set(records['combo_string']).difference(set(previous_update['combo_string']))
 
+    print(records['combo_string'])
+    print(previous_update['combo_string'])
+
     # get a subset of the update data by these unique strings
     new_records = records.loc[[x in new_combo_strings for x in records['combo_string']], :]
+
+    new_records = new_records.drop(['combo_string'], axis=1)
 
     return(new_records)
 

@@ -78,12 +78,14 @@ def transform(record: dict, key_ref: dict, country_ref: pd.DataFrame, who_coding
     # 7. Make manual measure_stage name changes
     record = utils.replace_conditional(record, 'measure_stage', 'Impose', 'new')
     record = utils.replace_conditional(record, 'measure_stage', 'Lift', 'phase-out')
+    record = utils.replace_conditional(record, 'measure_stage', 'Pause', 'modification')
     record = utils.replace_conditional(record, 'measure_stage', 'Ease', 'modification')
     record = utils.replace_conditional(record, 'measure_stage', 'Strengthen', 'modification')
 
     # 7. Make manual non_compliance_penalty name changes
     record = utils.replace_conditional(record, 'non_compliance_penalty', 'Yes', 'not known')
     record = utils.replace_conditional(record, 'non_compliance_penalty', 'Yes ', 'not known')
+    record = utils.replace_conditional(record, 'non_compliance_penalty', 'yes ', 'not known')
     record = utils.replace_conditional(record, 'non_compliance_penalty', 'No', None)
     record = utils.replace_conditional(record, 'non_compliance_penalty', "No'", None)
 

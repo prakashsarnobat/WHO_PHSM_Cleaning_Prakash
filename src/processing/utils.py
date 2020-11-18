@@ -51,6 +51,7 @@ def generate_blank_record():
         "alt_link_eng": None,
         "source_alt": None,
         "queries_comments": None,
+        "date_processed": None
     }
 
     return record
@@ -175,8 +176,6 @@ def assign_who_country_name(record: dict, country_ref: pd.DataFrame, missing_val
 def assign_who_coding(record: dict, who_coding: pd.DataFrame, missing_value: str = 'unknown'):
     '''
         Function to assign WHO coding to a record
-
-        Test this thoroughly
 
     '''
 

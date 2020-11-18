@@ -22,7 +22,7 @@ print("Preprocessing Data...")
 logging.info("Preprocessing Data...")
 
 #Record limit for development. Should be None for production.
-record_limit = 1000
+record_limit = None
 
 # Dataset sources: these should be in makefile when ready
 jh = "https://raw.githubusercontent.com/HopkinsIDD/hit-covid/master/data/hit-covid-longdata.csv"
@@ -87,15 +87,16 @@ check.check_input(records=oxcgrt,
                   date_config=date_config,
                   dataset = 'OXCGRT')
 
-oxcgrt.fillna(0.0, inplace = True)
-
-
 drop_columns = ['ConfirmedCases',
        'ConfirmedDeaths', 'StringencyIndex', 'StringencyIndexForDisplay',
        'StringencyLegacyIndex', 'StringencyLegacyIndexForDisplay',
        'GovernmentResponseIndex', 'GovernmentResponseIndexForDisplay',
        'ContainmentHealthIndex', 'ContainmentHealthIndexForDisplay',
        'EconomicSupportIndex', 'EconomicSupportIndexForDisplay']
+
+oxcgrt.drop(drop_columns, axis = 1, inplace = True)       
+
+oxcgrt.fillna(0.0, inplace = True)
 
 oxcgrt = utils.df_to_records(oxcgrt, "OXCGRT", drop_columns)
 

@@ -141,6 +141,14 @@ def get_measure_records(combined_record, stub_names, id_columns, full_value_name
         except:
             pass
 
+
+        #replace 0.0 in id columns with None
+        for col in id_columns:
+
+            if subset[col] == 0.0:
+
+                subset[col] = None
+
         measure_key = list(set(list(subset.keys())).difference(set(id_columns + ['measure_name', 'flag', 'notes'])))
 
         subset['measure'] = subset.pop(measure_key[0])

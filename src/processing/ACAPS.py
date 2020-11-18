@@ -57,8 +57,12 @@ def transform(record: dict, key_ref: dict, country_ref: pd.DataFrame, who_coding
     record = utils.replace_conditional(record, 'non_compliance_penalty', 'Legal Action', 'legal action')
     record = utils.replace_conditional(record, 'non_compliance_penalty', 'Legal action', 'legal action')
     record = utils.replace_conditional(record, 'non_compliance_penalty', 'Up to detention', 'up to detention')
+    record = utils.replace_conditional(record, 'non_compliance_penalty', 'Up to Detention', 'up to detention')
     record = utils.replace_conditional(record, 'non_compliance_penalty', 'Arrest/Detention', 'arrest/detention')
+    record = utils.replace_conditional(record, 'non_compliance_penalty', 'Deportation', 'deportation')
     record = utils.replace_conditional(record, 'non_compliance_penalty', 'Refusal to enter the country', 'refused entry to country')
+    record = utils.replace_conditional(record, 'non_compliance_penalty', 'Refusal to enter the Country', 'refused entry to country')
+    record = utils.replace_conditional(record, 'non_compliance_penalty', 'Refusal to Enter the Country', 'refused entry to country')
     record = utils.replace_conditional(record, 'non_compliance_penalty', 'Other (add in comments)', 'not known')
     record = utils.replace_conditional(record, 'non_compliance_penalty', 'Fines', 'fines')
     record = utils.replace_conditional(record, 'non_compliance_penalty', 'Other', 'not known')
@@ -79,6 +83,12 @@ def transform(record: dict, key_ref: dict, country_ref: pd.DataFrame, who_coding
 
     # 7. Join WHO accepted country names (shared)
     record = utils.assign_who_country_name(record, country_ref)
+
+    # 12. Join who coding from lookup (shared)
+    record = utils.assign_who_coding(record, who_coding)
+
+    # 13. check for missing WHO codes (shared)
+    check.check_missing_who_code(record)
 
     # 8. Add WHO PHSM admin_level values
     record = utils.add_admin_level(record)

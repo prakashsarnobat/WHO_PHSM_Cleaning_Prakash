@@ -2,9 +2,8 @@
 ACAPS,ID,prop_id
 ACAPS,COUNTRY,country_territory_area
 ACAPS,ISO,iso
-ACAPS,ADMIN_LEVEL_NAME,admin_level
+ACAPS,ADMIN_LEVEL_NAME,area_covered
 ACAPS,PCODE,
-ACAPS,REGION,area_covered
 ACAPS,LOG_TYPE,measure_stage
 ACAPS,CATEGORY,prov_category
 ACAPS,MEASURE,prov_measure

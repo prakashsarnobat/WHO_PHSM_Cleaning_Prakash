@@ -18,6 +18,7 @@ def check_output(data: pd.DataFrame):
     check_column_names(data)
 
     # check duplicate who_id
+    check_duplicate_id(data, 'uuid')
     check_duplicate_id(data, 'who_id')
 
     # check for coded values from config

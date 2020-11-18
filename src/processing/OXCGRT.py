@@ -52,6 +52,10 @@ def transform(record: dict, key_ref: dict, country_ref: pd.DataFrame, who_coding
     # 8. replace sensitive country names
     record = utils.replace_sensitive_regions(record)
 
+    # 7. Make manual country name changes
+    record = utils.replace_conditional(record, 'country_territory_area', 'Eswatini', 'Swaziland')
+    record = utils.replace_conditional(record, 'country_territory_area', 'South Korea', 'Korea')
+
     # 9. assign ISO code
     record['iso'] = countrycode(codes=record['country_territory_area'], origin='country_name', target='iso3c')
 
