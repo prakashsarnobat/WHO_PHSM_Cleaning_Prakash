@@ -41,7 +41,7 @@ docs: FORCE
 	sphinx-apidoc -f -o docs/source tests
 	cd ./docs && $(MAKE) html
 
-data: preprocess process postprocess manually_cleaned master logs report
+data: preprocess process postprocess manually_cleaned master logs report bundle
 
 preprocess:
 	python src/preprocess.py
@@ -68,6 +68,9 @@ tech_report:
 
 sum_report:
 	jupyter nbconvert --to html --TemplateExporter.exclude_input=True --execute reporting/summary_report.ipynb
+
+bundle:
+	python src/bundle.py
 
 #Phony target to force rebuilds
 .PHONY: FORCE

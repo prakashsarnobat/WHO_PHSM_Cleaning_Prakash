@@ -16,6 +16,7 @@ Transform OXCGRT records to WHO PHSM format.
 
 import pandas as pd
 from countrycode.countrycode import countrycode
+import re
 
 # hot fix for sys.path issues in test environment
 try:
@@ -39,7 +40,7 @@ def transform(record: dict, key_ref: dict, country_ref: pd.DataFrame, who_coding
     record = utils.apply_key_map(new_record, record, key_ref)
 
     # Filter out records with "no update" phrases
-    if record['comments'] in list(no_update_phrase['phrase']):
+    if is_update_phrase(record['comments'], list(no_update_phrase['phrase'])):
 
         return(None)
 
@@ -91,6 +92,23 @@ def transform(record: dict, key_ref: dict, country_ref: pd.DataFrame, who_coding
     record = utils.remove_tags(record)
 
     return(record)
+
+
+def is_update_phrase(comment: str, phrases: list):
+
+    if comment is None:
+
+        return(False)
+
+    res = [bool(re.search(phrase, comment)) for phrase in phrases]
+
+    if sum(res) > 0:
+
+        return(True)
+
+    else:
+
+        return(False)
 
 
 def financial_measures(record):

@@ -146,7 +146,7 @@ def get_min_id(fn: str, id_column: str = 'who_id'):
 
     data = pd.read_csv(fn, encoding='latin1', low_memory=False)
 
-    return(max([int(re.findall(r'\d+', x)[0]) for x in data[id_column]]))
+    return(max([int(re.findall(r'\d+', x)[0]) for x in data[id_column] if not pd.isna(x)]))
 
 
 def assign_id(records: dict, min_id: int = 1):

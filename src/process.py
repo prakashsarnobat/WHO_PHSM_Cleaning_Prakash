@@ -84,7 +84,5 @@ log_records_per(records, 'dataset')
 
 records.to_csv('tmp/process/records.csv', index=False)
 
-records[['uuid', 'who_id']].to_csv('tmp/process/id_ref.csv', index=False)
-
 print('Success.')
 logging.info("Success.")

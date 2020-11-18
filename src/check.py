@@ -44,7 +44,7 @@ def check_output(data: pd.DataFrame):
 
 def check_duplicate_id(data: pd.DataFrame, key: str, log: bool = True):
 
-    res = len(data['who_id']) == len(data['who_id'].unique())
+    res = len(data[key]) == len(data[key].unique())
 
     try:
 

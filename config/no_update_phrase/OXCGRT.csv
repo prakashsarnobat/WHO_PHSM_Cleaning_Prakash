@@ -1,16 +1,16 @@
 dataset,phrase
-OXCGRT,As above. No new policies.
-OXCGRT,As above. No new policies announced.
-OXCGRT,No change
-OXCGRT,No update
-OXCGRT,No announcements
-OXCGRT,Not much detail
-OXCGRT,No new
-OXCGRT,No further announcements
-OXCGRT,No mention
-OXCGRT,Remains in place.
-OXCGRT,No new policy
-OXCGRT,No changes observed.
-OXCGRT,No changes reported.
-OXCGRT,No changes observed here.
-OXCGRT,No policy change
+OXCGRT,^As above. No new policies.
+OXCGRT,^As above. No new policies announced.
+OXCGRT,^No change
+OXCGRT,^No update
+OXCGRT,^No announcements
+OXCGRT,^Not much detail
+OXCGRT,^No new
+OXCGRT,^No further announcements
+OXCGRT,^No mention
+OXCGRT,^Remains in place.
+OXCGRT,^No new policy
+OXCGRT,^No changes observed.
+OXCGRT,^No changes reported.
+OXCGRT,^No changes observed here.
+OXCGRT,^No policy change

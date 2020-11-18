@@ -69,11 +69,32 @@ new_records["date_processed"] = pd.to_datetime('today')
 
 master = pd.concat([manually_cleaned, new_records])
 
+'''
+
+#####
+
+manual steps here
+
+#####
+
+- these should be kept to a bare minimum, should be
+  temporary, and should be added with justification & date in comment
+
+'''
+
+# 18-11-2020 - Filter USA subnational records
+# To avoid swamping volunteers with too many records
+usa_records = list(master.loc[(master['processed'] == 'not_cleansed') & (master['iso'] == 'USA') & ([x in ['state', 'other'] for x in master['admin_level']]), 'uuid'])
+master = master.loc[[x not in usa_records for x in master['uuid']], :]
+
 check_output(master)
 
 log_records_per(master, "dataset")
 log_records_per(master, "processed")
 
 master.to_csv("tmp/master/master.csv")
+
+master[['uuid', 'who_id']].to_csv('tmp/master/id_ref.csv', index=False)
+
 print("Success.")
 logging.info("Success.")
