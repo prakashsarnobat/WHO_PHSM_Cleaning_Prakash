@@ -56,7 +56,7 @@ def transform(record: dict, key_ref: dict, country_ref: pd.DataFrame, who_coding
     record['comments'] = comments
 
     # 6. Assign unique ID (shared)
-    record = utils.assign_id(record)
+    #record = utils.assign_id(record)
 
     # 5. Handle date formatting
     record = utils.parse_date(record)
@@ -74,6 +74,21 @@ def transform(record: dict, key_ref: dict, country_ref: pd.DataFrame, who_coding
     record = utils.replace_conditional(record, 'country_territory_area', 'Eswatini', 'Swaziland')
     record = utils.replace_conditional(record, 'country_territory_area', 'South Korea', 'Korea')
     record = utils.replace_conditional(record, 'country_territory_area', 'Bonaire, Saint Eustatius and Saba', 'Carribean Netherlands')
+
+    # 7. Make manual measure_stage name changes
+    record = utils.replace_conditional(record, 'measure_stage', 'Impose', 'new')
+    record = utils.replace_conditional(record, 'measure_stage', 'Lift', 'phase-out')
+    record = utils.replace_conditional(record, 'measure_stage', 'Pause', 'modification')
+    record = utils.replace_conditional(record, 'measure_stage', 'Ease', 'modification')
+    record = utils.replace_conditional(record, 'measure_stage', 'Strengthen', 'modification')
+
+    # 7. Make manual non_compliance_penalty name changes
+    record = utils.replace_conditional(record, 'non_compliance_penalty', 'Yes', 'not known')
+    record = utils.replace_conditional(record, 'non_compliance_penalty', 'Yes ', 'not known')
+    record = utils.replace_conditional(record, 'non_compliance_penalty', 'yes ', 'not known')
+    record = utils.replace_conditional(record, 'non_compliance_penalty', 'yes', 'not known')
+    record = utils.replace_conditional(record, 'non_compliance_penalty', 'No', None)
+    record = utils.replace_conditional(record, 'non_compliance_penalty', "No'", None)
 
     # 8. replace sensitive country names
     record = utils.replace_sensitive_regions(record)
@@ -101,6 +116,8 @@ def transform(record: dict, key_ref: dict, country_ref: pd.DataFrame, who_coding
 
     # 16. Add WHO PHSM admin_level values
     record = utils.add_admin_level(record)
+
+    record = utils.remove_tags(record, ['comments', 'link', 'alt_link'])
 
     return(record)
 

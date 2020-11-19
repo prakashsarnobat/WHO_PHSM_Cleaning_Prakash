@@ -1,14 +1,26 @@
 import pandas as pd
 
-def get_new_records(records: pd.DataFrame, manually_cleaned, cols):
-    ''' This needs to be replaced with an interfeace between old_ids and new_ids'''
 
+def get_new_records(records: pd.DataFrame, previous_update: pd.DataFrame, cols):
+    '''Identify new records in an update data and a previous update data'''
+
+    records = records.copy()
+
+    previous_update = previous_update.copy()
+
+    # Concatenate values in `cols` separated by "_" in update data
     records['combo_string'] = get_combo_string(records, cols)
-    manually_cleaned['combo_string'] = get_combo_string(manually_cleaned, cols)
 
-    new_combo_strings = set(records['combo_string']).difference(set(manually_cleaned['combo_string']))
+    # And previous update
+    previous_update['combo_string'] = get_combo_string(previous_update, cols)
 
+    # Identify which concatenated strings are unique in the new data
+    new_combo_strings = set(records['combo_string']).difference(set(previous_update['combo_string']))
+
+    # get a subset of the update data by these unique strings
     new_records = records.loc[[x in new_combo_strings for x in records['combo_string']], :]
+
+    new_records = new_records.drop(['combo_string'], axis=1)
 
     return(new_records)
 

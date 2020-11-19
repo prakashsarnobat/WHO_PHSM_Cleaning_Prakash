@@ -1,4 +1,5 @@
 import pandas as pd
+import re
 import os
 import logging
 import uuid
@@ -8,48 +9,51 @@ def generate_blank_record():
     '''Function to generate a blank record with the correct WHO keys'''
 
     record = {
-        "processed": '',
-        "who_id": '',
-        "dataset": '',
-        "prop_id": '',
-        "keep": '',
-        "duplicate_record_id": '',
-        "who_region": '',
-        "country_territory_area": '',
-        "iso": '',
-        "iso_3166_1_numeric": '',
-        "admin_level": '',
-        "area_covered": '',
-        "prov_category": '',
-        "prov_subcategory": '',
-        "prov_measure": '',
-        "who_code": '',
-        "who_category": '',
-        "who_subcategory": '',
-        "who_measure": '',
-        "comments": '',
-        "date_start": '',
-        "measure_stage": '',
-        "prev_measure_number": '',
-        "following_measure_number": '',
-        "date_end": '',
-        "reason_ended": '',
-        "targeted": '',
-        "enforcement": '',
-        "non_compliance_penalty": '',
-        "value_usd": '',
-        "percent_interest": '',
-        "date_entry": '',
-        "link": '',
-        "link_live": '',
-        "link_eng": '',
-        "source": '',
-        "source_type": '',
-        "alt_link": '',
-        "alt_link_live": '',
-        "alt_link_eng": '',
-        "source_alt": '',
-        "queries_comments": '',
+        "processed": None,
+        "uuid": str(uuid.uuid4()),
+        "who_id": None,
+        "dataset": None,
+        "prop_id": None,
+        "keep": None,
+        "duplicate_record_id": None,
+        "who_region": None,
+        "country_territory_area": None,
+        "iso": None,
+        "iso_3166_1_numeric": None,
+        "admin_level": None,
+        "area_covered": None,
+        "prov_category": None,
+        "prov_subcategory": None,
+        "prov_measure": None,
+        "who_code": None,
+        "original_who_code": None,
+        "who_category": None,
+        "who_subcategory": None,
+        "who_measure": None,
+        "comments": None,
+        "date_start": None,
+        "measure_stage": None,
+        "prev_measure_number": None,
+        "following_measure_number": None,
+        "date_end": None,
+        "reason_ended": None,
+        "targeted": None,
+        "enforcement": None,
+        "non_compliance_penalty": None,
+        "value_usd": None,
+        "percent_interest": None,
+        "date_entry": None,
+        "link": None,
+        "link_live": None,
+        "link_eng": None,
+        "source": None,
+        "source_type": None,
+        "alt_link": None,
+        "alt_link_live": None,
+        "alt_link_eng": None,
+        "source_alt": None,
+        "queries_comments": None,
+        "date_processed": None
     }
 
     return record
@@ -133,12 +137,33 @@ def parse_date(record: dict):
     return(record)
 
 
-def assign_id(record: dict):
+def get_min_id(fn: str, id_column: str = 'who_id'):
+    '''
+    Function to open a file and extract the maximum numeric # IDEA:
+
+    This will be the new min id to be incremented.
+    '''
+
+    data = pd.read_csv(fn, encoding='latin1', low_memory=False)
+
+    return(max([int(re.findall(r'\d+', x)[0]) for x in data[id_column] if not pd.isna(x)]))
+
+
+def assign_id(records: dict, min_id: int = 1):
     '''Function to assign a unique ID to each record'''
 
-    record['who_id'] = str(new_id(dataset=record['dataset']))
+    #Ensure that no IDs are duplicated by incrementing by 1
+    min_id = min_id + 1
 
-    return(record)
+    datasets = records['dataset']
+
+    ids = range(min_id, min_id + len(datasets))
+
+    ids = [x + '_' + str(y) for x, y in zip(datasets, ids)]
+
+    records['who_id'] = ids
+
+    return(records)
 
 
 def assign_who_country_name(record: dict, country_ref: pd.DataFrame, missing_value: str='unknown'):
@@ -175,13 +200,11 @@ def assign_who_coding(record: dict, who_coding: pd.DataFrame, missing_value: str
     '''
         Function to assign WHO coding to a record
 
-        Test this thoroughly
-
     '''
 
-    prov_measure = who_coding['prov_measure'] == record['prov_measure']
-    prov_subcategory = who_coding['prov_subcategory'] == record['prov_subcategory']
-    prov_category = who_coding['prov_category'] == record['prov_category']
+    prov_measure = who_coding['prov_measure'] == none_to_empty_str(record['prov_measure'])
+    prov_subcategory = who_coding['prov_subcategory'] == none_to_empty_str(record['prov_subcategory'])
+    prov_category = who_coding['prov_category'] == none_to_empty_str(record['prov_category'])
 
     coding = who_coding.loc[prov_measure & prov_subcategory & prov_category, :]
 
@@ -238,6 +261,17 @@ def assign_who_coding(record: dict, who_coding: pd.DataFrame, missing_value: str
     return(record)
 
 
+def none_to_empty_str(s):
+    '''convert None values to empty strings'''
+
+    if s is None:
+
+        return('')
+
+    else:
+
+        return(s)
+
 def replace_conditional(record: dict, field: str, value: str, replacement: str):
     '''Function to conditionally replace a value in an arbitrary field'''
 
@@ -276,12 +310,30 @@ def shift_sensitive_region(record: dict, original_name: str, new_name: str):
 def add_admin_level(record: dict):
     '''Function to set admin_level values to "national" or "other"'''
 
-    if record['admin_level'] == '':
+    if record['area_covered'] is None:
 
         record['admin_level'] = 'national'
 
     else:
 
         record['admin_level'] = 'other'
+
+    return(record)
+
+
+def remove_tags(record: dict, keys: list = ['comments']):
+    '''Function to remove HTML tags from comments'''
+
+    exp = re.compile(r'<[^>]+>')
+
+    for key in keys:
+
+        try:
+
+            record[key] = exp.sub('', record[key])
+
+        except:
+
+            record[key] = None
 
     return(record)

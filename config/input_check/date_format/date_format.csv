@@ -2,3 +2,4 @@
 CDC_ITF,%Y-%m-d,Date Entered
 JH_HIT,%Y-%m-d,entry_time
 ACAPS,%Y-%m-d,DATE_IMPLEMENTED
+OXCGRT,%Y-%m-d,Date

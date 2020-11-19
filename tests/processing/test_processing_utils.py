@@ -12,7 +12,7 @@ class Test_generate_blank_record:
 
     def test_dict_key_number(self):
 
-        assert len(generate_blank_record().keys()) == 42
+        assert len(generate_blank_record().keys()) == 45
 
 
 def test_create_id():
@@ -121,14 +121,13 @@ class Test_assign_id:
 
     def test_assign_id(self):
 
-        a = {'a': None,
-             'dataset': 'ACAPS'}
+        a = pd.DataFrame({'dataset':['ACAPS'],
+                          'a':['Anything']
+         })
 
-        a = assign_id(a)
+        a = assign_id(a, min_id=0)
 
-        assert type(a['who_id']) == str
-
-        assert len(a['who_id']) == 12
+        assert 'ACAPS_1' in list(a['who_id'])
 
 class Test_assign_who_country_name:
 
@@ -330,7 +329,7 @@ class Test_add_admin_level:
 
     def test_add_admin_level_national(self):
 
-        record = {'admin_level': ''}
+        record = {'area_covered':None, 'admin_level': ''}
 
         record = utils.add_admin_level(record)
 
@@ -338,8 +337,40 @@ class Test_add_admin_level:
 
     def test_add_admin_level_other(self):
 
-        record = {'admin_level': 'Anything'}
+        record = {'area_covered':'Anything', 'admin_level': ''}
 
         record = utils.add_admin_level(record)
 
         assert record['admin_level'] == 'other'
+
+class Test_remove_tags:
+
+    def test_remove_tags_text(self):
+        '''test that plain text is left alone'''
+
+        sent = 'A sentence'
+
+        record = {'comments':sent}
+
+        record = utils.remove_tags(record, ['comments'])
+
+        assert record['comments'] == sent
+
+    def test_remove_tags_li(self):
+        '''test that html tags are removed'''
+
+        sent = '<li>A sentence</li>'
+
+        record = {'comments':sent}
+
+        record = utils.remove_tags(record, ['comments'])
+
+        assert record['comments'] == 'A sentence'
+
+    def test_remove_tags_none(self):
+
+        record = {'comments':None}
+
+        record = utils.remove_tags(record, ['comments'])
+
+        assert record['comments'] is None

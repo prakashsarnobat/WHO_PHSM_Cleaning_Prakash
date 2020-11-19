@@ -1,0 +1,66 @@
+dataset,column
+OXCGRT,CountryName
+OXCGRT,CountryCode
+OXCGRT,RegionName
+OXCGRT,RegionCode
+OXCGRT,Date
+OXCGRT,C1_School closing
+OXCGRT,C1_Flag
+OXCGRT,C1_Notes
+OXCGRT,C2_Workplace closing
+OXCGRT,C2_Flag
+OXCGRT,C2_Notes
+OXCGRT,C3_Cancel public events
+OXCGRT,C3_Flag
+OXCGRT,C3_Notes
+OXCGRT,C4_Restrictions on gatherings
+OXCGRT,C4_Flag
+OXCGRT,C4_Notes
+OXCGRT,C5_Close public transport
+OXCGRT,C5_Flag
+OXCGRT,C5_Notes
+OXCGRT,C6_Stay at home requirements
+OXCGRT,C6_Flag
+OXCGRT,C6_Notes
+OXCGRT,C7_Restrictions on internal movement
+OXCGRT,C7_Flag
+OXCGRT,C7_Notes
+OXCGRT,C8_International travel controls
+OXCGRT,C8_Notes
+OXCGRT,E1_Income support
+OXCGRT,E1_Flag
+OXCGRT,E1_Notes
+OXCGRT,E2_Debt/contract relief
+OXCGRT,E2_Notes
+OXCGRT,E3_Fiscal measures
+OXCGRT,E3_Notes
+OXCGRT,E4_International support
+OXCGRT,E4_Notes
+OXCGRT,H1_Public information campaigns
+OXCGRT,H1_Flag
+OXCGRT,H1_Notes
+OXCGRT,H2_Testing policy
+OXCGRT,H2_Notes
+OXCGRT,H3_Contact tracing
+OXCGRT,H3_Notes
+OXCGRT,H4_Emergency investment in healthcare
+OXCGRT,H4_Notes
+OXCGRT,H5_Investment in vaccines
+OXCGRT,H5_Notes
+OXCGRT,H6_Facial Coverings
+OXCGRT,H6_Flag
+OXCGRT,H6_Notes
+OXCGRT,M1_Wildcard
+OXCGRT,M1_Notes
+OXCGRT,ConfirmedCases
+OXCGRT,ConfirmedDeaths
+OXCGRT,StringencyIndex
+OXCGRT,StringencyIndexForDisplay
+OXCGRT,StringencyLegacyIndex
+OXCGRT,StringencyLegacyIndexForDisplay
+OXCGRT,GovernmentResponseIndex
+OXCGRT,GovernmentResponseIndexForDisplay
+OXCGRT,ContainmentHealthIndex
+OXCGRT,ContainmentHealthIndexForDisplay
+OXCGRT,EconomicSupportIndex
+OXCGRT,EconomicSupportIndexForDisplay

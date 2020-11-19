@@ -65,7 +65,7 @@ def transform(record: dict, key_ref: dict, country_ref: pd.DataFrame, who_coding
     record = utils.parse_date(record)
 
     # 6. Assign unique ID (shared)
-    record = utils.assign_id(record)
+    #record = utils.assign_id(record)
 
     # 7. replace non ascii characters (shared)
 
@@ -98,6 +98,8 @@ def transform(record: dict, key_ref: dict, country_ref: pd.DataFrame, who_coding
     # 16. replace unknown non_compliance_penalty
     record = utils.replace_conditional(record, 'non_compliance_penalty', 'unknown', 'Not Known')
 
+    record = utils.remove_tags(record)
+
     return(record)
 
 
@@ -111,7 +113,6 @@ def apply_prov_measure_filter(record: dict, prov_measure_filter: pd.DataFrame):
     else:
 
         return(None)
-
 
 def fill_not_enough_to_code(record: dict):
     '''Function to add "not enough to code" label to specific records'''

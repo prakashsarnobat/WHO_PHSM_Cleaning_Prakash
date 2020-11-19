@@ -19,10 +19,10 @@ General checks for record numbers etc
 """
 
 import pandas as pd
-from processing import JH_HIT, CDC_ITF, ACAPS
+from processing import JH_HIT, CDC_ITF, ACAPS, OXCGRT
 
 
-def process(record: dict, key_ref: dict, country_ref: pd.DataFrame, who_coding: dict, prov_measure_filter: dict):
+def process(record: dict, key_ref: dict, country_ref: pd.DataFrame, who_coding: dict, prov_measure_filter: dict, no_update_phrase: dict):
     '''Unify individual dataset transformers'''
 
     if record['dataset'] == 'JH_HIT':
@@ -47,6 +47,14 @@ def process(record: dict, key_ref: dict, country_ref: pd.DataFrame, who_coding: 
                                  key_ref['ACAPS'],
                                  country_ref,
                                  who_coding['ACAPS'])
+
+    elif record['dataset'] == 'OXCGRT':
+
+        record = OXCGRT.transform(record,
+                                  key_ref['OXCGRT'],
+                                  country_ref,
+                                  who_coding['OXCGRT'],
+                                  no_update_phrase['OXCGRT'])
 
     else:
 

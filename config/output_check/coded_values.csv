@@ -17,6 +17,7 @@ measure_stage,new
 measure_stage,extension
 measure_stage,phase-out
 measure_stage,finish
+measure_stage,re-introduction
 non_compliance_penalty,required
 non_compliance_penalty,recommended
 non_compliance_penalty,not applicable
@@ -28,8 +29,7 @@ non_compliance_penalty,arrest/detention
 non_compliance_penalty,other
 non_compliance_penalty,refused exit
 non_compliance_penalty,legal action
-non_compliance_penalty,Refused entry to country
-non_compliance_penalty,Deportation
+non_compliance_penalty,deportation
 non_compliance_penalty,not available
 processed,sequenced
 processed,cleansed
@@ -40,3 +40,4 @@ reason_ended,modification
 reason_ended,extension
 reason_ended,phase-out
 reason_ended,time limited
+reason_ended,re-introduction

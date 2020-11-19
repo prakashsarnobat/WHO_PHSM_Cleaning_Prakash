@@ -21,7 +21,7 @@ logging.basicConfig(filename='tmp/postprocess/postprocess.log',
                     level=logging.DEBUG,
                     format='%(asctime)s - %(levelname)s - %(message)s')
 
-records = pd.read_csv('tmp/process/records.csv')
+records = pd.read_csv('tmp/process/records.csv', low_memory = False)
 
 print("Postprocessing Data...")
 logging.info("Postprocessing Data...")
