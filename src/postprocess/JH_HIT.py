@@ -18,6 +18,7 @@ def postprocess(data: pd.DataFrame):
                      'date_entry',
                      'comments',
                      'link',
+                     'alt_link',
                      'prop_id_numeric',
                      'prov_category',
                      'prov_subcategory',
