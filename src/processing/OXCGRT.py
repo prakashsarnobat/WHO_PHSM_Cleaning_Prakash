@@ -91,6 +91,9 @@ def transform(record: dict, key_ref: dict, country_ref: pd.DataFrame, who_coding
 
     record = utils.remove_tags(record)
 
+    # 17. Remove update records
+    record = assign_comment_links(record)
+
     return(record)
 
 
@@ -129,5 +132,43 @@ def financial_measures(record):
         record['value_usd'] = record['prov_subcategory']
 
         record['prov_subcategory'] = 1
+
+    return(record)
+
+
+def get_comment_links(comments: str):
+    '''
+    Function to get all links from a comment string
+
+    Returns a list of links
+    '''
+
+    exp = re.compile('http[s]?://(?:[a-zA-Z]|[0-9]|[$-_@.&+]|[!*\(\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+')
+
+    return(exp.findall(comments))
+
+
+def assign_comment_links(record: dict):
+    '''
+    Function to assign links found in comments to links fields
+    '''
+
+    links = get_comment_links(record['comments'])
+
+    try:
+
+        record['link'] = links[0]
+
+    except:
+
+        pass
+
+    try:
+
+        record['alt_link'] = links[1]
+
+    except:
+
+        pass
 
     return(record)

@@ -84,8 +84,8 @@ manual steps here
 
 # 18-11-2020 - Filter USA subnational records
 # To avoid swamping volunteers with too many records
-usa_records = list(master.loc[(master['processed'] == 'not_cleansed') & (master['iso'] == 'USA') & ([x in ['state', 'other'] for x in master['admin_level']]), 'uuid'])
-master = master.loc[[x not in usa_records for x in master['uuid']], :]
+#usa_records = list(master.loc[(master['dataset'] == 'JH_HIT') & (master['processed'] == 'not_cleansed') & (master['iso'] == 'USA') & ([x in ['state', 'other'] for x in master['admin_level']]), 'uuid'])
+#master = master.loc[[x not in usa_records for x in master['uuid']], :]
 
 check_output(master)
 
