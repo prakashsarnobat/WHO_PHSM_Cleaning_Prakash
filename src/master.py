@@ -95,7 +95,7 @@ check_output(master)
 log_records_per(master, "dataset")
 log_records_per(master, "processed")
 
-master.to_csv("tmp/master/master.csv")
+master.to_csv("tmp/master/master.csv", index=False)
 
 master[['uuid', 'who_id']].to_csv('tmp/master/id_ref.csv', index=False)
 
@@ -104,7 +104,7 @@ master = master.loc[(master['processed'] == 'sequenced') & (master['keep'] == 'y
 
 master.drop(drop_cols, axis=1, inplace=True)
 
-master.to_csv("tmp/master/release.csv")
+master.to_csv("tmp/master/release.csv", index=False)
 
 print("Success.")
 logging.info("Success.")
