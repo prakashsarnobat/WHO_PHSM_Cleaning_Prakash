@@ -36,6 +36,9 @@ logging.info("Combining manually cleaned and update data...")
 
 combo_cols = ["country_territory_area", "dataset", "area_covered", "who_code", "date_start"]
 
+drop_cols = ['processed', 'keep', 'duplicate_record_id', 'prov_category', 'prov_subcategory',
+    'prov_measure', 'value_usd', 'percent_interest', 'source_alt', 'queries_comments', 'date_processed']
+
 previous_update_not_ox = previous_update.loc[(previous_update['dataset'] != 'OXCGRT'), :]
 update_not_ox = update.loc[(update['dataset'] != 'OXCGRT'), :]
 
@@ -95,6 +98,13 @@ log_records_per(master, "processed")
 master.to_csv("tmp/master/master.csv")
 
 master[['uuid', 'who_id']].to_csv('tmp/master/id_ref.csv', index=False)
+
+# Create release data
+master = master.loc[(master['processed'] == 'sequenced') & (master['keep'] == 'y')]
+
+master.drop(drop_cols, axis=1, inplace=True)
+
+master.to_csv("tmp/master/release.csv")
 
 print("Success.")
 logging.info("Success.")

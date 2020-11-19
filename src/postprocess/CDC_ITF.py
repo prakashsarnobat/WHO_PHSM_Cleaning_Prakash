@@ -2,7 +2,7 @@ import pandas as pd
 import logging
 
 def postprocess(data: pd.DataFrame):
-    '''Apply dataset-level transformations to cdc data'''
+    '''Apply dataset-level transformations to CDC_ITF data'''
 
     data = remove_id_duplicates(data)
 

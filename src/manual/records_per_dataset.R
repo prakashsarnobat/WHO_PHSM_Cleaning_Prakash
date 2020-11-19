@@ -1,4 +1,4 @@
-master <- read_csv('/Users/hamishgibbs/Documents/Covid-19/WHO_PHSM_Cleaning/data/output/master_2020_11_18.csv',
+master <- read_csv('/Users/hamishgibbs/Documents/Covid-19/WHO_PHSM_Cleaning/tmp/master/master.csv',
                    col_types = manual_arranged_dtypes)
 
 
@@ -24,7 +24,8 @@ master %>%
   arrange(-n)
 
 master %>% 
+  filter(dataset == 'JH_HIT') %>% 
   filter(processed == 'not_cleansed') %>% 
-  group_by(country_territory_area) %>% 
+  group_by(dataset, country_territory_area, who_code) %>% 
   dplyr::summarise(n = n()) %>% 
   arrange(-n) 

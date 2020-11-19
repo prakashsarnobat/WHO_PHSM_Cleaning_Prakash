@@ -114,7 +114,6 @@ def apply_prov_measure_filter(record: dict, prov_measure_filter: pd.DataFrame):
 
         return(None)
 
-
 def fill_not_enough_to_code(record: dict):
     '''Function to add "not enough to code" label to specific records'''
 
