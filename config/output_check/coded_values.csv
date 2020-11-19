@@ -18,6 +18,7 @@ measure_stage,extension
 measure_stage,phase-out
 measure_stage,finish
 measure_stage,re-introduction
+measure_stage,introduction / extension of measures
 non_compliance_penalty,required
 non_compliance_penalty,recommended
 non_compliance_penalty,not applicable
