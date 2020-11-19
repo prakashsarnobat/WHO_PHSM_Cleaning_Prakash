@@ -5,6 +5,7 @@ data
 **/*/__pycache__
 .DS_Store
 __pycache__/
+reporting/.ipynb_checkpoints
 reporting/technical_report.html
 reporting/summary_report.html
 # History files
