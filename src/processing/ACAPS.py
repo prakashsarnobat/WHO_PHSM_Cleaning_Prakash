@@ -50,7 +50,7 @@ def transform(record: dict, key_ref: dict, country_ref: pd.DataFrame, who_coding
     record = utils.replace_conditional(record, 'country_territory_area', 'Eswatini', 'Swaziland')
 
     # Make manual measure_stage changes
-    record = utils.replace_conditional(record, 'measure_stage', 'Introduction / extension of measures', 'new')
+    record = utils.replace_conditional(record, 'measure_stage', 'Introduction / extension of measures', 'introduction / extension of measures')
     record = utils.replace_conditional(record, 'measure_stage', 'Phase-out measure', 'phase-out')
 
     # Make manual non_compliance_penalty changes
