@@ -20,7 +20,10 @@ def postprocess(data: pd.DataFrame):
                      'prop_id_numeric',
                      'prov_category',
                      'prov_subcategory',
-                     'prov_measure']
+                     'prov_measure',
+                     'who_category',
+                     'who_subcategory',
+                     'who_measure']
 
     data = combine_measures(data, '4.1.2', '_school_closure', group_columns)
     data = combine_measures(data, '5.7', '_border_air', group_columns)
