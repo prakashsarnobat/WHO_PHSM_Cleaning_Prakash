@@ -374,17 +374,3 @@ class Test_remove_tags:
         record = utils.remove_tags(record, ['comments'])
 
         assert record['comments'] is None
-
-    def test_remove_tags_misc(self):
-
-        records = [{'comments':"Anything<p>"},
-            {'comments':'Anything<a href="'},
-            {'comments':'Anything/">'},
-            {'comments':"Anything<p>"},
-            {'comments':"Anything</a>"}]
-
-        for record in records:
-
-            record = utils.remove_tags(record, ['comments'])
-
-            assert record['comments'] == 'Anything'

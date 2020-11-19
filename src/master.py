@@ -68,7 +68,7 @@ new_records.to_csv('tmp/new_records.csv')
 new_records["processed"] = "not_cleansed"
 
 # Assign date processed to today
-new_records["date_processed"] = pd.to_datetime('today')
+new_records["date_processed"] = pd.to_datetime('today').strftime('%d-%m-%Y')
 
 master = pd.concat([manually_cleaned, new_records])
 
