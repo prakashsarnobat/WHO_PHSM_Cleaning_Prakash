@@ -10,6 +10,7 @@ def postprocess(data: pd.DataFrame):
                      'dataset',
                      'country_territory_area',
                      'iso',
+                     'who_region',
                      'area_covered',
                      'who_code',
                      'date_start',
