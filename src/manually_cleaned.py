@@ -28,7 +28,12 @@ logging.basicConfig(filename='tmp/manually_cleaned/manually_cleaned.log',
 print("Reading manually cleaned data...")
 logging.info("Reading manually cleaned data...")
 
-manually_cleaned = pd.read_csv('data/cleansed/mistress_latest.csv', low_memory=False)
+manually_cleaned = pd.read_csv('data/cleansed/mistress_latest.csv', low_memory=False,
+    dtype={'date_start':str, 'date_end':str, 'date_entry':str})
+
+manually_cleaned['date_start'] = pd.to_datetime(manually_cleaned['date_start'], format='%d/%m/%Y')
+manually_cleaned['date_end'] = pd.to_datetime(manually_cleaned['date_end'], format='%d/%m/%Y')
+manually_cleaned['date_entry'] = pd.to_datetime(manually_cleaned['date_entry'], format='%d/%m/%Y')
 
 print("Checking manually cleaned...")
 logging.info("Checking manually cleaned...")

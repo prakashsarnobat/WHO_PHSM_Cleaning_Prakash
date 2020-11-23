@@ -72,7 +72,7 @@ def get_names(ox):
     '''
     Function to get names of columns holding measure information.
 
-    These columns begin with the prefix "A1_" etc.
+    These columns begin with the prefix "A1\_" etc.
 
     returns:
         full_value_names: the names of all columns with measure information

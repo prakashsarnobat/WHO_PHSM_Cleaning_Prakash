@@ -40,6 +40,11 @@ def transform(record: dict, key_ref: dict, country_ref: pd.DataFrame, who_coding
     # 2. replace data in new record with data from old record using key_ref
     record = utils.apply_key_map(new_record, record, key_ref)
 
+    # Remove records where area covered is a single space
+    if record['area_covered'] == ' ':
+
+        record['area_covered'] = ''
+
     # 6. Assign unique ID (shared)
     #record = utils.assign_id(record)
 
