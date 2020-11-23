@@ -50,10 +50,6 @@ def transform(record: dict, key_ref: dict, country_ref: pd.DataFrame, who_coding
     # 4. Handle date formatting
     record = utils.parse_date(record)
 
-    if record['country_territory_area'] == 'Occupied Palestinian Territory, Including East Jerusalem':
-
-        print(record)
-
     # 8. replace sensitive country names
     record = utils.replace_sensitive_regions(record)
 
