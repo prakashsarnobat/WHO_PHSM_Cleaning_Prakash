@@ -312,7 +312,7 @@ def shift_sensitive_region(record: dict, original_name: str, new_name: str):
 def add_admin_level(record: dict):
     '''Function to set admin_level values to "national" or "other"'''
 
-    if record['area_covered'] is None:
+    if pd.isna(record['area_covered']):
 
         record['admin_level'] = 'national'
 
