@@ -121,17 +121,3 @@ logging.info("TOTAL_INPUT_RECORDS=%d" % len(records))
 # replace this with logging
 print("Success.")
 logging.info("Success.")
-
-# concat all record lists together here - write out to a pickle in a tmp
-# directory - recover and clean up from error
-
-# Need a function that can accept any dict - use its dataset attribute and
-# apply the correct mapper
-# Each mapper will rely on some common functions shared between them all
-# each mapper will return the record(s) with new ID as a dict with the correct
-# column names
-# these are combined into final dataset
-
-# each mapper uses a pattern like: rearrange columns, fix country names,
-# manual changes
-# get docs working

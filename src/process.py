@@ -57,7 +57,7 @@ processed_records = []
 
 bar = Bar('Processing Data...', max=len(records))
 for record in records:
-
+    
     record = process(record, key_ref, country_ref, who_coding, prov_measure_filter, no_update_phrase)
 
     check.check_record_keys_agree(record, blank_record)

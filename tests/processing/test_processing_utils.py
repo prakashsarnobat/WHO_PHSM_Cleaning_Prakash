@@ -325,6 +325,7 @@ def test_shift_sensitive_region():
 
     assert record['area_covered'] == 'Kosovo'
 
+
 class Test_add_admin_level:
 
     def test_add_admin_level_national(self):
