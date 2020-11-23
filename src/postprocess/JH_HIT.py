@@ -5,37 +5,15 @@ import pandas as pd
 def postprocess(data: pd.DataFrame):
     '''Apply dataset-level transformations to JH_HIT data'''
 
-    group_columns = ['uuid',
-                     'who_id',
-                     'dataset',
-                     'country_territory_area',
-                     'iso',
-                     'who_region',
-                     'area_covered',
-                     'who_code',
-                     'date_start',
-                     'date_end',
-                     'date_entry',
-                     'comments',
-                     'link',
-                     'alt_link',
-                     'prop_id_numeric',
-                     'prov_category',
-                     'prov_subcategory',
-                     'prov_measure',
-                     'who_category',
-                     'who_subcategory',
-                     'who_measure']
-
-    data = combine_measures(data, '4.1.2', '_school_closure', group_columns)
-    data = combine_measures(data, '5.7', '_border_air', group_columns)
-    data = combine_measures(data, '5.8', '_border_sea', group_columns)
-    data = combine_measures(data, '5.9', '_border_land', group_columns)
+    data = combine_measures(data, '4.1.2', '_school_closure')
+    data = combine_measures(data, '5.7', '_border_air')
+    data = combine_measures(data, '5.8', '_border_sea')
+    data = combine_measures(data, '5.9', '_border_land')
 
     return(data)
 
 
-def combine_measures(data: pd.DataFrame, who_code: str, id_stub: str, group_columns: list):
+def combine_measures(data: pd.DataFrame, who_code: str, id_stub: str):
     '''
     Function to combine groups of records with an arbitrary who_code
 
@@ -71,7 +49,7 @@ def combine_measures(data: pd.DataFrame, who_code: str, id_stub: str, group_colu
 
         group = {}
 
-        for col_name in group_columns:
+        for col_name in id_group.columns:
 
             group[col_name] = list(id_group[col_name].unique())[0]
 

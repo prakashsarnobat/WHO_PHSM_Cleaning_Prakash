@@ -68,8 +68,6 @@ def transform(record: dict, key_ref: dict, country_ref: pd.DataFrame, who_coding
 
         return(None)
 
-    # Drop records with "no update" phrases
-
     # Removes information in flag variables for now
     record['prov_measure'] = 0
     record['prov_subcategory'] = int(record['prov_subcategory'])

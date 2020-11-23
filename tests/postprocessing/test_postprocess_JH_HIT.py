@@ -16,7 +16,7 @@ class Test_combine_measures:
             'dataset': ['JH_HIT'] * 4
         })
 
-        res = JH_HIT.combine_measures(data, '4.1.2', '_school_closure', ['uuid', 'who_id', 'prop_id_numeric', 'who_code'])
+        res = JH_HIT.combine_measures(data, '4.1.2', '_school_closure')
 
         expected_codes = set(['4.1.2', '10'])
         expected_uuids = set([1, 4])

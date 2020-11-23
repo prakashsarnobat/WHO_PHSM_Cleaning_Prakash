@@ -6,6 +6,7 @@ Script to convert provider datasets individual record dictionaries
 
 import pandas as pd
 import logging
+from datetime import datetime as dt
 
 from utils import create_dir
 from preprocess import utils, check
@@ -26,8 +27,8 @@ record_limit = None
 
 # Dataset sources: these should be in makefile when ready
 jh = "https://raw.githubusercontent.com/HopkinsIDD/hit-covid/master/data/hit-covid-longdata.csv"
-cdc = "data/raw/CDC_ITF_latest.xlsx"
-acaps = "data/raw/ACAPS_latest.xlsx"
+cdc = "data/raw/CDC_ITF_latest.csv"
+acaps = "data/raw/ACAPS_latest.csv"
 oxcgrt = "https://raw.githubusercontent.com/OxCGRT/covid-policy-tracker/master/data/OxCGRT_latest_withnotes.csv"
 check_dir = 'config/input_check'
 
@@ -53,7 +54,13 @@ jh = utils.df_to_records(jh, "JH_HIT")
 logging.info("JH_HIT_RECORDS=%d" % len(jh))
 
 # Read CDC Data
-cdc = pd.read_excel(cdc, sheet_name='Line list')
+
+cdc = pd.read_csv(cdc,
+                  dtype={'Date implemented or lifted':str, 'Date Entered':str})
+
+#print(cdc["Date implemented or lifted"])
+cdc["Date implemented or lifted"] = pd.to_datetime(cdc["Date implemented or lifted"], format='%d/%m/%Y')
+cdc["Date Entered"] = pd.to_datetime(cdc["Date Entered"], format='%d/%m/%Y')
 
 # Check CDC Data
 check.check_input(records=cdc,
@@ -66,7 +73,9 @@ cdc = utils.df_to_records(cdc, "CDC_ITF")
 logging.info("CDC_ITF_RECORDS=%d" % len(cdc))
 
 # Read ACAPS Data
-acaps = pd.read_excel(acaps, sheet_name='Dataset')
+acaps = pd.read_csv(acaps,
+                    parse_dates = ['DATE_IMPLEMENTED', 'ENTRY_DATE'],
+                    dayfirst = True)
 
 # Check ACAPS Data
 check.check_input(records=acaps,
