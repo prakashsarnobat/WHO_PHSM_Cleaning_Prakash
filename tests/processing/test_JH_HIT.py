@@ -1,5 +1,66 @@
+import numpy as np
 import pandas as pd
 from src.processing import JH_HIT
+
+
+class Test_blank_record_and_url:
+
+    def test_blank_record_and_url_none(self):
+        '''
+        Test that blank records are labelled when missing values are None
+        '''
+
+        record = {'comments': None,
+                  'link': None,
+                  'who_code': None,
+                  'who_category': None,
+                  'who_subcategory': None,
+                  'who_measure': None}
+
+        res = JH_HIT.blank_record_and_url(record)
+
+        assert res['who_code'] == '11'
+        assert res['who_category'] == 'Not enough to code'
+        assert res['who_subcategory'] == 'Not enough to code'
+        assert res['who_measure'] == 'Not enough to code'
+
+    def test_blank_record_and_url_nan(self):
+        '''
+        Test that blank records are labelled when missing values are np.nan
+        '''
+
+        record = {'comments': np.nan,
+                  'link': np.nan,
+                  'who_code': None,
+                  'who_category': None,
+                  'who_subcategory': None,
+                  'who_measure': None}
+
+        res = JH_HIT.blank_record_and_url(record)
+
+        assert res['who_code'] == '11'
+        assert res['who_category'] == 'Not enough to code'
+        assert res['who_subcategory'] == 'Not enough to code'
+        assert res['who_measure'] == 'Not enough to code'
+
+    def test_blank_record_and_url_filled(self):
+        '''
+        Test that records are not labelled when at least one field is filled in
+        '''
+
+        record = {'comments': 'anything',
+                  'link': None,
+                  'who_code': None,
+                  'who_category': None,
+                  'who_subcategory': None,
+                  'who_measure': None}
+
+        res = JH_HIT.blank_record_and_url(record)
+
+        assert res['who_code'] is None
+        assert res['who_category'] is None
+        assert res['who_subcategory'] is None
+        assert res['who_measure'] is None
 
 
 class Test_apply_prov_measure_filter:
