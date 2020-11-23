@@ -39,11 +39,6 @@ def transform(record: dict, key_ref: dict, country_ref: pd.DataFrame, who_coding
     # reference (shared)
     record = utils.apply_key_map(new_record, record, key_ref)
 
-    # Filter out records with "no update" phrases
-    if is_update_phrase(record['comments'], list(no_update_phrase['phrase'])):
-
-        return(None)
-
     # 3. Assign unique ID (shared)
     #record = utils.assign_id(record)
 
@@ -91,6 +86,25 @@ def transform(record: dict, key_ref: dict, country_ref: pd.DataFrame, who_coding
 
     # 17. Remove update records
     record = assign_comment_links(record)
+
+    # Filter out records with "no update" phrases
+    record = label_update_phrase(record, list(no_update_phrase['phrase']))
+
+    return(record)
+
+
+def label_update_phrase(record: dict, phrases: list):
+    '''
+    Function to assign who_code == 10 and 'Not of interest'
+    to records with no update phrases
+    '''
+
+    if is_update_phrase(record['comments'], phrases):
+
+        record['who_code'] = '10'
+        record['who_category'] = 'Not of interest'
+        record['who_subcategory'] = 'Not of interest'
+        record['who_measure'] = 'Not of interest'
 
     return(record)
 
