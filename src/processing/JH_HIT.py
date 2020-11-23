@@ -100,6 +100,24 @@ def transform(record: dict, key_ref: dict, country_ref: pd.DataFrame, who_coding
 
     record = utils.remove_tags(record)
 
+    record = blank_record_and_url(record)
+
+    return(record)
+
+
+def blank_record_and_url(record: dict):
+    '''
+    Function to assign who_code == 11 and 'Not enough to code'
+    to records with no comments AND no url
+    '''
+
+    if (pd.isna(record['comments'])) and (pd.isna(record['source'])):
+
+        record['who_code'] = '11'
+        record['who_category'] = 'Not enough to code'
+        record['who_subcategory'] = 'Not enough to code'
+        record['who_measure'] = 'Not enough to code'
+
     return(record)
 
 
