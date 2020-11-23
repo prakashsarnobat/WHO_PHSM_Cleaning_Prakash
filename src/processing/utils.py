@@ -292,6 +292,7 @@ def replace_sensitive_regions(record):
     record = shift_sensitive_region(record, 'Macao', 'China')
     record = shift_sensitive_region(record, 'Guadeloupe', 'France')
     record = shift_sensitive_region(record, 'Palestine', 'Israel')
+    record = shift_sensitive_region(record, 'West Bank and Gaza', 'Israel')
 
     return(record)
 
