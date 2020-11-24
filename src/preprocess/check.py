@@ -35,13 +35,16 @@ def check_column_names(records: pd.DataFrame, config: pd.DataFrame, log: bool = 
 
     except Exception as e:
 
-        message = 'INPUT_CHECK_SUCCESS=Unexpected %s columns.' % dataset
+        present_in_input = set(records.columns).difference(set(config['column']))
+        present_in_config = set(config['column']).difference(set(records.columns))
+
+        message = 'INPUT_CHECK_FAILURE=Unexpected %s columns. Present in input: %s, present in config: %s' % (dataset, present_in_input, present_in_config)
 
         if log:
 
-            logging.error(message)
+            logging.info(message)
 
-        raise e
+        #raise e
 
 def check_date_format(data: pd.DataFrame, config: pd.DataFrame, dataset: str, log: bool = True):
     '''Function to check that an input date is in the expected format'''
