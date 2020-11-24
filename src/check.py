@@ -25,6 +25,10 @@ def check_output(data: pd.DataFrame):
     coded_config = pd.read_csv('config/output_check/coded_values.csv')
     check_coded_values(data, coded_config)
 
+    # check for one to one relationships between two columns
+    check_columns_one_to_one(data, 'iso', 'country_territory_area')
+    check_columns_one_to_one(data, 'iso', 'who_region')
+    check_columns_one_to_one(data, 'iso', 'iso_3166_1_numeric')
 
     # check for unknown who_codes and iso_codes
     check_unknown_values(data, 'iso_3166_1_numeric')
