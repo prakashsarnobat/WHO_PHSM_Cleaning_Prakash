@@ -93,6 +93,18 @@ def transform(record: dict, key_ref: dict, country_ref: pd.DataFrame, who_coding
     return(record)
 
 
+def shift_virgin_islands(record: dict):
+    '''
+    Function to shift area_covered values in the Virgin Islands to the country_territory_area column
+    '''
+
+    if record['area_covered'] == 'Virgin Islands':
+
+        record['country_territory_area'] = 'Virgin Islands'
+        record['area_covered'] = None
+
+    return(record)
+
 def label_update_phrase(record: dict, phrases: list):
     '''
     Function to assign who_code == 10 and 'Not of interest'
