@@ -92,6 +92,9 @@ def transform(record: dict, key_ref: dict, country_ref: pd.DataFrame, who_coding
     record = utils.replace_conditional(record, 'admin_level', 'Yes', 'national')
     record = utils.replace_conditional(record, 'admin_level', 'No', 'state')
 
+    # Replace JH enforcement == 'unknown' with None
+    record = utils.replace_conditional(record, 'enforcement', 'unknown', None)
+
     # 15. fill_not_enough_to_code
     record = fill_not_enough_to_code(record)
 

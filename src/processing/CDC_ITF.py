@@ -111,8 +111,9 @@ def transform(record: dict, key_ref: dict, country_ref: pd.DataFrame, who_coding
     # 13. check for missing WHO codes (shared)
     check.check_missing_who_code(record)
 
-    # 14. replace un-specific area_covered values
-    record = utils.replace_conditional(record, 'admin_level', 'Subnational/regional only', 'other')
+    # 14. set all admin_level values to national
+    record = utils.replace_conditional(record, 'admin_level', 'Subnational/regional only', 'national')
+    record = utils.replace_conditional(record, 'admin_level', 'subnational/regional only', 'national')
     record = utils.replace_conditional(record, 'admin_level', 'National', 'national')
 
     # 15. Replace measure_stage extension

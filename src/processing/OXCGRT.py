@@ -101,9 +101,9 @@ def shift_virgin_islands(record: dict):
     Function to shift area_covered values in the Virgin Islands to the country_territory_area column
     '''
 
-    if record['area_covered'] == 'Virgin Islands':
+    if record['area_covered'] == 'US Virgin Islands':
 
-        record['country_territory_area'] = 'Virgin Islands'
+        record['country_territory_area'] = 'US Virgin Islands'
         record['area_covered'] = None
 
     return(record)
