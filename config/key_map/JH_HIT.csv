@@ -16,7 +16,7 @@ JH_HIT,intervention_name,prov_measure
 JH_HIT,date_of_update,date_start
 JH_HIT,status,
 JH_HIT,status_simp,
-JH_HIT,subpopulation,targeted
+JH_HIT,subpopulation,
 JH_HIT,required,enforcement
 JH_HIT,reduced_capacity,
 JH_HIT,symp_screening,
