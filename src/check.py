@@ -201,3 +201,35 @@ def check_coded_values(data: pd.DataFrame, config: pd.DataFrame, log: bool = Tru
                 logging.error('OUTPUT_CHECK_FAILURE=Unexpected values in %s: %s.' % (column_name, ', '.join([str(x) for x in difference])))
 
             pass
+
+
+def columns_one_to_one(data: pd.DataFrame, ref_col: str, target_col: str, log: bool = True):
+    '''
+    Function to detect violations of one-to-one relationships in a pair of columns.
+    '''
+
+    data = data.copy()
+
+    data = data[[ref_col, target_col]].drop_duplicates()
+
+    res = data.groupby([ref_col]).count()
+
+    res = list(res[target_col].unique())
+
+    try:
+
+        assert res == [1]
+
+        if log:
+
+            logging.info('OUTPUT_CHECK_SUCCESS=No one-to-one violations found between %s and %s.' % (ref_col, target_col))
+
+    except Exception as e:
+
+        if log:
+
+            logging.error('OUTPUT_CHECK_FAILURE=Violation of one-to-one relationship between %s and %s.' % (ref_col, target_col))
+
+        pass
+
+    return(res)
