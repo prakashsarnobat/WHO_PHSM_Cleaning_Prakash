@@ -48,6 +48,9 @@ def transform(record: dict, key_ref: dict, country_ref: pd.DataFrame, who_coding
     # 8. replace sensitive country names
     record = utils.replace_sensitive_regions(record)
 
+    # Shift Virgin Islands records to national
+    record = shift_virgin_islands(record)
+
     # 7. Make manual country name changes
     record = utils.replace_conditional(record, 'country_territory_area', 'Eswatini', 'Swaziland')
     record = utils.replace_conditional(record, 'country_territory_area', 'South Korea', 'Korea')
