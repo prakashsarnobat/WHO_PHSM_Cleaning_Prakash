@@ -114,7 +114,7 @@ def blank_record_and_url(record: dict):
     to records with no comments AND no url
     '''
 
-    if (pd.isna(record['comments'])) and (pd.isna(record['link'])):
+    if (pd.isna(record['comments'])) and (pd.isna(record['link'])) and (pd.isna(record['alt_link'])):
 
         record['who_code'] = '11'
         record['who_category'] = 'Not enough to code'
