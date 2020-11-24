@@ -9,7 +9,7 @@ import sys
 import pandas as pd
 import logging
 
-from utils import create_dir, log_records_per
+from utils import create_dir, log_records_per, log_records_total
 from postprocess.main import postprocess
 from check import check_output
 
@@ -40,6 +40,7 @@ records = pd.concat(postprocessed)
 check_output(records)
 
 log_records_per(records, 'dataset')
+log_records_total(records)
 
 records.to_csv('tmp/postprocess/records.csv', index=False)
 

@@ -12,7 +12,7 @@ from progress.bar import Bar
 
 from processing.main import process
 from processing.utils import generate_blank_record, assign_id, get_min_id
-from utils import create_dir, log_records_per
+from utils import create_dir, log_records_per, log_records_total
 from processing import check
 from check import check_output
 
@@ -81,6 +81,7 @@ check_output(records)
 # set date processed to NOW
 
 log_records_per(records, 'dataset')
+log_records_total(records)
 
 records.to_csv('tmp/process/records.csv', index=False)
 

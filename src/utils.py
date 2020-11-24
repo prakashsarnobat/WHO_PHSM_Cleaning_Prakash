@@ -12,6 +12,15 @@ def create_dir(dir: str):
 
     os.mkdir(dir)
 
+
+def log_records_total(data: pd.DataFrame):
+    '''Function to log the total number of records in a dataset'''
+
+    n_records = len(data.index)
+
+    logging.info("TOTAL_RECORDS=%d" % n_records)
+
+
 def log_records_per(data: pd.DataFrame, group: str):
     '''Function to log the number of records in each group'''
 
