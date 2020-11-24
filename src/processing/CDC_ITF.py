@@ -58,6 +58,9 @@ def transform(record: dict, key_ref: dict, country_ref: pd.DataFrame, who_coding
     # 6. Assign unique ID (shared)
     #record = utils.assign_id(record)
 
+    # If area_covered is national, set to blank
+    record = area_covered_national(record)
+
     # 5. Handle date formatting
     record = utils.parse_date(record)
 
@@ -118,6 +121,20 @@ def transform(record: dict, key_ref: dict, country_ref: pd.DataFrame, who_coding
     record = utils.add_admin_level(record)
 
     record = utils.remove_tags(record, ['comments', 'link', 'alt_link'])
+
+    return(record)
+
+
+def area_covered_national(record: dict):
+    '''
+    Function to remove area_covered == "national"
+
+    Replace with None
+    '''
+
+    if record['area_covered'] in ['national']:
+
+        record['area_covered'] = None
 
     return(record)
 

@@ -65,8 +65,8 @@ testthat::expect_true((odd_values %>% pull(1) %>% length() + values %>% pull(1) 
 new_master <- rbind(odd_values, values) %>% 
   mutate(who_code = original_who_code) %>% 
   select(-original_who_code) %>% 
-  mutate(dataset = ifelse(dataset == 'OxCGRT', 'OXCGRT', dataset)) %>% 
-  mutate(country_territory_area = str_to_lower(country_territory_area)) #%>% 
+  mutate(dataset = ifelse(dataset == 'OxCGRT', 'OXCGRT', dataset)) #%>% 
+  #mutate(country_territory_area = str_to_lower(country_territory_area)) #%>% 
   #mutate(area_covered = str_to_lower(area_covered))
 
 jh_num_ids <- new_master %>% 
