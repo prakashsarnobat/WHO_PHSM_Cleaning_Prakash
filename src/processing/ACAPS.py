@@ -78,6 +78,12 @@ def transform(record: dict, key_ref: dict, country_ref: pd.DataFrame, who_coding
     record = utils.replace_conditional(record, 'non_compliance_penalty', 'Not Applicable', 'not applicable')
     record = utils.replace_conditional(record, 'non_compliance_penalty', 'Not applicable', 'not applicable')
 
+    # Replace targeted values
+    record = utils.replace_conditional(record, 'targeted', 'checked', None)
+    record = utils.replace_conditional(record, 'targeted', 'Checked', None)
+    record = utils.replace_conditional(record, 'targeted', 'general', None)
+    record = utils.replace_conditional(record, 'targeted', 'General', None)
+
     # 4. replace sensitive country names by ISO (utils)
     record = utils.replace_sensitive_regions(record)
 
