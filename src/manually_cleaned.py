@@ -12,7 +12,7 @@ import sys
 import pandas as pd
 import logging
 
-from utils import create_dir, log_records_per
+from utils import create_dir, log_records_per, log_records_total
 from postprocess.main import postprocess
 from check import check_output
 from manually_cleaned.main import adjust_manually_cleaned
@@ -49,6 +49,7 @@ check_output(manually_cleaned)
 
 log_records_per(manually_cleaned, 'dataset')
 log_records_per(manually_cleaned, 'processed')
+log_records_total(manually_cleaned)
 
 manually_cleaned.to_csv('tmp/manually_cleaned/records.csv', index=False)
 

@@ -3,7 +3,7 @@ import sys
 import pandas as pd
 import logging
 
-from utils import create_dir, log_records_per
+from utils import create_dir, log_records_per, log_records_total
 from check import check_output
 from master.main import get_new_records
 
@@ -94,6 +94,7 @@ check_output(master)
 
 log_records_per(master, "dataset")
 log_records_per(master, "processed")
+log_records_total(master)
 
 master.to_csv("tmp/master/master.csv", index=False)
 
