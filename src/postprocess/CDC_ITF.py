@@ -15,7 +15,6 @@ def remove_id_duplicates(data: pd.DataFrame):
     n_records = len(data.iloc[:, 1])
 
     ref_cols = ['country_territory_area',
-                'area_covered',
                 'prov_subcategory',
                 'prov_measure',
                 'comments',
