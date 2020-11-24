@@ -4,6 +4,7 @@ OXCGRT,CountryCode
 OXCGRT,RegionName
 OXCGRT,RegionCode
 OXCGRT,Date
+OXCGRT,Jurisdiction
 OXCGRT,C1_School closing
 OXCGRT,C1_Flag
 OXCGRT,C1_Notes

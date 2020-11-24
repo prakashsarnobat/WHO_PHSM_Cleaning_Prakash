@@ -1,6 +1,46 @@
 import pytest
 from src.processing import OXCGRT
 
+class Test_label_update_phrase:
+
+    def test_label_update_phrase_is_phrase(self):
+        '''
+        Test that the corret values are inserted when the
+        comments include a no update phrase
+        '''
+
+        record = {'comments': 'No changes',
+                  'who_code': None,
+                  'who_category': None,
+                  'who_subcategory': None,
+                  'who_measure': None}
+
+        res = OXCGRT.label_update_phrase(record, ['No changes'])
+
+        assert res['who_code'] == '10'
+        assert res['who_category'] == 'Not of interest'
+        assert res['who_subcategory'] == 'Not of interest'
+        assert res['who_measure'] == 'Not of interest'
+
+    def test_label_update_phrase_is_phrase(self):
+        '''
+        Test that the corret values are inserted when the
+        comments include a no update phrase
+        '''
+
+        record = {'comments': 'This is legit',
+                  'who_code': None,
+                  'who_category': None,
+                  'who_subcategory': None,
+                  'who_measure': None}
+
+        res = OXCGRT.label_update_phrase(record, ['No changes'])
+
+        assert res['who_code'] is None
+        assert res['who_category'] is None
+        assert res['who_subcategory'] is None
+        assert res['who_measure'] is None
+
 class Test_is_update_phrase:
     '''Test that is_no_update_phrase correctly identifies no update records'''
 
@@ -102,3 +142,24 @@ class Test_assign_comment_links:
 
         assert res['link'] == link1
         assert res['alt_link'] == link2
+
+
+class Test_shift_virgin_islands:
+
+    def test_shift_virgin_islands_present(self):
+
+        record = {'country_territory_area': 'USA', 'area_covered': 'Virgin Islands'}
+
+        res = OXCGRT.shift_virgin_islands(record)
+
+        assert res['country_territory_area'] == 'Virgin Islands'
+        assert res['area_covered'] is None
+
+    def test_shift_virgin_islands_absent(self):
+
+        record = {'country_territory_area': 'USA', 'area_covered': 'New York'}
+
+        res = OXCGRT.shift_virgin_islands(record)
+
+        assert res['country_territory_area'] == 'USA'
+        assert res['area_covered'] == 'New York'

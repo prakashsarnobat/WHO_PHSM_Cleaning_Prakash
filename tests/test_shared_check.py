@@ -43,3 +43,21 @@ class Test_check_values_present():
         res = check.check_values_present(data, 'focus_col', 'ref_col', log=False)
 
         assert not res
+
+class Test_check_columns_one_to_one:
+
+    def test_check_columns_one_to_one_present(self):
+
+        data = pd.DataFrame({'a':[1, 2, 3], 'b':['a', 'b', 'c']})
+
+        res = check.check_columns_one_to_one(data, 'a', 'b', log=False)
+
+        assert res == [1]
+
+    def test_check_columns_one_to_one_absent(self):
+
+        data = pd.DataFrame({'a':[1, 2, 2], 'b':['a', 'b', 'c']})
+
+        res = check.check_columns_one_to_one(data, 'a', 'b', log=False)
+
+        assert res == [1, 2]

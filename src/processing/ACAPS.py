@@ -40,6 +40,11 @@ def transform(record: dict, key_ref: dict, country_ref: pd.DataFrame, who_coding
     # 2. replace data in new record with data from old record using key_ref
     record = utils.apply_key_map(new_record, record, key_ref)
 
+    # Remove records where area covered is a single space
+    if record['area_covered'] == ' ':
+
+        record['area_covered'] = ''
+
     # 6. Assign unique ID (shared)
     #record = utils.assign_id(record)
 
@@ -50,7 +55,7 @@ def transform(record: dict, key_ref: dict, country_ref: pd.DataFrame, who_coding
     record = utils.replace_conditional(record, 'country_territory_area', 'Eswatini', 'Swaziland')
 
     # Make manual measure_stage changes
-    record = utils.replace_conditional(record, 'measure_stage', 'Introduction / extension of measures', 'new')
+    record = utils.replace_conditional(record, 'measure_stage', 'Introduction / extension of measures', 'introduction / extension of measures')
     record = utils.replace_conditional(record, 'measure_stage', 'Phase-out measure', 'phase-out')
 
     # Make manual non_compliance_penalty changes
@@ -72,6 +77,12 @@ def transform(record: dict, key_ref: dict, country_ref: pd.DataFrame, who_coding
     record = utils.replace_conditional(record, 'non_compliance_penalty', 'Not available ', 'not available')
     record = utils.replace_conditional(record, 'non_compliance_penalty', 'Not Applicable', 'not applicable')
     record = utils.replace_conditional(record, 'non_compliance_penalty', 'Not applicable', 'not applicable')
+
+    # Replace targeted values
+    record = utils.replace_conditional(record, 'targeted', 'checked', None)
+    record = utils.replace_conditional(record, 'targeted', 'Checked', None)
+    record = utils.replace_conditional(record, 'targeted', 'general', None)
+    record = utils.replace_conditional(record, 'targeted', 'General', None)
 
     # 4. replace sensitive country names by ISO (utils)
     record = utils.replace_sensitive_regions(record)

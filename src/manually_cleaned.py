@@ -12,7 +12,7 @@ import sys
 import pandas as pd
 import logging
 
-from utils import create_dir, log_records_per
+from utils import create_dir, log_records_per, log_records_total
 from postprocess.main import postprocess
 from check import check_output
 from manually_cleaned.main import adjust_manually_cleaned
@@ -28,7 +28,12 @@ logging.basicConfig(filename='tmp/manually_cleaned/manually_cleaned.log',
 print("Reading manually cleaned data...")
 logging.info("Reading manually cleaned data...")
 
-manually_cleaned = pd.read_csv('data/cleansed/mistress_latest.csv', low_memory=False)
+manually_cleaned = pd.read_csv('data/cleansed/mistress_latest.csv', low_memory=False,
+    dtype={'date_start':str, 'date_end':str, 'date_entry':str})
+
+manually_cleaned['date_start'] = pd.to_datetime(manually_cleaned['date_start'], format='%d/%m/%Y')
+manually_cleaned['date_end'] = pd.to_datetime(manually_cleaned['date_end'], format='%d/%m/%Y')
+manually_cleaned['date_entry'] = pd.to_datetime(manually_cleaned['date_entry'], format='%d/%m/%Y')
 
 print("Checking manually cleaned...")
 logging.info("Checking manually cleaned...")
@@ -44,6 +49,7 @@ check_output(manually_cleaned)
 
 log_records_per(manually_cleaned, 'dataset')
 log_records_per(manually_cleaned, 'processed')
+log_records_total(manually_cleaned)
 
 manually_cleaned.to_csv('tmp/manually_cleaned/records.csv', index=False)
 

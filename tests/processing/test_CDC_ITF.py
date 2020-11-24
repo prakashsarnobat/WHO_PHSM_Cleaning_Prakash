@@ -30,3 +30,21 @@ def test_join_comments():
               'Notes': 'b'}
 
     assert CDC_ITF.join_comments(record) == 'a. b'
+
+class Test_area_covered_national:
+
+    def test_area_covered_national_present(self):
+
+        record = {'area_covered': 'national'}
+
+        res = CDC_ITF.area_covered_national(record)
+
+        assert res['area_covered'] is None
+
+    def test_area_covered_national_absent(self):
+
+        record = {'area_covered': 'something else'}
+
+        res = CDC_ITF.area_covered_national(record)
+
+        assert res['area_covered'] == 'something else'
