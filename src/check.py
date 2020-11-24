@@ -203,7 +203,7 @@ def check_coded_values(data: pd.DataFrame, config: pd.DataFrame, log: bool = Tru
             pass
 
 
-def columns_one_to_one(data: pd.DataFrame, ref_col: str, target_col: str, log: bool = True):
+def check_columns_one_to_one(data: pd.DataFrame, ref_col: str, target_col: str, log: bool = True):
     '''
     Function to detect violations of one-to-one relationships in a pair of columns.
     '''
