@@ -27,7 +27,6 @@ def check_output(data: pd.DataFrame):
 
     # check for one to one relationships between two columns
     check_columns_one_to_one(data, 'iso', 'country_territory_area')
-    check_columns_one_to_one(data, 'iso', 'who_region')
     check_columns_one_to_one(data, 'iso', 'iso_3166_1_numeric')
 
     # check for unknown who_codes and iso_codes
