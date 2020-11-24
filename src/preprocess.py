@@ -23,7 +23,7 @@ print("Preprocessing Data...")
 logging.info("Preprocessing Data...")
 
 #Record limit for development. Should be None for production.
-record_limit = 5
+record_limit = None
 
 # Dataset sources: these should be in makefile when ready
 jh = "https://raw.githubusercontent.com/HopkinsIDD/hit-covid/master/data/hit-covid-longdata.csv"
