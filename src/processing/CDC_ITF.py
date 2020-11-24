@@ -112,7 +112,8 @@ def transform(record: dict, key_ref: dict, country_ref: pd.DataFrame, who_coding
     check.check_missing_who_code(record)
 
     # 14. replace un-specific area_covered values
-    record = utils.replace_conditional(record, 'area_covered', 'Subnational/regional only', '')
+    record = utils.replace_conditional(record, 'admin_level', 'Subnational/regional only', 'other')
+    record = utils.replace_conditional(record, 'admin_level', 'National', 'national')
 
     # 15. Replace measure_stage extension
     record = utils.replace_conditional(record, 'measure_stage', 'Extend with same stringency', 'extension')

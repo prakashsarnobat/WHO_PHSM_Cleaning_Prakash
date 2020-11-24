@@ -2,7 +2,7 @@
 CDC_ITF,Unique Identifier,prop_id
 CDC_ITF,WHO Region,
 CDC_ITF,Country,country_territory_area
-CDC_ITF,Country,area_covered
+CDC_ITF,Country,
 CDC_ITF,Date Entered,date_entry
 CDC_ITF,Date implemented or lifted,date_start
 CDC_ITF,Date implemented or lifted,date_end
