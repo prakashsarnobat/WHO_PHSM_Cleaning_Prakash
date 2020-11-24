@@ -92,6 +92,9 @@ def transform(record: dict, key_ref: dict, country_ref: pd.DataFrame, who_coding
     record = utils.replace_conditional(record, 'admin_level', 'Yes', 'national')
     record = utils.replace_conditional(record, 'admin_level', 'No', 'state')
 
+    # Replace JH enforcement == 'unknown' with None
+    record = utils.replace_conditional(record, 'enforcement', 'unknown', None)
+
     # 15. fill_not_enough_to_code
     record = fill_not_enough_to_code(record)
 
@@ -111,7 +114,7 @@ def blank_record_and_url(record: dict):
     to records with no comments AND no url
     '''
 
-    if (pd.isna(record['comments'])) and (pd.isna(record['link'])):
+    if (pd.isna(record['comments'])) and (pd.isna(record['link'])) and (pd.isna(record['alt_link'])):
 
         record['who_code'] = '11'
         record['who_category'] = 'Not enough to code'

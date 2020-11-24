@@ -12,6 +12,7 @@ class Test_blank_record_and_url:
 
         record = {'comments': None,
                   'link': None,
+                  'alt_link': None,
                   'who_code': None,
                   'who_category': None,
                   'who_subcategory': None,
@@ -31,6 +32,7 @@ class Test_blank_record_and_url:
 
         record = {'comments': np.nan,
                   'link': np.nan,
+                  'alt_link': np.nan,
                   'who_code': None,
                   'who_category': None,
                   'who_subcategory': None,
@@ -50,6 +52,7 @@ class Test_blank_record_and_url:
 
         record = {'comments': 'anything',
                   'link': None,
+                  'alt_link': None,
                   'who_code': None,
                   'who_category': None,
                   'who_subcategory': None,

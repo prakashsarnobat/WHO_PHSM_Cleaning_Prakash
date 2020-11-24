@@ -30,7 +30,7 @@ coding <- read_csv('/Users/hamishgibbs/Documents/Covid-19/WHO_PHSM_Cleaning/data
 # Select 10, 11, 12 records
 #16,594
 master %>% 
-  filter(who_code %in% c('10', '11', '12')) %>% 
+  filter(who_code %in% c('12')) %>% 
   #join_coding
   select(dataset, prov_category, prov_subcategory, 
          prov_measure) %>% 
@@ -42,14 +42,14 @@ master %>%
   view()
 
 odd_values <- master %>% 
-  filter(who_code %in% c('10', '11', '12')) %>% 
+  filter(who_code %in% c('12')) %>% 
   left_join(coding, by = c('prov_category', 
                            'prov_subcategory', 'prov_measure')) %>% 
   dplyr::rename(who_code = who_code.x) %>% 
   dplyr::rename(original_who_code = who_code.y)
 
 values <- master %>% 
-  filter(!who_code %in% c('10', '11', '12')) %>% 
+  filter(!who_code %in% c('12')) %>% 
   mutate(original_who_code = who_code)
 
 
@@ -65,8 +65,8 @@ testthat::expect_true((odd_values %>% pull(1) %>% length() + values %>% pull(1) 
 new_master <- rbind(odd_values, values) %>% 
   mutate(who_code = original_who_code) %>% 
   select(-original_who_code) %>% 
-  mutate(dataset = ifelse(dataset == 'OxCGRT', 'OXCGRT', dataset)) #%>% 
-  #mutate(country_territory_area = str_to_lower(country_territory_area)) #%>% 
+  mutate(dataset = ifelse(dataset == 'OxCGRT', 'OXCGRT', dataset)) %>% 
+  mutate(country_territory_area = str_to_title(country_territory_area)) #%>% 
   #mutate(area_covered = str_to_lower(area_covered))
 
 jh_num_ids <- new_master %>% 

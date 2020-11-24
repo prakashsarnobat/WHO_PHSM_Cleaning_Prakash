@@ -43,6 +43,10 @@ docs: FORCE
 
 data: preprocess process postprocess manually_cleaned master logs report bundle
 
+postprocess+: postprocess manually_cleaned master logs report bundle
+manually_cleaned+: manually_cleaned master logs report bundle
+master+: master logs report bundle
+
 preprocess:
 	python src/preprocess.py
 

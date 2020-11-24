@@ -103,7 +103,7 @@ def shift_virgin_islands(record: dict):
 
     if record['area_covered'] == 'Virgin Islands':
 
-        record['country_territory_area'] = 'Virgin Islands'
+        record['country_territory_area'] = 'US Virgin Islands'
         record['area_covered'] = None
 
     return(record)

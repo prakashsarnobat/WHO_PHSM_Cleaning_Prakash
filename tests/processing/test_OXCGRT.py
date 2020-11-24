@@ -152,7 +152,7 @@ class Test_shift_virgin_islands:
 
         res = OXCGRT.shift_virgin_islands(record)
 
-        assert res['country_territory_area'] == 'Virgin Islands'
+        assert res['country_territory_area'] == 'US Virgin Islands'
         assert res['area_covered'] is None
 
     def test_shift_virgin_islands_absent(self):

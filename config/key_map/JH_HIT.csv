@@ -25,7 +25,7 @@ JH_HIT,size,
 JH_HIT,duration,
 JH_HIT,testing_population,
 JH_HIT,details,comments
-JH_HIT,url,source_alt
-JH_HIT,source_document_url,source
+JH_HIT,url,link
+JH_HIT,source_document_url,alt_link
 JH_HIT,entry_quality,
 JH_HIT,dataset,dataset
