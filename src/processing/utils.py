@@ -316,7 +316,7 @@ def add_admin_level(record: dict):
 
         record['admin_level'] = 'national'
 
-    else:
+    elif pd.isna(record['admin_level']) and not pd.isna(record['area_covered']):
 
         record['admin_level'] = 'other'
 

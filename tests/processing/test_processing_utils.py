@@ -329,20 +329,31 @@ def test_shift_sensitive_region():
 class Test_add_admin_level:
 
     def test_add_admin_level_national(self):
+        '''Test that admin level is national when area_covered is blank'''
 
-        record = {'area_covered':None, 'admin_level': ''}
+        record = {'area_covered':None, 'admin_level': None}
 
         record = utils.add_admin_level(record)
 
         assert record['admin_level'] == 'national'
 
     def test_add_admin_level_other(self):
+        '''Test that admin level is other when area_covered is filled'''
 
-        record = {'area_covered':'Anything', 'admin_level': ''}
+        record = {'area_covered':'Anything', 'admin_level': None}
 
         record = utils.add_admin_level(record)
 
         assert record['admin_level'] == 'other'
+
+    def test_add_admin_level_existing(self):
+        '''Test that admin level is not overwritten when a value is present'''
+
+        record = {'area_covered':None, 'admin_level': "I was here first"}
+
+        record = utils.add_admin_level(record)
+
+        assert record['admin_level'] == "I was here first"
 
 class Test_remove_tags:
 
