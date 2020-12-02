@@ -17,10 +17,10 @@ def get_new_records(records: pd.DataFrame, previous_update: pd.DataFrame, cols):
     # Identify which concatenated strings are unique in the new data
     new_combo_strings = set(records['combo_string']).difference(set(previous_update['combo_string']))
 
-    print(len(records['combo_string']))
-    print(len(new_combo_strings))
-    print(list(new_combo_strings)[0])
-    print(records.loc[records['combo_string'] == list(new_combo_strings)[0], 'comments'])
+    #print(len(records['combo_string']))
+    #print(len(new_combo_strings))
+    #print(list(new_combo_strings)[0])
+    #print(records.loc[records['combo_string'] == list(new_combo_strings)[0], 'comments'])
 
     # get a subset of the update data by these unique strings
     new_records = records.loc[[x in new_combo_strings for x in records['combo_string']], :]
