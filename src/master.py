@@ -72,7 +72,7 @@ new_records["processed"] = "not_cleansed"
 
 new_records["keep"] = "y"
 
-new_records.loc[[x in ['10', '11', '12'] for x in new_records['who_code']], 'keep'] = "n"
+new_records.loc[[x in ['10', '11', '12', '13'] for x in new_records['who_code']], 'keep'] = "n"
 
 # Assign date processed to today
 new_records["date_processed"] = pd.to_datetime('today').strftime('%d-%m-%Y')
