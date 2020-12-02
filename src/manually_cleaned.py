@@ -34,6 +34,7 @@ manually_cleaned = pd.read_csv('data/cleansed/mistress_latest.csv', low_memory=F
 manually_cleaned['date_start'] = pd.to_datetime(manually_cleaned['date_start'], format='%d/%m/%Y')
 manually_cleaned['date_end'] = pd.to_datetime(manually_cleaned['date_end'], format='%d/%m/%Y')
 manually_cleaned['date_entry'] = pd.to_datetime(manually_cleaned['date_entry'], format='%d/%m/%Y')
+manually_cleaned['date_processed'] = pd.to_datetime(manually_cleaned['date_processed'], format='%d/%m/%Y')
 
 print("Checking manually cleaned...")
 logging.info("Checking manually cleaned...")
@@ -44,13 +45,8 @@ logging.info("Adjusting manually cleaned...")
 # Apply changes to mistress
 manually_cleaned = adjust_manually_cleaned(manually_cleaned)
 
-#print(manually_cleaned.loc[(pd.isna(manually_cleaned['keep'])) & ([x in ['10', '11', '12'] for x in manually_cleaned['who_code']])])
 manually_cleaned.loc[(pd.isna(manually_cleaned['keep'])) & ([x in ['10', '11', '12', '13'] for x in manually_cleaned['who_code']]), 'keep'] = 'n'
 manually_cleaned.loc[(pd.isna(manually_cleaned['keep'])) & ([x not in ['10', '11', '12', '13'] for x in manually_cleaned['who_code']]), 'keep'] = 'y'
-
-#print(manually_cleaned.loc[([x in ['10', '11', '12'] for x in manually_cleaned['who_code']]), 'keep'].unique())
-#print(manually_cleaned.loc[([x not in ['10', '11', '12'] for x in manually_cleaned['who_code']]), 'keep'].unique())
-#manually_cleaned.loc[[x in ['10', '11', '12'] for x in manually_cleaned['who_code']], 'keep'] = "n"
 
 # Check mistress
 check_output(manually_cleaned)
