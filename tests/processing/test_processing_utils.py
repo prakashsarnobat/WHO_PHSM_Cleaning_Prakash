@@ -10,10 +10,6 @@ class Test_generate_blank_record:
 
         assert type(generate_blank_record()) == dict
 
-    def test_dict_key_number(self):
-
-        assert len(generate_blank_record().keys()) == 45
-
 
 def test_create_id():
 

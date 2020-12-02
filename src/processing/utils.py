@@ -12,6 +12,7 @@ def generate_blank_record():
         "processed": None,
         "uuid": str(uuid.uuid4()),
         "who_id": None,
+        "who_id_original": None,
         "dataset": None,
         "prop_id": None,
         "keep": None,

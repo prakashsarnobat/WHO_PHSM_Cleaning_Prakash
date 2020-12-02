@@ -10,11 +10,13 @@ manual_arranged_dtypes <- cols(who_id = col_character(), dataset = col_character
                                percent_interest = col_number(), comments = col_character(),
                                non_compliance_penalty = col_character(), source = col_character(),
                                source_type = col_character(), link = col_character(), source_alt = col_character(),
-                               date_start = col_date(), date_end = col_date(), date_entry = col_date(), measure_stage = col_character(), following_measure_number = col_character())
+                               date_start = col_character(), date_end = col_character(), date_entry = col_character(), measure_stage = col_character(), following_measure_number = col_character())
 
 # Read master data
-master <- read_csv('/Users/hamishgibbs/Documents/Covid-19/WHO_PHSM_Cleaning/data/not_cleansed/update_latest.csv',
-                   col_types = manual_arranged_dtypes)
+master <- read_csv('/Users/hamishgibbs/Documents/Covid-19/WHO_PHSM_Cleaning/data/not_cleansed/master_2020_11_20_new.csv',
+                   col_types = manual_arranged_dtypes) %>% 
+  mutate(date_start = lubridate::dmy(date_start)) %>% 
+  select(-original_who_code)
 
 # Read coding
 coding <- read_csv('/Users/hamishgibbs/Documents/Covid-19/WHO_PHSM_Cleaning/data/manual/who_dataset_coding.csv',
@@ -30,7 +32,7 @@ coding <- read_csv('/Users/hamishgibbs/Documents/Covid-19/WHO_PHSM_Cleaning/data
 # Select 10, 11, 12 records
 #16,594
 master %>% 
-  filter(who_code %in% c('12')) %>% 
+  filter(who_code %in% c('10', '11', '12')) %>% 
   #join_coding
   select(dataset, prov_category, prov_subcategory, 
          prov_measure) %>% 
@@ -42,14 +44,14 @@ master %>%
   view()
 
 odd_values <- master %>% 
-  filter(who_code %in% c('12')) %>% 
+  filter(who_code %in% c('10', '11', '12')) %>% 
   left_join(coding, by = c('prov_category', 
                            'prov_subcategory', 'prov_measure')) %>% 
   dplyr::rename(who_code = who_code.x) %>% 
   dplyr::rename(original_who_code = who_code.y)
 
 values <- master %>% 
-  filter(!who_code %in% c('12')) %>% 
+  filter(!who_code %in% c('10', '11', '12')) %>% 
   mutate(original_who_code = who_code)
 
 
@@ -81,7 +83,7 @@ jh_schools <- tibble(prop_id = c(paste0(jh_num_ids, '_primary_school'),
 
 new_master <- plyr::rbind.fill(new_master, jh_schools) %>% as_tibble()
 
-write_csv(new_master, '/Users/hamishgibbs/Documents/Covid-19/WHO_PHSM_Cleaning/data/not_cleansed/update_latest_new.csv')
+write_csv(new_master, '/Users/hamishgibbs/Documents/Covid-19/WHO_PHSM_Cleaning/data/not_cleansed/master_2020_11_20_new2.csv')
 
 
 

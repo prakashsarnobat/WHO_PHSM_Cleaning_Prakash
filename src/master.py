@@ -26,7 +26,10 @@ manually_cleaned = pd.read_csv("tmp/manually_cleaned/records.csv", low_memory=Fa
 print("Reading previous update...")
 logging.info("Reading previous update...")
 
-previous_update = pd.read_csv("data/not_cleansed/update_latest_new.csv", low_memory=False, parse_dates = ['date_start'], encoding='latin1')
+previous_update = pd.read_csv("data/not_cleansed/update_merge_2020_11_25.csv", parse_dates=['date_start'], low_memory=False, encoding='latin1',
+                              dtype={'date_start':str})
+
+#previous_update['date_start'] = pd.to_datetime(previous_update['date_start'], format='%d/%m/%Y')
 
 update = pd.read_csv("tmp/postprocess/records.csv", low_memory=False, parse_dates = ['date_start'])
 
@@ -66,6 +69,10 @@ new_records.to_csv('tmp/new_records.csv')
 
 # Label records as not_cleansed
 new_records["processed"] = "not_cleansed"
+
+new_records["keep"] = "y"
+
+new_records.loc[[x in ['10', '11', '12'] for x in new_records['who_code']], 'keep'] = "n"
 
 # Assign date processed to today
 new_records["date_processed"] = pd.to_datetime('today').strftime('%d-%m-%Y')

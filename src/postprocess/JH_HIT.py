@@ -53,7 +53,10 @@ def combine_measures(data: pd.DataFrame, who_code: str, id_stub: str):
 
             group[col_name] = list(id_group[col_name].unique())[0]
 
-        group['targeted'] = ', '.join(list(id_group['targeted']))
+        try:
+            group['targeted'] = ', '.join(list(id_group['targeted']))
+        except Exception:
+            group['targeted'] = None
 
         group['prop_id'] = group['prop_id_numeric'] + id_stub
 
