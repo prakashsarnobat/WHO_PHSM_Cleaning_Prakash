@@ -48,8 +48,8 @@ def transform(record: dict, key_ref: dict, country_ref: pd.DataFrame, who_coding
     # 8. replace sensitive country names
     record = utils.replace_sensitive_regions(record)
 
-    # Shift Virgin Islands records to national
-    record = shift_virgin_islands(record)
+    # shift areas that should be countries.
+    record = utils.replace_country(record, 'United States', 'Virgin Islands')
 
     # 7. Make manual country name changes
     record = utils.replace_conditional(record, 'country_territory_area', 'Eswatini', 'Swaziland')
@@ -92,19 +92,6 @@ def transform(record: dict, key_ref: dict, country_ref: pd.DataFrame, who_coding
 
     # Filter out records with "no update" phrases
     record = label_update_phrase(record, list(no_update_phrase['phrase']))
-
-    return(record)
-
-
-def shift_virgin_islands(record: dict):
-    '''
-    Function to shift area_covered values in the Virgin Islands to the country_territory_area column
-    '''
-
-    if record['area_covered'] == 'Virgin Islands':
-
-        record['country_territory_area'] = 'US Virgin Islands'
-        record['area_covered'] = None
 
     return(record)
 

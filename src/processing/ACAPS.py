@@ -48,6 +48,9 @@ def transform(record: dict, key_ref: dict, country_ref: pd.DataFrame, who_coding
     # 6. Assign unique ID (shared)
     #record = utils.assign_id(record)
 
+    # shift areas that should be countries.
+    record = utils.replace_country(record, 'Denmark', 'Greenland')
+
     # 3. Make manual country name changes
     record = utils.replace_conditional(record, 'country_territory_area', 'DRC', 'Democratic Republic of the Congo')
     record = utils.replace_conditional(record, 'country_territory_area', 'CAR', 'Central African Republic')
@@ -108,17 +111,5 @@ def transform(record: dict, key_ref: dict, country_ref: pd.DataFrame, who_coding
     record = utils.add_admin_level(record)
 
     record = utils.remove_tags(record)
-
-    return(record)
-
-
-def replace_country(record: dict, country_name: str, area_name: str):
-    '''Function to replace country name with an area_covered name'''
-
-    if record['country_territory_area'] == country_name and record['area_covered'] == area_name:
-
-        record['country_territory_area'] = area_name
-
-        record['area_covered'] =  None
 
     return(record)

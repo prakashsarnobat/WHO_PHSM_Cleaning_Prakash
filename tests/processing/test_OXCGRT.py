@@ -142,24 +142,3 @@ class Test_assign_comment_links:
 
         assert res['link'] == link1
         assert res['alt_link'] == link2
-
-
-class Test_shift_virgin_islands:
-
-    def test_shift_virgin_islands_present(self):
-
-        record = {'country_territory_area': 'USA', 'area_covered': 'Virgin Islands'}
-
-        res = OXCGRT.shift_virgin_islands(record)
-
-        assert res['country_territory_area'] == 'US Virgin Islands'
-        assert res['area_covered'] is None
-
-    def test_shift_virgin_islands_absent(self):
-
-        record = {'country_territory_area': 'USA', 'area_covered': 'New York'}
-
-        res = OXCGRT.shift_virgin_islands(record)
-
-        assert res['country_territory_area'] == 'USA'
-        assert res['area_covered'] == 'New York'
