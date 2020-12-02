@@ -44,6 +44,14 @@ logging.info("Adjusting manually cleaned...")
 # Apply changes to mistress
 manually_cleaned = adjust_manually_cleaned(manually_cleaned)
 
+#print(manually_cleaned.loc[(pd.isna(manually_cleaned['keep'])) & ([x in ['10', '11', '12'] for x in manually_cleaned['who_code']])])
+manually_cleaned.loc[(pd.isna(manually_cleaned['keep'])) & ([x in ['10', '11', '12', '13'] for x in manually_cleaned['who_code']]), 'keep'] = 'n'
+manually_cleaned.loc[(pd.isna(manually_cleaned['keep'])) & ([x not in ['10', '11', '12', '13'] for x in manually_cleaned['who_code']]), 'keep'] = 'y'
+
+#print(manually_cleaned.loc[([x in ['10', '11', '12'] for x in manually_cleaned['who_code']]), 'keep'].unique())
+#print(manually_cleaned.loc[([x not in ['10', '11', '12'] for x in manually_cleaned['who_code']]), 'keep'].unique())
+#manually_cleaned.loc[[x in ['10', '11', '12'] for x in manually_cleaned['who_code']], 'keep'] = "n"
+
 # Check mistress
 check_output(manually_cleaned)
 

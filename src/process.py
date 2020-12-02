@@ -49,7 +49,7 @@ prov_measure_filter = {'JH_HIT': pd.read_csv('config/prov_measure_filter/JH_HIT.
 
 no_update_phrase = {'OXCGRT': pd.read_csv('config/no_update_phrase/OXCGRT.csv')}
 
-min_id = get_min_id('data/not_cleansed/update_latest_new.csv')
+min_id = get_min_id('data/cleansed/mistress_latest.csv')
 
 blank_record = generate_blank_record()
 

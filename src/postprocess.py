@@ -37,6 +37,8 @@ for data in records:
 
 records = pd.concat(postprocessed)
 
+records['who_id_original'] = records['who_id']
+
 check_output(records)
 
 log_records_per(records, 'dataset')
