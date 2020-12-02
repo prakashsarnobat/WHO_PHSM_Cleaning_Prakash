@@ -183,7 +183,8 @@ class Test_assign_who_coding:
                                    'who_subcategory': ['b'],
                                    'who_category': ['c'],
                                    'non_compliance': ['d'],
-                                   'who_targeted': ['e']})
+                                   'who_targeted': ['e'],
+                                   'who_enforcement':['f']})
 
         record = assign_who_coding(record, who_coding)
 
@@ -198,6 +199,8 @@ class Test_assign_who_coding:
         assert record['non_compliance_penalty'] == 'd'
 
         assert record['targeted'] == 'e'
+
+        assert record['enforcement'] == 'f'
 
     def test_assign_who_coding_missing(self):
 

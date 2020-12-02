@@ -259,6 +259,22 @@ def assign_who_coding(record: dict, who_coding: pd.DataFrame, missing_value: str
 
         pass
 
+    # try to assign an enforcement (missing for most records)
+    # WARNING: this could overwrite an existing enforcement value
+    try:
+
+        if coding['who_enforcement'].iloc[0] == '':
+
+            raise ValueError
+
+        else:
+
+            record['enforcement'] = coding['who_enforcement'].iloc[0]
+
+    except Exception as e:
+
+        pass
+
     return(record)
 
 
