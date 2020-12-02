@@ -17,12 +17,12 @@ class Test_label_update_phrase:
 
         res = OXCGRT.label_update_phrase(record, ['No changes'])
 
-        assert res['who_code'] == '10'
-        assert res['who_category'] == 'Not of interest'
-        assert res['who_subcategory'] == 'Not of interest'
-        assert res['who_measure'] == 'Not of interest'
+        assert res['who_code'] == '13'
+        assert res['who_category'] == 'No policy update'
+        assert res['who_subcategory'] == 'No policy update'
+        assert res['who_measure'] == 'No policy update'
 
-    def test_label_update_phrase_is_phrase(self):
+    def test_label_update_phrase_is_not_phrase(self):
         '''
         Test that the corret values are inserted when the
         comments include a no update phrase
