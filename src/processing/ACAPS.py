@@ -48,6 +48,9 @@ def transform(record: dict, key_ref: dict, country_ref: pd.DataFrame, who_coding
     # 6. Assign unique ID (shared)
     #record = utils.assign_id(record)
 
+    # shift areas that should be countries.
+    record = utils.replace_country(record, 'Denmark', 'Greenland')
+
     # 3. Make manual country name changes
     record = utils.replace_conditional(record, 'country_territory_area', 'DRC', 'Democratic Republic of the Congo')
     record = utils.replace_conditional(record, 'country_territory_area', 'CAR', 'Central African Republic')

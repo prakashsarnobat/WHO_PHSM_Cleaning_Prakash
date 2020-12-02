@@ -357,6 +357,7 @@ def remove_tags(record: dict, keys: list = ['comments']):
 
     return(record)
 
+
 def replace_country(record: dict, country_name: str, area_name: str):
     '''Function to replace country name with an area_covered name'''
 
