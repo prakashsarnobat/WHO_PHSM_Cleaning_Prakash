@@ -116,10 +116,10 @@ def label_update_phrase(record: dict, phrases: list):
 
     if is_update_phrase(record['comments'], phrases):
 
-        record['who_code'] = '10'
-        record['who_category'] = 'Not of interest'
-        record['who_subcategory'] = 'Not of interest'
-        record['who_measure'] = 'Not of interest'
+        record['who_code'] = '13'
+        record['who_category'] = 'No policy update'
+        record['who_subcategory'] = 'No policy update'
+        record['who_measure'] = 'No policy update'
 
     return(record)
 
