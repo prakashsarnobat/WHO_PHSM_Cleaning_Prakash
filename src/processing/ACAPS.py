@@ -110,3 +110,15 @@ def transform(record: dict, key_ref: dict, country_ref: pd.DataFrame, who_coding
     record = utils.remove_tags(record)
 
     return(record)
+
+
+def replace_country(record: dict, country_name: str, area_name: str):
+    '''Function to replace country name with an area_covered name'''
+
+    if record['country_territory_area'] == country_name and record['area_covered'] == area_name:
+
+        record['country_territory_area'] = area_name
+
+        record['area_covered'] =  None
+
+    return(record)
