@@ -95,6 +95,10 @@ def transform(record: dict, key_ref: dict, country_ref: pd.DataFrame, who_coding
     # Replace JH enforcement == 'unknown' with None
     record = utils.replace_conditional(record, 'enforcement', 'unknown', None)
 
+    # Replace JH targeter values
+    record = utils.replace_conditional(record, 'targeted', 'geographic subpobulation', None)
+    record = utils.replace_conditional(record, 'targeted', 'entire population', None)
+
     # 15. fill_not_enough_to_code
     record = fill_not_enough_to_code(record)
 
