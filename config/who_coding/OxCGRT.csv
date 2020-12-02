@@ -1,7 +1,7 @@
 ﻿dataset,prov_category,prov_subcategory,prov_measure,who_code,who_category,who_subcategory,who_measure,non_compliance,who_targeted
-OxCGRT,C1_School closing,1,0,4.1.2,Social and physical distancing measures,School measures ,Closing,recommended,General
-OxCGRT,C1_School closing,2,0,4.1.2,Social and physical distancing measures,School measures ,Closing,required,Targeted
-OxCGRT,C1_School closing,3,0,4.1.2,Social and physical distancing measures,School measures ,Closing,required,General
+OxCGRT,C1_School closing,1,0,4.1.2,Social and physical distancing measures,School measures ,Closing,recommended,
+OxCGRT,C1_School closing,2,0,4.1.2,Social and physical distancing measures,School measures ,Closing,required,
+OxCGRT,C1_School closing,3,0,4.1.2,Social and physical distancing measures,School measures ,Closing,required,
 OxCGRT,C2_Workplace closing,1,0,4.2.2,Social and physical distancing measures,"Offices, businesses, institutions and operations",Closing,recommended,
 OxCGRT,C2_Workplace closing,2,0,4.2.2,Social and physical distancing measures,"Offices, businesses, institutions and operations",Closing,required,
 OxCGRT,C2_Workplace closing,3,0,4.2.2,Social and physical distancing measures,"Offices, businesses, institutions and operations",Closing,required,
