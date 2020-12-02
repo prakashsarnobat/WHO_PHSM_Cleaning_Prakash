@@ -52,6 +52,7 @@ def transform(record: dict, key_ref: dict, country_ref: pd.DataFrame, who_coding
     record = utils.replace_country(record, 'United States', 'Virgin Islands')
 
     # 7. Make manual country name changes
+    record = utils.replace_conditional(record, 'country_territory_area', 'Virgin Islands', 'US Virgin Islands')
     record = utils.replace_conditional(record, 'country_territory_area', 'Eswatini', 'Swaziland')
     record = utils.replace_conditional(record, 'country_territory_area', 'South Korea', 'Korea')
 

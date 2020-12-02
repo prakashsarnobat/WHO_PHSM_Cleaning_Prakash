@@ -51,6 +51,8 @@ no_update_phrase = {'OXCGRT': pd.read_csv('config/no_update_phrase/OXCGRT.csv')}
 
 min_id = get_min_id('data/cleansed/mistress_latest.csv', id_column='who_id')
 
+print(min_id)
+
 blank_record = generate_blank_record()
 
 processed_records = []
