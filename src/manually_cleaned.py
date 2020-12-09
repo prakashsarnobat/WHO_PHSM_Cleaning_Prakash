@@ -56,6 +56,8 @@ manually_cleaned = adjust_manually_cleaned(manually_cleaned)
 manually_cleaned.loc[(pd.isna(manually_cleaned['keep'])) & ([x in ['10', '11', '12', '13'] for x in manually_cleaned['who_code']]), 'keep'] = 'n'
 manually_cleaned.loc[(pd.isna(manually_cleaned['keep'])) & ([x not in ['10', '11', '12', '13'] for x in manually_cleaned['who_code']]), 'keep'] = 'y'
 
+manually_cleaned = columns_to_lower(manually_cleaned, lowercase_columns)
+
 # Check mistress
 check_output(manually_cleaned)
 
