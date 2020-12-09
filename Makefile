@@ -79,6 +79,9 @@ bundle:
 final_numbers:
 	python src/final_numbers.py
 
+release:
+	python src/release.py
+
 #Phony target to force rebuilds
 .PHONY: FORCE
 FORCE:
