@@ -67,3 +67,21 @@ def update_measure_stage_date(manually_cleaned):
     manually_cleaned.loc[(is_null_date_end) & (is_finish), "date_end"] = manually_cleaned.loc[(is_null_date_end) & (is_finish), "date_start"]
 
     return(manually_cleaned)
+
+
+def columns_to_lower(manually_cleaned: pd.DataFrame, lowercase_columns: list):
+    '''Function to set all columns to lowercase'''
+
+    for col in lowercase_columns:
+
+        try:
+
+            assert all(isinstance(x, str) for x in manually_cleaned[col] if not pd.isna(x))
+
+        except AssertionError:
+
+            raise AssertionError('Column {} does not only contain strings'.format(col))
+
+        manually_cleaned[col] = manually_cleaned[col].str.lower()
+
+    return(manually_cleaned)

@@ -66,3 +66,30 @@ class Test_update_measure_stage_date():
 
         assert res.loc[0, 'date_end'] == None
         assert res.loc[0, 'reason_ended'] == None
+
+
+class Test_columns_to_lower:
+
+    def test_columns_to_lower_string(self):
+
+        manually_cleaned = pd.DataFrame({'a':['A', 'B', 'Something']})
+
+        res = main.columns_to_lower(manually_cleaned, ['a'])
+
+        assert len(set(res['a']).difference(set(['a', 'b', 'something']))) == 0
+
+    def test_columns_to_lower_none(self):
+
+        manually_cleaned = pd.DataFrame({'a':['A', 'B', None]})
+
+        res = main.columns_to_lower(manually_cleaned, ['a'])
+
+        assert len(set(res['a']).difference(set(['a', 'b', None]))) == 0
+
+    def test_columns_to_lower_mixed(self):
+
+        manually_cleaned = pd.DataFrame({'a':['A', 1, None]})
+
+        with pytest.raises(AssertionError):
+
+            main.columns_to_lower(manually_cleaned, ['a'])
