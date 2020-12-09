@@ -58,3 +58,14 @@ class Test_split_df_by_group:
         res = utils.split_df_by_group(data, ['a'])
 
         assert all(x in ['a', 'b', 'c'] for x in res.keys())
+
+    def split_df_by_group_values(self):
+
+        data = pd.DataFrame({
+            'a': ['a', 'b', 'c'],
+            'b': [1, 2, 3],
+        })
+
+        res = utils.split_df_by_group(data, ['a'])
+
+        assert all(x is pd.DataFrame for x in res.values())
