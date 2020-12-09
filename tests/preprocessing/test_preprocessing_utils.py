@@ -45,3 +45,41 @@ class Test_df_to_records:
 
         with pytest.raises(ValueError):
             utils.df_to_records(df, dataset)
+
+
+class Test_split_df_by_group:
+
+    def split_df_by_group_keys(self):
+
+        data = pd.DataFrame({
+            'a': ['a', 'b', 'c'],
+            'b': [1, 2, 3],
+        })
+
+        res = utils.split_df_by_group(data, ['a'])
+
+        assert all(x in ['a', 'b', 'c'] for x in res.keys())
+
+    def split_df_by_group_values(self):
+
+        data = pd.DataFrame({
+            'a': ['a', 'b', 'c'],
+            'b': [1, 2, 3],
+        })
+
+        res = utils.split_df_by_group(data, ['a'])
+
+        assert all(x is pd.DataFrame for x in res.values())
+
+
+class Test_remove_processed_records:
+
+    def remove_processed_records_output_len(self):
+
+        curr = pd.DataFrame({'id': [1, 2, 3, 4], 'value': [1, 2, 3, 4]})
+
+        prev = pd.DataFrame({'id': [1, 2], 'value': [1, 2]})
+
+        res = utils.remove_processed_records(curr, prev, 'id', 'id')
+
+        assert len(res.index) == 3

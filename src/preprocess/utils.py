@@ -3,10 +3,10 @@ import pickle
 import shutil
 import re
 
-from pandas import DataFrame
+import pandas as pd
 
 
-def df_to_records(df: DataFrame, dataset: str, drop_columns = []):
+def df_to_records(df: pd.DataFrame, dataset: str, drop_columns = []):
     """Function to convert dataframe to record oriented - dict"""
 
     if dataset == 'OXCGRT':
@@ -158,3 +158,32 @@ def get_measure_records(combined_record, stub_names, id_columns, full_value_name
         records.append(subset)
 
     return(records)
+
+
+def split_df_by_group(data: pd.DataFrame, group: str):
+    '''Function to split a dataframe by group and return a named dictaionary'''
+
+    grouped = data.groupby(group)
+
+    groups = grouped.groups
+
+    grouped = [grouped.get_group(x) for x in grouped.groups]
+
+    return(dict(zip(groups, grouped)))
+
+
+def remove_processed_records(dataset: pd.DataFrame,
+                             previous_update: pd.DataFrame,
+                             current_id_col_name: str,
+                             prev_id_col_name: str = 'prop_id'):
+    '''Function to drop previously ingested records'''
+
+    current_ids = dataset[current_id_col_name]
+
+    prev_ids = previous_update[prev_id_col_name]
+
+    new_ids = set(current_ids).difference(set(prev_ids))
+
+    new_records = dataset.loc[[x in new_ids for x in dataset[current_id_col_name]], :]
+
+    return(new_records)
