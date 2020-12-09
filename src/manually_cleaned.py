@@ -15,7 +15,7 @@ import logging
 from utils import create_dir, log_records_per, log_records_total
 from postprocess.main import postprocess
 from check import check_output
-from manually_cleaned.main import adjust_manually_cleaned
+from manually_cleaned.main import adjust_manually_cleaned, columns_to_lower
 
 argv = sys.argv
 
@@ -27,6 +27,14 @@ logging.basicConfig(filename='tmp/manually_cleaned/manually_cleaned.log',
 
 print("Reading manually cleaned data...")
 logging.info("Reading manually cleaned data...")
+
+lowercase_columns = ['admin_level',
+                     'enforcement',
+                     'keep',
+                     'measure_stage',
+                     'non_compliance_penalty',
+                     'processed',
+                     'reason_ended']
 
 manually_cleaned = pd.read_csv('data/cleansed/mistress_latest.csv', low_memory=False,
     dtype={'date_start':str, 'date_end':str, 'date_entry':str})
