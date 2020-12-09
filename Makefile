@@ -41,11 +41,11 @@ docs: FORCE
 	sphinx-apidoc -f -o docs/source tests
 	cd ./docs && $(MAKE) html
 
-data: preprocess process postprocess manually_cleaned master logs report bundle
+data: preprocess process postprocess manually_cleaned master logs report bundle final_numbers
 
-postprocess+: postprocess manually_cleaned master logs report bundle
-manually_cleaned+: manually_cleaned master logs report bundle
-master+: master logs report bundle
+postprocess+: postprocess manually_cleaned master logs report bundle final_numbers
+manually_cleaned+: manually_cleaned master logs report bundle final_numbers
+master+: master logs report bundle final_numbers
 
 preprocess:
 	python src/preprocess.py
@@ -75,6 +75,9 @@ sum_report:
 
 bundle:
 	python src/bundle.py
+
+final_numbers:
+	python src/final_numbers.py
 
 #Phony target to force rebuilds
 .PHONY: FORCE
