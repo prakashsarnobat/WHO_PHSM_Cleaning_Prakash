@@ -21,7 +21,7 @@ m <- m %>%
 
 m_update <- rbind(m, m_update)
 
-write_csv(m_update, '/Users/hamishgibbs/Documents/Covid-19/WHO_PHSM_Cleaning/data/not_cleansed/update_merge_2020_12_09.csv')
+write_csv(m_update, '/Users/hamishgibbs/Documents/Covid-19/WHO_PHSM_Cleaning/data/not_cleansed/update_merge_2020_12_02.csv')
   
 
 
