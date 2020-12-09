@@ -2,6 +2,7 @@
 
 # NEEDS work and more reliability
 # hotfix 2020 11 25
+require(tidyverse)
 
 columns <- c("prop_id", "country_territory_area", "dataset", "area_covered", "who_code", "date_start")
 
@@ -10,7 +11,7 @@ m_update <- read_csv('/Users/hamishgibbs/Documents/Covid-19/WHO_PHSM_Cleaning/da
 m_update <- m_update %>% 
   select(columns)
 
-m <- read_csv('/Users/hamishgibbs/Documents/Covid-19/WHO_PHSM_Cleaning/data/not_cleansed/master_2020_11_25.csv')
+m <- read_csv('/Users/hamishgibbs/Documents/Covid-19/WHO_PHSM_Cleaning/data/not_cleansed/master_2020_12_02.csv')
 
 #m %>% filter(original_who_code == '12')
 
