@@ -41,3 +41,8 @@ OxCGRT,H6_Facial Coverings,1,0,1.4,Individual measures,,Wearing a mask,recommend
 OxCGRT,H6_Facial Coverings,2,0,1.4,Individual measures,,Wearing a mask,required,
 OxCGRT,H6_Facial Coverings,3,0,1.4,Individual measures,,Wearing a mask,required,
 OxCGRT,H6_Facial Coverings,4,0,1.4,Individual measures,,Wearing a mask,required,
+OxCGRT,H7_Vaccination policy,1,0,7.2,Biological measures,,Using vaccines for prevention,,
+OxCGRT,H7_Vaccination policy,2,0,7.2,Biological measures,,Using vaccines for prevention,,
+OxCGRT,H7_Vaccination policy,3,0,7.2,Biological measures,,Using vaccines for prevention,,
+OxCGRT,H7_Vaccination policy,4,0,7.2,Biological measures,,Using vaccines for prevention,,
+OxCGRT,H7_Vaccination policy,5,0,7.2,Biological measures,,Using vaccines for prevention,,
