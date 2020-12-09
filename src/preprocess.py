@@ -64,6 +64,9 @@ logging.info("JH_HIT_RECORDS=%d" % len(jh))
 cdc = pd.read_csv(cdc,
                   dtype={'Date implemented or lifted':str, 'Date Entered':str})
 
+# Remove records that have already been processed
+cdc = utils.remove_processed_records(cdc, previous_update, 'Unique Identifier', 'prop_id')
+
 #print(cdc["Date implemented or lifted"])
 cdc["Date implemented or lifted"] = pd.to_datetime(cdc["Date implemented or lifted"], format='%d/%m/%Y')
 cdc["Date Entered"] = pd.to_datetime(cdc["Date Entered"], format='%d/%m/%Y')
@@ -82,6 +85,9 @@ logging.info("CDC_ITF_RECORDS=%d" % len(cdc))
 acaps = pd.read_csv(acaps,
                     parse_dates = ['DATE_IMPLEMENTED', 'ENTRY_DATE'],
                     dayfirst = True)
+
+# Remove recors that have already been processed
+acaps = utils.remove_processed_records(acaps, previous_update, 'ID', 'prop_id')
 
 # Check ACAPS Data
 check.check_input(records=acaps,
