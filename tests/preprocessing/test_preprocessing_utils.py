@@ -45,3 +45,16 @@ class Test_df_to_records:
 
         with pytest.raises(ValueError):
             utils.df_to_records(df, dataset)
+
+class Test_split_df_by_group:
+
+    def split_df_by_group_keys(self):
+
+        data = pd.DataFrame({
+            'a': ['a', 'b', 'c'],
+            'b': [1, 2, 3],
+        })
+
+        res = utils.split_df_by_group(data, ['a'])
+
+        assert all(x in ['a', 'b', 'c'] for x in res.keys())
