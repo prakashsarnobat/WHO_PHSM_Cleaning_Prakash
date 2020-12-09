@@ -49,6 +49,9 @@ date_config = pd.read_csv(check_dir + '/date_format/date_format.csv')
 # Read JH Data
 jh = pd.read_csv(jh)
 
+# Remove records that have already been processed
+jh = utils.remove_processed_records(jh, previous_update, 'unique_id', 'prop_id')
+
 # Check JH Data
 check.check_input(records=jh,
                   column_config=column_config['JH_HIT'],
