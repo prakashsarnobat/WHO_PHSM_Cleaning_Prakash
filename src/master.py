@@ -26,7 +26,7 @@ manually_cleaned = pd.read_csv("tmp/manually_cleaned/records.csv", low_memory=Fa
 print("Reading previous update...")
 logging.info("Reading previous update...")
 
-previous_update = pd.read_csv("data/not_cleansed/update_merge_2020_12_02.csv", parse_dates=['date_start'], low_memory=False, encoding='latin1',
+previous_update = pd.read_csv("data/merge/update_merge_2020_12_09.csv", parse_dates=['date_start'], low_memory=False, encoding='latin1',
                               dtype={'date_start':str})
 
 #previous_update['date_start'] = pd.to_datetime(previous_update['date_start'], format='%d/%m/%Y')

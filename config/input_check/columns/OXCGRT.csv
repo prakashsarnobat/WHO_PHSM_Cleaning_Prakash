@@ -51,6 +51,9 @@ OXCGRT,H5_Notes
 OXCGRT,H6_Facial Coverings
 OXCGRT,H6_Flag
 OXCGRT,H6_Notes
+OXCGRT,H7_Flag
+OXCGRT,H7_Vaccination policy
+OXCGRT,H7_Notes
 OXCGRT,M1_Wildcard
 OXCGRT,M1_Notes
 OXCGRT,ConfirmedCases
