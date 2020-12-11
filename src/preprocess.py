@@ -3,6 +3,10 @@
 preprocess.py
 ====================================
 Script to convert provider datasets individual record dictionaries
+
+Data Sources:
+`https://www.acaps.org/covid-19-government-measures-dataset <https://www.acaps.org/covid-19-government-measures-dataset>`_
+
 """
 
 import pandas as pd
