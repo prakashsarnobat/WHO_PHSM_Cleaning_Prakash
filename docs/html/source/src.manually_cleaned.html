@@ -1,0 +1,182 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>src.manually_cleaned package &#8212; WHO PHSM Cleaning 0.0.1 documentation</title>
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="src-manually-cleaned-package">
+<h1>src.manually_cleaned package<a class="headerlink" href="#src-manually-cleaned-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-src.manually_cleaned.main">
+<span id="src-manually-cleaned-main-module"></span><h2>src.manually_cleaned.main module<a class="headerlink" href="#module-src.manually_cleaned.main" title="Permalink to this headline">¶</a></h2>
+<dl class="py function">
+<dt id="src.manually_cleaned.main.adjust_manually_cleaned">
+<code class="sig-prename descclassname">src.manually_cleaned.main.</code><code class="sig-name descname">adjust_manually_cleaned</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">manually_cleaned</span><span class="p">:</span> <span class="n">pandas.DataFrame</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/src/manually_cleaned/main.html#adjust_manually_cleaned"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.manually_cleaned.main.adjust_manually_cleaned" title="Permalink to this definition">¶</a></dt>
+<dd><p>Unify value adjustments in manually cleaned data.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>manually_cleaned</strong> (<em>pd.DataFrame</em>) – Manually cleaned data.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Description of returned object.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>pd.DataFrame</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="src.manually_cleaned.main.columns_to_lower">
+<code class="sig-prename descclassname">src.manually_cleaned.main.</code><code class="sig-name descname">columns_to_lower</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">manually_cleaned</span><span class="p">:</span> <span class="n">pandas.DataFrame</span></em>, <em class="sig-param"><span class="n">lowercase_columns</span><span class="p">:</span> <span class="n">list</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/src/manually_cleaned/main.html#columns_to_lower"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.manually_cleaned.main.columns_to_lower" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set all values in a column to lowercase.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>manually_cleaned</strong> (<em>pd.DataFrame</em>) – Manually cleaned data.</p></li>
+<li><p><strong>lowercase_columns</strong> (<em>list</em>) – list of columns to transform to lowercase.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Manually cleaned data with conversion applied.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>pd.DataFrame</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="src.manually_cleaned.main.update_following_measures">
+<code class="sig-prename descclassname">src.manually_cleaned.main.</code><code class="sig-name descname">update_following_measures</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">manually_cleaned</span><span class="p">:</span> <span class="n">pandas.DataFrame</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/src/manually_cleaned/main.html#update_following_measures"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.manually_cleaned.main.update_following_measures" title="Permalink to this definition">¶</a></dt>
+<dd><p>Update <cite>date_end</cite> values for records that have been assigned a following record.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>manually_cleaned</strong> (<em>pd.DataFrame</em>) – Manually cleaned data.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Manually cleaned data with <cite>date_end</cite> values adjusted.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>pd.DataFrame</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="src.manually_cleaned.main.update_measure_stage_date">
+<code class="sig-prename descclassname">src.manually_cleaned.main.</code><code class="sig-name descname">update_measure_stage_date</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">manually_cleaned</span><span class="p">:</span> <span class="n">pandas.DataFrame</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/src/manually_cleaned/main.html#update_measure_stage_date"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.manually_cleaned.main.update_measure_stage_date" title="Permalink to this definition">¶</a></dt>
+<dd><p>Updates <cite>date_end</cite> and <cite>reason_ended</cite> based on <cite>measure_stage</cite> value.</p>
+<p>If measure stage is “finish”, date_end should == date_start and reason_ended == “finish”.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>manually_cleaned</strong> (<em>pd.DataFrame</em>) – Manually cleaned data.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Manually cleaned data with adjustments.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>pd.DataFrame</p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="module-src.manually_cleaned">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-src.manually_cleaned" title="Permalink to this headline">¶</a></h2>
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../index.html">WHO PHSM Cleaning</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2020, Hamish Gibbs.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.2.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="../_sources/source/src.manually_cleaned.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

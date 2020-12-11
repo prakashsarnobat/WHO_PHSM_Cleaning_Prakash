@@ -1,0 +1,211 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>src.postprocess package &#8212; WHO PHSM Cleaning 0.0.1 documentation</title>
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="src-postprocess-package">
+<h1>src.postprocess package<a class="headerlink" href="#src-postprocess-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-src.postprocess.CDC_ITF">
+<span id="src-postprocess-cdc-itf-module"></span><h2>src.postprocess.CDC_ITF module<a class="headerlink" href="#module-src.postprocess.CDC_ITF" title="Permalink to this headline">¶</a></h2>
+<dl class="py function">
+<dt id="src.postprocess.CDC_ITF.postprocess">
+<code class="sig-prename descclassname">src.postprocess.CDC_ITF.</code><code class="sig-name descname">postprocess</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data</span><span class="p">:</span> <span class="n">pandas.DataFrame</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/src/postprocess/CDC_ITF.html#postprocess"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.postprocess.CDC_ITF.postprocess" title="Permalink to this definition">¶</a></dt>
+<dd><p>Apply dataset-level transformations to CDC_ITF data.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>data</strong> (<em>pd.DataFrame</em>) – Input CDC_ITF data.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>CDC_ITF data with transformations appied.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>pd.DataFrame</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="src.postprocess.CDC_ITF.remove_id_duplicates">
+<code class="sig-prename descclassname">src.postprocess.CDC_ITF.</code><code class="sig-name descname">remove_id_duplicates</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data</span><span class="p">:</span> <span class="n">pandas.DataFrame</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/src/postprocess/CDC_ITF.html#remove_id_duplicates"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.postprocess.CDC_ITF.remove_id_duplicates" title="Permalink to this definition">¶</a></dt>
+<dd><p>Remove duplicate records with identical measure_stage values</p>
+<p>Removes duplicate records with identical values in <cite>ref_cols</cite>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>data</strong> (<em>pd.DataFrame</em>) – Input CDC_ITF data.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Data with duplicates removed.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>pd.DataFrame</p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="module-src.postprocess.JH_HIT">
+<span id="src-postprocess-jh-hit-module"></span><h2>src.postprocess.JH_HIT module<a class="headerlink" href="#module-src.postprocess.JH_HIT" title="Permalink to this headline">¶</a></h2>
+<dl class="py function">
+<dt id="src.postprocess.JH_HIT.combine_measures">
+<code class="sig-prename descclassname">src.postprocess.JH_HIT.</code><code class="sig-name descname">combine_measures</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data</span><span class="p">:</span> <span class="n">pandas.DataFrame</span></em>, <em class="sig-param"><span class="n">who_code</span><span class="p">:</span> <span class="n">str</span></em>, <em class="sig-param"><span class="n">id_stub</span><span class="p">:</span> <span class="n">str</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/src/postprocess/JH_HIT.html#combine_measures"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.postprocess.JH_HIT.combine_measures" title="Permalink to this definition">¶</a></dt>
+<dd><p>Combine groups of records with an arbitrary <cite>who_code</cite>.</p>
+<p>Example:</p>
+<p>Groups are defined by records with identical numeric <cite>prop_id</cite> values:</p>
+<p>333_school_secondary, 333_school_nursery, 333_school_primary etc. -&gt; 333_school_closure</p>
+<p>or</p>
+<p>234_border_in, 234_border_out -&gt; 234_border_closure</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data</strong> (<em>pd.DataFrame</em>) – Input data.</p></li>
+<li><p><strong>who_code</strong> (<em>str</em>) – <cite>who_code</cite> to combine.</p></li>
+<li><p><strong>id_stub</strong> (<em>str</em>) – Stub name to add to combined ID numbers.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Data with combination applied.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>pd.DataFrame</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="src.postprocess.JH_HIT.postprocess">
+<code class="sig-prename descclassname">src.postprocess.JH_HIT.</code><code class="sig-name descname">postprocess</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data</span><span class="p">:</span> <span class="n">pandas.DataFrame</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/src/postprocess/JH_HIT.html#postprocess"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.postprocess.JH_HIT.postprocess" title="Permalink to this definition">¶</a></dt>
+<dd><p>Apply dataset-level transformations to JH_HIT data.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>data</strong> (<em>pd.DataFrame</em>) – Input JH_HIT data.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>JH_HIT data with transformations appied.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>pd.DataFrame</p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="module-src.postprocess.main">
+<span id="src-postprocess-main-module"></span><h2>src.postprocess.main module<a class="headerlink" href="#module-src.postprocess.main" title="Permalink to this headline">¶</a></h2>
+<dl class="py function">
+<dt id="src.postprocess.main.postprocess">
+<code class="sig-prename descclassname">src.postprocess.main.</code><code class="sig-name descname">postprocess</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data</span><span class="p">:</span> <span class="n">pandas.DataFrame</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/src/postprocess/main.html#postprocess"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.postprocess.main.postprocess" title="Permalink to this definition">¶</a></dt>
+<dd><p>Unify manual changes applied to specific datasets.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>data</strong> (<em>pd.DataFrame</em>) – Input dataset.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Dataset with postprocessing changes applied.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>pd.DataFrame</p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="module-src.postprocess">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-src.postprocess" title="Permalink to this headline">¶</a></h2>
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../index.html">WHO PHSM Cleaning</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2020, Hamish Gibbs.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.2.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="../_sources/source/src.postprocess.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

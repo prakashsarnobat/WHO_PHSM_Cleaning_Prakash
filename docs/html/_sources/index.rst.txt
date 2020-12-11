@@ -1,9 +1,6 @@
 Welcome to WHO PHSM Cleaning's documentation
 =============================================
 
-.. automodule:: src
-    :members:
-
 .. toctree::
    :maxdepth: 2
    :caption: Contents:
