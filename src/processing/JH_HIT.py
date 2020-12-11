@@ -139,7 +139,26 @@ def blank_record_and_url(record: dict):
 
 
 def apply_prov_measure_filter(record: dict, prov_measure_filter: pd.DataFrame):
-    '''Function to filter only some prov_measure and prov_category values'''
+    """
+    Filter only some `prov_measure` and `prov_category` values.
+
+    Only some JH_HIT codings are accepted.
+
+    Relies on `prov_measure_filter` defined in `config`.
+
+    Parameters
+    ----------
+    record : dict
+        Input record.
+    prov_measure_filter : pd.DataFrame
+        Config of which codings to drop. Defined in `config` directory.
+
+    Returns
+    -------
+    type
+        If coding is included in WHO PHSM dataset, record, else None.
+
+    """
 
     if record['prov_category'] in list(prov_measure_filter['prov_category']) and record['prov_measure'] in list(prov_measure_filter['prov_measure']):
 
@@ -150,6 +169,19 @@ def apply_prov_measure_filter(record: dict, prov_measure_filter: pd.DataFrame):
         return(None)
 
 def fill_not_enough_to_code(record: dict):
+    """Short summary.
+
+    Parameters
+    ----------
+    record : dict
+        Description of parameter `record`.
+
+    Returns
+    -------
+    type
+        Description of returned object.
+
+    """
     '''Function to add "not enough to code" label to specific records'''
 
     if record['comments'] == '' and record['prov_category'] != 'school_closed':
