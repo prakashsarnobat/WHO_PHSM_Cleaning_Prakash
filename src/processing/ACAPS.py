@@ -27,12 +27,33 @@ try:
     from processing import utils
     from processing import check
 
-except Exception as e:
+except Exception:
 
     from src.processing import utils
     from src.processing import check
 
+
 def transform(record: dict, key_ref: dict, country_ref: pd.DataFrame, who_coding: pd.DataFrame):
+    """
+    Apply transformations to ACAPS records.
+
+    Parameters
+    ----------
+    record : dict
+        Input record.
+    key_ref : dict
+        Reference for key mapping.
+    country_ref : pd.DataFrame
+        Reference for WHO accepted country names.
+    who_coding : pd.DataFrame
+        Reference for WHO coding.
+
+    Returns
+    -------
+    type
+        Record with transformations applied.
+
+    """
 
     # 1. Create a new blank record
     new_record = utils.generate_blank_record()
