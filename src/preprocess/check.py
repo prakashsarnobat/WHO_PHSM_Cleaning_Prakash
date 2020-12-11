@@ -73,7 +73,10 @@ def check_column_names(records: pd.DataFrame, config: pd.DataFrame, log: bool = 
         #raise e
 
 
-def check_date_format(data: pd.DataFrame, config: pd.DataFrame, dataset: str, log: bool = True):
+def check_date_format(data: pd.DataFrame,
+                      config: pd.DataFrame,
+                      dataset: str,
+                      log: bool = True):
     """
     Check that an input date is in the expected format.
 
