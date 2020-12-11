@@ -220,9 +220,22 @@ def get_comment_links(comments: str):
 
 
 def assign_comment_links(record: dict):
-    '''
-    Function to assign links found in comments to links fields
-    '''
+    """
+    Function to assign links found in comments to links fields.
+
+    >2 links will be dropped.
+
+    Parameters
+    ----------
+    record : dict
+        Input record.
+
+    Returns
+    -------
+    type
+        Record with `link` and `alt_link` fields altered.
+
+    """
 
     links = get_comment_links(record['comments'])
 
