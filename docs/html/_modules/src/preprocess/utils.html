@@ -41,7 +41,24 @@
 
 
 <div class="viewcode-block" id="df_to_records"><a class="viewcode-back" href="../../../source/src.preprocess.html#src.preprocess.utils.df_to_records">[docs]</a><span class="k">def</span> <span class="nf">df_to_records</span><span class="p">(</span><span class="n">df</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span> <span class="n">dataset</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">drop_columns</span> <span class="o">=</span> <span class="p">[]):</span>
-    <span class="sd">&quot;&quot;&quot;Function to convert dataframe to record oriented - dict&quot;&quot;&quot;</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Convert dataframe to a list of record oriented dicts.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    df : pd.DataFrame</span>
+<span class="sd">        Input dataset.</span>
+<span class="sd">    dataset : str</span>
+<span class="sd">        Name of provider dataset.</span>
+<span class="sd">    drop_columns : type</span>
+<span class="sd">        Which columns (if any) to drop.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    list</span>
+<span class="sd">        List of row-wise dicts.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">if</span> <span class="n">dataset</span> <span class="o">==</span> <span class="s1">&#39;OXCGRT&#39;</span><span class="p">:</span>
 
@@ -68,6 +85,23 @@
 
 
 <div class="viewcode-block" id="write_records"><a class="viewcode-back" href="../../../source/src.preprocess.html#src.preprocess.utils.write_records">[docs]</a><span class="k">def</span> <span class="nf">write_records</span><span class="p">(</span><span class="n">records</span><span class="p">:</span> <span class="nb">list</span><span class="p">,</span> <span class="nb">dir</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">fn</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Write records to a pickle file.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    records : list</span>
+<span class="sd">        List of preprocessed records.</span>
+<span class="sd">    dir : str</span>
+<span class="sd">        Output directory.</span>
+<span class="sd">    fn : str</span>
+<span class="sd">        Output file name.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    None</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">try</span><span class="p">:</span>
 
@@ -82,12 +116,27 @@
         <span class="k">raise</span> <span class="n">e</span><span class="p">(</span><span class="s2">&quot;Unable to write tmp/preprocess/records.p.&quot;</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="oxcgrt_records"><a class="viewcode-back" href="../../../source/src.preprocess.html#src.preprocess.utils.oxcgrt_records">[docs]</a><span class="k">def</span> <span class="nf">oxcgrt_records</span><span class="p">(</span><span class="n">ox</span><span class="p">,</span> <span class="n">dataset</span><span class="p">,</span> <span class="n">drop_columns</span><span class="o">=</span><span class="p">[]):</span>
-    <span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">    Function to convert OXCGRT data to records</span>
+<div class="viewcode-block" id="oxcgrt_records"><a class="viewcode-back" href="../../../source/src.preprocess.html#src.preprocess.utils.oxcgrt_records">[docs]</a><span class="k">def</span> <span class="nf">oxcgrt_records</span><span class="p">(</span><span class="n">ox</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span> <span class="n">dataset</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">drop_columns</span><span class="p">:</span> <span class="nb">list</span> <span class="o">=</span> <span class="p">[]):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Function to convert OXCGRT data to list of record dicts.</span>
 
-<span class="sd">    This is an additional challenge because of the wide format of the Oxford data</span>
-<span class="sd">    &#39;&#39;&#39;</span>
+<span class="sd">    This presents an additional challenge because of the wide format of the OXCGRT data.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    ox : pd.DataFrame</span>
+<span class="sd">        Input OXCGRT data.</span>
+<span class="sd">    dataset : str</span>
+<span class="sd">        Name of provider dataset.</span>
+<span class="sd">    drop_columns : list</span>
+<span class="sd">        Which columns (if any) to drop.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    list</span>
+<span class="sd">        List of record dicts.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="n">full_value_names</span><span class="p">,</span> <span class="n">value_names</span><span class="p">,</span> <span class="n">stub_names</span> <span class="o">=</span> <span class="n">get_names</span><span class="p">(</span><span class="n">ox</span><span class="p">)</span>
 
@@ -102,9 +151,9 @@
     <span class="k">return</span><span class="p">(</span><span class="n">rs</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="get_names"><a class="viewcode-back" href="../../../source/src.preprocess.html#src.preprocess.utils.get_names">[docs]</a><span class="k">def</span> <span class="nf">get_names</span><span class="p">(</span><span class="n">ox</span><span class="p">):</span>
-    <span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">    Function to get names of columns holding measure information.</span>
+<div class="viewcode-block" id="get_names"><a class="viewcode-back" href="../../../source/src.preprocess.html#src.preprocess.utils.get_names">[docs]</a><span class="k">def</span> <span class="nf">get_names</span><span class="p">(</span><span class="n">ox</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Get the names of columns holding measure information.</span>
 
 <span class="sd">    These columns begin with the prefix &quot;A1\_&quot; etc.</span>
 
@@ -113,7 +162,21 @@
 <span class="sd">        value_names: the names of measure columns</span>
 <span class="sd">        stub_names: the measure column prefixes (i.e. &quot;A1&quot;)</span>
 
-<span class="sd">    &#39;&#39;&#39;</span>
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    ox : pd.DataFrame</span>
+<span class="sd">        Input OXCGRT dataset.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    full_value_names: list</span>
+<span class="sd">        The names of all columns with measure information.</span>
+<span class="sd">    value_names: list</span>
+<span class="sd">        The names of measure columns.</span>
+<span class="sd">    stub_names: list</span>
+<span class="sd">        The measure column prefixes (i.e. &quot;A1&quot;).</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="n">stub_exp</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;[A-Z][0-9]+_&#39;</span>
 
@@ -128,13 +191,30 @@
 
 
 <div class="viewcode-block" id="get_measure_records"><a class="viewcode-back" href="../../../source/src.preprocess.html#src.preprocess.utils.get_measure_records">[docs]</a><span class="k">def</span> <span class="nf">get_measure_records</span><span class="p">(</span><span class="n">combined_record</span><span class="p">,</span> <span class="n">stub_names</span><span class="p">,</span> <span class="n">id_columns</span><span class="p">,</span> <span class="n">full_value_names</span><span class="p">):</span>
-    <span class="sd">&#39;&#39;&#39;Function to break rows into individual records by stub group</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Function to break rows into individual records by stub group.</span>
 
-<span class="sd">        i.e. subset a row for only C4 records and other information, repeat for all possible measures.</span>
+<span class="sd">    i.e. subset a row for only C4 records and other information, repeat for all possible measures.</span>
 
-<span class="sd">        Also drops records where notes column is blank i.e. sum(notes columns) == 0</span>
+<span class="sd">    Also drops records where notes column is blank i.e. sum(notes columns) == 0.</span>
 
-<span class="sd">    &#39;&#39;&#39;</span>
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    combined_record : type</span>
+<span class="sd">        Dict of a single OXCGRT row.</span>
+<span class="sd">    stub_names : type</span>
+<span class="sd">        List of names of each stub group.</span>
+<span class="sd">    id_columns : type</span>
+<span class="sd">        List of columns to be retained as IDs.</span>
+<span class="sd">    full_value_names : type</span>
+<span class="sd">        List of full names of value columns.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    list</span>
+<span class="sd">        List of dicts containing all records extracted from a given row.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="n">records</span> <span class="o">=</span> <span class="p">[]</span>
 
@@ -195,7 +275,22 @@
 
 
 <div class="viewcode-block" id="split_df_by_group"><a class="viewcode-back" href="../../../source/src.preprocess.html#src.preprocess.utils.split_df_by_group">[docs]</a><span class="k">def</span> <span class="nf">split_df_by_group</span><span class="p">(</span><span class="n">data</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span> <span class="n">group</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
-    <span class="sd">&#39;&#39;&#39;Function to split a dataframe by group and return a named dictaionary&#39;&#39;&#39;</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Split a dataframe by group and return a named dictionary.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    data : pd.DataFrame</span>
+<span class="sd">        Input dataset.</span>
+<span class="sd">    group : str</span>
+<span class="sd">        Name of column to be used as group.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    dict</span>
+<span class="sd">        Dict of dataset slices named by group.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="n">grouped</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="n">group</span><span class="p">)</span>
 
@@ -210,7 +305,26 @@
                              <span class="n">previous_update</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span>
                              <span class="n">current_id_col_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
                              <span class="n">prev_id_col_name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;prop_id&#39;</span><span class="p">):</span>
-    <span class="sd">&#39;&#39;&#39;Function to drop previously ingested records&#39;&#39;&#39;</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Drop previously ingested records.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    dataset : pd.DataFrame</span>
+<span class="sd">        Input dataset.</span>
+<span class="sd">    previous_update : pd.DataFrame</span>
+<span class="sd">        Reference for previously ingested records.</span>
+<span class="sd">    current_id_col_name : str</span>
+<span class="sd">        Column name od ID values in current data.</span>
+<span class="sd">    prev_id_col_name : str</span>
+<span class="sd">        Column name od ID values in previously ingested data.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    pd.DataFrame</span>
+<span class="sd">        Dataframe with previously ingested records filtered out.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="n">current_ids</span> <span class="o">=</span> <span class="n">dataset</span><span class="p">[</span><span class="n">current_id_col_name</span><span class="p">]</span>
 
