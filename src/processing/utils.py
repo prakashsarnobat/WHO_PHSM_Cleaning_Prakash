@@ -514,7 +514,24 @@ def replace_conditional(record: dict, field: str, value: str, replacement: str):
 
 
 def replace_sensitive_regions(record):
-    '''Replace a selection of commonly occuring admin level conflicts'''
+    """
+    Replace a selection of commonly occuring admin level issues.
+
+    WHO recognizes certain administrative definitions that differ from ISO conventions.
+
+    Future: Move specific region definitions to `config` directory.
+
+    Parameters
+    ----------
+    record : type
+        Input record.
+
+    Returns
+    -------
+    type
+        Record with sensitive regions changed.
+
+    """
 
     record = shift_sensitive_region(record, 'Kosovo', 'Serbia')
     record = shift_sensitive_region(record, 'Hong Kong', 'China')
