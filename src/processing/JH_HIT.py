@@ -15,7 +15,7 @@ except Exception as e:
 
 def transform(record: dict, key_ref: dict, country_ref: pd.DataFrame, who_coding: pd.DataFrame, prov_measure_filter: pd.DataFrame):
     """
-    Apply transformations to CDC_ITF records.
+    Apply transformations to JH_HIT records.
 
     Parameters
     ----------

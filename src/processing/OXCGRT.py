@@ -31,6 +31,28 @@ except Exception as e:
 
 
 def transform(record: dict, key_ref: dict, country_ref: pd.DataFrame, who_coding: pd.DataFrame, no_update_phrase: pd.DataFrame):
+    """
+    Apply transformations to OXCGRT records.
+
+    Parameters
+    ----------
+    record : dict
+        Input record.
+    key_ref : dict
+        Reference for key mapping.
+    country_ref : pd.DataFrame
+        Reference for WHO accepted country names.
+    who_coding : pd.DataFrame
+        Reference for WHO coding.
+    no_update_phrase : pd.DataFrame
+        Reference for "no update" phrases.
+
+    Returns
+    -------
+    type
+        Record with transformations applied.
+
+    """
 
     # 1. generator function of new record with correct keys (shared)
     new_record = utils.generate_blank_record()
