@@ -228,12 +228,12 @@
 
         <span class="k">try</span><span class="p">:</span>
             <span class="n">flag_key</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">stub_keys</span> <span class="k">if</span> <span class="s1">&#39;_Flag&#39;</span> <span class="ow">in</span> <span class="n">x</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
-        <span class="k">except</span><span class="p">:</span>
+        <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
             <span class="k">pass</span>
 
         <span class="k">try</span><span class="p">:</span>
             <span class="n">notes_key</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">stub_keys</span> <span class="k">if</span> <span class="s1">&#39;_Notes&#39;</span> <span class="ow">in</span> <span class="n">x</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
-        <span class="k">except</span><span class="p">:</span>
+        <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
             <span class="k">pass</span>
 
         <span class="n">subset</span> <span class="o">=</span> <span class="p">{</span><span class="n">key</span><span class="p">:</span> <span class="n">value</span> <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">combined_record</span><span class="o">.</span><span class="n">items</span><span class="p">()</span> <span class="k">if</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">keys</span><span class="p">}</span>
@@ -243,18 +243,18 @@
             <span class="k">if</span> <span class="nb">sum</span><span class="p">([</span><span class="n">subset</span><span class="p">[</span><span class="n">notes_key</span><span class="p">]])</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
 
                 <span class="k">continue</span>
-        <span class="k">except</span><span class="p">:</span>
+        <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
             <span class="k">pass</span>
 
         <span class="k">try</span><span class="p">:</span>
             <span class="n">subset</span><span class="p">[</span><span class="s1">&#39;flag&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">subset</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">flag_key</span><span class="p">)</span>
-        <span class="k">except</span><span class="p">:</span>
+        <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
             <span class="n">subset</span><span class="p">[</span><span class="s1">&#39;flag&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.0</span>
             <span class="k">pass</span>
 
         <span class="k">try</span><span class="p">:</span>
             <span class="n">subset</span><span class="p">[</span><span class="s1">&#39;notes&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">subset</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">notes_key</span><span class="p">)</span>
-        <span class="k">except</span><span class="p">:</span>
+        <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
             <span class="k">pass</span>
 
 
@@ -305,7 +305,8 @@
 
 <div class="viewcode-block" id="filter_new_hashes"><a class="viewcode-back" href="../../../source/src.preprocess.html#src.preprocess.utils.filter_new_hashes">[docs]</a><span class="k">def</span> <span class="nf">filter_new_hashes</span><span class="p">(</span><span class="n">data</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span>
                       <span class="n">ingested_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
-                      <span class="n">date_now</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%Y_%m_</span><span class="si">%d</span><span class="s1">&#39;</span><span class="p">))</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
+                      <span class="n">date_now</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%Y_%m_</span><span class="si">%d</span><span class="s1">&#39;</span><span class="p">),</span>
+                      <span class="n">save_ingestion_hashes</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Filter records by the row-wise hashes of their content.</span>
 
@@ -321,6 +322,8 @@
 <span class="sd">        Path to ingested hash reference.</span>
 <span class="sd">    date_now : str</span>
 <span class="sd">        String of current date.</span>
+<span class="sd">    save_ingestion_hashes: bool</span>
+<span class="sd">        Should ingestion hashes be saved?</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
@@ -329,21 +332,31 @@
 
 <span class="sd">    &quot;&quot;&quot;</span>
 
+    <span class="c1"># Read the reference file for ingested hashes</span>
     <span class="n">ingested_hash_ref</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">ingested_path</span><span class="p">)</span>
 
+    <span class="c1"># Filter for hashes that were not processed today</span>
     <span class="n">ingested_hash_ref</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">ingested_hash_ref</span><span class="p">[</span><span class="s1">&#39;date_processed&#39;</span><span class="p">]</span> <span class="o">!=</span> <span class="n">date_now</span><span class="p">,</span> <span class="p">:]</span>
 
+    <span class="c1"># Define row-wise hashes for the input dataset</span>
     <span class="n">data</span><span class="p">[</span><span class="s1">&#39;_hash&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">get_row_hashes</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
 
+    <span class="c1"># Filter for only hash values that have not been processed on a different day</span>
     <span class="n">data</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">loc</span><span class="p">[[</span><span class="n">x</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">ingested_hash_ref</span><span class="p">[</span><span class="s1">&#39;hash&#39;</span><span class="p">]</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;_hash&#39;</span><span class="p">]]]</span>
 
+    <span class="c1"># Get the hashes that were just ingested</span>
     <span class="n">new_hashes</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;hash&#39;</span><span class="p">:</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;_hash&#39;</span><span class="p">],</span> <span class="s1">&#39;date_processed&#39;</span><span class="p">:</span> <span class="n">date_now</span><span class="p">})</span>
 
+    <span class="c1"># Remove _hash column from new data</span>
     <span class="n">data</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;_hash&#39;</span><span class="p">])</span>
 
+    <span class="c1"># Combine previous hash ref with new hash ref</span>
     <span class="n">ingested_hash_ref</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">ingested_hash_ref</span><span class="p">,</span> <span class="n">new_hashes</span><span class="p">])</span><span class="o">.</span><span class="n">drop_duplicates</span><span class="p">()</span>
 
-    <span class="n">ingested_hash_ref</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">ingested_path</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="c1"># Write combined hash ref to csv file if save_ingestion_hashes is True</span>
+    <span class="k">if</span> <span class="n">save_ingestion_hashes</span><span class="p">:</span>
+
+        <span class="n">ingested_hash_ref</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">ingested_path</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 
     <span class="k">return</span><span class="p">(</span><span class="n">data</span><span class="p">)</span></div>
 
