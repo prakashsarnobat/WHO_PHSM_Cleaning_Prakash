@@ -65,16 +65,17 @@ for record in records:
     # Process individual records
     record = process(record, key_ref, country_ref, who_coding, prov_measure_filter, no_update_phrase)
 
-    # If record is not None, transform it to a dictionary
-    if record is not None:
-
-        processed_records.append(pd.DataFrame.from_dict(record, orient = 'index').T)
+    # Store processed records in list
+    processed_records.append(record)
 
     # Increment progress bar
     bar.next()
 
-records = pd.concat(processed_records)
+# Filter dropped records
+processed_records = [x for x in processed_records if x is not None]
 
+# Create dataframe from processed records
+records = pd.DataFrame(processed_records)
 
 # Assign who codes to the original WHO codes
 records['original_who_code'] = records['who_code']
