@@ -157,13 +157,30 @@ def get_names(ox: pd.DataFrame):
 
 
 def get_measure_records(combined_record, stub_names, id_columns, full_value_names):
-    '''Function to break rows into individual records by stub group
+    """
+    Function to break rows into individual records by stub group.
 
-        i.e. subset a row for only C4 records and other information, repeat for all possible measures.
+    i.e. subset a row for only C4 records and other information, repeat for all possible measures.
 
-        Also drops records where notes column is blank i.e. sum(notes columns) == 0
+    Also drops records where notes column is blank i.e. sum(notes columns) == 0.
 
-    '''
+    Parameters
+    ----------
+    combined_record : type
+        Dict of a single OXCGRT row.
+    stub_names : type
+        List of names of each stub group.
+    id_columns : type
+        List of columns to be retained as IDs.
+    full_value_names : type
+        List of full names of value columns.
+
+    Returns
+    -------
+    list
+        List of dicts containing all records extracted from a given row.
+
+    """
 
     records = []
 
