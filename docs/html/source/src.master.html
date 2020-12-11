@@ -1,0 +1,156 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>src.master package &#8212; WHO PHSM Cleaning 0.0.1 documentation</title>
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="src-master-package">
+<h1>src.master package<a class="headerlink" href="#src-master-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-src.master.main">
+<span id="src-master-main-module"></span><h2>src.master.main module<a class="headerlink" href="#module-src.master.main" title="Permalink to this headline">¶</a></h2>
+<dl class="py function">
+<dt id="src.master.main.get_combo_string">
+<code class="sig-prename descclassname">src.master.main.</code><code class="sig-name descname">get_combo_string</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">records</span><span class="p">:</span> <span class="n">pandas.DataFrame</span></em>, <em class="sig-param"><span class="n">cols</span><span class="p">:</span> <span class="n">list</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/src/master/main.html#get_combo_string"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.master.main.get_combo_string" title="Permalink to this definition">¶</a></dt>
+<dd><p>Paste column values together, separated by ‘_’.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>records</strong> (<em>pd.DataFrame</em>) – Input dataset.</p></li>
+<li><p><strong>cols</strong> (<em>list</em>) – Columns to be pasted together.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>List of pasted column values.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>list</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="src.master.main.get_new_records">
+<code class="sig-prename descclassname">src.master.main.</code><code class="sig-name descname">get_new_records</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">records</span><span class="p">:</span> <span class="n">pandas.DataFrame</span></em>, <em class="sig-param"><span class="n">previous_update</span><span class="p">:</span> <span class="n">pandas.DataFrame</span></em>, <em class="sig-param"><span class="n">cols</span><span class="p">:</span> <span class="n">list</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/src/master/main.html#get_new_records"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.master.main.get_new_records" title="Permalink to this definition">¶</a></dt>
+<dd><p>Identify new records in an update data and a previous update data.</p>
+<p>Based on a string of <cite>cols</cite> pasted together to form an identifier.</p>
+<p class="rubric">Example</p>
+<p>Given <cite>cols</cite> = <cite>[‘country_territory_area’, ‘date_start’]</cite>, pastes values in these columns together. Referred to as a “combo string”.</p>
+<p>Any records in <cite>records</cite> with a “combo string” in <cite>previous_update</cite> will be not be recognised as a new record.</p>
+<p>i.e. “United States of America_2020-01-01” == “United States of America_2020-01-01” means that records match.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>records</strong> (<em>pd.DataFrame</em>) – Newly updated data.</p></li>
+<li><p><strong>previous_update</strong> (<em>pd.DataFrame</em>) – Previously updated data.</p></li>
+<li><p><strong>cols</strong> (<em>list</em>) – Columns to be considered when merging records.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>New records not present in <cite>previous_update</cite>.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>pd.DataFrame</p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="module-src.master">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-src.master" title="Permalink to this headline">¶</a></h2>
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../index.html">WHO PHSM Cleaning</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2020, Hamish Gibbs.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.2.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="../_sources/source/src.master.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

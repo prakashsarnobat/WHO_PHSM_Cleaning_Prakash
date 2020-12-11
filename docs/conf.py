@@ -179,4 +179,4 @@ epub_exclude_files = ['search.html']
 
 
 # -- Extension configuration -------------------------------------------------
-autodoc_mock_imports = ['pandas', 'src.process', 'processing', 'countrycode']
+autodoc_mock_imports = ['pandas', 'src.process', 'processing', 'postprocess', 'countrycode']

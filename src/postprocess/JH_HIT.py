@@ -3,7 +3,20 @@ import pandas as pd
 
 
 def postprocess(data: pd.DataFrame):
-    '''Apply dataset-level transformations to JH_HIT data'''
+    """
+    Apply dataset-level transformations to JH_HIT data.
+
+    Parameters
+    ----------
+    data : pd.DataFrame
+        Input JH_HIT data.
+
+    Returns
+    -------
+    pd.DataFrame
+        JH_HIT data with transformations appied.
+
+    """
 
     data = combine_measures(data, '4.1.2', '_school_closure')
     data = combine_measures(data, '5.7', '_border_air')
@@ -14,18 +27,34 @@ def postprocess(data: pd.DataFrame):
 
 
 def combine_measures(data: pd.DataFrame, who_code: str, id_stub: str):
-    '''
-    Function to combine groups of records with an arbitrary who_code
+    """
+    Combine groups of records with an arbitrary `who_code`.
 
-    Groups are defined by records with identical numeric prop_ids:
+    Example:
 
-    333_school_secondary, 333_school_nursery, 333_school_primary etc.
+    Groups are defined by records with identical numeric `prop_id` values:
+
+    333_school_secondary, 333_school_nursery, 333_school_primary etc. -> 333_school_closure
 
     or
 
-    234_border_in, 234_border_out
+    234_border_in, 234_border_out -> 234_border_closure
 
-    '''
+    Parameters
+    ----------
+    data : pd.DataFrame
+        Input data.
+    who_code : str
+        `who_code` to combine.
+    id_stub : str
+        Stub name to add to combined ID numbers.
+
+    Returns
+    -------
+    pd.DataFrame
+        Data with combination applied.
+
+    """
 
     # Get records with target who_code
     records = data.copy().loc[data['who_code'] == who_code]

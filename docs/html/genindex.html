@@ -50,6 +50,7 @@
  | <a href="#R"><strong>R</strong></a>
  | <a href="#S"><strong>S</strong></a>
  | <a href="#T"><strong>T</strong></a>
+ | <a href="#U"><strong>U</strong></a>
  | <a href="#V"><strong>V</strong></a>
  | <a href="#W"><strong>W</strong></a>
  
@@ -61,12 +62,14 @@
 </li>
       <li><a href="source/src.processing.html#src.processing.CDC_ITF.add_date_end">add_date_end() (in module src.processing.CDC_ITF)</a>
 </li>
-      <li><a href="source/src.processing.html#src.processing.utils.apply_key_map">apply_key_map() (in module src.processing.utils)</a>
+      <li><a href="source/src.manually_cleaned.html#src.manually_cleaned.main.adjust_manually_cleaned">adjust_manually_cleaned() (in module src.manually_cleaned.main)</a>
 </li>
-      <li><a href="source/src.processing.html#src.processing.JH_HIT.apply_prov_measure_filter">apply_prov_measure_filter() (in module src.processing.JH_HIT)</a>
+      <li><a href="source/src.processing.html#src.processing.utils.apply_key_map">apply_key_map() (in module src.processing.utils)</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="source/src.processing.html#src.processing.JH_HIT.apply_prov_measure_filter">apply_prov_measure_filter() (in module src.processing.JH_HIT)</a>
+</li>
       <li><a href="source/src.processing.html#src.processing.CDC_ITF.area_covered_national">area_covered_national() (in module src.processing.CDC_ITF)</a>
 </li>
       <li><a href="source/src.processing.html#src.processing.utils.assign_id">assign_id() (in module src.processing.utils)</a>
@@ -95,13 +98,17 @@
 </li>
       <li><a href="source/src.preprocess.html#src.preprocess.check.check_input">check_input() (in module src.preprocess.check)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="source/src.processing.html#src.processing.check.check_missing_iso">check_missing_iso() (in module src.processing.check)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="source/src.processing.html#src.processing.check.check_missing_who_code">check_missing_who_code() (in module src.processing.check)</a>
 </li>
       <li><a href="source/src.processing.html#src.processing.check.check_record_keys_agree">check_record_keys_agree() (in module src.processing.check)</a>
+</li>
+      <li><a href="source/src.manually_cleaned.html#src.manually_cleaned.main.columns_to_lower">columns_to_lower() (in module src.manually_cleaned.main)</a>
+</li>
+      <li><a href="source/src.postprocess.html#src.postprocess.JH_HIT.combine_measures">combine_measures() (in module src.postprocess.JH_HIT)</a>
 </li>
       <li><a href="source/src.processing.html#src.processing.utils.create_id">create_id() (in module src.processing.utils)</a>
 </li>
@@ -129,6 +136,8 @@
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="source/src.processing.html#src.processing.utils.generate_blank_record">generate_blank_record() (in module src.processing.utils)</a>
 </li>
+      <li><a href="source/src.master.html#src.master.main.get_combo_string">get_combo_string() (in module src.master.main)</a>
+</li>
       <li><a href="source/src.preprocess.html#src.preprocess.utils.get_measure_records">get_measure_records() (in module src.preprocess.utils)</a>
 </li>
   </ul></td>
@@ -136,6 +145,8 @@
       <li><a href="source/src.processing.html#src.processing.utils.get_min_id">get_min_id() (in module src.processing.utils)</a>
 </li>
       <li><a href="source/src.preprocess.html#src.preprocess.utils.get_names">get_names() (in module src.preprocess.utils)</a>
+</li>
+      <li><a href="source/src.master.html#src.master.main.get_new_records">get_new_records() (in module src.master.main)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -164,6 +175,22 @@
 
       <ul>
         <li><a href="source/src.html#module-src">src</a>
+</li>
+        <li><a href="source/src.manually_cleaned.html#module-src.manually_cleaned">src.manually_cleaned</a>
+</li>
+        <li><a href="source/src.manually_cleaned.html#module-src.manually_cleaned.main">src.manually_cleaned.main</a>
+</li>
+        <li><a href="source/src.master.html#module-src.master">src.master</a>
+</li>
+        <li><a href="source/src.master.html#module-src.master.main">src.master.main</a>
+</li>
+        <li><a href="source/src.postprocess.html#module-src.postprocess">src.postprocess</a>
+</li>
+        <li><a href="source/src.postprocess.html#module-src.postprocess.CDC_ITF">src.postprocess.CDC_ITF</a>
+</li>
+        <li><a href="source/src.postprocess.html#module-src.postprocess.JH_HIT">src.postprocess.JH_HIT</a>
+</li>
+        <li><a href="source/src.postprocess.html#module-src.postprocess.main">src.postprocess.main</a>
 </li>
         <li><a href="source/src.html#module-src.preprocess">src.preprocess</a>, <a href="source/src.preprocess.html#module-src.preprocess">[1]</a>
 </li>
@@ -216,6 +243,14 @@
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="source/src.processing.html#src.processing.utils.parse_date">parse_date() (in module src.processing.utils)</a>
 </li>
+      <li><a href="source/src.postprocess.html#src.postprocess.CDC_ITF.postprocess">postprocess() (in module src.postprocess.CDC_ITF)</a>
+
+      <ul>
+        <li><a href="source/src.postprocess.html#src.postprocess.JH_HIT.postprocess">(in module src.postprocess.JH_HIT)</a>
+</li>
+        <li><a href="source/src.postprocess.html#src.postprocess.main.postprocess">(in module src.postprocess.main)</a>
+</li>
+      </ul></li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="source/src.processing.html#src.processing.main.process">process() (in module src.processing.main)</a>
@@ -226,6 +261,8 @@
 <h2 id="R">R</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="source/src.postprocess.html#src.postprocess.CDC_ITF.remove_id_duplicates">remove_id_duplicates() (in module src.postprocess.CDC_ITF)</a>
+</li>
       <li><a href="source/src.preprocess.html#src.preprocess.utils.remove_processed_records">remove_processed_records() (in module src.preprocess.utils)</a>
 </li>
       <li><a href="source/src.processing.html#src.processing.utils.remove_tags">remove_tags() (in module src.processing.utils)</a>
@@ -256,12 +293,70 @@
 </li>
       </ul></li>
       <li>
+    src.manually_cleaned
+
+      <ul>
+        <li><a href="source/src.manually_cleaned.html#module-src.manually_cleaned">module</a>
+</li>
+      </ul></li>
+      <li>
+    src.manually_cleaned.main
+
+      <ul>
+        <li><a href="source/src.manually_cleaned.html#module-src.manually_cleaned.main">module</a>
+</li>
+      </ul></li>
+      <li>
+    src.master
+
+      <ul>
+        <li><a href="source/src.master.html#module-src.master">module</a>
+</li>
+      </ul></li>
+      <li>
+    src.master.main
+
+      <ul>
+        <li><a href="source/src.master.html#module-src.master.main">module</a>
+</li>
+      </ul></li>
+      <li>
+    src.postprocess
+
+      <ul>
+        <li><a href="source/src.postprocess.html#module-src.postprocess">module</a>
+</li>
+      </ul></li>
+      <li>
+    src.postprocess.CDC_ITF
+
+      <ul>
+        <li><a href="source/src.postprocess.html#module-src.postprocess.CDC_ITF">module</a>
+</li>
+      </ul></li>
+      <li>
+    src.postprocess.JH_HIT
+
+      <ul>
+        <li><a href="source/src.postprocess.html#module-src.postprocess.JH_HIT">module</a>
+</li>
+      </ul></li>
+      <li>
+    src.postprocess.main
+
+      <ul>
+        <li><a href="source/src.postprocess.html#module-src.postprocess.main">module</a>
+</li>
+      </ul></li>
+      <li>
     src.preprocess
 
       <ul>
         <li><a href="source/src.html#module-src.preprocess">module</a>, <a href="source/src.preprocess.html#module-src.preprocess">[1]</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li>
     src.preprocess.check
 
@@ -290,8 +385,6 @@
         <li><a href="source/src.processing.html#module-src.processing">module</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li>
     src.processing.ACAPS
 
@@ -348,6 +441,18 @@
         <li><a href="source/src.processing.html#src.processing.JH_HIT.transform">(in module src.processing.JH_HIT)</a>
 </li>
       </ul></li>
+  </ul></td>
+</tr></table>
+
+<h2 id="U">U</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="source/src.manually_cleaned.html#src.manually_cleaned.main.update_following_measures">update_following_measures() (in module src.manually_cleaned.main)</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="source/src.manually_cleaned.html#src.manually_cleaned.main.update_measure_stage_date">update_measure_stage_date() (in module src.manually_cleaned.main)</a>
+</li>
   </ul></td>
 </tr></table>
 

@@ -1,24 +1,43 @@
-"""
-Main.py
-====================================
-Apply changes to manually cleaned data.
-
-* If a record has a following_measure_number, update date_end and reason_ended values from the following record
-
-* If measure stage is "finish", date_end should == date_start and reason_ended == 'finish'
-"""
-
 import pandas as pd
 
-def adjust_manually_cleaned(manually_cleaned):
 
-    #manually_cleaned = update_following_measures(manually_cleaned)
+def adjust_manually_cleaned(manually_cleaned: pd.DataFrame):
+    """
+    Unify value adjustments in manually cleaned data.
+
+    Parameters
+    ----------
+    manually_cleaned : pd.DataFrame
+        Manually cleaned data.
+
+    Returns
+    -------
+    pd.DataFrame
+        Description of returned object.
+
+    """
 
     manually_cleaned = update_measure_stage_date(manually_cleaned)
 
     return(manually_cleaned)
 
-def update_following_measures(manually_cleaned):
+
+def update_following_measures(manually_cleaned: pd.DataFrame):
+    """
+
+    Update `date_end` values for records that have been assigned a following record.
+
+    Parameters
+    ----------
+    manually_cleaned : pd.DataFrame
+        Manually cleaned data.
+
+    Returns
+    -------
+    pd.DataFrame
+        Manually cleaned data with `date_end` values adjusted.
+
+    """
 
     has_following_measure = pd.Series([not pd.isna(x) for x in manually_cleaned['following_measure_number']])
 
@@ -57,8 +76,24 @@ def update_following_measures(manually_cleaned):
     return(pd.concat([to_alter, not_to_alter]))
 
 
-def update_measure_stage_date(manually_cleaned):
-    '''* If measure stage is "finish", date_end should == date_start and reason_ended == 'finish'''
+def update_measure_stage_date(manually_cleaned: pd.DataFrame):
+    """
+
+    Updates `date_end` and `reason_ended` based on `measure_stage` value.
+
+    If measure stage is "finish", date_end should == date_start and reason_ended == "finish".
+
+    Parameters
+    ----------
+    manually_cleaned : pd.DataFrame
+        Manually cleaned data.
+
+    Returns
+    -------
+    pd.DataFrame
+        Manually cleaned data with adjustments.
+
+    """
 
     is_null_date_end = pd.isna(manually_cleaned['date_end'])
     is_finish = manually_cleaned['measure_stage'] == 'finish'
@@ -70,7 +105,22 @@ def update_measure_stage_date(manually_cleaned):
 
 
 def columns_to_lower(manually_cleaned: pd.DataFrame, lowercase_columns: list):
-    '''Function to set all columns to lowercase'''
+    """
+    Set all values in a column to lowercase.
+
+    Parameters
+    ----------
+    manually_cleaned : pd.DataFrame
+        Manually cleaned data.
+    lowercase_columns : list
+        list of columns to transform to lowercase.
+
+    Returns
+    -------
+    pd.DataFrame
+        Manually cleaned data with conversion applied.
+
+    """
 
     for col in lowercase_columns:
 

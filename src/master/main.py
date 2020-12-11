@@ -1,8 +1,35 @@
 import pandas as pd
 
 
-def get_new_records(records: pd.DataFrame, previous_update: pd.DataFrame, cols):
-    '''Identify new records in an update data and a previous update data'''
+def get_new_records(records: pd.DataFrame, previous_update: pd.DataFrame, cols: list):
+    """
+    Identify new records in an update data and a previous update data.
+
+    Based on a string of `cols` pasted together to form an identifier.
+
+    Example:
+
+        Given `cols` = `['country_territory_area', 'date_start']`, pastes values in these columns together. Referred to as a "combo string".
+
+        Any records in `records` with a "combo string" in `previous_update` will be not be recognised as a new record.
+
+        i.e. "United States of America_2020-01-01" == "United States of America_2020-01-01" means that records match.
+
+    Parameters
+    ----------
+    records : pd.DataFrame
+        Newly updated data.
+    previous_update : pd.DataFrame
+        Previously updated data.
+    cols : list
+        Columns to be considered when merging records.
+
+    Returns
+    -------
+    pd.DataFrame
+        New records not present in `previous_update`.
+
+    """
 
     records = records.copy()
 
@@ -30,7 +57,23 @@ def get_new_records(records: pd.DataFrame, previous_update: pd.DataFrame, cols):
     return(new_records)
 
 
-def get_combo_string(records, cols):
+def get_combo_string(records: pd.DataFrame, cols: list):
+    """
+    Paste column values together, separated by '_'.
+
+    Parameters
+    ----------
+    records : pd.DataFrame
+        Input dataset.
+    cols : list
+        Columns to be pasted together.
+
+    Returns
+    -------
+    list
+        List of pasted column values.
+
+    """
 
     combo_string = records[cols].apply(lambda x: x.astype(str)).agg('_'.join, axis=1)
 
