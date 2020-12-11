@@ -33,7 +33,7 @@ def transform(record: dict, key_ref: dict, country_ref: pd.DataFrame, who_coding
 
     Returns
     -------
-    type
+    dict
         Record with transformations applied.
 
     """
