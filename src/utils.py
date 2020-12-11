@@ -74,7 +74,20 @@ def log_records_per(data: pd.DataFrame, group: str):
 
 
 def parse_log(line: str):
-    '''Function to parse a log line and return a message dict for reporting'''
+    """
+    Parse a log line and return a message dict for reporting.
+
+    Parameters
+    ----------
+    line : str
+        Line of a log file.
+
+    Returns
+    -------
+    dict
+        Dict containing `timestamp`, `type`, `value` of the log file line.
+
+    """
 
     line = line.replace('\n','')
 
