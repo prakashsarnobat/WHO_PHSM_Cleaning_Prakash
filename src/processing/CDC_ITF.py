@@ -42,6 +42,26 @@ except Exception as e:
 
 
 def transform(record: dict, key_ref: dict, country_ref: pd.DataFrame, who_coding: pd.DataFrame):
+    """
+    Apply transformations to CDC_ITF records.
+
+    Parameters
+    ----------
+    record : dict
+        Input record.
+    key_ref : dict
+        Reference for key mapping.
+    country_ref : pd.DataFrame
+        Reference for WHO accepted country names.
+    who_coding : pd.DataFrame
+        Reference for WHO coding.
+
+    Returns
+    -------
+    type
+        Record with transformations applied.
+
+    """
 
     # 1. Join comments in ``Concise Notes`` and ``Notes`` columns
     comments = join_comments(record)
