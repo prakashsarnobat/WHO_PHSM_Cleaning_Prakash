@@ -459,7 +459,22 @@ def assign_who_coding(record: dict, who_coding: pd.DataFrame, missing_value: str
 
 
 def none_to_empty_str(s):
-    '''convert None values to empty strings'''
+    """
+    Convert None values to an empty string.
+
+    Useful for changing None values for smooth mapping of who coding.
+
+    Parameters
+    ----------
+    s : type
+        String to be converted.
+
+    Returns
+    -------
+    type
+        Outut string, if string equalled None, returns '', else returns original string.
+
+    """
 
     if s is None:
 
@@ -470,7 +485,26 @@ def none_to_empty_str(s):
         return(s)
 
 def replace_conditional(record: dict, field: str, value: str, replacement: str):
-    '''Function to conditionally replace a value in an arbitrary field'''
+    """
+    Function to conditionally replace a value in a field.
+
+    Parameters
+    ----------
+    record : dict
+        Input record.
+    field : str
+        Key of field to be conditionally altered.
+    value : str
+        Value to identify and replace.
+    replacement : str
+        Value to insert on replacement.
+
+    Returns
+    -------
+    type
+        Record with specified key altered if `record[key] == value`. Otherwise, the original record is returned.
+
+    """
 
     if record[field] == value:
 
