@@ -153,7 +153,20 @@ def area_covered_national(record: dict):
 
 
 def add_date_end(record: dict):
-    '''Function to make ``date_end`` ``date_start`` if ``measure_stage`` is "Lift"'''
+    """
+    Function to make ``date_end`` ``date_start`` if ``measure_stage`` is "Lift"
+
+    Parameters
+    ----------
+    record : dict
+        Input record.
+
+    Returns
+    -------
+    type
+        Record with date_end changed conditionally, or original record.
+
+    """
 
     if record['measure_stage'] == 'Lift':
 
