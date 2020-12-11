@@ -604,7 +604,31 @@ def add_admin_level(record: dict):
 
 
 def remove_tags(record: dict, keys: list = ['comments']):
-    '''Function to remove HTML tags from comments'''
+    """
+    Remove HTML tags from defined columns.
+
+    Some datasets (CDC_ITF) provide comments that are enclosed in
+    HTML tags for display on the web.
+
+    Identifies content inside of HTML tags and returns content only.
+
+    Example:
+
+    "<p>Content</p>" -> "Content"
+
+    Parameters
+    ----------
+    record : dict
+        Input record.
+    keys : list
+        List of which keys HTML tage replacement should be applied to.
+
+    Returns
+    -------
+    type
+        Record with HTML tags replaced in the defined tags.
+
+    """
 
     exp = re.compile(r'<[^>]+>')
 
