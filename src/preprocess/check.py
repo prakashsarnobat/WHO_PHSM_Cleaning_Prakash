@@ -107,7 +107,7 @@ def check_date_format(data: pd.DataFrame, config: pd.DataFrame, dataset: str, lo
 
             logging.info('INPUT_CHECK_SUCCESS=%s %s date format is %s.' % (dataset, date_column, format))
 
-    except:
+    except Exception:
 
         if log:
 
