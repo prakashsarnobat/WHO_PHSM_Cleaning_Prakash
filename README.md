@@ -23,13 +23,7 @@ Build the Docker image with:
 make build
 ```
 
-Start a container for development with:
-
-``` ${shell} 
-make up
-```
-
-Or start a container and use `bash` with:
+Enter a container and use `bash` with:
 
 ``` ${shell} 
 make bash
