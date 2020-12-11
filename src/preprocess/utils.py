@@ -241,7 +241,22 @@ def get_measure_records(combined_record, stub_names, id_columns, full_value_name
 
 
 def split_df_by_group(data: pd.DataFrame, group: str):
-    '''Function to split a dataframe by group and return a named dictaionary'''
+    """
+    Split a dataframe by group and return a named dictionary.
+
+    Parameters
+    ----------
+    data : pd.DataFrame
+        Input dataset.
+    group : str
+        Name of column to be used as group.
+
+    Returns
+    -------
+    dict
+        Dict of dataset slices named by group.
+
+    """
 
     grouped = data.groupby(group)
 
