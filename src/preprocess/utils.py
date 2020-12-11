@@ -82,7 +82,7 @@ def write_records(records: list, dir: str, fn: str):
         raise e("Unable to write tmp/preprocess/records.p.")
 
 
-def oxcgrt_records(ox, dataset, drop_columns=[]):
+def oxcgrt_records(ox: pd.DataFrame, dataset: str, drop_columns: list = []):
     """
     Function to convert OXCGRT data to list of record dicts.
 
@@ -117,9 +117,9 @@ def oxcgrt_records(ox, dataset, drop_columns=[]):
     return(rs)
 
 
-def get_names(ox):
-    '''
-    Function to get names of columns holding measure information.
+def get_names(ox: pd.DataFrame):
+    """
+    Get the names of columns holding measure information.
 
     These columns begin with the prefix "A1\_" etc.
 
@@ -128,7 +128,21 @@ def get_names(ox):
         value_names: the names of measure columns
         stub_names: the measure column prefixes (i.e. "A1")
 
-    '''
+    Parameters
+    ----------
+    ox : pd.DataFrame
+        Input OXCGRT dataset.
+
+    Returns
+    -------
+    full_value_names: list
+        The names of all columns with measure information.
+    value_names: list
+        The names of measure columns.
+    stub_names: list
+        The measure column prefixes (i.e. "A1").
+
+    """
 
     stub_exp = r'[A-Z][0-9]+_'
 
