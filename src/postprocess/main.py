@@ -2,7 +2,20 @@ import pandas as pd
 from postprocess import CDC_ITF, JH_HIT
 
 def postprocess(data: pd.DataFrame):
-    '''Function to apply manual changes to individual records'''
+    """
+    Unify manual changes applied to specific datasets.
+
+    Parameters
+    ----------
+    data : pd.DataFrame
+        Input dataset.
+
+    Returns
+    -------
+    pd.DataFrame
+        Dataset with postprocessing changes applied.
+
+    """
 
     dataset = list(data['dataset'].unique())[0]
 
