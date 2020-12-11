@@ -41,21 +41,52 @@
 <dl class="py function">
 <dt id="src.preprocess.utils.df_to_records">
 <code class="sig-prename descclassname">src.preprocess.utils.</code><code class="sig-name descname">df_to_records</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">df</span><span class="p">:</span> <span class="n">pandas.DataFrame</span></em>, <em class="sig-param"><span class="n">dataset</span><span class="p">:</span> <span class="n">str</span></em>, <em class="sig-param"><span class="n">drop_columns</span><span class="o">=</span><span class="default_value">[]</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/src/preprocess/utils.html#df_to_records"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.preprocess.utils.df_to_records" title="Permalink to this definition">¶</a></dt>
-<dd><p>Function to convert dataframe to record oriented - dict</p>
+<dd><p>Convert dataframe to a list of record oriented dicts.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>df</strong> (<em>pd.DataFrame</em>) – Input dataset.</p></li>
+<li><p><strong>dataset</strong> (<em>str</em>) – Name of provider dataset.</p></li>
+<li><p><strong>drop_columns</strong> (<em>type</em>) – Which columns (if any) to drop.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>List of row-wise dicts.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>list</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py function">
 <dt id="src.preprocess.utils.get_measure_records">
 <code class="sig-prename descclassname">src.preprocess.utils.</code><code class="sig-name descname">get_measure_records</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">combined_record</span></em>, <em class="sig-param"><span class="n">stub_names</span></em>, <em class="sig-param"><span class="n">id_columns</span></em>, <em class="sig-param"><span class="n">full_value_names</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/src/preprocess/utils.html#get_measure_records"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.preprocess.utils.get_measure_records" title="Permalink to this definition">¶</a></dt>
-<dd><p>Function to break rows into individual records by stub group</p>
+<dd><p>Function to break rows into individual records by stub group.</p>
 <p>i.e. subset a row for only C4 records and other information, repeat for all possible measures.</p>
-<p>Also drops records where notes column is blank i.e. sum(notes columns) == 0</p>
+<p>Also drops records where notes column is blank i.e. sum(notes columns) == 0.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>combined_record</strong> (<em>type</em>) – Dict of a single OXCGRT row.</p></li>
+<li><p><strong>stub_names</strong> (<em>type</em>) – List of names of each stub group.</p></li>
+<li><p><strong>id_columns</strong> (<em>type</em>) – List of columns to be retained as IDs.</p></li>
+<li><p><strong>full_value_names</strong> (<em>type</em>) – List of full names of value columns.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>List of dicts containing all records extracted from a given row.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>list</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py function">
 <dt id="src.preprocess.utils.get_names">
-<code class="sig-prename descclassname">src.preprocess.utils.</code><code class="sig-name descname">get_names</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">ox</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/src/preprocess/utils.html#get_names"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.preprocess.utils.get_names" title="Permalink to this definition">¶</a></dt>
-<dd><p>Function to get names of columns holding measure information.</p>
+<code class="sig-prename descclassname">src.preprocess.utils.</code><code class="sig-name descname">get_names</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">ox</span><span class="p">:</span> <span class="n">pandas.DataFrame</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/src/preprocess/utils.html#get_names"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.preprocess.utils.get_names" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the names of columns holding measure information.</p>
 <p>These columns begin with the prefix “A1_” etc.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
@@ -66,32 +97,192 @@ stub_names: the measure column prefixes (i.e. “A1”)</p>
 <dt class="field-even">Return type</dt>
 <dd class="field-even"><p>full_value_names</p>
 </dd>
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>ox</strong> (<em>pd.DataFrame</em>) – Input OXCGRT dataset.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p><strong>full_value_names</strong> (<em>list</em>) – The names of all columns with measure information.</p></li>
+<li><p><strong>value_names</strong> (<em>list</em>) – The names of measure columns.</p></li>
+<li><p><strong>stub_names</strong> (<em>list</em>) – The measure column prefixes (i.e. “A1”).</p></li>
+</ul>
+</p>
+</dd>
 </dl>
 </dd></dl>
 
 <dl class="py function">
 <dt id="src.preprocess.utils.oxcgrt_records">
-<code class="sig-prename descclassname">src.preprocess.utils.</code><code class="sig-name descname">oxcgrt_records</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">ox</span></em>, <em class="sig-param"><span class="n">dataset</span></em>, <em class="sig-param"><span class="n">drop_columns</span><span class="o">=</span><span class="default_value">[]</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/src/preprocess/utils.html#oxcgrt_records"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.preprocess.utils.oxcgrt_records" title="Permalink to this definition">¶</a></dt>
-<dd><p>Function to convert OXCGRT data to records</p>
-<p>This is an additional challenge because of the wide format of the Oxford data</p>
+<code class="sig-prename descclassname">src.preprocess.utils.</code><code class="sig-name descname">oxcgrt_records</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">ox</span><span class="p">:</span> <span class="n">pandas.DataFrame</span></em>, <em class="sig-param"><span class="n">dataset</span><span class="p">:</span> <span class="n">str</span></em>, <em class="sig-param"><span class="n">drop_columns</span><span class="p">:</span> <span class="n">list</span> <span class="o">=</span> <span class="default_value">[]</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/src/preprocess/utils.html#oxcgrt_records"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.preprocess.utils.oxcgrt_records" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function to convert OXCGRT data to list of record dicts.</p>
+<p>This presents an additional challenge because of the wide format of the OXCGRT data.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ox</strong> (<em>pd.DataFrame</em>) – Input OXCGRT data.</p></li>
+<li><p><strong>dataset</strong> (<em>str</em>) – Name of provider dataset.</p></li>
+<li><p><strong>drop_columns</strong> (<em>list</em>) – Which columns (if any) to drop.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>List of record dicts.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>list</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py function">
 <dt id="src.preprocess.utils.remove_processed_records">
 <code class="sig-prename descclassname">src.preprocess.utils.</code><code class="sig-name descname">remove_processed_records</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">dataset</span><span class="p">:</span> <span class="n">pandas.DataFrame</span></em>, <em class="sig-param"><span class="n">previous_update</span><span class="p">:</span> <span class="n">pandas.DataFrame</span></em>, <em class="sig-param"><span class="n">current_id_col_name</span><span class="p">:</span> <span class="n">str</span></em>, <em class="sig-param"><span class="n">prev_id_col_name</span><span class="p">:</span> <span class="n">str</span> <span class="o">=</span> <span class="default_value">'prop_id'</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/src/preprocess/utils.html#remove_processed_records"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.preprocess.utils.remove_processed_records" title="Permalink to this definition">¶</a></dt>
-<dd><p>Function to drop previously ingested records</p>
+<dd><p>Drop previously ingested records.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>dataset</strong> (<em>pd.DataFrame</em>) – Input dataset.</p></li>
+<li><p><strong>previous_update</strong> (<em>pd.DataFrame</em>) – Reference for previously ingested records.</p></li>
+<li><p><strong>current_id_col_name</strong> (<em>str</em>) – Column name od ID values in current data.</p></li>
+<li><p><strong>prev_id_col_name</strong> (<em>str</em>) – Column name od ID values in previously ingested data.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Dataframe with previously ingested records filtered out.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>pd.DataFrame</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py function">
 <dt id="src.preprocess.utils.split_df_by_group">
 <code class="sig-prename descclassname">src.preprocess.utils.</code><code class="sig-name descname">split_df_by_group</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data</span><span class="p">:</span> <span class="n">pandas.DataFrame</span></em>, <em class="sig-param"><span class="n">group</span><span class="p">:</span> <span class="n">str</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/src/preprocess/utils.html#split_df_by_group"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.preprocess.utils.split_df_by_group" title="Permalink to this definition">¶</a></dt>
-<dd><p>Function to split a dataframe by group and return a named dictaionary</p>
+<dd><p>Split a dataframe by group and return a named dictionary.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data</strong> (<em>pd.DataFrame</em>) – Input dataset.</p></li>
+<li><p><strong>group</strong> (<em>str</em>) – Name of column to be used as group.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Dict of dataset slices named by group.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py function">
 <dt id="src.preprocess.utils.write_records">
 <code class="sig-prename descclassname">src.preprocess.utils.</code><code class="sig-name descname">write_records</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">records</span><span class="p">:</span> <span class="n">list</span></em>, <em class="sig-param"><span class="n">dir</span><span class="p">:</span> <span class="n">str</span></em>, <em class="sig-param"><span class="n">fn</span><span class="p">:</span> <span class="n">str</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/src/preprocess/utils.html#write_records"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.preprocess.utils.write_records" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Write records to a pickle file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>records</strong> (<em>list</em>) – List of preprocessed records.</p></li>
+<li><p><strong>dir</strong> (<em>str</em>) – Output directory.</p></li>
+<li><p><strong>fn</strong> (<em>str</em>) – Output file name.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="module-src.preprocess.check">
+<span id="src-preprocess-check-module"></span><h2>src.preprocess.check module<a class="headerlink" href="#module-src.preprocess.check" title="Permalink to this headline">¶</a></h2>
+<dl class="py function">
+<dt id="src.preprocess.check.check_column_names">
+<code class="sig-prename descclassname">src.preprocess.check.</code><code class="sig-name descname">check_column_names</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">records</span><span class="p">:</span> <span class="n">pandas.DataFrame</span></em>, <em class="sig-param"><span class="n">config</span><span class="p">:</span> <span class="n">pandas.DataFrame</span></em>, <em class="sig-param"><span class="n">log</span><span class="p">:</span> <span class="n">bool</span> <span class="o">=</span> <span class="default_value">True</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/src/preprocess/check.html#check_column_names"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.preprocess.check.check_column_names" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function to check that column names agree with config or raise exception.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>records</strong> (<em>pd.DataFrame</em>) – Dataframe of provider data.</p></li>
+<li><p><strong>config</strong> (<em>pd.DataFrame</em>) – Reference for accepted column names.</p></li>
+<li><p><strong>log</strong> (<em>bool</em>) – Whether or not to log results of checks.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="src.preprocess.check.check_date_format">
+<code class="sig-prename descclassname">src.preprocess.check.</code><code class="sig-name descname">check_date_format</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data</span><span class="p">:</span> <span class="n">pandas.DataFrame</span></em>, <em class="sig-param"><span class="n">config</span><span class="p">:</span> <span class="n">pandas.DataFrame</span></em>, <em class="sig-param"><span class="n">dataset</span><span class="p">:</span> <span class="n">str</span></em>, <em class="sig-param"><span class="n">log</span><span class="p">:</span> <span class="n">bool</span> <span class="o">=</span> <span class="default_value">True</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/src/preprocess/check.html#check_date_format"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.preprocess.check.check_date_format" title="Permalink to this definition">¶</a></dt>
+<dd><p>Check that an input date is in the expected format.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data</strong> (<em>pd.DataFrame</em>) – Dataframe of provider data..</p></li>
+<li><p><strong>config</strong> (<em>pd.DataFrame</em>) – Reference for accepted date formats.</p></li>
+<li><p><strong>dataset</strong> (<em>str</em>) – Name of provider dataset.</p></li>
+<li><p><strong>log</strong> (<em>bool</em>) – Whether or not to log results of checks.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="src.preprocess.check.check_input">
+<code class="sig-prename descclassname">src.preprocess.check.</code><code class="sig-name descname">check_input</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">records</span><span class="p">:</span> <span class="n">pandas.DataFrame</span></em>, <em class="sig-param"><span class="n">column_config</span><span class="p">:</span> <span class="n">pandas.DataFrame</span></em>, <em class="sig-param"><span class="n">date_config</span><span class="p">:</span> <span class="n">pandas.DataFrame</span></em>, <em class="sig-param"><span class="n">dataset</span><span class="p">:</span> <span class="n">str</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/src/preprocess/check.html#check_input"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.preprocess.check.check_input" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function to unify all input checks.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>records</strong> (<em>pd.DataFrame</em>) – Dataframe of provider data.</p></li>
+<li><p><strong>column_config</strong> (<em>pd.DataFrame</em>) – Reference for accepted column names.</p></li>
+<li><p><strong>date_config</strong> (<em>pd.DataFrame</em>) – Reference for accepted date formats.</p></li>
+<li><p><strong>dataset</strong> (<em>str</em>) – Name of provider dataset.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Description of returned object.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>type</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="src.preprocess.check.validate_date_format">
+<code class="sig-prename descclassname">src.preprocess.check.</code><code class="sig-name descname">validate_date_format</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">date</span></em>, <em class="sig-param"><span class="n">format</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/src/preprocess/check.html#validate_date_format"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.preprocess.check.validate_date_format" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return None if a date format does not parse.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>date</strong> (<em>type</em>) – Input date string.</p></li>
+<li><p><strong>format</strong> (<em>type</em>) – Input accpeted format to try.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Returns date on successful parse or None on parsing failure.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>type</p>
+</dd>
+</dl>
+</dd></dl>
 
 </div>
 <div class="section" id="module-src.preprocess">

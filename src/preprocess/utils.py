@@ -1,4 +1,3 @@
-import os
 import pickle
 import shutil
 import re
@@ -7,7 +6,24 @@ import pandas as pd
 
 
 def df_to_records(df: pd.DataFrame, dataset: str, drop_columns = []):
-    """Function to convert dataframe to record oriented - dict"""
+    """
+    Convert dataframe to a list of record oriented dicts.
+
+    Parameters
+    ----------
+    df : pd.DataFrame
+        Input dataset.
+    dataset : str
+        Name of provider dataset.
+    drop_columns : type
+        Which columns (if any) to drop.
+
+    Returns
+    -------
+    list
+        List of row-wise dicts.
+
+    """
 
     if dataset == 'OXCGRT':
 
@@ -34,6 +50,23 @@ def df_to_records(df: pd.DataFrame, dataset: str, drop_columns = []):
 
 
 def write_records(records: list, dir: str, fn: str):
+    """
+    Write records to a pickle file.
+
+    Parameters
+    ----------
+    records : list
+        List of preprocessed records.
+    dir : str
+        Output directory.
+    fn : str
+        Output file name.
+
+    Returns
+    -------
+    None
+
+    """
 
     try:
 
@@ -48,12 +81,27 @@ def write_records(records: list, dir: str, fn: str):
         raise e("Unable to write tmp/preprocess/records.p.")
 
 
-def oxcgrt_records(ox, dataset, drop_columns=[]):
-    '''
-    Function to convert OXCGRT data to records
+def oxcgrt_records(ox: pd.DataFrame, dataset: str, drop_columns: list = []):
+    """
+    Function to convert OXCGRT data to list of record dicts.
 
-    This is an additional challenge because of the wide format of the Oxford data
-    '''
+    This presents an additional challenge because of the wide format of the OXCGRT data.
+
+    Parameters
+    ----------
+    ox : pd.DataFrame
+        Input OXCGRT data.
+    dataset : str
+        Name of provider dataset.
+    drop_columns : list
+        Which columns (if any) to drop.
+
+    Returns
+    -------
+    list
+        List of record dicts.
+
+    """
 
     full_value_names, value_names, stub_names = get_names(ox)
 
@@ -68,9 +116,9 @@ def oxcgrt_records(ox, dataset, drop_columns=[]):
     return(rs)
 
 
-def get_names(ox):
-    '''
-    Function to get names of columns holding measure information.
+def get_names(ox: pd.DataFrame):
+    """
+    Get the names of columns holding measure information.
 
     These columns begin with the prefix "A1\_" etc.
 
@@ -79,7 +127,21 @@ def get_names(ox):
         value_names: the names of measure columns
         stub_names: the measure column prefixes (i.e. "A1")
 
-    '''
+    Parameters
+    ----------
+    ox : pd.DataFrame
+        Input OXCGRT dataset.
+
+    Returns
+    -------
+    full_value_names: list
+        The names of all columns with measure information.
+    value_names: list
+        The names of measure columns.
+    stub_names: list
+        The measure column prefixes (i.e. "A1").
+
+    """
 
     stub_exp = r'[A-Z][0-9]+_'
 
@@ -94,13 +156,30 @@ def get_names(ox):
 
 
 def get_measure_records(combined_record, stub_names, id_columns, full_value_names):
-    '''Function to break rows into individual records by stub group
+    """
+    Function to break rows into individual records by stub group.
 
-        i.e. subset a row for only C4 records and other information, repeat for all possible measures.
+    i.e. subset a row for only C4 records and other information, repeat for all possible measures.
 
-        Also drops records where notes column is blank i.e. sum(notes columns) == 0
+    Also drops records where notes column is blank i.e. sum(notes columns) == 0.
 
-    '''
+    Parameters
+    ----------
+    combined_record : type
+        Dict of a single OXCGRT row.
+    stub_names : type
+        List of names of each stub group.
+    id_columns : type
+        List of columns to be retained as IDs.
+    full_value_names : type
+        List of full names of value columns.
+
+    Returns
+    -------
+    list
+        List of dicts containing all records extracted from a given row.
+
+    """
 
     records = []
 
@@ -161,7 +240,22 @@ def get_measure_records(combined_record, stub_names, id_columns, full_value_name
 
 
 def split_df_by_group(data: pd.DataFrame, group: str):
-    '''Function to split a dataframe by group and return a named dictaionary'''
+    """
+    Split a dataframe by group and return a named dictionary.
+
+    Parameters
+    ----------
+    data : pd.DataFrame
+        Input dataset.
+    group : str
+        Name of column to be used as group.
+
+    Returns
+    -------
+    dict
+        Dict of dataset slices named by group.
+
+    """
 
     grouped = data.groupby(group)
 
@@ -176,7 +270,26 @@ def remove_processed_records(dataset: pd.DataFrame,
                              previous_update: pd.DataFrame,
                              current_id_col_name: str,
                              prev_id_col_name: str = 'prop_id'):
-    '''Function to drop previously ingested records'''
+    """
+    Drop previously ingested records.
+
+    Parameters
+    ----------
+    dataset : pd.DataFrame
+        Input dataset.
+    previous_update : pd.DataFrame
+        Reference for previously ingested records.
+    current_id_col_name : str
+        Column name od ID values in current data.
+    prev_id_col_name : str
+        Column name od ID values in previously ingested data.
+
+    Returns
+    -------
+    pd.DataFrame
+        Dataframe with previously ingested records filtered out.
+
+    """
 
     current_ids = dataset[current_id_col_name]
 
