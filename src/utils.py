@@ -3,6 +3,7 @@ import shutil
 import pandas as pd
 import logging
 
+
 def create_dir(dir: str):
     """
     Create or replace a "tmp" directory.
@@ -89,7 +90,7 @@ def parse_log(line: str):
 
     """
 
-    line = line.replace('\n','')
+    line = line.replace('\n', '')
 
     line = line.split(' - ')
 
@@ -104,7 +105,7 @@ def parse_log(line: str):
         line['key'] = kv[0]
         line['value'] = kv[1]
 
-    except:
+    except Exception:
 
         line['key'] = None
         line['value'] = None
