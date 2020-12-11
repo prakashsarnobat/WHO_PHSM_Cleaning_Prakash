@@ -51,6 +51,23 @@ def df_to_records(df: pd.DataFrame, dataset: str, drop_columns = []):
 
 
 def write_records(records: list, dir: str, fn: str):
+    """
+    Write records to a pickle file.
+
+    Parameters
+    ----------
+    records : list
+        List of preprocessed records.
+    dir : str
+        Output directory.
+    fn : str
+        Output file name.
+
+    Returns
+    -------
+    None
+
+    """
 
     try:
 
