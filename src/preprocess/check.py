@@ -40,7 +40,23 @@ def check_input(records: pd.DataFrame, column_config: pd.DataFrame, date_config:
 
 
 def check_column_names(records: pd.DataFrame, config: pd.DataFrame, log: bool = True):
-    '''Function to check that column names agree with config or raise exception'''
+    """
+    Function to check that column names agree with config or raise exception.
+
+    Parameters
+    ----------
+    records : pd.DataFrame
+        Dataframe of provider data.
+    config : pd.DataFrame
+        Reference for accepted column names.
+    log : bool
+        Whether or not to log results of checks.
+
+    Returns
+    -------
+    None
+
+    """
 
     dataset = list(config['dataset'].unique())[0]
 
