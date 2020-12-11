@@ -4,7 +4,19 @@ import pandas as pd
 import logging
 
 def create_dir(dir: str):
-    """Function to create or replace a "tmp" directory"""
+    """
+    Create or replace a "tmp" directory.
+
+    Parameters
+    ----------
+    dir : str
+        Directory name.
+
+    Returns
+    -------
+    None
+
+    """
 
     if os.path.exists(dir):
 
@@ -14,7 +26,19 @@ def create_dir(dir: str):
 
 
 def log_records_total(data: pd.DataFrame):
-    '''Function to log the total number of records in a dataset'''
+    """
+    Log the total number of records in a dataset.
+
+    Parameters
+    ----------
+    data : pd.DataFrame
+        Input dataset.
+
+    Returns
+    -------
+    None
+
+    """
 
     n_records = len(data.index)
 
@@ -22,7 +46,21 @@ def log_records_total(data: pd.DataFrame):
 
 
 def log_records_per(data: pd.DataFrame, group: str):
-    '''Function to log the number of records in each group'''
+    """
+    Log the number of records in each group given a grouping column name.
+
+    Parameters
+    ----------
+    data : pd.DataFrame
+        Input data.
+    group : str
+        Name of grouping column.
+
+    Returns
+    -------
+    None
+
+    """
 
     data = data.copy()
 
