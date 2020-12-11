@@ -1,6 +1,7 @@
 import pandas as pd
 import logging
 
+
 def postprocess(data: pd.DataFrame):
     """
     Apply dataset-level transformations to CDC_ITF data.
@@ -23,7 +24,22 @@ def postprocess(data: pd.DataFrame):
 
 
 def remove_id_duplicates(data: pd.DataFrame):
-    '''Remove duplicate records with identical measure_stage values'''
+    """
+    Remove duplicate records with identical measure_stage values
+
+    Removes duplicate records with identical values in `ref_cols`.
+
+    Parameters
+    ----------
+    data : pd.DataFrame
+        Input CDC_ITF data.
+
+    Returns
+    -------
+    pd.DataFrame
+        Data with duplicates removed.
+
+    """
 
     n_records = len(data.iloc[:, 1])
 
