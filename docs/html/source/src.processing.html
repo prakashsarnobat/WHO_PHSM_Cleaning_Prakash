@@ -1,23 +1,23 @@
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
   <head>
-    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>src.processing package &#8212; WHO PHSM Cleaning 0.0.1 documentation</title>
     <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-    <script type="text/javascript" src="../_static/jquery.js"></script>
-    <script type="text/javascript" src="../_static/underscore.js"></script>
-    <script type="text/javascript" src="../_static/doctools.js"></script>
-    <script type="text/javascript" src="../_static/language_data.js"></script>
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/language_data.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
    
   <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
   
   <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
 
@@ -27,6 +27,8 @@
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
+          
+
           <div class="body" role="main">
             
   <div class="section" id="src-processing-package">
@@ -43,18 +45,18 @@
 <a class="reference external" href="https://www.acaps.org/covid-19-government-measures-dataset">https://www.acaps.org/covid-19-government-measures-dataset</a></p>
 <p><strong>Processing Steps:</strong></p>
 <ol class="arabic simple">
-<li>Create a new blank record</li>
-<li>replace data in new record with data from old record using key_ref</li>
-<li>Make manual country name changes</li>
-<li>replace sensitive country names by ISO (utils)</li>
-<li>assign ISO code</li>
-<li>check for missing ISO codes (shared)</li>
-<li>Join WHO accepted country names (shared)</li>
-<li>Add WHO PHSM admin_level values</li>
+<li><p>Create a new blank record</p></li>
+<li><p>replace data in new record with data from old record using key_ref</p></li>
+<li><p>Make manual country name changes</p></li>
+<li><p>replace sensitive country names by ISO (utils)</p></li>
+<li><p>assign ISO code</p></li>
+<li><p>check for missing ISO codes (shared)</p></li>
+<li><p>Join WHO accepted country names (shared)</p></li>
+<li><p>Add WHO PHSM admin_level values</p></li>
 </ol>
-<dl class="function">
+<dl class="py function">
 <dt id="src.processing.ACAPS.transform">
-<code class="descclassname">src.processing.ACAPS.</code><code class="descname">transform</code><span class="sig-paren">(</span><em>record: dict</em>, <em>key_ref: dict</em>, <em>country_ref: &lt;sphinx.ext.autodoc.importer._MockObject object at 0x7f7d8a2c1f28&gt;</em>, <em>who_coding: &lt;sphinx.ext.autodoc.importer._MockObject object at 0x7f7d8a2c1630&gt;</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/src/processing/ACAPS.html#transform"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.processing.ACAPS.transform" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">src.processing.ACAPS.</code><code class="sig-name descname">transform</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">record</span><span class="p">:</span> <span class="n">dict</span></em>, <em class="sig-param"><span class="n">key_ref</span><span class="p">:</span> <span class="n">dict</span></em>, <em class="sig-param"><span class="n">country_ref</span><span class="p">:</span> <span class="n">pandas.DataFrame</span></em>, <em class="sig-param"><span class="n">who_coding</span><span class="p">:</span> <span class="n">pandas.DataFrame</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/src/processing/ACAPS.html#transform"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.processing.ACAPS.transform" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </div>
@@ -68,38 +70,45 @@
 <a class="reference external" href="https://www.cdc.gov/mmwr/preview/mmwrhtml/00001590.htm">https://www.cdc.gov/mmwr/preview/mmwrhtml/00001590.htm</a></p>
 <p><strong>Processing Steps:</strong></p>
 <ol class="arabic simple">
-<li>Join comments in <code class="docutils literal notranslate"><span class="pre">Concise</span> <span class="pre">Notes</span></code> and <code class="docutils literal notranslate"><span class="pre">Notes</span></code> columns</li>
-<li>Generate a blank record with required keys.</li>
-<li>Move data from provider record to new record with <code class="docutils literal notranslate"><span class="pre">apply_key_map</span></code> using key mapping in <code class="docutils literal notranslate"><span class="pre">config/key_map/CDC_ITF.csv</span></code>.</li>
-<li>Assign merged comments to new record.</li>
-<li>Handle date formatting.</li>
-<li>Assign <code class="docutils literal notranslate"><span class="pre">date_end</span></code> equal to <code class="docutils literal notranslate"><span class="pre">date_start</span></code> if <code class="docutils literal notranslate"><span class="pre">measure_stage</span></code> == “Lift”.</li>
-<li>Make manual country name changes.</li>
-<li>Replace sensitive country names.</li>
-<li>Assign ISO code.</li>
-<li>Check for missing ISO codes.</li>
-<li>Join WHO accepted country names (shared).</li>
-<li>Join who coding from lookup (shared).</li>
-<li>Check for missing WHO codes (shared).</li>
-<li>Replace non-specific area_covered value.</li>
-<li>Replace measure_stage extension.</li>
-<li>Add WHO PHSM admin_level values.</li>
+<li><p>Join comments in <code class="docutils literal notranslate"><span class="pre">Concise</span> <span class="pre">Notes</span></code> and <code class="docutils literal notranslate"><span class="pre">Notes</span></code> columns</p></li>
+<li><p>Generate a blank record with required keys.</p></li>
+<li><p>Move data from provider record to new record with <code class="docutils literal notranslate"><span class="pre">apply_key_map</span></code> using key mapping in <code class="docutils literal notranslate"><span class="pre">config/key_map/CDC_ITF.csv</span></code>.</p></li>
+<li><p>Assign merged comments to new record.</p></li>
+<li><p>Handle date formatting.</p></li>
+<li><p>Assign <code class="docutils literal notranslate"><span class="pre">date_end</span></code> equal to <code class="docutils literal notranslate"><span class="pre">date_start</span></code> if <code class="docutils literal notranslate"><span class="pre">measure_stage</span></code> == “Lift”.</p></li>
+<li><p>Make manual country name changes.</p></li>
+<li><p>Replace sensitive country names.</p></li>
+<li><p>Assign ISO code.</p></li>
+<li><p>Check for missing ISO codes.</p></li>
+<li><p>Join WHO accepted country names (shared).</p></li>
+<li><p>Join who coding from lookup (shared).</p></li>
+<li><p>Check for missing WHO codes (shared).</p></li>
+<li><p>Replace non-specific area_covered value.</p></li>
+<li><p>Replace measure_stage extension.</p></li>
+<li><p>Add WHO PHSM admin_level values.</p></li>
 </ol>
-<dl class="function">
+<dl class="py function">
 <dt id="src.processing.CDC_ITF.add_date_end">
-<code class="descclassname">src.processing.CDC_ITF.</code><code class="descname">add_date_end</code><span class="sig-paren">(</span><em>record: dict</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/src/processing/CDC_ITF.html#add_date_end"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.processing.CDC_ITF.add_date_end" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">src.processing.CDC_ITF.</code><code class="sig-name descname">add_date_end</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">record</span><span class="p">:</span> <span class="n">dict</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/src/processing/CDC_ITF.html#add_date_end"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.processing.CDC_ITF.add_date_end" title="Permalink to this definition">¶</a></dt>
 <dd><p>Function to make <code class="docutils literal notranslate"><span class="pre">date_end</span></code> <code class="docutils literal notranslate"><span class="pre">date_start</span></code> if <code class="docutils literal notranslate"><span class="pre">measure_stage</span></code> is “Lift”</p>
 </dd></dl>
 
-<dl class="function">
+<dl class="py function">
+<dt id="src.processing.CDC_ITF.area_covered_national">
+<code class="sig-prename descclassname">src.processing.CDC_ITF.</code><code class="sig-name descname">area_covered_national</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">record</span><span class="p">:</span> <span class="n">dict</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/src/processing/CDC_ITF.html#area_covered_national"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.processing.CDC_ITF.area_covered_national" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function to remove area_covered == “national”</p>
+<p>Replace with None</p>
+</dd></dl>
+
+<dl class="py function">
 <dt id="src.processing.CDC_ITF.join_comments">
-<code class="descclassname">src.processing.CDC_ITF.</code><code class="descname">join_comments</code><span class="sig-paren">(</span><em>record: dict</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/src/processing/CDC_ITF.html#join_comments"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.processing.CDC_ITF.join_comments" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">src.processing.CDC_ITF.</code><code class="sig-name descname">join_comments</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">record</span><span class="p">:</span> <span class="n">dict</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/src/processing/CDC_ITF.html#join_comments"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.processing.CDC_ITF.join_comments" title="Permalink to this definition">¶</a></dt>
 <dd><p>Function to combine comments from “Concise Notes” and “Notes” fields</p>
 </dd></dl>
 
-<dl class="function">
+<dl class="py function">
 <dt id="src.processing.CDC_ITF.transform">
-<code class="descclassname">src.processing.CDC_ITF.</code><code class="descname">transform</code><span class="sig-paren">(</span><em>record: dict</em>, <em>key_ref: dict</em>, <em>country_ref: &lt;sphinx.ext.autodoc.importer._MockObject object at 0x7f7d8a277278&gt;</em>, <em>who_coding: &lt;sphinx.ext.autodoc.importer._MockObject object at 0x7f7d8a192630&gt;</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/src/processing/CDC_ITF.html#transform"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.processing.CDC_ITF.transform" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">src.processing.CDC_ITF.</code><code class="sig-name descname">transform</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">record</span><span class="p">:</span> <span class="n">dict</span></em>, <em class="sig-param"><span class="n">key_ref</span><span class="p">:</span> <span class="n">dict</span></em>, <em class="sig-param"><span class="n">country_ref</span><span class="p">:</span> <span class="n">pandas.DataFrame</span></em>, <em class="sig-param"><span class="n">who_coding</span><span class="p">:</span> <span class="n">pandas.DataFrame</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/src/processing/CDC_ITF.html#transform"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.processing.CDC_ITF.transform" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </div>
@@ -113,38 +122,45 @@
 <a class="reference external" href="https://github.com/HopkinsIDD/hit-covid">https://github.com/HopkinsIDD/hit-covid</a></p>
 <p><strong>Processing Steps:</strong></p>
 <ol class="arabic simple">
-<li>Remove records with null <code class="docutils literal notranslate"><span class="pre">locality</span></code> AND null <code class="docutils literal notranslate"><span class="pre">usa_county</span></code> values.</li>
-<li>Generate a blank record with required keys.</li>
-<li>Move data from provider record to new record with <code class="docutils literal notranslate"><span class="pre">apply_key_map</span></code> using key mapping in <code class="docutils literal notranslate"><span class="pre">config/key_map/JH_HIT.csv</span></code>.</li>
-<li>Remove a subset of <code class="docutils literal notranslate"><span class="pre">prov_measure</span></code> values. See <code class="docutils literal notranslate"><span class="pre">config/prov_measure_filter/JH_HIT.csv</span></code> for exact values.</li>
-<li>Parse date formats in <code class="docutils literal notranslate"><span class="pre">date_start</span></code>, <code class="docutils literal notranslate"><span class="pre">date_end</span></code>, <code class="docutils literal notranslate"><span class="pre">date_entry</span></code>.</li>
-<li>Assign a unique record ID.</li>
-<li>Map non-ascii characters to their closest ascii equivalent.</li>
-<li>Shift sensitive country names to <code class="docutils literal notranslate"><span class="pre">area_covered</span></code>.</li>
-<li>Assign ISO codes using <code class="docutils literal notranslate"><span class="pre">country_territory_area</span></code>.</li>
-<li>Check for missing <code class="docutils literal notranslate"><span class="pre">iso</span></code> codes.</li>
-<li>Assign WHO-accepted <code class="docutils literal notranslate"><span class="pre">country_territory_area</span></code>, <code class="docutils literal notranslate"><span class="pre">who_region</span></code>, <code class="docutils literal notranslate"><span class="pre">iso_3166_1_numeric</span></code></li>
-<li>Assign WHO PHSM dataset coding using <code class="docutils literal notranslate"><span class="pre">prov_measure</span></code>, <code class="docutils literal notranslate"><span class="pre">prov_subcategory</span></code>, <code class="docutils literal notranslate"><span class="pre">prov_category</span></code></li>
-<li>Check for missing <code class="docutils literal notranslate"><span class="pre">who_code</span></code> values.</li>
-<li>Replace <code class="docutils literal notranslate"><span class="pre">admin_level</span></code> values: null -&gt; ‘unknown’, ‘Yes’ -&gt; ‘national’, ‘No’ -&gt; ‘state’</li>
-<li>Replace <code class="docutils literal notranslate"><span class="pre">prov_measure</span></code> and <code class="docutils literal notranslate"><span class="pre">prov_category</span></code> with ‘not_enough_to_code’ if <code class="docutils literal notranslate"><span class="pre">comments</span></code> are blank and <code class="docutils literal notranslate"><span class="pre">prov_category</span></code> no ‘school_closed’</li>
-<li>Replace <code class="docutils literal notranslate"><span class="pre">non_compliance_penalty</span></code> “non_compliance_penalty” -&gt; “Not Known”</li>
+<li><p>Remove records with null <code class="docutils literal notranslate"><span class="pre">locality</span></code> AND null <code class="docutils literal notranslate"><span class="pre">usa_county</span></code> values.</p></li>
+<li><p>Generate a blank record with required keys.</p></li>
+<li><p>Move data from provider record to new record with <code class="docutils literal notranslate"><span class="pre">apply_key_map</span></code> using key mapping in <code class="docutils literal notranslate"><span class="pre">config/key_map/JH_HIT.csv</span></code>.</p></li>
+<li><p>Remove a subset of <code class="docutils literal notranslate"><span class="pre">prov_measure</span></code> values. See <code class="docutils literal notranslate"><span class="pre">config/prov_measure_filter/JH_HIT.csv</span></code> for exact values.</p></li>
+<li><p>Parse date formats in <code class="docutils literal notranslate"><span class="pre">date_start</span></code>, <code class="docutils literal notranslate"><span class="pre">date_end</span></code>, <code class="docutils literal notranslate"><span class="pre">date_entry</span></code>.</p></li>
+<li><p>Assign a unique record ID.</p></li>
+<li><p>Map non-ascii characters to their closest ascii equivalent.</p></li>
+<li><p>Shift sensitive country names to <code class="docutils literal notranslate"><span class="pre">area_covered</span></code>.</p></li>
+<li><p>Assign ISO codes using <code class="docutils literal notranslate"><span class="pre">country_territory_area</span></code>.</p></li>
+<li><p>Check for missing <code class="docutils literal notranslate"><span class="pre">iso</span></code> codes.</p></li>
+<li><p>Assign WHO-accepted <code class="docutils literal notranslate"><span class="pre">country_territory_area</span></code>, <code class="docutils literal notranslate"><span class="pre">who_region</span></code>, <code class="docutils literal notranslate"><span class="pre">iso_3166_1_numeric</span></code></p></li>
+<li><p>Assign WHO PHSM dataset coding using <code class="docutils literal notranslate"><span class="pre">prov_measure</span></code>, <code class="docutils literal notranslate"><span class="pre">prov_subcategory</span></code>, <code class="docutils literal notranslate"><span class="pre">prov_category</span></code></p></li>
+<li><p>Check for missing <code class="docutils literal notranslate"><span class="pre">who_code</span></code> values.</p></li>
+<li><p>Replace <code class="docutils literal notranslate"><span class="pre">admin_level</span></code> values: null -&gt; ‘unknown’, ‘Yes’ -&gt; ‘national’, ‘No’ -&gt; ‘state’</p></li>
+<li><p>Replace <code class="docutils literal notranslate"><span class="pre">prov_measure</span></code> and <code class="docutils literal notranslate"><span class="pre">prov_category</span></code> with ‘not_enough_to_code’ if <code class="docutils literal notranslate"><span class="pre">comments</span></code> are blank and <code class="docutils literal notranslate"><span class="pre">prov_category</span></code> no ‘school_closed’</p></li>
+<li><p>Replace <code class="docutils literal notranslate"><span class="pre">non_compliance_penalty</span></code> “non_compliance_penalty” -&gt; “Not Known”</p></li>
 </ol>
-<dl class="function">
+<dl class="py function">
 <dt id="src.processing.JH_HIT.apply_prov_measure_filter">
-<code class="descclassname">src.processing.JH_HIT.</code><code class="descname">apply_prov_measure_filter</code><span class="sig-paren">(</span><em>record: dict</em>, <em>prov_measure_filter: &lt;sphinx.ext.autodoc.importer._MockObject object at 0x7f7d8a164780&gt;</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/src/processing/JH_HIT.html#apply_prov_measure_filter"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.processing.JH_HIT.apply_prov_measure_filter" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">src.processing.JH_HIT.</code><code class="sig-name descname">apply_prov_measure_filter</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">record</span><span class="p">:</span> <span class="n">dict</span></em>, <em class="sig-param"><span class="n">prov_measure_filter</span><span class="p">:</span> <span class="n">pandas.DataFrame</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/src/processing/JH_HIT.html#apply_prov_measure_filter"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.processing.JH_HIT.apply_prov_measure_filter" title="Permalink to this definition">¶</a></dt>
 <dd><p>Function to filter only some prov_measure and prov_category values</p>
 </dd></dl>
 
-<dl class="function">
+<dl class="py function">
+<dt id="src.processing.JH_HIT.blank_record_and_url">
+<code class="sig-prename descclassname">src.processing.JH_HIT.</code><code class="sig-name descname">blank_record_and_url</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">record</span><span class="p">:</span> <span class="n">dict</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/src/processing/JH_HIT.html#blank_record_and_url"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.processing.JH_HIT.blank_record_and_url" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function to assign who_code == 11 and ‘Not enough to code’
+to records with no comments AND no url</p>
+</dd></dl>
+
+<dl class="py function">
 <dt id="src.processing.JH_HIT.fill_not_enough_to_code">
-<code class="descclassname">src.processing.JH_HIT.</code><code class="descname">fill_not_enough_to_code</code><span class="sig-paren">(</span><em>record: dict</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/src/processing/JH_HIT.html#fill_not_enough_to_code"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.processing.JH_HIT.fill_not_enough_to_code" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">src.processing.JH_HIT.</code><code class="sig-name descname">fill_not_enough_to_code</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">record</span><span class="p">:</span> <span class="n">dict</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/src/processing/JH_HIT.html#fill_not_enough_to_code"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.processing.JH_HIT.fill_not_enough_to_code" title="Permalink to this definition">¶</a></dt>
 <dd><p>Function to add “not enough to code” label to specific records</p>
 </dd></dl>
 
-<dl class="function">
+<dl class="py function">
 <dt id="src.processing.JH_HIT.transform">
-<code class="descclassname">src.processing.JH_HIT.</code><code class="descname">transform</code><span class="sig-paren">(</span><em>record: dict</em>, <em>key_ref: dict</em>, <em>country_ref: &lt;sphinx.ext.autodoc.importer._MockObject object at 0x7f7d8a164710&gt;</em>, <em>who_coding: &lt;sphinx.ext.autodoc.importer._MockObject object at 0x7f7d8a164748&gt;</em>, <em>prov_measure_filter: &lt;sphinx.ext.autodoc.importer._MockObject object at 0x7f7d8a1646d8&gt;</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/src/processing/JH_HIT.html#transform"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.processing.JH_HIT.transform" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">src.processing.JH_HIT.</code><code class="sig-name descname">transform</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">record</span><span class="p">:</span> <span class="n">dict</span></em>, <em class="sig-param"><span class="n">key_ref</span><span class="p">:</span> <span class="n">dict</span></em>, <em class="sig-param"><span class="n">country_ref</span><span class="p">:</span> <span class="n">pandas.DataFrame</span></em>, <em class="sig-param"><span class="n">who_coding</span><span class="p">:</span> <span class="n">pandas.DataFrame</span></em>, <em class="sig-param"><span class="n">prov_measure_filter</span><span class="p">:</span> <span class="n">pandas.DataFrame</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/src/processing/JH_HIT.html#transform"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.processing.JH_HIT.transform" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </div>
@@ -154,21 +170,26 @@
 <div class="section" id="check-py">
 <h3>check.py<a class="headerlink" href="#check-py" title="Permalink to this headline">¶</a></h3>
 <p>Functions to check data attributed inline.</p>
-<dl class="function">
+<dl class="py function">
 <dt id="src.processing.check.check_missing_iso">
-<code class="descclassname">src.processing.check.</code><code class="descname">check_missing_iso</code><span class="sig-paren">(</span><em>record: dict</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/src/processing/check.html#check_missing_iso"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.processing.check.check_missing_iso" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">src.processing.check.</code><code class="sig-name descname">check_missing_iso</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">record</span><span class="p">:</span> <span class="n">dict</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/src/processing/check.html#check_missing_iso"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.processing.check.check_missing_iso" title="Permalink to this definition">¶</a></dt>
 <dd><p>Function to check for missing ISO codes</p>
 <p>Note: will not throw an error for “unknown” values which much be
 handled later</p>
 </dd></dl>
 
-<dl class="function">
+<dl class="py function">
 <dt id="src.processing.check.check_missing_who_code">
-<code class="descclassname">src.processing.check.</code><code class="descname">check_missing_who_code</code><span class="sig-paren">(</span><em>record: dict</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/src/processing/check.html#check_missing_who_code"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.processing.check.check_missing_who_code" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">src.processing.check.</code><code class="sig-name descname">check_missing_who_code</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">record</span><span class="p">:</span> <span class="n">dict</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/src/processing/check.html#check_missing_who_code"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.processing.check.check_missing_who_code" title="Permalink to this definition">¶</a></dt>
 <dd><p>Function to check for null who codes</p>
-<p>Note: will not throw an error for “unknown” values which much be
+<p>Note: will not throw an error for “unknown” values which must be
 handled later</p>
 </dd></dl>
+
+<dl class="py function">
+<dt id="src.processing.check.check_record_keys_agree">
+<code class="sig-prename descclassname">src.processing.check.</code><code class="sig-name descname">check_record_keys_agree</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">record</span><span class="p">:</span> <span class="n">dict</span></em>, <em class="sig-param"><span class="n">blank_record</span><span class="p">:</span> <span class="n">dict</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/src/processing/check.html#check_record_keys_agree"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.processing.check.check_record_keys_agree" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
 
 </div>
 </div>
@@ -184,9 +205,9 @@ handled later</p>
 <p>Documentation</p>
 <p>Logging</p>
 <p>General checks for record numbers etc</p>
-<dl class="function">
+<dl class="py function">
 <dt id="src.processing.main.process">
-<code class="descclassname">src.processing.main.</code><code class="descname">process</code><span class="sig-paren">(</span><em>record: dict</em>, <em>key_ref: dict</em>, <em>country_ref: &lt;sphinx.ext.autodoc.importer._MockObject object at 0x7f7d8a10b518&gt;</em>, <em>who_coding: dict</em>, <em>prov_measure_filter: dict</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/src/processing/main.html#process"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.processing.main.process" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">src.processing.main.</code><code class="sig-name descname">process</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">record</span><span class="p">:</span> <span class="n">dict</span></em>, <em class="sig-param"><span class="n">key_ref</span><span class="p">:</span> <span class="n">dict</span></em>, <em class="sig-param"><span class="n">country_ref</span><span class="p">:</span> <span class="n">pandas.DataFrame</span></em>, <em class="sig-param"><span class="n">who_coding</span><span class="p">:</span> <span class="n">dict</span></em>, <em class="sig-param"><span class="n">prov_measure_filter</span><span class="p">:</span> <span class="n">dict</span></em>, <em class="sig-param"><span class="n">no_update_phrase</span><span class="p">:</span> <span class="n">dict</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/src/processing/main.html#process"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.processing.main.process" title="Permalink to this definition">¶</a></dt>
 <dd><p>Unify individual dataset transformers</p>
 </dd></dl>
 
@@ -194,87 +215,137 @@ handled later</p>
 </div>
 <div class="section" id="module-src.processing.utils">
 <span id="src-processing-utils-module"></span><h2>src.processing.utils module<a class="headerlink" href="#module-src.processing.utils" title="Permalink to this headline">¶</a></h2>
-<dl class="function">
+<dl class="py function">
 <dt id="src.processing.utils.add_admin_level">
-<code class="descclassname">src.processing.utils.</code><code class="descname">add_admin_level</code><span class="sig-paren">(</span><em>record: dict</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/src/processing/utils.html#add_admin_level"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.processing.utils.add_admin_level" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">src.processing.utils.</code><code class="sig-name descname">add_admin_level</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">record</span><span class="p">:</span> <span class="n">dict</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/src/processing/utils.html#add_admin_level"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.processing.utils.add_admin_level" title="Permalink to this definition">¶</a></dt>
 <dd><p>Function to set admin_level values to “national” or “other”</p>
 </dd></dl>
 
-<dl class="function">
+<dl class="py function">
 <dt id="src.processing.utils.apply_key_map">
-<code class="descclassname">src.processing.utils.</code><code class="descname">apply_key_map</code><span class="sig-paren">(</span><em>new_record: dict</em>, <em>old_record: dict</em>, <em>key_ref: dict</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/src/processing/utils.html#apply_key_map"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.processing.utils.apply_key_map" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">src.processing.utils.</code><code class="sig-name descname">apply_key_map</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">new_record</span><span class="p">:</span> <span class="n">dict</span></em>, <em class="sig-param"><span class="n">old_record</span><span class="p">:</span> <span class="n">dict</span></em>, <em class="sig-param"><span class="n">key_ref</span><span class="p">:</span> <span class="n">dict</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/src/processing/utils.html#apply_key_map"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.processing.utils.apply_key_map" title="Permalink to this definition">¶</a></dt>
 <dd><p>Function to apply key mapping between two records based on a key reference</p>
 </dd></dl>
 
-<dl class="function">
+<dl class="py function">
 <dt id="src.processing.utils.assign_id">
-<code class="descclassname">src.processing.utils.</code><code class="descname">assign_id</code><span class="sig-paren">(</span><em>record: dict</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/src/processing/utils.html#assign_id"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.processing.utils.assign_id" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">src.processing.utils.</code><code class="sig-name descname">assign_id</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">records</span><span class="p">:</span> <span class="n">dict</span></em>, <em class="sig-param"><span class="n">min_id</span><span class="p">:</span> <span class="n">int</span> <span class="o">=</span> <span class="default_value">1</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/src/processing/utils.html#assign_id"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.processing.utils.assign_id" title="Permalink to this definition">¶</a></dt>
 <dd><p>Function to assign a unique ID to each record</p>
 </dd></dl>
 
-<dl class="function">
+<dl class="py function">
 <dt id="src.processing.utils.assign_who_coding">
-<code class="descclassname">src.processing.utils.</code><code class="descname">assign_who_coding</code><span class="sig-paren">(</span><em>record: dict</em>, <em>who_coding: &lt;sphinx.ext.autodoc.importer._MockObject object at 0x7f7d8a10b5c0&gt;</em>, <em>missing_value: str = 'unknown'</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/src/processing/utils.html#assign_who_coding"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.processing.utils.assign_who_coding" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">src.processing.utils.</code><code class="sig-name descname">assign_who_coding</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">record</span><span class="p">:</span> <span class="n">dict</span></em>, <em class="sig-param"><span class="n">who_coding</span><span class="p">:</span> <span class="n">pandas.DataFrame</span></em>, <em class="sig-param"><span class="n">missing_value</span><span class="p">:</span> <span class="n">str</span> <span class="o">=</span> <span class="default_value">'unknown'</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/src/processing/utils.html#assign_who_coding"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.processing.utils.assign_who_coding" title="Permalink to this definition">¶</a></dt>
 <dd><p>Function to assign WHO coding to a record</p>
-<p>Test this thoroughly</p>
-<p>Still need to account for possible targeted values</p>
 </dd></dl>
 
-<dl class="function">
+<dl class="py function">
 <dt id="src.processing.utils.assign_who_country_name">
-<code class="descclassname">src.processing.utils.</code><code class="descname">assign_who_country_name</code><span class="sig-paren">(</span><em>record: dict</em>, <em>country_ref: &lt;sphinx.ext.autodoc.importer._MockObject object at 0x7f7d8a10b940&gt;</em>, <em>missing_value: str = 'unknown'</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/src/processing/utils.html#assign_who_country_name"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.processing.utils.assign_who_country_name" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">src.processing.utils.</code><code class="sig-name descname">assign_who_country_name</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">record</span><span class="p">:</span> <span class="n">dict</span></em>, <em class="sig-param"><span class="n">country_ref</span><span class="p">:</span> <span class="n">pandas.DataFrame</span></em>, <em class="sig-param"><span class="n">missing_value</span><span class="p">:</span> <span class="n">str</span> <span class="o">=</span> <span class="default_value">'unknown'</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/src/processing/utils.html#assign_who_country_name"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.processing.utils.assign_who_country_name" title="Permalink to this definition">¶</a></dt>
 <dd><p>Function to assign country names by ISO code</p>
 <p>also adds: who_region, country_territory_area, iso_3166_1_numeric</p>
 </dd></dl>
 
-<dl class="function">
+<dl class="py function">
 <dt id="src.processing.utils.create_id">
-<code class="descclassname">src.processing.utils.</code><code class="descname">create_id</code><span class="sig-paren">(</span><em>dataset: str</em>, <em>length: int = 6</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/src/processing/utils.html#create_id"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.processing.utils.create_id" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">src.processing.utils.</code><code class="sig-name descname">create_id</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">dataset</span><span class="p">:</span> <span class="n">str</span></em>, <em class="sig-param"><span class="n">length</span><span class="p">:</span> <span class="n">int</span> <span class="o">=</span> <span class="default_value">6</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/src/processing/utils.html#create_id"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.processing.utils.create_id" title="Permalink to this definition">¶</a></dt>
 <dd><p>Function to create a random id of characters and numbers</p>
 </dd></dl>
 
-<dl class="function">
+<dl class="py function">
 <dt id="src.processing.utils.generate_blank_record">
-<code class="descclassname">src.processing.utils.</code><code class="descname">generate_blank_record</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/src/processing/utils.html#generate_blank_record"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.processing.utils.generate_blank_record" title="Permalink to this definition">¶</a></dt>
-<dd><p>Function to generate a blank record with the correct WHO keys</p>
+<code class="sig-prename descclassname">src.processing.utils.</code><code class="sig-name descname">generate_blank_record</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/src/processing/utils.html#generate_blank_record"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.processing.utils.generate_blank_record" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generate a blank record with the correct WHO PHSM keys.</p>
+<p>Other objects requiring the same selection of keys descend from here.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><ul class="simple">
+<li><p><em>A blank record with keys in WHO PHSM column format.</em></p></li>
+<li><p><em>type</em> – dict.</p></li>
+</ul>
+</p>
+</dd>
+</dl>
 </dd></dl>
 
-<dl class="function">
+<dl class="py function">
+<dt id="src.processing.utils.get_min_id">
+<code class="sig-prename descclassname">src.processing.utils.</code><code class="sig-name descname">get_min_id</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">fn</span><span class="p">:</span> <span class="n">str</span></em>, <em class="sig-param"><span class="n">id_column</span><span class="p">:</span> <span class="n">str</span> <span class="o">=</span> <span class="default_value">'who_id'</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/src/processing/utils.html#get_min_id"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.processing.utils.get_min_id" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function to open a file and extract the maximum numeric # IDEA:</p>
+<p>This will be the new min id to be incremented.</p>
+</dd></dl>
+
+<dl class="py function">
 <dt id="src.processing.utils.key_map">
-<code class="descclassname">src.processing.utils.</code><code class="descname">key_map</code><span class="sig-paren">(</span><em>new_record: dict</em>, <em>old_record: dict</em>, <em>new_key: str</em>, <em>old_key: str</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/src/processing/utils.html#key_map"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.processing.utils.key_map" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">src.processing.utils.</code><code class="sig-name descname">key_map</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">new_record</span><span class="p">:</span> <span class="n">dict</span></em>, <em class="sig-param"><span class="n">old_record</span><span class="p">:</span> <span class="n">dict</span></em>, <em class="sig-param"><span class="n">new_key</span><span class="p">:</span> <span class="n">str</span></em>, <em class="sig-param"><span class="n">old_key</span><span class="p">:</span> <span class="n">str</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/src/processing/utils.html#key_map"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.processing.utils.key_map" title="Permalink to this definition">¶</a></dt>
 <dd><p>Function to move data between records from one key to another</p>
 <p>if a new key is null, data will not be copied. Occurs when some data in a provider dataset is not used in WHO dataset</p>
 </dd></dl>
 
-<dl class="function">
+<dl class="py function">
 <dt id="src.processing.utils.new_id">
-<code class="descclassname">src.processing.utils.</code><code class="descname">new_id</code><span class="sig-paren">(</span><em>dataset: str, length: int = 6, existing_ids: list = [None]</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/src/processing/utils.html#new_id"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.processing.utils.new_id" title="Permalink to this definition">¶</a></dt>
-<dd><p>Function to create a unique id given a list of existing ids</p>
+<code class="sig-prename descclassname">src.processing.utils.</code><code class="sig-name descname">new_id</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">dataset</span><span class="p">:</span> <span class="n">str</span></em>, <em class="sig-param"><span class="n">length</span><span class="p">:</span> <span class="n">int</span> <span class="o">=</span> <span class="default_value">6</span></em>, <em class="sig-param"><span class="n">existing_ids</span><span class="p">:</span> <span class="n">list</span> <span class="o">=</span> <span class="default_value">[None]</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/src/processing/utils.html#new_id"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.processing.utils.new_id" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function to create a unique id given a list of existing ids.</p>
+<p>DEPRACATED?</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>dataset</strong> (<em>str</em>) – Dataset to which ids will be added.</p></li>
+<li><p><strong>length</strong> (<em>int</em>) – Length of new ID number.</p></li>
+<li><p><strong>existing_ids</strong> (<em>list</em>) – Vector of existing IDs.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p><em>New ID number.</em></p></li>
+<li><p><em>type</em> – str.</p></li>
+</ul>
+</p>
+</dd>
+</dl>
 </dd></dl>
 
-<dl class="function">
+<dl class="py function">
+<dt id="src.processing.utils.none_to_empty_str">
+<code class="sig-prename descclassname">src.processing.utils.</code><code class="sig-name descname">none_to_empty_str</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">s</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/src/processing/utils.html#none_to_empty_str"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.processing.utils.none_to_empty_str" title="Permalink to this definition">¶</a></dt>
+<dd><p>convert None values to empty strings</p>
+</dd></dl>
+
+<dl class="py function">
 <dt id="src.processing.utils.parse_date">
-<code class="descclassname">src.processing.utils.</code><code class="descname">parse_date</code><span class="sig-paren">(</span><em>record: dict</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/src/processing/utils.html#parse_date"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.processing.utils.parse_date" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">src.processing.utils.</code><code class="sig-name descname">parse_date</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">record</span><span class="p">:</span> <span class="n">dict</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/src/processing/utils.html#parse_date"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.processing.utils.parse_date" title="Permalink to this definition">¶</a></dt>
 <dd><p>Function to parse record date format</p>
 <p>Currently relying on parsing behaviour of pandas.to_datetime.
 NOTE: This is vulnerable to USA format dates parsed as EU dates</p>
 </dd></dl>
 
-<dl class="function">
+<dl class="py function">
+<dt id="src.processing.utils.remove_tags">
+<code class="sig-prename descclassname">src.processing.utils.</code><code class="sig-name descname">remove_tags</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">record</span><span class="p">:</span> <span class="n">dict</span></em>, <em class="sig-param"><span class="n">keys</span><span class="p">:</span> <span class="n">list</span> <span class="o">=</span> <span class="default_value">['comments']</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/src/processing/utils.html#remove_tags"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.processing.utils.remove_tags" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function to remove HTML tags from comments</p>
+</dd></dl>
+
+<dl class="py function">
 <dt id="src.processing.utils.replace_conditional">
-<code class="descclassname">src.processing.utils.</code><code class="descname">replace_conditional</code><span class="sig-paren">(</span><em>record: dict</em>, <em>field: str</em>, <em>value: str</em>, <em>replacement: str</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/src/processing/utils.html#replace_conditional"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.processing.utils.replace_conditional" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">src.processing.utils.</code><code class="sig-name descname">replace_conditional</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">record</span><span class="p">:</span> <span class="n">dict</span></em>, <em class="sig-param"><span class="n">field</span><span class="p">:</span> <span class="n">str</span></em>, <em class="sig-param"><span class="n">value</span><span class="p">:</span> <span class="n">str</span></em>, <em class="sig-param"><span class="n">replacement</span><span class="p">:</span> <span class="n">str</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/src/processing/utils.html#replace_conditional"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.processing.utils.replace_conditional" title="Permalink to this definition">¶</a></dt>
 <dd><p>Function to conditionally replace a value in an arbitrary field</p>
 </dd></dl>
 
-<dl class="function">
+<dl class="py function">
+<dt id="src.processing.utils.replace_country">
+<code class="sig-prename descclassname">src.processing.utils.</code><code class="sig-name descname">replace_country</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">record</span><span class="p">:</span> <span class="n">dict</span></em>, <em class="sig-param"><span class="n">country_name</span><span class="p">:</span> <span class="n">str</span></em>, <em class="sig-param"><span class="n">area_name</span><span class="p">:</span> <span class="n">str</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/src/processing/utils.html#replace_country"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.processing.utils.replace_country" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function to replace country name with an area_covered name</p>
+</dd></dl>
+
+<dl class="py function">
 <dt id="src.processing.utils.replace_sensitive_regions">
-<code class="descclassname">src.processing.utils.</code><code class="descname">replace_sensitive_regions</code><span class="sig-paren">(</span><em>record</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/src/processing/utils.html#replace_sensitive_regions"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.processing.utils.replace_sensitive_regions" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">src.processing.utils.</code><code class="sig-name descname">replace_sensitive_regions</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">record</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/src/processing/utils.html#replace_sensitive_regions"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.processing.utils.replace_sensitive_regions" title="Permalink to this definition">¶</a></dt>
 <dd><p>Replace a selection of commonly occuring admin level conflicts</p>
 </dd></dl>
 
-<dl class="function">
+<dl class="py function">
 <dt id="src.processing.utils.shift_sensitive_region">
-<code class="descclassname">src.processing.utils.</code><code class="descname">shift_sensitive_region</code><span class="sig-paren">(</span><em>record: dict</em>, <em>original_name: str</em>, <em>new_name: str</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/src/processing/utils.html#shift_sensitive_region"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.processing.utils.shift_sensitive_region" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">src.processing.utils.</code><code class="sig-name descname">shift_sensitive_region</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">record</span><span class="p">:</span> <span class="n">dict</span></em>, <em class="sig-param"><span class="n">original_name</span><span class="p">:</span> <span class="n">str</span></em>, <em class="sig-param"><span class="n">new_name</span><span class="p">:</span> <span class="n">str</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/src/processing/utils.html#shift_sensitive_region"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.processing.utils.shift_sensitive_region" title="Permalink to this definition">¶</a></dt>
 <dd><p>Function to demote sensitive country names to area_covered from country_territory_area</p>
 </dd></dl>
 
@@ -286,6 +357,7 @@ NOTE: This is vulnerable to USA format dates parsed as EU dates</p>
 
 
           </div>
+          
         </div>
       </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
@@ -309,17 +381,23 @@ NOTE: This is vulnerable to USA format dates parsed as EU dates</p>
 </ul>
 </div>
 <div id="searchbox" style="display: none" role="search">
-  <h3>Quick search</h3>
+  <h3 id="searchlabel">Quick search</h3>
     <div class="searchformwrapper">
     <form class="search" action="../search.html" method="get">
-      <input type="text" name="q" />
+      <input type="text" name="q" aria-labelledby="searchlabel" />
       <input type="submit" value="Go" />
-      <input type="hidden" name="check_keywords" value="yes" />
-      <input type="hidden" name="area" value="default" />
     </form>
     </div>
 </div>
-<script type="text/javascript">$('#searchbox').show(0);</script>
+<script>$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
         </div>
       </div>
       <div class="clearer"></div>
@@ -328,8 +406,8 @@ NOTE: This is vulnerable to USA format dates parsed as EU dates</p>
       &copy;2020, Hamish Gibbs.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.8.4</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.8</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.2.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
       
       |
       <a href="../_sources/source/src.processing.rst.txt"
