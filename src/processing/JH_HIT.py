@@ -169,20 +169,20 @@ def apply_prov_measure_filter(record: dict, prov_measure_filter: pd.DataFrame):
         return(None)
 
 def fill_not_enough_to_code(record: dict):
-    """Short summary.
+    """
+    Function to add "not enough to code" label when comments are blank.
 
     Parameters
     ----------
     record : dict
-        Description of parameter `record`.
+        Input record.
 
     Returns
     -------
     type
-        Description of returned object.
+        Record with `prov_measure` and `prov_category` values altered conditionally.
 
     """
-    '''Function to add "not enough to code" label to specific records'''
 
     if record['comments'] == '' and record['prov_category'] != 'school_closed':
 
