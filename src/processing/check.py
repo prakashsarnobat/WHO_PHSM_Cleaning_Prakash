@@ -1,9 +1,3 @@
-"""
-check.py
-====================================
-Functions to check data attributed inline.
-"""
-
 import logging
 import pandas as pd
 

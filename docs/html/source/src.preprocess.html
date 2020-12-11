@@ -197,6 +197,94 @@ stub_names: the measure column prefixes (i.e. “A1”)</p>
 </dd></dl>
 
 </div>
+<div class="section" id="module-src.preprocess.check">
+<span id="src-preprocess-check-module"></span><h2>src.preprocess.check module<a class="headerlink" href="#module-src.preprocess.check" title="Permalink to this headline">¶</a></h2>
+<dl class="py function">
+<dt id="src.preprocess.check.check_column_names">
+<code class="sig-prename descclassname">src.preprocess.check.</code><code class="sig-name descname">check_column_names</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">records</span><span class="p">:</span> <span class="n">pandas.DataFrame</span></em>, <em class="sig-param"><span class="n">config</span><span class="p">:</span> <span class="n">pandas.DataFrame</span></em>, <em class="sig-param"><span class="n">log</span><span class="p">:</span> <span class="n">bool</span> <span class="o">=</span> <span class="default_value">True</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/src/preprocess/check.html#check_column_names"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.preprocess.check.check_column_names" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function to check that column names agree with config or raise exception.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>records</strong> (<em>pd.DataFrame</em>) – Dataframe of provider data.</p></li>
+<li><p><strong>config</strong> (<em>pd.DataFrame</em>) – Reference for accepted column names.</p></li>
+<li><p><strong>log</strong> (<em>bool</em>) – Whether or not to log results of checks.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="src.preprocess.check.check_date_format">
+<code class="sig-prename descclassname">src.preprocess.check.</code><code class="sig-name descname">check_date_format</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data</span><span class="p">:</span> <span class="n">pandas.DataFrame</span></em>, <em class="sig-param"><span class="n">config</span><span class="p">:</span> <span class="n">pandas.DataFrame</span></em>, <em class="sig-param"><span class="n">dataset</span><span class="p">:</span> <span class="n">str</span></em>, <em class="sig-param"><span class="n">log</span><span class="p">:</span> <span class="n">bool</span> <span class="o">=</span> <span class="default_value">True</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/src/preprocess/check.html#check_date_format"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.preprocess.check.check_date_format" title="Permalink to this definition">¶</a></dt>
+<dd><p>Check that an input date is in the expected format.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data</strong> (<em>pd.DataFrame</em>) – Dataframe of provider data..</p></li>
+<li><p><strong>config</strong> (<em>pd.DataFrame</em>) – Reference for accepted date formats.</p></li>
+<li><p><strong>dataset</strong> (<em>str</em>) – Name of provider dataset.</p></li>
+<li><p><strong>log</strong> (<em>bool</em>) – Whether or not to log results of checks.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="src.preprocess.check.check_input">
+<code class="sig-prename descclassname">src.preprocess.check.</code><code class="sig-name descname">check_input</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">records</span><span class="p">:</span> <span class="n">pandas.DataFrame</span></em>, <em class="sig-param"><span class="n">column_config</span><span class="p">:</span> <span class="n">pandas.DataFrame</span></em>, <em class="sig-param"><span class="n">date_config</span><span class="p">:</span> <span class="n">pandas.DataFrame</span></em>, <em class="sig-param"><span class="n">dataset</span><span class="p">:</span> <span class="n">str</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/src/preprocess/check.html#check_input"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.preprocess.check.check_input" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function to unify all input checks.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>records</strong> (<em>pd.DataFrame</em>) – Dataframe of provider data.</p></li>
+<li><p><strong>column_config</strong> (<em>pd.DataFrame</em>) – Reference for accepted column names.</p></li>
+<li><p><strong>date_config</strong> (<em>pd.DataFrame</em>) – Reference for accepted date formats.</p></li>
+<li><p><strong>dataset</strong> (<em>str</em>) – Name of provider dataset.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Description of returned object.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>type</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="src.preprocess.check.validate_date_format">
+<code class="sig-prename descclassname">src.preprocess.check.</code><code class="sig-name descname">validate_date_format</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">date</span></em>, <em class="sig-param"><span class="n">format</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/src/preprocess/check.html#validate_date_format"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.preprocess.check.validate_date_format" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return None if a date format does not parse.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>date</strong> (<em>type</em>) – Input date string.</p></li>
+<li><p><strong>format</strong> (<em>type</em>) – Input accpeted format to try.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Returns date on successful parse or None on parsing failure.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>type</p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
 <div class="section" id="module-src.preprocess">
 <span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-src.preprocess" title="Permalink to this headline">¶</a></h2>
 </div>
