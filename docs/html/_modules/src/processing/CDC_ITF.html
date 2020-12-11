@@ -32,35 +32,7 @@
           <div class="body" role="main">
             
   <h1>Source code for src.processing.CDC_ITF</h1><div class="highlight"><pre>
-<span></span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">CDC_ITF.py</span>
-<span class="sd">====================================</span>
-<span class="sd">Transform CDC_ITF records to WHO PHSM format.</span>
-
-<span class="sd">**Data Source:**</span>
-<span class="sd">`https://www.cdc.gov/mmwr/preview/mmwrhtml/00001590.htm &lt;https://www.cdc.gov/mmwr/preview/mmwrhtml/00001590.htm&gt;`_</span>
-
-<span class="sd">**Processing Steps:**</span>
-
-<span class="sd">1. Join comments in ``Concise Notes`` and ``Notes`` columns</span>
-<span class="sd">2. Generate a blank record with required keys.</span>
-<span class="sd">3. Move data from provider record to new record with ``apply_key_map`` using key mapping in ``config/key_map/CDC_ITF.csv``.</span>
-<span class="sd">4. Assign merged comments to new record.</span>
-<span class="sd">5. Handle date formatting.</span>
-<span class="sd">6. Assign ``date_end`` equal to ``date_start`` if ``measure_stage`` == &quot;Lift&quot;.</span>
-<span class="sd">7. Make manual country name changes.</span>
-<span class="sd">8. Replace sensitive country names.</span>
-<span class="sd">9. Assign ISO code.</span>
-<span class="sd">10. Check for missing ISO codes.</span>
-<span class="sd">11. Join WHO accepted country names (shared).</span>
-<span class="sd">12. Join who coding from lookup (shared).</span>
-<span class="sd">13. Check for missing WHO codes (shared).</span>
-<span class="sd">14. Replace non-specific area_covered value.</span>
-<span class="sd">15. Replace measure_stage extension.</span>
-<span class="sd">16. Add WHO PHSM admin_level values.</span>
-
-<span class="sd">&quot;&quot;&quot;</span>
-<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 <span class="kn">from</span> <span class="nn">countrycode.countrycode</span> <span class="kn">import</span> <span class="n">countrycode</span>
 
 <span class="c1"># hot fix for sys.path issues in test environment</span>
@@ -76,6 +48,26 @@
 
 
 <div class="viewcode-block" id="transform"><a class="viewcode-back" href="../../../source/src.processing.html#src.processing.CDC_ITF.transform">[docs]</a><span class="k">def</span> <span class="nf">transform</span><span class="p">(</span><span class="n">record</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span> <span class="n">key_ref</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span> <span class="n">country_ref</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span> <span class="n">who_coding</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Apply transformations to CDC_ITF records.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    record : dict</span>
+<span class="sd">        Input record.</span>
+<span class="sd">    key_ref : dict</span>
+<span class="sd">        Reference for key mapping.</span>
+<span class="sd">    country_ref : pd.DataFrame</span>
+<span class="sd">        Reference for WHO accepted country names.</span>
+<span class="sd">    who_coding : pd.DataFrame</span>
+<span class="sd">        Reference for WHO coding.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    type</span>
+<span class="sd">        Record with transformations applied.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="c1"># 1. Join comments in ``Concise Notes`` and ``Notes`` columns</span>
     <span class="n">comments</span> <span class="o">=</span> <span class="n">join_comments</span><span class="p">(</span><span class="n">record</span><span class="p">)</span>

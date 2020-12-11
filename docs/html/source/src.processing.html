@@ -38,55 +38,31 @@
 </div>
 <div class="section" id="module-src.processing.ACAPS">
 <span id="src-processing-acaps-module"></span><h2>src.processing.ACAPS module<a class="headerlink" href="#module-src.processing.ACAPS" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="acaps-py">
-<h3>ACAPS.py<a class="headerlink" href="#acaps-py" title="Permalink to this headline">¶</a></h3>
-<p>Transform ACAPS records to WHO PHSM format.</p>
-<p><strong>Data Source:</strong>
-<a class="reference external" href="https://www.acaps.org/covid-19-government-measures-dataset">https://www.acaps.org/covid-19-government-measures-dataset</a></p>
-<p><strong>Processing Steps:</strong></p>
-<ol class="arabic simple">
-<li><p>Create a new blank record</p></li>
-<li><p>replace data in new record with data from old record using key_ref</p></li>
-<li><p>Make manual country name changes</p></li>
-<li><p>replace sensitive country names by ISO (utils)</p></li>
-<li><p>assign ISO code</p></li>
-<li><p>check for missing ISO codes (shared)</p></li>
-<li><p>Join WHO accepted country names (shared)</p></li>
-<li><p>Add WHO PHSM admin_level values</p></li>
-</ol>
 <dl class="py function">
 <dt id="src.processing.ACAPS.transform">
 <code class="sig-prename descclassname">src.processing.ACAPS.</code><code class="sig-name descname">transform</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">record</span><span class="p">:</span> <span class="n">dict</span></em>, <em class="sig-param"><span class="n">key_ref</span><span class="p">:</span> <span class="n">dict</span></em>, <em class="sig-param"><span class="n">country_ref</span><span class="p">:</span> <span class="n">pandas.DataFrame</span></em>, <em class="sig-param"><span class="n">who_coding</span><span class="p">:</span> <span class="n">pandas.DataFrame</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/src/processing/ACAPS.html#transform"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.processing.ACAPS.transform" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Apply transformations to ACAPS records.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>record</strong> (<em>dict</em>) – Input record.</p></li>
+<li><p><strong>key_ref</strong> (<em>dict</em>) – Reference for key mapping.</p></li>
+<li><p><strong>country_ref</strong> (<em>pd.DataFrame</em>) – Reference for WHO accepted country names.</p></li>
+<li><p><strong>who_coding</strong> (<em>pd.DataFrame</em>) – Reference for WHO coding.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Record with transformations applied.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>type</p>
+</dd>
+</dl>
+</dd></dl>
 
-</div>
 </div>
 <div class="section" id="module-src.processing.CDC_ITF">
 <span id="src-processing-cdc-itf-module"></span><h2>src.processing.CDC_ITF module<a class="headerlink" href="#module-src.processing.CDC_ITF" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="cdc-itf-py">
-<h3>CDC_ITF.py<a class="headerlink" href="#cdc-itf-py" title="Permalink to this headline">¶</a></h3>
-<p>Transform CDC_ITF records to WHO PHSM format.</p>
-<p><strong>Data Source:</strong>
-<a class="reference external" href="https://www.cdc.gov/mmwr/preview/mmwrhtml/00001590.htm">https://www.cdc.gov/mmwr/preview/mmwrhtml/00001590.htm</a></p>
-<p><strong>Processing Steps:</strong></p>
-<ol class="arabic simple">
-<li><p>Join comments in <code class="docutils literal notranslate"><span class="pre">Concise</span> <span class="pre">Notes</span></code> and <code class="docutils literal notranslate"><span class="pre">Notes</span></code> columns</p></li>
-<li><p>Generate a blank record with required keys.</p></li>
-<li><p>Move data from provider record to new record with <code class="docutils literal notranslate"><span class="pre">apply_key_map</span></code> using key mapping in <code class="docutils literal notranslate"><span class="pre">config/key_map/CDC_ITF.csv</span></code>.</p></li>
-<li><p>Assign merged comments to new record.</p></li>
-<li><p>Handle date formatting.</p></li>
-<li><p>Assign <code class="docutils literal notranslate"><span class="pre">date_end</span></code> equal to <code class="docutils literal notranslate"><span class="pre">date_start</span></code> if <code class="docutils literal notranslate"><span class="pre">measure_stage</span></code> == “Lift”.</p></li>
-<li><p>Make manual country name changes.</p></li>
-<li><p>Replace sensitive country names.</p></li>
-<li><p>Assign ISO code.</p></li>
-<li><p>Check for missing ISO codes.</p></li>
-<li><p>Join WHO accepted country names (shared).</p></li>
-<li><p>Join who coding from lookup (shared).</p></li>
-<li><p>Check for missing WHO codes (shared).</p></li>
-<li><p>Replace non-specific area_covered value.</p></li>
-<li><p>Replace measure_stage extension.</p></li>
-<li><p>Add WHO PHSM admin_level values.</p></li>
-</ol>
 <dl class="py function">
 <dt id="src.processing.CDC_ITF.add_date_end">
 <code class="sig-prename descclassname">src.processing.CDC_ITF.</code><code class="sig-name descname">add_date_end</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">record</span><span class="p">:</span> <span class="n">dict</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/src/processing/CDC_ITF.html#add_date_end"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.processing.CDC_ITF.add_date_end" title="Permalink to this definition">¶</a></dt>
@@ -143,36 +119,28 @@
 <dl class="py function">
 <dt id="src.processing.CDC_ITF.transform">
 <code class="sig-prename descclassname">src.processing.CDC_ITF.</code><code class="sig-name descname">transform</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">record</span><span class="p">:</span> <span class="n">dict</span></em>, <em class="sig-param"><span class="n">key_ref</span><span class="p">:</span> <span class="n">dict</span></em>, <em class="sig-param"><span class="n">country_ref</span><span class="p">:</span> <span class="n">pandas.DataFrame</span></em>, <em class="sig-param"><span class="n">who_coding</span><span class="p">:</span> <span class="n">pandas.DataFrame</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/src/processing/CDC_ITF.html#transform"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.processing.CDC_ITF.transform" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Apply transformations to CDC_ITF records.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>record</strong> (<em>dict</em>) – Input record.</p></li>
+<li><p><strong>key_ref</strong> (<em>dict</em>) – Reference for key mapping.</p></li>
+<li><p><strong>country_ref</strong> (<em>pd.DataFrame</em>) – Reference for WHO accepted country names.</p></li>
+<li><p><strong>who_coding</strong> (<em>pd.DataFrame</em>) – Reference for WHO coding.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Record with transformations applied.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>type</p>
+</dd>
+</dl>
+</dd></dl>
 
-</div>
 </div>
 <div class="section" id="module-src.processing.JH_HIT">
 <span id="src-processing-jh-hit-module"></span><h2>src.processing.JH_HIT module<a class="headerlink" href="#module-src.processing.JH_HIT" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="jh-hit-py">
-<h3>JH_HIT.py<a class="headerlink" href="#jh-hit-py" title="Permalink to this headline">¶</a></h3>
-<p>Transform JH_HIT records to WHO PHSM format.</p>
-<p><strong>Data Source:</strong>
-<a class="reference external" href="https://github.com/HopkinsIDD/hit-covid">https://github.com/HopkinsIDD/hit-covid</a></p>
-<p><strong>Processing Steps:</strong></p>
-<ol class="arabic simple">
-<li><p>Remove records with null <code class="docutils literal notranslate"><span class="pre">locality</span></code> AND null <code class="docutils literal notranslate"><span class="pre">usa_county</span></code> values.</p></li>
-<li><p>Generate a blank record with required keys.</p></li>
-<li><p>Move data from provider record to new record with <code class="docutils literal notranslate"><span class="pre">apply_key_map</span></code> using key mapping in <code class="docutils literal notranslate"><span class="pre">config/key_map/JH_HIT.csv</span></code>.</p></li>
-<li><p>Remove a subset of <code class="docutils literal notranslate"><span class="pre">prov_measure</span></code> values. See <code class="docutils literal notranslate"><span class="pre">config/prov_measure_filter/JH_HIT.csv</span></code> for exact values.</p></li>
-<li><p>Parse date formats in <code class="docutils literal notranslate"><span class="pre">date_start</span></code>, <code class="docutils literal notranslate"><span class="pre">date_end</span></code>, <code class="docutils literal notranslate"><span class="pre">date_entry</span></code>.</p></li>
-<li><p>Assign a unique record ID.</p></li>
-<li><p>Map non-ascii characters to their closest ascii equivalent.</p></li>
-<li><p>Shift sensitive country names to <code class="docutils literal notranslate"><span class="pre">area_covered</span></code>.</p></li>
-<li><p>Assign ISO codes using <code class="docutils literal notranslate"><span class="pre">country_territory_area</span></code>.</p></li>
-<li><p>Check for missing <code class="docutils literal notranslate"><span class="pre">iso</span></code> codes.</p></li>
-<li><p>Assign WHO-accepted <code class="docutils literal notranslate"><span class="pre">country_territory_area</span></code>, <code class="docutils literal notranslate"><span class="pre">who_region</span></code>, <code class="docutils literal notranslate"><span class="pre">iso_3166_1_numeric</span></code></p></li>
-<li><p>Assign WHO PHSM dataset coding using <code class="docutils literal notranslate"><span class="pre">prov_measure</span></code>, <code class="docutils literal notranslate"><span class="pre">prov_subcategory</span></code>, <code class="docutils literal notranslate"><span class="pre">prov_category</span></code></p></li>
-<li><p>Check for missing <code class="docutils literal notranslate"><span class="pre">who_code</span></code> values.</p></li>
-<li><p>Replace <code class="docutils literal notranslate"><span class="pre">admin_level</span></code> values: null -&gt; ‘unknown’, ‘Yes’ -&gt; ‘national’, ‘No’ -&gt; ‘state’</p></li>
-<li><p>Replace <code class="docutils literal notranslate"><span class="pre">prov_measure</span></code> and <code class="docutils literal notranslate"><span class="pre">prov_category</span></code> with ‘not_enough_to_code’ if <code class="docutils literal notranslate"><span class="pre">comments</span></code> are blank and <code class="docutils literal notranslate"><span class="pre">prov_category</span></code> no ‘school_closed’</p></li>
-<li><p>Replace <code class="docutils literal notranslate"><span class="pre">non_compliance_penalty</span></code> “non_compliance_penalty” -&gt; “Not Known”</p></li>
-</ol>
 <dl class="py function">
 <dt id="src.processing.JH_HIT.apply_prov_measure_filter">
 <code class="sig-prename descclassname">src.processing.JH_HIT.</code><code class="sig-name descname">apply_prov_measure_filter</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">record</span><span class="p">:</span> <span class="n">dict</span></em>, <em class="sig-param"><span class="n">prov_measure_filter</span><span class="p">:</span> <span class="n">pandas.DataFrame</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/src/processing/JH_HIT.html#apply_prov_measure_filter"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.processing.JH_HIT.apply_prov_measure_filter" title="Permalink to this definition">¶</a></dt>
@@ -232,9 +200,26 @@
 <dl class="py function">
 <dt id="src.processing.JH_HIT.transform">
 <code class="sig-prename descclassname">src.processing.JH_HIT.</code><code class="sig-name descname">transform</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">record</span><span class="p">:</span> <span class="n">dict</span></em>, <em class="sig-param"><span class="n">key_ref</span><span class="p">:</span> <span class="n">dict</span></em>, <em class="sig-param"><span class="n">country_ref</span><span class="p">:</span> <span class="n">pandas.DataFrame</span></em>, <em class="sig-param"><span class="n">who_coding</span><span class="p">:</span> <span class="n">pandas.DataFrame</span></em>, <em class="sig-param"><span class="n">prov_measure_filter</span><span class="p">:</span> <span class="n">pandas.DataFrame</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/src/processing/JH_HIT.html#transform"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.processing.JH_HIT.transform" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Apply transformations to JH_HIT records.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>record</strong> (<em>dict</em>) – Input record.</p></li>
+<li><p><strong>key_ref</strong> (<em>dict</em>) – Reference for key mapping.</p></li>
+<li><p><strong>country_ref</strong> (<em>pd.DataFrame</em>) – Reference for WHO accepted country names.</p></li>
+<li><p><strong>who_coding</strong> (<em>pd.DataFrame</em>) – Reference for WHO coding.</p></li>
+<li><p><strong>prov_measure_filter</strong> (<em>pd.DataFrame</em>) – Reference for filtering by <cite>prov_measure</cite> values.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Record with transformations applied.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>type</p>
+</dd>
+</dl>
+</dd></dl>
 
-</div>
 </div>
 <div class="section" id="module-src.processing.check">
 <span id="src-processing-check-module"></span><h2>src.processing.check module<a class="headerlink" href="#module-src.processing.check" title="Permalink to this headline">¶</a></h2>
