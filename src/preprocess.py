@@ -19,10 +19,13 @@ from datetime import datetime as dt
 from utils import create_dir
 from preprocess import utils, check
 
+# Create tmp directory
 create_dir('tmp')
+
+# Create preprocess directory in tmp
 create_dir('tmp/preprocess')
 
-# Source of config file - also move to Makefile when ready
+# Setup logging to log into the preprocess directory
 logging.basicConfig(filename='tmp/preprocess/preprocess.log',
                     level=logging.DEBUG,
                     format='%(asctime)s - %(levelname)s - %(message)s')
@@ -30,10 +33,11 @@ logging.basicConfig(filename='tmp/preprocess/preprocess.log',
 print("Preprocessing Data...")
 logging.info("Preprocessing Data...")
 
-#Record limit for development. Should be None for production.
+# HOTFIX: limit the number of records that will be ingested from each dataset. Used for development.
+# Should be None for production.
 record_limit = None
 
-# Dataset sources: these should be in makefile when ready
+# Define dataset sources
 jh = "https://raw.githubusercontent.com/HopkinsIDD/hit-covid/master/data/hit-covid-longdata.csv"
 cdc = "data/raw/CDC_ITF_latest.csv"
 acaps = "data/raw/ACAPS_latest.csv"
@@ -46,50 +50,54 @@ previous_update = pd.read_csv('data/merge/update_merge_2020_12_02.csv')
 # Split previous update by dataset
 previous_update = utils.split_df_by_group(previous_update, 'dataset')
 
-# Load column config
+# Load accepted column reference
 column_config = {'JH_HIT':pd.read_csv(check_dir + '/columns/JH_HIT.csv'),
                  'CDC_ITF':pd.read_csv(check_dir + '/columns/CDC_ITF.csv'),
                  'ACAPS':pd.read_csv(check_dir + '/columns/ACAPS.csv'),
                  'OXCGRT':pd.read_csv(check_dir + '/columns/OXCGRT.csv')}
 
+# Load accepted date format reference
 date_config = pd.read_csv(check_dir + '/date_format/date_format.csv')
 
-# Read JH Data
+# Read JH_HIT Data
 jh = pd.read_csv(jh)
 
 # Remove records that have already been processed
 jh = utils.remove_processed_records(jh, previous_update['JH_HIT'], 'unique_id', 'prop_id')
 
-# Check JH Data
+# Check JH_HIT Data
 check.check_input(records=jh,
                   column_config=column_config['JH_HIT'],
                   date_config=date_config,
                   dataset = 'JH_HIT')
 
+# Convert JH_HIT data to list of record dicts
 jh = utils.df_to_records(jh, "JH_HIT")
 
+# Log the number of JH_HIT records
 logging.info("JH_HIT_RECORDS=%d" % len(jh))
 
-# Read CDC Data
-
+# Read CDC_ITF data
 cdc = pd.read_csv(cdc,
                   dtype={'Date implemented or lifted':str, 'Date Entered':str})
 
 # Remove records that have already been processed
 cdc = utils.remove_processed_records(cdc, previous_update['CDC_ITF'], 'Unique Identifier', 'prop_id')
 
-#print(cdc["Date implemented or lifted"])
+# Parse CDC_ITF date format
 cdc["Date implemented or lifted"] = pd.to_datetime(cdc["Date implemented or lifted"], format='%d/%m/%Y')
 cdc["Date Entered"] = pd.to_datetime(cdc["Date Entered"], format='%d/%m/%Y')
 
-# Check CDC Data
+# Check CDC_ITF Data
 check.check_input(records=cdc,
                   column_config=column_config['CDC_ITF'],
                   date_config=date_config,
                   dataset = 'CDC_ITF')
 
+# Convert CDC_ITF data to list of record dicts
 cdc = utils.df_to_records(cdc, "CDC_ITF")
 
+# Log the number of CDC_ITF records
 logging.info("CDC_ITF_RECORDS=%d" % len(cdc))
 
 # Read ACAPS Data
@@ -97,7 +105,7 @@ acaps = pd.read_csv(acaps,
                     parse_dates = ['DATE_IMPLEMENTED', 'ENTRY_DATE'],
                     dayfirst = True)
 
-# Remove recors that have already been processed
+# Remove records that have already been processed
 acaps = utils.remove_processed_records(acaps, previous_update['ACAPS'], 'ID', 'prop_id')
 
 # Check ACAPS Data
@@ -106,8 +114,10 @@ check.check_input(records=acaps,
                   date_config=date_config,
                   dataset='ACAPS')
 
+# Convert ACAPS data to list of record dicts
 acaps = utils.df_to_records(acaps, "ACAPS")
 
+# Log the number of ACAPS records
 logging.info("ACAPS_RECORDS=%d" % len(acaps))
 
 # Read OXCGRT Data
@@ -119,28 +129,32 @@ check.check_input(records=oxcgrt,
                   date_config=date_config,
                   dataset = 'OXCGRT')
 
+# Define columns that will be dropped from OXCGRT data
 drop_columns = ['ConfirmedCases',
-       'ConfirmedDeaths', 'StringencyIndex', 'StringencyIndexForDisplay',
-       'StringencyLegacyIndex', 'StringencyLegacyIndexForDisplay',
-       'GovernmentResponseIndex', 'GovernmentResponseIndexForDisplay',
-       'ContainmentHealthIndex', 'ContainmentHealthIndexForDisplay',
-       'EconomicSupportIndex', 'EconomicSupportIndexForDisplay']
+               'ConfirmedDeaths', 'StringencyIndex', 'StringencyIndexForDisplay',
+               'StringencyLegacyIndex', 'StringencyLegacyIndexForDisplay',
+               'GovernmentResponseIndex', 'GovernmentResponseIndexForDisplay',
+               'ContainmentHealthIndex', 'ContainmentHealthIndexForDisplay',
+               'EconomicSupportIndex', 'EconomicSupportIndexForDisplay']
 
+# Drop defined columns from OXCGRT data
 oxcgrt.drop(drop_columns, axis = 1, inplace = True)
 
+# Replace NA values with 0.0
 oxcgrt.fillna(0.0, inplace = True)
 
+# Convert OxCGRT data to list of record dicts
 oxcgrt = utils.df_to_records(oxcgrt, "OXCGRT", drop_columns)
 
+# Log the number of OXCGRT records
 logging.info("OXCGRT_RECORDS=%d" % len(oxcgrt))
 
-# concat all record lists
+# concat all record lists - filter each by the (development only) record limit
 records = jh[:record_limit] + cdc[:record_limit] + acaps[:record_limit] + oxcgrt[:record_limit]
 
-# write list to a pickle file
+# write list of record dicts to a pickle file
 utils.write_records(records, "tmp/preprocess", "records.pickle")
 logging.info("TOTAL_INPUT_RECORDS=%d" % len(records))
 
-# replace this with logging
 print("Success.")
 logging.info("Success.")
