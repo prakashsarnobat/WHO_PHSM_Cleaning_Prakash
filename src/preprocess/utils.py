@@ -83,11 +83,26 @@ def write_records(records: list, dir: str, fn: str):
 
 
 def oxcgrt_records(ox, dataset, drop_columns=[]):
-    '''
-    Function to convert OXCGRT data to records
+    """
+    Function to convert OXCGRT data to list of record dicts.
 
-    This is an additional challenge because of the wide format of the Oxford data
-    '''
+    This presents an additional challenge because of the wide format of the OXCGRT data.
+
+    Parameters
+    ----------
+    ox : pd.DataFrame
+        Input OXCGRT data.
+    dataset : str
+        Name of provider dataset.
+    drop_columns : list
+        Which columns (if any) to drop.
+
+    Returns
+    -------
+    list
+        List of record dicts.
+
+    """
 
     full_value_names, value_names, stub_names = get_names(ox)
 
