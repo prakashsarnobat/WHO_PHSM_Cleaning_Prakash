@@ -1,23 +1,3 @@
-"""
-ACAPS.py
-====================================
-Transform ACAPS records to WHO PHSM format.
-
-**Data Source:**
-`https://www.acaps.org/covid-19-government-measures-dataset <https://www.acaps.org/covid-19-government-measures-dataset>`_
-
-**Processing Steps:**
-
-1. Create a new blank record
-2. replace data in new record with data from old record using key_ref
-3. Make manual country name changes
-4. replace sensitive country names by ISO (utils)
-5. assign ISO code
-6. check for missing ISO codes (shared)
-7. Join WHO accepted country names (shared)
-8. Add WHO PHSM admin_level values
-
-"""
 import pandas as pd
 from countrycode.countrycode import countrycode
 
@@ -27,12 +7,33 @@ try:
     from processing import utils
     from processing import check
 
-except Exception as e:
+except Exception:
 
     from src.processing import utils
     from src.processing import check
 
+
 def transform(record: dict, key_ref: dict, country_ref: pd.DataFrame, who_coding: pd.DataFrame):
+    """
+    Apply transformations to ACAPS records.
+
+    Parameters
+    ----------
+    record : dict
+        Input record.
+    key_ref : dict
+        Reference for key mapping.
+    country_ref : pd.DataFrame
+        Reference for WHO accepted country names.
+    who_coding : pd.DataFrame
+        Reference for WHO coding.
+
+    Returns
+    -------
+    dict
+        Record with transformations applied.
+
+    """
 
     # 1. Create a new blank record
     new_record = utils.generate_blank_record()

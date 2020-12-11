@@ -1,31 +1,3 @@
-"""
-CDC_ITF.py
-====================================
-Transform CDC_ITF records to WHO PHSM format.
-
-**Data Source:**
-`https://www.cdc.gov/mmwr/preview/mmwrhtml/00001590.htm <https://www.cdc.gov/mmwr/preview/mmwrhtml/00001590.htm>`_
-
-**Processing Steps:**
-
-1. Join comments in ``Concise Notes`` and ``Notes`` columns
-2. Generate a blank record with required keys.
-3. Move data from provider record to new record with ``apply_key_map`` using key mapping in ``config/key_map/CDC_ITF.csv``.
-4. Assign merged comments to new record.
-5. Handle date formatting.
-6. Assign ``date_end`` equal to ``date_start`` if ``measure_stage`` == "Lift".
-7. Make manual country name changes.
-8. Replace sensitive country names.
-9. Assign ISO code.
-10. Check for missing ISO codes.
-11. Join WHO accepted country names (shared).
-12. Join who coding from lookup (shared).
-13. Check for missing WHO codes (shared).
-14. Replace non-specific area_covered value.
-15. Replace measure_stage extension.
-16. Add WHO PHSM admin_level values.
-
-"""
 import pandas as pd
 from countrycode.countrycode import countrycode
 
@@ -42,6 +14,26 @@ except Exception as e:
 
 
 def transform(record: dict, key_ref: dict, country_ref: pd.DataFrame, who_coding: pd.DataFrame):
+    """
+    Apply transformations to CDC_ITF records.
+
+    Parameters
+    ----------
+    record : dict
+        Input record.
+    key_ref : dict
+        Reference for key mapping.
+    country_ref : pd.DataFrame
+        Reference for WHO accepted country names.
+    who_coding : pd.DataFrame
+        Reference for WHO coding.
+
+    Returns
+    -------
+    dict
+        Record with transformations applied.
+
+    """
 
     # 1. Join comments in ``Concise Notes`` and ``Notes`` columns
     comments = join_comments(record)
@@ -128,11 +120,22 @@ def transform(record: dict, key_ref: dict, country_ref: pd.DataFrame, who_coding
 
 
 def area_covered_national(record: dict):
-    '''
+    """
     Function to remove area_covered == "national"
 
-    Replace with None
-    '''
+    Replace with None.
+
+    Parameters
+    ----------
+    record : dict
+        Input record.
+
+    Returns
+    -------
+    type
+        Record with `area_covered` changed.
+
+    """
 
     if record['area_covered'] in ['national']:
 
@@ -142,7 +145,20 @@ def area_covered_national(record: dict):
 
 
 def add_date_end(record: dict):
-    '''Function to make ``date_end`` ``date_start`` if ``measure_stage`` is "Lift"'''
+    """
+    Function to make ``date_end`` ``date_start`` if ``measure_stage`` is "Lift"
+
+    Parameters
+    ----------
+    record : dict
+        Input record.
+
+    Returns
+    -------
+    type
+        Record with date_end changed conditionally, or original record.
+
+    """
 
     if record['measure_stage'] == 'Lift':
 
@@ -152,7 +168,22 @@ def add_date_end(record: dict):
 
 
 def join_comments(record: dict):
-    '''Function to combine comments from "Concise Notes" and "Notes" fields'''
+    """
+    Combine comments from "Concise Notes" and "Notes" fields.
+
+    Both will be stored in `comments` column of output dataset.
+
+    Parameters
+    ----------
+    record : dict
+        Input record.
+
+    Returns
+    -------
+    type
+        Record with merged comments.
+
+    """
 
     if type(record['Concise Notes']) != str:
 

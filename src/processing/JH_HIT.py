@@ -1,31 +1,3 @@
-"""
-JH_HIT.py
-====================================
-Transform JH_HIT records to WHO PHSM format.
-
-**Data Source:**
-`https://github.com/HopkinsIDD/hit-covid <https://github.com/HopkinsIDD/hit-covid>`_
-
-**Processing Steps:**
-
-1. Remove records with null ``locality`` AND null ``usa_county`` values.
-2. Generate a blank record with required keys.
-3. Move data from provider record to new record with ``apply_key_map`` using key mapping in ``config/key_map/JH_HIT.csv``.
-4. Remove a subset of ``prov_measure`` values. See ``config/prov_measure_filter/JH_HIT.csv`` for exact values.
-5. Parse date formats in ``date_start``, ``date_end``, ``date_entry``.
-6. Assign a unique record ID.
-7. Map non-ascii characters to their closest ascii equivalent.
-8. Shift sensitive country names to ``area_covered``.
-9. Assign ISO codes using ``country_territory_area``.
-10. Check for missing ``iso`` codes.
-11. Assign WHO-accepted ``country_territory_area``, ``who_region``, ``iso_3166_1_numeric``
-12. Assign WHO PHSM dataset coding using ``prov_measure``, ``prov_subcategory``, ``prov_category``
-13. Check for missing ``who_code`` values.
-14. Replace ``admin_level`` values: null -> 'unknown', 'Yes' -> 'national', 'No' -> 'state'
-15. Replace ``prov_measure`` and ``prov_category`` with 'not_enough_to_code' if ``comments`` are blank and ``prov_category`` no 'school_closed'
-16. Replace ``non_compliance_penalty`` "non_compliance_penalty" -> "Not Known"
-
-"""
 import pandas as pd
 from countrycode.countrycode import countrycode
 
@@ -42,6 +14,28 @@ except Exception as e:
 
 
 def transform(record: dict, key_ref: dict, country_ref: pd.DataFrame, who_coding: pd.DataFrame, prov_measure_filter: pd.DataFrame):
+    """
+    Apply transformations to JH_HIT records.
+
+    Parameters
+    ----------
+    record : dict
+        Input record.
+    key_ref : dict
+        Reference for key mapping.
+    country_ref : pd.DataFrame
+        Reference for WHO accepted country names.
+    who_coding : pd.DataFrame
+        Reference for WHO coding.
+    prov_measure_filter : pd.DataFrame
+        Reference for filtering by `prov_measure` values.
+
+    Returns
+    -------
+    dict
+        Record with transformations applied.
+
+    """
 
     # 1.
     if pd.isnull(record['locality']) and pd.isnull(record['usa_county']):
@@ -113,10 +107,20 @@ def transform(record: dict, key_ref: dict, country_ref: pd.DataFrame, who_coding
 
 
 def blank_record_and_url(record: dict):
-    '''
-    Function to assign who_code == 11 and 'Not enough to code'
-    to records with no comments AND no url
-    '''
+    """
+    Assign who_code == 11 and 'Not enough to code' to records with no `comments` AND no `url`.
+
+    Parameters
+    ----------
+    record : dict
+        Input record.
+
+    Returns
+    -------
+    type
+        Record with coding altered.
+
+    """
 
     if (pd.isna(record['comments'])) and (pd.isna(record['link'])) and (pd.isna(record['alt_link'])):
 
@@ -129,7 +133,26 @@ def blank_record_and_url(record: dict):
 
 
 def apply_prov_measure_filter(record: dict, prov_measure_filter: pd.DataFrame):
-    '''Function to filter only some prov_measure and prov_category values'''
+    """
+    Filter only some `prov_measure` and `prov_category` values.
+
+    Only some JH_HIT codings are accepted.
+
+    Relies on `prov_measure_filter` defined in `config`.
+
+    Parameters
+    ----------
+    record : dict
+        Input record.
+    prov_measure_filter : pd.DataFrame
+        Config of which codings to drop. Defined in `config` directory.
+
+    Returns
+    -------
+    type
+        If coding is included in WHO PHSM dataset, record, else None.
+
+    """
 
     if record['prov_category'] in list(prov_measure_filter['prov_category']) and record['prov_measure'] in list(prov_measure_filter['prov_measure']):
 
@@ -140,7 +163,20 @@ def apply_prov_measure_filter(record: dict, prov_measure_filter: pd.DataFrame):
         return(None)
 
 def fill_not_enough_to_code(record: dict):
-    '''Function to add "not enough to code" label to specific records'''
+    """
+    Function to add "not enough to code" label when comments are blank.
+
+    Parameters
+    ----------
+    record : dict
+        Input record.
+
+    Returns
+    -------
+    type
+        Record with `prov_measure` and `prov_category` values altered conditionally.
+
+    """
 
     if record['comments'] == '' and record['prov_category'] != 'school_closed':
 

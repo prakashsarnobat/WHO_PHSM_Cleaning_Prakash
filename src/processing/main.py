@@ -23,7 +23,32 @@ from processing import JH_HIT, CDC_ITF, ACAPS, OXCGRT
 
 
 def process(record: dict, key_ref: dict, country_ref: pd.DataFrame, who_coding: dict, prov_measure_filter: dict, no_update_phrase: dict):
-    '''Unify individual dataset transformers'''
+    """
+    Unify individual dataset transformers.
+
+    Applies different transformations for records from different datasets.
+
+    Parameters
+    ----------
+    record : dict
+        Input record.
+    key_ref : dict
+        Reference for key mapping.
+    country_ref : pd.DataFrame
+        Reference for WHO accepted country names.
+    who_coding : dict
+        Reference for WHO coding.
+    prov_measure_filter : dict
+        Reference for filtering by `prov_measure` values.
+    no_update_phrase : dict
+        Reference for "no update" phrases.
+
+    Returns
+    -------
+    type
+        Record with transformations applied.
+
+    """
 
     if record['dataset'] == 'JH_HIT':
 

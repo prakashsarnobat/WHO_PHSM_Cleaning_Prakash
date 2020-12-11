@@ -1,19 +1,3 @@
-"""
-OXCGRT.py
-====================================
-Transform OXCGRT records to WHO PHSM format.
-
-**Data Source:**
-`https://raw.githubusercontent.com/OxCGRT/covid-policy-tracker/master/data/OxCGRT_latest_withnotes.csv <https://raw.githubusercontent.com/OxCGRT/covid-policy-tracker/master/data/OxCGRT_latest_withnotes.csv>`_
-
-**Processing Steps:**
-1. generator function of new record with correct keys (shared)
-2. replace data in new record with data from old record using column reference (shared)
-3. Assign unique ID (shared)
-4. Handle date formatting
-
-"""
-
 import pandas as pd
 from countrycode.countrycode import countrycode
 import re
@@ -31,6 +15,28 @@ except Exception as e:
 
 
 def transform(record: dict, key_ref: dict, country_ref: pd.DataFrame, who_coding: pd.DataFrame, no_update_phrase: pd.DataFrame):
+    """
+    Apply transformations to OXCGRT records.
+
+    Parameters
+    ----------
+    record : dict
+        Input record.
+    key_ref : dict
+        Reference for key mapping.
+    country_ref : pd.DataFrame
+        Reference for WHO accepted country names.
+    who_coding : pd.DataFrame
+        Reference for WHO coding.
+    no_update_phrase : pd.DataFrame
+        Reference for "no update" phrases.
+
+    Returns
+    -------
+    dict
+        Record with transformations applied.
+
+    """
 
     # 1. generator function of new record with correct keys (shared)
     new_record = utils.generate_blank_record()
@@ -97,10 +103,25 @@ def transform(record: dict, key_ref: dict, country_ref: pd.DataFrame, who_coding
     return(record)
 
 def label_update_phrase(record: dict, phrases: list):
-    '''
+    """
     Function to assign who_code == 10 and 'Not of interest'
-    to records with no update phrases
-    '''
+    to records with no update phrases.
+
+    Update phrases are defined in `config` directory.
+
+    Parameters
+    ----------
+    record : dict
+        Input record.
+    phrases : list
+        Reference for "no update" phrases.
+
+    Returns
+    -------
+    type
+        Record with coding transformations applied.
+
+    """
 
     if is_update_phrase(record['comments'], phrases):
 
@@ -113,6 +134,22 @@ def label_update_phrase(record: dict, phrases: list):
 
 
 def is_update_phrase(comment: str, phrases: list):
+    """
+    Identify comments matchign any "no update" phrases.
+
+    Parameters
+    ----------
+    comment : str
+        Comment string.
+    phrases : list
+        List of known "no update" phrases.
+
+    Returns
+    -------
+    type
+        True (is a "no update" phrase) or False (is not a "no update" phrase).
+
+    """
 
     if comment is None:
 
@@ -129,13 +166,23 @@ def is_update_phrase(comment: str, phrases: list):
         return(False)
 
 
-def financial_measures(record):
-    '''
-    Function to move values from prov_measure to value_usd for financial reasures.
+def financial_measures(record: dict):
+    """
+    Function to move values from `prov_measure` to `value_usd` for financial measures.
 
     prov_measure values are replaced with 1 for coding.
 
-    '''
+    Parameters
+    ----------
+    record : dict
+        Input record.
+
+    Returns
+    -------
+    type
+        Record with `prov_measure` changes applied.
+
+    """
 
     financial = ['E3_Fiscal measures',
                  'E4_International support',
@@ -152,11 +199,26 @@ def financial_measures(record):
 
 
 def get_comment_links(comments: str):
-    '''
-    Function to get all links from a comment string
+    """
+    Function to get all links from a comment string.
 
-    Returns a list of links
-    '''
+    Returns a list of links.
+
+    Example:
+
+    "Comment things, https://www.google.com/, other comment things https://www.google.com/" -> ["https://www.google.com/", "https://www.google.com/"]
+
+    Parameters
+    ----------
+    comments : str
+        Comments string.
+
+    Returns
+    -------
+    type
+        List of extracted links.
+
+    """
 
     exp = re.compile('http[s]?://(?:[a-zA-Z]|[0-9]|[$-_@.&+]|[!*\(\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+')
 
@@ -164,9 +226,22 @@ def get_comment_links(comments: str):
 
 
 def assign_comment_links(record: dict):
-    '''
-    Function to assign links found in comments to links fields
-    '''
+    """
+    Function to assign links found in comments to links fields.
+
+    >2 links will be dropped.
+
+    Parameters
+    ----------
+    record : dict
+        Input record.
+
+    Returns
+    -------
+    type
+        Record with `link` and `alt_link` fields altered.
+
+    """
 
     links = get_comment_links(record['comments'])
 
