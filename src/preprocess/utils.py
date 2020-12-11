@@ -7,7 +7,24 @@ import pandas as pd
 
 
 def df_to_records(df: pd.DataFrame, dataset: str, drop_columns = []):
-    """Function to convert dataframe to record oriented - dict"""
+    """
+    Convert dataframe to a list of record oriented dicts.
+
+    Parameters
+    ----------
+    df : pd.DataFrame
+        Input dataset.
+    dataset : str
+        Name of provider dataset.
+    drop_columns : type
+        Which columns (if any) to drop.
+
+    Returns
+    -------
+    list
+        List of row-wise dicts.
+
+    """
 
     if dataset == 'OXCGRT':
 
