@@ -6,7 +6,7 @@ Script to convert provider datasets individual record dictionaries
 
 Data Sources:
 `https://www.acaps.org/covid-19-government-measures-dataset <https://www.acaps.org/covid-19-government-measures-dataset>`_
-
+`https://www.cdc.gov/mmwr/preview/mmwrhtml/00001590.htm <https://www.cdc.gov/mmwr/preview/mmwrhtml/00001590.htm>`_
 """
 
 import pandas as pd
