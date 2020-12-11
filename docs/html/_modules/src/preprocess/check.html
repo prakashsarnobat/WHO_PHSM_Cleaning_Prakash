@@ -1,23 +1,23 @@
 
-<!DOCTYPE html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
-<html>
+<html xmlns="http://www.w3.org/1999/xhtml">
   <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>src.preprocess.check &#8212; WHO PHSM Cleaning 0.0.1 documentation</title>
     <link rel="stylesheet" href="../../../_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
-    <script id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
-    <script src="../../../_static/jquery.js"></script>
-    <script src="../../../_static/underscore.js"></script>
-    <script src="../../../_static/doctools.js"></script>
-    <script src="../../../_static/language_data.js"></script>
+    <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../../_static/language_data.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
    
   <link rel="stylesheet" href="../../../_static/custom.css" type="text/css" />
-  
   
   <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
 
@@ -27,37 +27,25 @@
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
-          
-
           <div class="body" role="main">
             
   <h1>Source code for src.preprocess.check</h1><div class="highlight"><pre>
-<span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">main.py</span>
+<span class="sd">====================================</span>
+<span class="sd">Functions to check input datasets during preprocessing.</span>
+
+<span class="sd">test these functions!</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 <span class="kn">import</span> <span class="nn">logging</span>
-<span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span>
+<span class="kn">from</span> <span class="nn">datetime</span> <span class="k">import</span> <span class="n">datetime</span>
 
 
 <div class="viewcode-block" id="check_input"><a class="viewcode-back" href="../../../source/src.preprocess.html#src.preprocess.check.check_input">[docs]</a><span class="k">def</span> <span class="nf">check_input</span><span class="p">(</span><span class="n">records</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span> <span class="n">column_config</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span> <span class="n">date_config</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span> <span class="n">dataset</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Function to unify all input checks.</span>
-
-<span class="sd">    Parameters</span>
-<span class="sd">    ----------</span>
-<span class="sd">    records : pd.DataFrame</span>
-<span class="sd">        Dataframe of provider data.</span>
-<span class="sd">    column_config : pd.DataFrame</span>
-<span class="sd">        Reference for accepted column names.</span>
-<span class="sd">    date_config : pd.DataFrame</span>
-<span class="sd">        Reference for accepted date formats.</span>
-<span class="sd">    dataset : str</span>
-<span class="sd">        Name of provider dataset.</span>
-
-<span class="sd">    Returns</span>
-<span class="sd">    -------</span>
-<span class="sd">    type</span>
-<span class="sd">        Description of returned object.</span>
-
-<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="sd">&#39;&#39;&#39;Function to unify all input checks&#39;&#39;&#39;</span>
 
     <span class="n">check_column_names</span><span class="p">(</span><span class="n">records</span><span class="p">,</span> <span class="n">column_config</span><span class="p">)</span>
 
@@ -65,23 +53,7 @@
 
 
 <div class="viewcode-block" id="check_column_names"><a class="viewcode-back" href="../../../source/src.preprocess.html#src.preprocess.check.check_column_names">[docs]</a><span class="k">def</span> <span class="nf">check_column_names</span><span class="p">(</span><span class="n">records</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span> <span class="n">config</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span> <span class="n">log</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Function to check that column names agree with config or raise exception.</span>
-
-<span class="sd">    Parameters</span>
-<span class="sd">    ----------</span>
-<span class="sd">    records : pd.DataFrame</span>
-<span class="sd">        Dataframe of provider data.</span>
-<span class="sd">    config : pd.DataFrame</span>
-<span class="sd">        Reference for accepted column names.</span>
-<span class="sd">    log : bool</span>
-<span class="sd">        Whether or not to log results of checks.</span>
-
-<span class="sd">    Returns</span>
-<span class="sd">    -------</span>
-<span class="sd">    None</span>
-
-<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="sd">&#39;&#39;&#39;Function to check that column names agree with config or raise exception&#39;&#39;&#39;</span>
 
     <span class="n">dataset</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;dataset&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">())[</span><span class="mi">0</span><span class="p">]</span>
 
@@ -95,38 +67,16 @@
 
     <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
 
-        <span class="n">present_in_input</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">records</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span><span class="o">.</span><span class="n">difference</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;column&#39;</span><span class="p">]))</span>
-        <span class="n">present_in_config</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;column&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">difference</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">records</span><span class="o">.</span><span class="n">columns</span><span class="p">))</span>
-
-        <span class="n">message</span> <span class="o">=</span> <span class="s1">&#39;INPUT_CHECK_FAILURE=Unexpected </span><span class="si">%s</span><span class="s1"> columns. Present in input: </span><span class="si">%s</span><span class="s1">, present in config: </span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">dataset</span><span class="p">,</span> <span class="n">present_in_input</span><span class="p">,</span> <span class="n">present_in_config</span><span class="p">)</span>
+        <span class="n">message</span> <span class="o">=</span> <span class="s1">&#39;INPUT_CHECK_SUCCESS=Unexpected </span><span class="si">%s</span><span class="s1"> columns.&#39;</span> <span class="o">%</span> <span class="n">dataset</span>
 
         <span class="k">if</span> <span class="n">log</span><span class="p">:</span>
 
-            <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="n">message</span><span class="p">)</span></div>
+            <span class="n">logging</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
 
-        <span class="c1">#raise e</span>
-
+        <span class="k">raise</span> <span class="n">e</span></div>
 
 <div class="viewcode-block" id="check_date_format"><a class="viewcode-back" href="../../../source/src.preprocess.html#src.preprocess.check.check_date_format">[docs]</a><span class="k">def</span> <span class="nf">check_date_format</span><span class="p">(</span><span class="n">data</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span> <span class="n">config</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span> <span class="n">dataset</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">log</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Check that an input date is in the expected format.</span>
-
-<span class="sd">    Parameters</span>
-<span class="sd">    ----------</span>
-<span class="sd">    data : pd.DataFrame</span>
-<span class="sd">        Dataframe of provider data..</span>
-<span class="sd">    config : pd.DataFrame</span>
-<span class="sd">        Reference for accepted date formats.</span>
-<span class="sd">    dataset : str</span>
-<span class="sd">        Name of provider dataset.</span>
-<span class="sd">    log : bool</span>
-<span class="sd">        Whether or not to log results of checks.</span>
-
-<span class="sd">    Returns</span>
-<span class="sd">    -------</span>
-<span class="sd">    None</span>
-
-<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="sd">&#39;&#39;&#39;Function to check that an input date is in the expected format&#39;&#39;&#39;</span>
 
     <span class="nb">format</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;dataset&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">dataset</span><span class="p">,</span> <span class="s1">&#39;format&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">item</span><span class="p">()</span>
     <span class="n">date_column</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;dataset&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">dataset</span><span class="p">,</span> <span class="s1">&#39;date_column&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">item</span><span class="p">()</span>
@@ -147,36 +97,19 @@
 
             <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;INPUT_CHECK_FAILURE=</span><span class="si">%s</span><span class="s1"> </span><span class="si">%s</span><span class="s1"> </span><span class="si">%d</span><span class="s1"> dates not in the format </span><span class="si">%s</span><span class="s1">.&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">dataset</span><span class="p">,</span> <span class="n">date_column</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">res</span><span class="p">),</span> <span class="nb">format</span><span class="p">))</span></div>
 
-
 <div class="viewcode-block" id="validate_date_format"><a class="viewcode-back" href="../../../source/src.preprocess.html#src.preprocess.check.validate_date_format">[docs]</a><span class="k">def</span> <span class="nf">validate_date_format</span><span class="p">(</span><span class="n">date</span><span class="p">,</span> <span class="nb">format</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Return None if a date format does not parse.</span>
-
-<span class="sd">    Parameters</span>
-<span class="sd">    ----------</span>
-<span class="sd">    date : type</span>
-<span class="sd">        Input date string.</span>
-<span class="sd">    format : type</span>
-<span class="sd">        Input accpeted format to try.</span>
-
-<span class="sd">    Returns</span>
-<span class="sd">    -------</span>
-<span class="sd">    type</span>
-<span class="sd">        Returns date on successful parse or None on parsing failure.</span>
-
-<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="sd">&#39;&#39;&#39;Function to return None if a date format does not parse&#39;&#39;&#39;</span>
 
     <span class="k">try</span><span class="p">:</span>
 
         <span class="k">return</span><span class="p">(</span><span class="n">datetime</span><span class="o">.</span><span class="n">strptime</span><span class="p">(</span><span class="n">date</span><span class="p">,</span> <span class="nb">format</span><span class="p">))</span>
 
-    <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+    <span class="k">except</span><span class="p">:</span>
 
         <span class="k">return</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span></div>
 </pre></div>
 
           </div>
-          
         </div>
       </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
@@ -202,23 +135,17 @@
 </ul>
 </div>
 <div id="searchbox" style="display: none" role="search">
-  <h3 id="searchlabel">Quick search</h3>
+  <h3>Quick search</h3>
     <div class="searchformwrapper">
     <form class="search" action="../../../search.html" method="get">
-      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="text" name="q" />
       <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
     </form>
     </div>
 </div>
-<script>$('#searchbox').show(0);</script>
-
-
-
-
-
-
-
-
+<script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
       </div>
       <div class="clearer"></div>
@@ -227,8 +154,8 @@
       &copy;2020, Hamish Gibbs.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.2.1</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.8.4</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.8</a>
       
     </div>
 

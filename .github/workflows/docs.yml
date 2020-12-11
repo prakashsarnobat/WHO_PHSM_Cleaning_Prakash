@@ -1,0 +1,29 @@
+name: Docs
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  update_docs:
+    runs-on: ubuntu-latest
+    env:
+      GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Build container
+        run: make build
+
+      - name: Update docs
+        run: make docs
+
+      - name: Deploy docs
+        run: |
+          git config --local user.email "actions@github.com"
+          git config --local user.name "GitHub Actions"
+          git add .
+          git commit -m "Update documentation"
+          git push

@@ -1,23 +1,23 @@
 
-<!DOCTYPE html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
-<html>
+<html xmlns="http://www.w3.org/1999/xhtml">
   <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>src.processing.main &#8212; WHO PHSM Cleaning 0.0.1 documentation</title>
     <link rel="stylesheet" href="../../../_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
-    <script id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
-    <script src="../../../_static/jquery.js"></script>
-    <script src="../../../_static/underscore.js"></script>
-    <script src="../../../_static/doctools.js"></script>
-    <script src="../../../_static/language_data.js"></script>
+    <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../../_static/language_data.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
    
   <link rel="stylesheet" href="../../../_static/custom.css" type="text/css" />
-  
   
   <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
 
@@ -27,8 +27,6 @@
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
-          
-
           <div class="body" role="main">
             
   <h1>Source code for src.processing.main</h1><div class="highlight"><pre>
@@ -53,36 +51,11 @@
 <span class="sd">&quot;&quot;&quot;</span>
 
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="kn">from</span> <span class="nn">processing</span> <span class="kn">import</span> <span class="n">JH_HIT</span><span class="p">,</span> <span class="n">CDC_ITF</span><span class="p">,</span> <span class="n">ACAPS</span><span class="p">,</span> <span class="n">OXCGRT</span>
+<span class="kn">from</span> <span class="nn">processing</span> <span class="k">import</span> <span class="n">JH_HIT</span><span class="p">,</span> <span class="n">CDC_ITF</span><span class="p">,</span> <span class="n">ACAPS</span><span class="p">,</span> <span class="n">OXCGRT</span>
 
 
 <div class="viewcode-block" id="process"><a class="viewcode-back" href="../../../source/src.processing.html#src.processing.main.process">[docs]</a><span class="k">def</span> <span class="nf">process</span><span class="p">(</span><span class="n">record</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span> <span class="n">key_ref</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span> <span class="n">country_ref</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span> <span class="n">who_coding</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span> <span class="n">prov_measure_filter</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span> <span class="n">no_update_phrase</span><span class="p">:</span> <span class="nb">dict</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Unify individual dataset transformers.</span>
-
-<span class="sd">    Applies different transformations for records from different datasets.</span>
-
-<span class="sd">    Parameters</span>
-<span class="sd">    ----------</span>
-<span class="sd">    record : dict</span>
-<span class="sd">        Input record.</span>
-<span class="sd">    key_ref : dict</span>
-<span class="sd">        Reference for key mapping.</span>
-<span class="sd">    country_ref : pd.DataFrame</span>
-<span class="sd">        Reference for WHO accepted country names.</span>
-<span class="sd">    who_coding : dict</span>
-<span class="sd">        Reference for WHO coding.</span>
-<span class="sd">    prov_measure_filter : dict</span>
-<span class="sd">        Reference for filtering by `prov_measure` values.</span>
-<span class="sd">    no_update_phrase : dict</span>
-<span class="sd">        Reference for &quot;no update&quot; phrases.</span>
-
-<span class="sd">    Returns</span>
-<span class="sd">    -------</span>
-<span class="sd">    type</span>
-<span class="sd">        Record with transformations applied.</span>
-
-<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="sd">&#39;&#39;&#39;Unify individual dataset transformers&#39;&#39;&#39;</span>
 
     <span class="k">if</span> <span class="n">record</span><span class="p">[</span><span class="s1">&#39;dataset&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;JH_HIT&#39;</span><span class="p">:</span>
 
@@ -123,7 +96,6 @@
 </pre></div>
 
           </div>
-          
         </div>
       </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
@@ -149,23 +121,17 @@
 </ul>
 </div>
 <div id="searchbox" style="display: none" role="search">
-  <h3 id="searchlabel">Quick search</h3>
+  <h3>Quick search</h3>
     <div class="searchformwrapper">
     <form class="search" action="../../../search.html" method="get">
-      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="text" name="q" />
       <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
     </form>
     </div>
 </div>
-<script>$('#searchbox').show(0);</script>
-
-
-
-
-
-
-
-
+<script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
       </div>
       <div class="clearer"></div>
@@ -174,8 +140,8 @@
       &copy;2020, Hamish Gibbs.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.2.1</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.8.4</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.8</a>
       
     </div>
 
