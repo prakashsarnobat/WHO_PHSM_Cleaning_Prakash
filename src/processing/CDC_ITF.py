@@ -128,11 +128,22 @@ def transform(record: dict, key_ref: dict, country_ref: pd.DataFrame, who_coding
 
 
 def area_covered_national(record: dict):
-    '''
+    """
     Function to remove area_covered == "national"
 
-    Replace with None
-    '''
+    Replace with None.
+
+    Parameters
+    ----------
+    record : dict
+        Input record.
+
+    Returns
+    -------
+    type
+        Record with `area_covered` changed.
+
+    """
 
     if record['area_covered'] in ['national']:
 
