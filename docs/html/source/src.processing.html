@@ -36,128 +36,217 @@
 </div>
 <div class="section" id="module-src.processing.ACAPS">
 <span id="src-processing-acaps-module"></span><h2>src.processing.ACAPS module<a class="headerlink" href="#module-src.processing.ACAPS" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="acaps-py">
-<h3>ACAPS.py<a class="headerlink" href="#acaps-py" title="Permalink to this headline">¶</a></h3>
-<p>Transform ACAPS records to WHO PHSM format.</p>
-<p><strong>Data Source:</strong>
-<a class="reference external" href="https://www.acaps.org/covid-19-government-measures-dataset">https://www.acaps.org/covid-19-government-measures-dataset</a></p>
-<p><strong>Processing Steps:</strong></p>
-<ol class="arabic simple">
-<li>Create a new blank record</li>
-<li>replace data in new record with data from old record using key_ref</li>
-<li>Make manual country name changes</li>
-<li>replace sensitive country names by ISO (utils)</li>
-<li>assign ISO code</li>
-<li>check for missing ISO codes (shared)</li>
-<li>Join WHO accepted country names (shared)</li>
-<li>Add WHO PHSM admin_level values</li>
-</ol>
 <dl class="function">
 <dt id="src.processing.ACAPS.transform">
-<code class="descclassname">src.processing.ACAPS.</code><code class="descname">transform</code><span class="sig-paren">(</span><em>record: dict</em>, <em>key_ref: dict</em>, <em>country_ref: &lt;sphinx.ext.autodoc.importer._MockObject object at 0x7fbb1d7473c8&gt;</em>, <em>who_coding: &lt;sphinx.ext.autodoc.importer._MockObject object at 0x7fbb1d747550&gt;</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/src/processing/ACAPS.html#transform"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.processing.ACAPS.transform" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<code class="descclassname">src.processing.ACAPS.</code><code class="descname">transform</code><span class="sig-paren">(</span><em>record: dict</em>, <em>key_ref: dict</em>, <em>country_ref: &lt;sphinx.ext.autodoc.importer._MockObject object at 0x7f61d93e3630&gt;</em>, <em>who_coding: &lt;sphinx.ext.autodoc.importer._MockObject object at 0x7f61d93e3d68&gt;</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/src/processing/ACAPS.html#transform"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.processing.ACAPS.transform" title="Permalink to this definition">¶</a></dt>
+<dd><p>Apply transformations to ACAPS records.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>record</strong> (<em>dict</em>) – Input record.</li>
+<li><strong>key_ref</strong> (<em>dict</em>) – Reference for key mapping.</li>
+<li><strong>country_ref</strong> (<em>pd.DataFrame</em>) – Reference for WHO accepted country names.</li>
+<li><strong>who_coding</strong> (<em>pd.DataFrame</em>) – Reference for WHO coding.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">Record with transformations applied.</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">dict</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
 
-</div>
 </div>
 <div class="section" id="module-src.processing.CDC_ITF">
 <span id="src-processing-cdc-itf-module"></span><h2>src.processing.CDC_ITF module<a class="headerlink" href="#module-src.processing.CDC_ITF" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="cdc-itf-py">
-<h3>CDC_ITF.py<a class="headerlink" href="#cdc-itf-py" title="Permalink to this headline">¶</a></h3>
-<p>Transform CDC_ITF records to WHO PHSM format.</p>
-<p><strong>Data Source:</strong>
-<a class="reference external" href="https://www.cdc.gov/mmwr/preview/mmwrhtml/00001590.htm">https://www.cdc.gov/mmwr/preview/mmwrhtml/00001590.htm</a></p>
-<p><strong>Processing Steps:</strong></p>
-<ol class="arabic simple">
-<li>Join comments in <code class="docutils literal notranslate"><span class="pre">Concise</span> <span class="pre">Notes</span></code> and <code class="docutils literal notranslate"><span class="pre">Notes</span></code> columns</li>
-<li>Generate a blank record with required keys.</li>
-<li>Move data from provider record to new record with <code class="docutils literal notranslate"><span class="pre">apply_key_map</span></code> using key mapping in <code class="docutils literal notranslate"><span class="pre">config/key_map/CDC_ITF.csv</span></code>.</li>
-<li>Assign merged comments to new record.</li>
-<li>Handle date formatting.</li>
-<li>Assign <code class="docutils literal notranslate"><span class="pre">date_end</span></code> equal to <code class="docutils literal notranslate"><span class="pre">date_start</span></code> if <code class="docutils literal notranslate"><span class="pre">measure_stage</span></code> == “Lift”.</li>
-<li>Make manual country name changes.</li>
-<li>Replace sensitive country names.</li>
-<li>Assign ISO code.</li>
-<li>Check for missing ISO codes.</li>
-<li>Join WHO accepted country names (shared).</li>
-<li>Join who coding from lookup (shared).</li>
-<li>Check for missing WHO codes (shared).</li>
-<li>Replace non-specific area_covered value.</li>
-<li>Replace measure_stage extension.</li>
-<li>Add WHO PHSM admin_level values.</li>
-</ol>
 <dl class="function">
 <dt id="src.processing.CDC_ITF.add_date_end">
 <code class="descclassname">src.processing.CDC_ITF.</code><code class="descname">add_date_end</code><span class="sig-paren">(</span><em>record: dict</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/src/processing/CDC_ITF.html#add_date_end"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.processing.CDC_ITF.add_date_end" title="Permalink to this definition">¶</a></dt>
 <dd><p>Function to make <code class="docutils literal notranslate"><span class="pre">date_end</span></code> <code class="docutils literal notranslate"><span class="pre">date_start</span></code> if <code class="docutils literal notranslate"><span class="pre">measure_stage</span></code> is “Lift”</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>record</strong> (<em>dict</em>) – Input record.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Record with date_end changed conditionally, or original record.</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">type</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="src.processing.CDC_ITF.area_covered_national">
+<code class="descclassname">src.processing.CDC_ITF.</code><code class="descname">area_covered_national</code><span class="sig-paren">(</span><em>record: dict</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/src/processing/CDC_ITF.html#area_covered_national"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.processing.CDC_ITF.area_covered_national" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function to remove area_covered == “national”</p>
+<p>Replace with None.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>record</strong> (<em>dict</em>) – Input record.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Record with <cite>area_covered</cite> changed.</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">type</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="function">
 <dt id="src.processing.CDC_ITF.join_comments">
 <code class="descclassname">src.processing.CDC_ITF.</code><code class="descname">join_comments</code><span class="sig-paren">(</span><em>record: dict</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/src/processing/CDC_ITF.html#join_comments"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.processing.CDC_ITF.join_comments" title="Permalink to this definition">¶</a></dt>
-<dd><p>Function to combine comments from “Concise Notes” and “Notes” fields</p>
+<dd><p>Combine comments from “Concise Notes” and “Notes” fields.</p>
+<p>Both will be stored in <cite>comments</cite> column of output dataset.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>record</strong> (<em>dict</em>) – Input record.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Record with merged comments.</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">type</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="function">
 <dt id="src.processing.CDC_ITF.transform">
-<code class="descclassname">src.processing.CDC_ITF.</code><code class="descname">transform</code><span class="sig-paren">(</span><em>record: dict</em>, <em>key_ref: dict</em>, <em>country_ref: &lt;sphinx.ext.autodoc.importer._MockObject object at 0x7fbb1d52e320&gt;</em>, <em>who_coding: &lt;sphinx.ext.autodoc.importer._MockObject object at 0x7fbb1d52e390&gt;</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/src/processing/CDC_ITF.html#transform"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.processing.CDC_ITF.transform" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<code class="descclassname">src.processing.CDC_ITF.</code><code class="descname">transform</code><span class="sig-paren">(</span><em>record: dict</em>, <em>key_ref: dict</em>, <em>country_ref: &lt;sphinx.ext.autodoc.importer._MockObject object at 0x7f61d927c908&gt;</em>, <em>who_coding: &lt;sphinx.ext.autodoc.importer._MockObject object at 0x7f61d927c860&gt;</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/src/processing/CDC_ITF.html#transform"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.processing.CDC_ITF.transform" title="Permalink to this definition">¶</a></dt>
+<dd><p>Apply transformations to CDC_ITF records.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>record</strong> (<em>dict</em>) – Input record.</li>
+<li><strong>key_ref</strong> (<em>dict</em>) – Reference for key mapping.</li>
+<li><strong>country_ref</strong> (<em>pd.DataFrame</em>) – Reference for WHO accepted country names.</li>
+<li><strong>who_coding</strong> (<em>pd.DataFrame</em>) – Reference for WHO coding.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">Record with transformations applied.</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">dict</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
 
-</div>
 </div>
 <div class="section" id="module-src.processing.JH_HIT">
 <span id="src-processing-jh-hit-module"></span><h2>src.processing.JH_HIT module<a class="headerlink" href="#module-src.processing.JH_HIT" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="jh-hit-py">
-<h3>JH_HIT.py<a class="headerlink" href="#jh-hit-py" title="Permalink to this headline">¶</a></h3>
-<p>Transform JH_HIT records to WHO PHSM format.</p>
-<p><strong>Data Source:</strong>
-<a class="reference external" href="https://github.com/HopkinsIDD/hit-covid">https://github.com/HopkinsIDD/hit-covid</a></p>
-<p><strong>Processing Steps:</strong></p>
-<ol class="arabic simple">
-<li>Remove records with null <code class="docutils literal notranslate"><span class="pre">locality</span></code> AND null <code class="docutils literal notranslate"><span class="pre">usa_county</span></code> values.</li>
-<li>Generate a blank record with required keys.</li>
-<li>Move data from provider record to new record with <code class="docutils literal notranslate"><span class="pre">apply_key_map</span></code> using key mapping in <code class="docutils literal notranslate"><span class="pre">config/key_map/JH_HIT.csv</span></code>.</li>
-<li>Remove a subset of <code class="docutils literal notranslate"><span class="pre">prov_measure</span></code> values. See <code class="docutils literal notranslate"><span class="pre">config/prov_measure_filter/JH_HIT.csv</span></code> for exact values.</li>
-<li>Parse date formats in <code class="docutils literal notranslate"><span class="pre">date_start</span></code>, <code class="docutils literal notranslate"><span class="pre">date_end</span></code>, <code class="docutils literal notranslate"><span class="pre">date_entry</span></code>.</li>
-<li>Assign a unique record ID.</li>
-<li>Map non-ascii characters to their closest ascii equivalent.</li>
-<li>Shift sensitive country names to <code class="docutils literal notranslate"><span class="pre">area_covered</span></code>.</li>
-<li>Assign ISO codes using <code class="docutils literal notranslate"><span class="pre">country_territory_area</span></code>.</li>
-<li>Check for missing <code class="docutils literal notranslate"><span class="pre">iso</span></code> codes.</li>
-<li>Assign WHO-accepted <code class="docutils literal notranslate"><span class="pre">country_territory_area</span></code>, <code class="docutils literal notranslate"><span class="pre">who_region</span></code>, <code class="docutils literal notranslate"><span class="pre">iso_3166_1_numeric</span></code></li>
-<li>Assign WHO PHSM dataset coding using <code class="docutils literal notranslate"><span class="pre">prov_measure</span></code>, <code class="docutils literal notranslate"><span class="pre">prov_subcategory</span></code>, <code class="docutils literal notranslate"><span class="pre">prov_category</span></code></li>
-<li>Check for missing <code class="docutils literal notranslate"><span class="pre">who_code</span></code> values.</li>
-<li>Replace <code class="docutils literal notranslate"><span class="pre">admin_level</span></code> values: null -&gt; ‘unknown’, ‘Yes’ -&gt; ‘national’, ‘No’ -&gt; ‘state’</li>
-<li>Replace <code class="docutils literal notranslate"><span class="pre">prov_measure</span></code> and <code class="docutils literal notranslate"><span class="pre">prov_category</span></code> with ‘not_enough_to_code’ if <code class="docutils literal notranslate"><span class="pre">comments</span></code> are blank and <code class="docutils literal notranslate"><span class="pre">prov_category</span></code> no ‘school_closed’</li>
-<li>Replace <code class="docutils literal notranslate"><span class="pre">non_compliance_penalty</span></code> “non_compliance_penalty” -&gt; “Not Known”</li>
-</ol>
 <dl class="function">
 <dt id="src.processing.JH_HIT.apply_prov_measure_filter">
-<code class="descclassname">src.processing.JH_HIT.</code><code class="descname">apply_prov_measure_filter</code><span class="sig-paren">(</span><em>record: dict</em>, <em>prov_measure_filter: &lt;sphinx.ext.autodoc.importer._MockObject object at 0x7fbb1d52ecf8&gt;</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/src/processing/JH_HIT.html#apply_prov_measure_filter"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.processing.JH_HIT.apply_prov_measure_filter" title="Permalink to this definition">¶</a></dt>
-<dd><p>Function to filter only some prov_measure and prov_category values</p>
+<code class="descclassname">src.processing.JH_HIT.</code><code class="descname">apply_prov_measure_filter</code><span class="sig-paren">(</span><em>record: dict</em>, <em>prov_measure_filter: &lt;sphinx.ext.autodoc.importer._MockObject object at 0x7f61d929ef28&gt;</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/src/processing/JH_HIT.html#apply_prov_measure_filter"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.processing.JH_HIT.apply_prov_measure_filter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Filter only some <cite>prov_measure</cite> and <cite>prov_category</cite> values.</p>
+<p>Only some JH_HIT codings are accepted.</p>
+<p>Relies on <cite>prov_measure_filter</cite> defined in <cite>config</cite>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>record</strong> (<em>dict</em>) – Input record.</li>
+<li><strong>prov_measure_filter</strong> (<em>pd.DataFrame</em>) – Config of which codings to drop. Defined in <cite>config</cite> directory.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">If coding is included in WHO PHSM dataset, record, else None.</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">type</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="src.processing.JH_HIT.blank_record_and_url">
+<code class="descclassname">src.processing.JH_HIT.</code><code class="descname">blank_record_and_url</code><span class="sig-paren">(</span><em>record: dict</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/src/processing/JH_HIT.html#blank_record_and_url"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.processing.JH_HIT.blank_record_and_url" title="Permalink to this definition">¶</a></dt>
+<dd><p>Assign who_code == 11 and ‘Not enough to code’ to records with no <cite>comments</cite> AND no <cite>url</cite>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>record</strong> (<em>dict</em>) – Input record.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Record with coding altered.</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">type</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="function">
 <dt id="src.processing.JH_HIT.fill_not_enough_to_code">
 <code class="descclassname">src.processing.JH_HIT.</code><code class="descname">fill_not_enough_to_code</code><span class="sig-paren">(</span><em>record: dict</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/src/processing/JH_HIT.html#fill_not_enough_to_code"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.processing.JH_HIT.fill_not_enough_to_code" title="Permalink to this definition">¶</a></dt>
-<dd><p>Function to add “not enough to code” label to specific records</p>
+<dd><p>Function to add “not enough to code” label when comments are blank.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>record</strong> (<em>dict</em>) – Input record.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Record with <cite>prov_measure</cite> and <cite>prov_category</cite> values altered conditionally.</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">type</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="function">
 <dt id="src.processing.JH_HIT.transform">
-<code class="descclassname">src.processing.JH_HIT.</code><code class="descname">transform</code><span class="sig-paren">(</span><em>record: dict</em>, <em>key_ref: dict</em>, <em>country_ref: &lt;sphinx.ext.autodoc.importer._MockObject object at 0x7fbb1d52ec88&gt;</em>, <em>who_coding: &lt;sphinx.ext.autodoc.importer._MockObject object at 0x7fbb1d52eda0&gt;</em>, <em>prov_measure_filter: &lt;sphinx.ext.autodoc.importer._MockObject object at 0x7fbb1d52ed68&gt;</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/src/processing/JH_HIT.html#transform"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.processing.JH_HIT.transform" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<code class="descclassname">src.processing.JH_HIT.</code><code class="descname">transform</code><span class="sig-paren">(</span><em>record: dict</em>, <em>key_ref: dict</em>, <em>country_ref: &lt;sphinx.ext.autodoc.importer._MockObject object at 0x7f61d929eeb8&gt;</em>, <em>who_coding: &lt;sphinx.ext.autodoc.importer._MockObject object at 0x7f61d929eef0&gt;</em>, <em>prov_measure_filter: &lt;sphinx.ext.autodoc.importer._MockObject object at 0x7f61d929ee10&gt;</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/src/processing/JH_HIT.html#transform"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.processing.JH_HIT.transform" title="Permalink to this definition">¶</a></dt>
+<dd><p>Apply transformations to JH_HIT records.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>record</strong> (<em>dict</em>) – Input record.</li>
+<li><strong>key_ref</strong> (<em>dict</em>) – Reference for key mapping.</li>
+<li><strong>country_ref</strong> (<em>pd.DataFrame</em>) – Reference for WHO accepted country names.</li>
+<li><strong>who_coding</strong> (<em>pd.DataFrame</em>) – Reference for WHO coding.</li>
+<li><strong>prov_measure_filter</strong> (<em>pd.DataFrame</em>) – Reference for filtering by <cite>prov_measure</cite> values.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">Record with transformations applied.</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">dict</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
 
-</div>
 </div>
 <div class="section" id="module-src.processing.check">
 <span id="src-processing-check-module"></span><h2>src.processing.check module<a class="headerlink" href="#module-src.processing.check" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="check-py">
-<h3>check.py<a class="headerlink" href="#check-py" title="Permalink to this headline">¶</a></h3>
-<p>Functions to check data attributed inline.</p>
 <dl class="function">
 <dt id="src.processing.check.check_missing_iso">
 <code class="descclassname">src.processing.check.</code><code class="descname">check_missing_iso</code><span class="sig-paren">(</span><em>record: dict</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/src/processing/check.html#check_missing_iso"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.processing.check.check_missing_iso" title="Permalink to this definition">¶</a></dt>
-<dd><p>Function to check for missing ISO codes</p>
+<dd><p>DEPRACTED by output check?</p>
+<p>Function to check for missing ISO codes</p>
 <p>Note: will not throw an error for “unknown” values which much be
 handled later</p>
 </dd></dl>
@@ -165,7 +254,8 @@ handled later</p>
 <dl class="function">
 <dt id="src.processing.check.check_missing_who_code">
 <code class="descclassname">src.processing.check.</code><code class="descname">check_missing_who_code</code><span class="sig-paren">(</span><em>record: dict</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/src/processing/check.html#check_missing_who_code"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.processing.check.check_missing_who_code" title="Permalink to this definition">¶</a></dt>
-<dd><p>Function to check for null who codes</p>
+<dd><p>DEPRACTED by output check?
+Function to check for null who codes</p>
 <p>Note: will not throw an error for “unknown” values which must be
 handled later</p>
 </dd></dl>
@@ -173,9 +263,27 @@ handled later</p>
 <dl class="function">
 <dt id="src.processing.check.check_record_keys_agree">
 <code class="descclassname">src.processing.check.</code><code class="descname">check_record_keys_agree</code><span class="sig-paren">(</span><em>record: dict</em>, <em>blank_record: dict</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/src/processing/check.html#check_record_keys_agree"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.processing.check.check_record_keys_agree" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>DEPRACTED by output check?</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>record</strong> (<em>dict</em>) – Description of parameter <cite>record</cite>.</li>
+<li><strong>blank_record</strong> (<em>dict</em>) – Description of parameter <cite>blank_record</cite>.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">Description of returned object.</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">type</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
 
-</div>
 </div>
 <div class="section" id="module-src.processing.main">
 <span id="src-processing-main-module"></span><h2>src.processing.main module<a class="headerlink" href="#module-src.processing.main" title="Permalink to this headline">¶</a></h2>
@@ -191,8 +299,31 @@ handled later</p>
 <p>General checks for record numbers etc</p>
 <dl class="function">
 <dt id="src.processing.main.process">
-<code class="descclassname">src.processing.main.</code><code class="descname">process</code><span class="sig-paren">(</span><em>record: dict</em>, <em>key_ref: dict</em>, <em>country_ref: &lt;sphinx.ext.autodoc.importer._MockObject object at 0x7fbb1d528080&gt;</em>, <em>who_coding: dict</em>, <em>prov_measure_filter: dict</em>, <em>no_update_phrase: dict</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/src/processing/main.html#process"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.processing.main.process" title="Permalink to this definition">¶</a></dt>
-<dd><p>Unify individual dataset transformers</p>
+<code class="descclassname">src.processing.main.</code><code class="descname">process</code><span class="sig-paren">(</span><em>record: dict</em>, <em>key_ref: dict</em>, <em>country_ref: &lt;sphinx.ext.autodoc.importer._MockObject object at 0x7f61d9382da0&gt;</em>, <em>who_coding: dict</em>, <em>prov_measure_filter: dict</em>, <em>no_update_phrase: dict</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/src/processing/main.html#process"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.processing.main.process" title="Permalink to this definition">¶</a></dt>
+<dd><p>Unify individual dataset transformers.</p>
+<p>Applies different transformations for records from different datasets.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>record</strong> (<em>dict</em>) – Input record.</li>
+<li><strong>key_ref</strong> (<em>dict</em>) – Reference for key mapping.</li>
+<li><strong>country_ref</strong> (<em>pd.DataFrame</em>) – Reference for WHO accepted country names.</li>
+<li><strong>who_coding</strong> (<em>dict</em>) – Reference for WHO coding.</li>
+<li><strong>prov_measure_filter</strong> (<em>dict</em>) – Reference for filtering by <cite>prov_measure</cite> values.</li>
+<li><strong>no_update_phrase</strong> (<em>dict</em>) – Reference for “no update” phrases.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">Record with transformations applied.</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">type</p>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 </div>
@@ -202,102 +333,428 @@ handled later</p>
 <dl class="function">
 <dt id="src.processing.utils.add_admin_level">
 <code class="descclassname">src.processing.utils.</code><code class="descname">add_admin_level</code><span class="sig-paren">(</span><em>record: dict</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/src/processing/utils.html#add_admin_level"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.processing.utils.add_admin_level" title="Permalink to this definition">¶</a></dt>
-<dd><p>Function to set admin_level values to “national” or “other”</p>
+<dd><p>Set admin_level values to “national” or “other”.</p>
+<p>If <cite>area_covered</cite> is blank: “national”, else: “other”.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>record</strong> (<em>dict</em>) – Input record.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Record with <cite>admin_level</cite> added.</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">type</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="function">
 <dt id="src.processing.utils.apply_key_map">
 <code class="descclassname">src.processing.utils.</code><code class="descname">apply_key_map</code><span class="sig-paren">(</span><em>new_record: dict</em>, <em>old_record: dict</em>, <em>key_ref: dict</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/src/processing/utils.html#apply_key_map"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.processing.utils.apply_key_map" title="Permalink to this definition">¶</a></dt>
-<dd><p>Function to apply key mapping between two records based on a key reference</p>
+<dd><p>Apply key mapping between two records based on a key reference.</p>
+<p>Example:</p>
+<p>Given <cite>key_ref</cite>: <cite>{‘column1’:’column2’}</cite>.</p>
+<p>Extracts values from <cite>old_record[‘column1’]</cite> to <cite>new_record[‘column2’]</cite>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>new_record</strong> (<em>dict</em>) – Record with WHO PHSM keys.</li>
+<li><strong>old_record</strong> (<em>dict</em>) – Record with provider keys.</li>
+<li><strong>key_ref</strong> (<em>dict</em>) – Reference for mapping keys between records.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><ul class="simple">
+<li><em>Record with new values appliued to specified keys.</em></li>
+<li><em>type</em> – dict.</li>
+</ul>
+</p>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="function">
 <dt id="src.processing.utils.assign_id">
-<code class="descclassname">src.processing.utils.</code><code class="descname">assign_id</code><span class="sig-paren">(</span><em>records: dict</em>, <em>min_id: int = 1</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/src/processing/utils.html#assign_id"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.processing.utils.assign_id" title="Permalink to this definition">¶</a></dt>
-<dd><p>Function to assign a unique ID to each record</p>
+<code class="descclassname">src.processing.utils.</code><code class="descname">assign_id</code><span class="sig-paren">(</span><em>records: &lt;sphinx.ext.autodoc.importer._MockObject object at 0x7f61d9334be0&gt;</em>, <em>min_id: int = 1</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/src/processing/utils.html#assign_id"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.processing.utils.assign_id" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function to assign a unique ID to each record.</p>
+<p>IDs are assigned in the format <cite>DATASET_NUMBER</cite>. i.e. <cite>ACAPS_1234</cite>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>records</strong> (<em>pandas.DataFrame</em>) – Dataframe of records which will have ID numbers added.</li>
+<li><strong>min_id</strong> (<em>int</em>) – Number to begin incrementing IDs from.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">Dataframe with IDs added.</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">type</p>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="function">
 <dt id="src.processing.utils.assign_who_coding">
-<code class="descclassname">src.processing.utils.</code><code class="descname">assign_who_coding</code><span class="sig-paren">(</span><em>record: dict</em>, <em>who_coding: &lt;sphinx.ext.autodoc.importer._MockObject object at 0x7fbb1d747400&gt;</em>, <em>missing_value: str = 'unknown'</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/src/processing/utils.html#assign_who_coding"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.processing.utils.assign_who_coding" title="Permalink to this definition">¶</a></dt>
-<dd><p>Function to assign WHO coding to a record</p>
+<code class="descclassname">src.processing.utils.</code><code class="descname">assign_who_coding</code><span class="sig-paren">(</span><em>record: dict</em>, <em>who_coding: &lt;sphinx.ext.autodoc.importer._MockObject object at 0x7f61d9334cf8&gt;</em>, <em>missing_value: str = 'unknown'</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/src/processing/utils.html#assign_who_coding"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.processing.utils.assign_who_coding" title="Permalink to this definition">¶</a></dt>
+<dd><p>Assign WHO coding to a record.</p>
+<p>Adds: <cite>who_code</cite>, <cite>who_measure</cite>, <cite>who_subcategory</cite>, <cite>who_category</cite>.</p>
+<p>Optionally adds: <cite>targeted</cite>, <cite>non_compliance</cite>, <cite>enforcement</cite>.</p>
+<p>Transforms provider coding of interventions to WHO PHSM coding.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>record</strong> (<em>dict</em>) – Input record.</li>
+<li><strong>who_coding</strong> (<em>pd.DataFrame</em>) – Dataframe of WHO PHSM intervention mappings.</li>
+<li><strong>missing_value</strong> (<em>str</em>) – Value to add if name mapping fails - defaults to “unknown”.
+This value is recognized by output checks.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">Record with WHO PHSM code mapping applied.</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">type</p>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="function">
 <dt id="src.processing.utils.assign_who_country_name">
-<code class="descclassname">src.processing.utils.</code><code class="descname">assign_who_country_name</code><span class="sig-paren">(</span><em>record: dict</em>, <em>country_ref: &lt;sphinx.ext.autodoc.importer._MockObject object at 0x7fbb1d56ad68&gt;</em>, <em>missing_value: str = 'unknown'</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/src/processing/utils.html#assign_who_country_name"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.processing.utils.assign_who_country_name" title="Permalink to this definition">¶</a></dt>
-<dd><p>Function to assign country names by ISO code</p>
-<p>also adds: who_region, country_territory_area, iso_3166_1_numeric</p>
+<code class="descclassname">src.processing.utils.</code><code class="descname">assign_who_country_name</code><span class="sig-paren">(</span><em>record: dict</em>, <em>country_ref: &lt;sphinx.ext.autodoc.importer._MockObject object at 0x7f61d9334b70&gt;</em>, <em>missing_value: str = 'unknown'</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/src/processing/utils.html#assign_who_country_name"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.processing.utils.assign_who_country_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function to assign country names by ISO code.</p>
+<p>Also adds: <cite>who_region</cite>, <cite>country_territory_area</cite>, <cite>iso_3166_1_numeric</cite>.</p>
+<p>WHO recognizes standard country names which are transformed from ISOs defined on provider country names.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>record</strong> (<em>dict</em>) – Input record.</li>
+<li><strong>country_ref</strong> (<em>pd.DataFrame</em>) – Dataframe of country name mappings.</li>
+<li><strong>missing_value</strong> (<em>str</em>) – Value to add if name mapping fails - defaults to “unknown”.
+This value is recognized by output checks.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">Record with country name mapping applied.</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">type</p>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="function">
 <dt id="src.processing.utils.create_id">
 <code class="descclassname">src.processing.utils.</code><code class="descname">create_id</code><span class="sig-paren">(</span><em>dataset: str</em>, <em>length: int = 6</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/src/processing/utils.html#create_id"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.processing.utils.create_id" title="Permalink to this definition">¶</a></dt>
-<dd><p>Function to create a random id of characters and numbers</p>
+<dd><p>Create a random id of characters and numbers.</p>
+<p>DEPRACATED?</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>dataset</strong> (<em>str</em>) – Dataset to which ids will be added.</li>
+<li><strong>length</strong> (<em>int</em>) – Length of new ID number.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><ul class="simple">
+<li><em>New ID number.</em></li>
+<li><em>type</em> – str.</li>
+</ul>
+</p>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="function">
 <dt id="src.processing.utils.generate_blank_record">
 <code class="descclassname">src.processing.utils.</code><code class="descname">generate_blank_record</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/src/processing/utils.html#generate_blank_record"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.processing.utils.generate_blank_record" title="Permalink to this definition">¶</a></dt>
-<dd><p>Function to generate a blank record with the correct WHO keys</p>
+<dd><p>Generate a blank record with the correct WHO PHSM keys.</p>
+<p>Other objects requiring the same selection of keys descend from here.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><ul class="simple">
+<li><em>A blank record with keys in WHO PHSM column format.</em></li>
+<li><em>type</em> – dict.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="function">
 <dt id="src.processing.utils.get_min_id">
 <code class="descclassname">src.processing.utils.</code><code class="descname">get_min_id</code><span class="sig-paren">(</span><em>fn: str</em>, <em>id_column: str = 'who_id'</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/src/processing/utils.html#get_min_id"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.processing.utils.get_min_id" title="Permalink to this definition">¶</a></dt>
-<dd><p>Function to open a file and extract the maximum numeric # IDEA:</p>
-<p>This will be the new min id to be incremented.</p>
+<dd><p>Function to open a file and extract the maximum numeric.</p>
+<p>This will be the new min id to be incremented for the ID field.</p>
+<p>Future: should be replaced by a set difference of existing IDs and an
+arbitrary ID sequence.</p>
+<p class="rubric">Example</p>
+<p>Extracts numeric valeu of ID <cite>ACAPS_1234</cite> -&gt; <cite>1234</cite>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>fn</strong> (<em>str</em>) – Filename to reference dataset.</li>
+<li><strong>id_column</strong> (<em>str</em>) – ID column name in reference dataset.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><ul class="simple">
+<li><em>Maximum numeric ID value.</em></li>
+<li><em>type</em> – int.</li>
+</ul>
+</p>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="function">
 <dt id="src.processing.utils.key_map">
 <code class="descclassname">src.processing.utils.</code><code class="descname">key_map</code><span class="sig-paren">(</span><em>new_record: dict</em>, <em>old_record: dict</em>, <em>new_key: str</em>, <em>old_key: str</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/src/processing/utils.html#key_map"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.processing.utils.key_map" title="Permalink to this definition">¶</a></dt>
-<dd><p>Function to move data between records from one key to another</p>
-<p>if a new key is null, data will not be copied. Occurs when some data in a provider dataset is not used in WHO dataset</p>
+<dd><p>Implements key mapping from <cite>new_record</cite> to <cite>old_record</cite>.</p>
+<p>For more information see <cite>apply_key_map</cite>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>new_record</strong> (<em>dict</em>) – Record with WHO PHSM keys.</li>
+<li><strong>old_record</strong> (<em>dict</em>) – Record with provider keys.</li>
+<li><strong>new_key</strong> (<em>str</em>) – Key in <cite>old_record</cite>.</li>
+<li><strong>old_key</strong> (<em>str</em>) – Corresponding key in <cite>new_record</cite>.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">Record with information mapped from <cite>new_key</cite> to <cite>old_key</cite>.</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">type</p>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="function">
 <dt id="src.processing.utils.new_id">
 <code class="descclassname">src.processing.utils.</code><code class="descname">new_id</code><span class="sig-paren">(</span><em>dataset: str, length: int = 6, existing_ids: list = [None]</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/src/processing/utils.html#new_id"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.processing.utils.new_id" title="Permalink to this definition">¶</a></dt>
-<dd><p>Function to create a unique id given a list of existing ids</p>
+<dd><p>Function to create a unique id given a list of existing ids.</p>
+<p>DEPRACATED?</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>dataset</strong> (<em>str</em>) – Dataset to which ids will be added.</li>
+<li><strong>length</strong> (<em>int</em>) – Length of new ID number.</li>
+<li><strong>existing_ids</strong> (<em>list</em>) – Vector of existing IDs.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><ul class="simple">
+<li><em>New ID number.</em></li>
+<li><em>type</em> – str.</li>
+</ul>
+</p>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="function">
 <dt id="src.processing.utils.none_to_empty_str">
 <code class="descclassname">src.processing.utils.</code><code class="descname">none_to_empty_str</code><span class="sig-paren">(</span><em>s</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/src/processing/utils.html#none_to_empty_str"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.processing.utils.none_to_empty_str" title="Permalink to this definition">¶</a></dt>
-<dd><p>convert None values to empty strings</p>
+<dd><p>Convert None values to an empty string.</p>
+<p>Useful for changing None values for smooth mapping of who coding.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>s</strong> (<em>type</em>) – String to be converted.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Outut string, if string equalled None, returns ‘’, else returns original string.</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">type</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="function">
 <dt id="src.processing.utils.parse_date">
 <code class="descclassname">src.processing.utils.</code><code class="descname">parse_date</code><span class="sig-paren">(</span><em>record: dict</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/src/processing/utils.html#parse_date"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.processing.utils.parse_date" title="Permalink to this definition">¶</a></dt>
-<dd><p>Function to parse record date format</p>
+<dd><p>Function to parse record date format.</p>
 <p>Currently relying on parsing behaviour of pandas.to_datetime.
 NOTE: This is vulnerable to USA format dates parsed as EU dates</p>
+<p>DEPRACATED?</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>record</strong> (<em>dict</em>) – Dataset record.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Dataset record.</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">type</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="function">
 <dt id="src.processing.utils.remove_tags">
 <code class="descclassname">src.processing.utils.</code><code class="descname">remove_tags</code><span class="sig-paren">(</span><em>record: dict, keys: list = ['comments']</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/src/processing/utils.html#remove_tags"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.processing.utils.remove_tags" title="Permalink to this definition">¶</a></dt>
-<dd><p>Function to remove HTML tags from comments</p>
+<dd><p>Remove HTML tags from defined columns.</p>
+<p>Some datasets (CDC_ITF) provide comments that are enclosed in
+HTML tags for display on the web.</p>
+<p>Identifies content inside of HTML tags and returns content only.</p>
+<p>Example:</p>
+<p>“&lt;p&gt;Content&lt;/p&gt;” -&gt; “Content”</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>record</strong> (<em>dict</em>) – Input record.</li>
+<li><strong>keys</strong> (<em>list</em>) – List of which keys HTML tage replacement should be applied to.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">Record with HTML tags replaced in the defined tags.</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">type</p>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="function">
 <dt id="src.processing.utils.replace_conditional">
 <code class="descclassname">src.processing.utils.</code><code class="descname">replace_conditional</code><span class="sig-paren">(</span><em>record: dict</em>, <em>field: str</em>, <em>value: str</em>, <em>replacement: str</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/src/processing/utils.html#replace_conditional"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.processing.utils.replace_conditional" title="Permalink to this definition">¶</a></dt>
-<dd><p>Function to conditionally replace a value in an arbitrary field</p>
+<dd><p>Function to conditionally replace a value in a field.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>record</strong> (<em>dict</em>) – Input record.</li>
+<li><strong>field</strong> (<em>str</em>) – Key of field to be conditionally altered.</li>
+<li><strong>value</strong> (<em>str</em>) – Value to identify and replace.</li>
+<li><strong>replacement</strong> (<em>str</em>) – Value to insert on replacement.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">Record with specified key altered if <cite>record[key] == value</cite>. Otherwise, the original record is returned.</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">type</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="src.processing.utils.replace_country">
+<code class="descclassname">src.processing.utils.</code><code class="descname">replace_country</code><span class="sig-paren">(</span><em>record: dict</em>, <em>country_name: str</em>, <em>area_name: str</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/src/processing/utils.html#replace_country"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.processing.utils.replace_country" title="Permalink to this definition">¶</a></dt>
+<dd><p>Replace country name with an <cite>area_covered</cite> name.</p>
+<p>Promote a string in <cite>area_covered</cite> to <cite>country_territory_area</cite>.</p>
+<p>Applies to records where a WHO recognised country is defined as an
+administrative region of a different country.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>record</strong> (<em>dict</em>) – Input record.</li>
+<li><strong>country_name</strong> (<em>str</em>) – Country name to be matched.</li>
+<li><strong>area_name</strong> (<em>str</em>) – Area name to be matched.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">Record with country <cite>area_covered</cite> promotion applied.</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">type</p>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="function">
 <dt id="src.processing.utils.replace_sensitive_regions">
 <code class="descclassname">src.processing.utils.</code><code class="descname">replace_sensitive_regions</code><span class="sig-paren">(</span><em>record</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/src/processing/utils.html#replace_sensitive_regions"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.processing.utils.replace_sensitive_regions" title="Permalink to this definition">¶</a></dt>
-<dd><p>Replace a selection of commonly occuring admin level conflicts</p>
+<dd><p>Replace a selection of commonly occuring admin level issues.</p>
+<p>WHO recognizes certain administrative definitions that differ from ISO conventions.</p>
+<p>Future: Move specific region definitions to <cite>config</cite> directory.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>record</strong> (<em>type</em>) – Input record.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Record with sensitive regions changed.</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">type</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="function">
 <dt id="src.processing.utils.shift_sensitive_region">
 <code class="descclassname">src.processing.utils.</code><code class="descname">shift_sensitive_region</code><span class="sig-paren">(</span><em>record: dict</em>, <em>original_name: str</em>, <em>new_name: str</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/src/processing/utils.html#shift_sensitive_region"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.processing.utils.shift_sensitive_region" title="Permalink to this definition">¶</a></dt>
-<dd><p>Function to demote sensitive country names to area_covered from country_territory_area</p>
+<dd><p>Function to demote sensitive country names to <cite>area_covered</cite> from <cite>country_territory_area</cite>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>record</strong> (<em>dict</em>) – Input record.</li>
+<li><strong>original_name</strong> (<em>str</em>) – Original country name from provider dataset.</li>
+<li><strong>new_name</strong> (<em>str</em>) – New WHO-recognised country name.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">Record with sensitive countries changed.</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">type</p>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 </div>

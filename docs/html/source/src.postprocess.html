@@ -38,26 +38,111 @@
 <span id="src-postprocess-cdc-itf-module"></span><h2>src.postprocess.CDC_ITF module<a class="headerlink" href="#module-src.postprocess.CDC_ITF" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
 <dt id="src.postprocess.CDC_ITF.postprocess">
-<code class="descclassname">src.postprocess.CDC_ITF.</code><code class="descname">postprocess</code><span class="sig-paren">(</span><em>data: &lt;sphinx.ext.autodoc.importer._MockObject object at 0x7fbb1d9f7278&gt;</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/src/postprocess/CDC_ITF.html#postprocess"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.postprocess.CDC_ITF.postprocess" title="Permalink to this definition">¶</a></dt>
-<dd><p>Apply dataset-level transformations to cdc data</p>
+<code class="descclassname">src.postprocess.CDC_ITF.</code><code class="descname">postprocess</code><span class="sig-paren">(</span><em>data: &lt;sphinx.ext.autodoc.importer._MockObject object at 0x7f61d94632b0&gt;</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/src/postprocess/CDC_ITF.html#postprocess"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.postprocess.CDC_ITF.postprocess" title="Permalink to this definition">¶</a></dt>
+<dd><p>Apply dataset-level transformations to CDC_ITF data.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>data</strong> (<em>pd.DataFrame</em>) – Input CDC_ITF data.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">CDC_ITF data with transformations appied.</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">pd.DataFrame</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="function">
 <dt id="src.postprocess.CDC_ITF.remove_id_duplicates">
-<code class="descclassname">src.postprocess.CDC_ITF.</code><code class="descname">remove_id_duplicates</code><span class="sig-paren">(</span><em>data: &lt;sphinx.ext.autodoc.importer._MockObject object at 0x7fbb1d8c7128&gt;</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/src/postprocess/CDC_ITF.html#remove_id_duplicates"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.postprocess.CDC_ITF.remove_id_duplicates" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">src.postprocess.CDC_ITF.</code><code class="descname">remove_id_duplicates</code><span class="sig-paren">(</span><em>data: &lt;sphinx.ext.autodoc.importer._MockObject object at 0x7f61d9463710&gt;</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/src/postprocess/CDC_ITF.html#remove_id_duplicates"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.postprocess.CDC_ITF.remove_id_duplicates" title="Permalink to this definition">¶</a></dt>
 <dd><p>Remove duplicate records with identical measure_stage values</p>
+<p>Removes duplicate records with identical values in <cite>ref_cols</cite>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>data</strong> (<em>pd.DataFrame</em>) – Input CDC_ITF data.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Data with duplicates removed.</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">pd.DataFrame</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 </div>
-<div class="section" id="src-postprocess-jh-hit-module">
-<h2>src.postprocess.JH_HIT module<a class="headerlink" href="#src-postprocess-jh-hit-module" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="module-src.postprocess.JH_HIT">
+<span id="src-postprocess-jh-hit-module"></span><h2>src.postprocess.JH_HIT module<a class="headerlink" href="#module-src.postprocess.JH_HIT" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="src.postprocess.JH_HIT.combine_measures">
+<code class="descclassname">src.postprocess.JH_HIT.</code><code class="descname">combine_measures</code><span class="sig-paren">(</span><em>data: &lt;sphinx.ext.autodoc.importer._MockObject object at 0x7f61d9452860&gt;</em>, <em>who_code: str</em>, <em>id_stub: str</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/src/postprocess/JH_HIT.html#combine_measures"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.postprocess.JH_HIT.combine_measures" title="Permalink to this definition">¶</a></dt>
+<dd><p>Combine groups of records with an arbitrary <cite>who_code</cite>.</p>
+<p>Example:</p>
+<p>Groups are defined by records with identical numeric <cite>prop_id</cite> values:</p>
+<p>333_school_secondary, 333_school_nursery, 333_school_primary etc. -&gt; 333_school_closure</p>
+<p>or</p>
+<p>234_border_in, 234_border_out -&gt; 234_border_closure</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>data</strong> (<em>pd.DataFrame</em>) – Input data.</li>
+<li><strong>who_code</strong> (<em>str</em>) – <cite>who_code</cite> to combine.</li>
+<li><strong>id_stub</strong> (<em>str</em>) – Stub name to add to combined ID numbers.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">Data with combination applied.</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">pd.DataFrame</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="src.postprocess.JH_HIT.postprocess">
+<code class="descclassname">src.postprocess.JH_HIT.</code><code class="descname">postprocess</code><span class="sig-paren">(</span><em>data: &lt;sphinx.ext.autodoc.importer._MockObject object at 0x7f61d9452c88&gt;</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/src/postprocess/JH_HIT.html#postprocess"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.postprocess.JH_HIT.postprocess" title="Permalink to this definition">¶</a></dt>
+<dd><p>Apply dataset-level transformations to JH_HIT data.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>data</strong> (<em>pd.DataFrame</em>) – Input JH_HIT data.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">JH_HIT data with transformations appied.</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">pd.DataFrame</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
 </div>
 <div class="section" id="module-src.postprocess.main">
 <span id="src-postprocess-main-module"></span><h2>src.postprocess.main module<a class="headerlink" href="#module-src.postprocess.main" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
 <dt id="src.postprocess.main.postprocess">
-<code class="descclassname">src.postprocess.main.</code><code class="descname">postprocess</code><span class="sig-paren">(</span><em>data: &lt;sphinx.ext.autodoc.importer._MockObject object at 0x7fbb1da1dba8&gt;</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/src/postprocess/main.html#postprocess"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.postprocess.main.postprocess" title="Permalink to this definition">¶</a></dt>
-<dd><p>Function to apply manual changes to individual records</p>
+<code class="descclassname">src.postprocess.main.</code><code class="descname">postprocess</code><span class="sig-paren">(</span><em>data: &lt;sphinx.ext.autodoc.importer._MockObject object at 0x7f61d9436d30&gt;</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/src/postprocess/main.html#postprocess"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.postprocess.main.postprocess" title="Permalink to this definition">¶</a></dt>
+<dd><p>Unify manual changes applied to specific datasets.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>data</strong> (<em>pd.DataFrame</em>) – Input dataset.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Dataset with postprocessing changes applied.</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">pd.DataFrame</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 </div>

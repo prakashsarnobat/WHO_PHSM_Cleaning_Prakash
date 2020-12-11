@@ -30,35 +30,7 @@
           <div class="body" role="main">
             
   <h1>Source code for src.processing.JH_HIT</h1><div class="highlight"><pre>
-<span></span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">JH_HIT.py</span>
-<span class="sd">====================================</span>
-<span class="sd">Transform JH_HIT records to WHO PHSM format.</span>
-
-<span class="sd">**Data Source:**</span>
-<span class="sd">`https://github.com/HopkinsIDD/hit-covid &lt;https://github.com/HopkinsIDD/hit-covid&gt;`_</span>
-
-<span class="sd">**Processing Steps:**</span>
-
-<span class="sd">1. Remove records with null ``locality`` AND null ``usa_county`` values.</span>
-<span class="sd">2. Generate a blank record with required keys.</span>
-<span class="sd">3. Move data from provider record to new record with ``apply_key_map`` using key mapping in ``config/key_map/JH_HIT.csv``.</span>
-<span class="sd">4. Remove a subset of ``prov_measure`` values. See ``config/prov_measure_filter/JH_HIT.csv`` for exact values.</span>
-<span class="sd">5. Parse date formats in ``date_start``, ``date_end``, ``date_entry``.</span>
-<span class="sd">6. Assign a unique record ID.</span>
-<span class="sd">7. Map non-ascii characters to their closest ascii equivalent.</span>
-<span class="sd">8. Shift sensitive country names to ``area_covered``.</span>
-<span class="sd">9. Assign ISO codes using ``country_territory_area``.</span>
-<span class="sd">10. Check for missing ``iso`` codes.</span>
-<span class="sd">11. Assign WHO-accepted ``country_territory_area``, ``who_region``, ``iso_3166_1_numeric``</span>
-<span class="sd">12. Assign WHO PHSM dataset coding using ``prov_measure``, ``prov_subcategory``, ``prov_category``</span>
-<span class="sd">13. Check for missing ``who_code`` values.</span>
-<span class="sd">14. Replace ``admin_level`` values: null -&gt; &#39;unknown&#39;, &#39;Yes&#39; -&gt; &#39;national&#39;, &#39;No&#39; -&gt; &#39;state&#39;</span>
-<span class="sd">15. Replace ``prov_measure`` and ``prov_category`` with &#39;not_enough_to_code&#39; if ``comments`` are blank and ``prov_category`` no &#39;school_closed&#39;</span>
-<span class="sd">16. Replace ``non_compliance_penalty`` &quot;non_compliance_penalty&quot; -&gt; &quot;Not Known&quot;</span>
-
-<span class="sd">&quot;&quot;&quot;</span>
-<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 <span class="kn">from</span> <span class="nn">countrycode.countrycode</span> <span class="k">import</span> <span class="n">countrycode</span>
 
 <span class="c1"># hot fix for sys.path issues in test environment</span>
@@ -74,6 +46,28 @@
 
 
 <div class="viewcode-block" id="transform"><a class="viewcode-back" href="../../../source/src.processing.html#src.processing.JH_HIT.transform">[docs]</a><span class="k">def</span> <span class="nf">transform</span><span class="p">(</span><span class="n">record</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span> <span class="n">key_ref</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span> <span class="n">country_ref</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span> <span class="n">who_coding</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span> <span class="n">prov_measure_filter</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Apply transformations to JH_HIT records.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    record : dict</span>
+<span class="sd">        Input record.</span>
+<span class="sd">    key_ref : dict</span>
+<span class="sd">        Reference for key mapping.</span>
+<span class="sd">    country_ref : pd.DataFrame</span>
+<span class="sd">        Reference for WHO accepted country names.</span>
+<span class="sd">    who_coding : pd.DataFrame</span>
+<span class="sd">        Reference for WHO coding.</span>
+<span class="sd">    prov_measure_filter : pd.DataFrame</span>
+<span class="sd">        Reference for filtering by `prov_measure` values.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    dict</span>
+<span class="sd">        Record with transformations applied.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="c1"># 1.</span>
     <span class="k">if</span> <span class="n">pd</span><span class="o">.</span><span class="n">isnull</span><span class="p">(</span><span class="n">record</span><span class="p">[</span><span class="s1">&#39;locality&#39;</span><span class="p">])</span> <span class="ow">and</span> <span class="n">pd</span><span class="o">.</span><span class="n">isnull</span><span class="p">(</span><span class="n">record</span><span class="p">[</span><span class="s1">&#39;usa_county&#39;</span><span class="p">]):</span>
@@ -124,6 +118,13 @@
     <span class="n">record</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">replace_conditional</span><span class="p">(</span><span class="n">record</span><span class="p">,</span> <span class="s1">&#39;admin_level&#39;</span><span class="p">,</span> <span class="s1">&#39;Yes&#39;</span><span class="p">,</span> <span class="s1">&#39;national&#39;</span><span class="p">)</span>
     <span class="n">record</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">replace_conditional</span><span class="p">(</span><span class="n">record</span><span class="p">,</span> <span class="s1">&#39;admin_level&#39;</span><span class="p">,</span> <span class="s1">&#39;No&#39;</span><span class="p">,</span> <span class="s1">&#39;state&#39;</span><span class="p">)</span>
 
+    <span class="c1"># Replace JH enforcement == &#39;unknown&#39; with None</span>
+    <span class="n">record</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">replace_conditional</span><span class="p">(</span><span class="n">record</span><span class="p">,</span> <span class="s1">&#39;enforcement&#39;</span><span class="p">,</span> <span class="s1">&#39;unknown&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+
+    <span class="c1"># Replace JH targeter values</span>
+    <span class="n">record</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">replace_conditional</span><span class="p">(</span><span class="n">record</span><span class="p">,</span> <span class="s1">&#39;targeted&#39;</span><span class="p">,</span> <span class="s1">&#39;geographic subpobulation&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+    <span class="n">record</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">replace_conditional</span><span class="p">(</span><span class="n">record</span><span class="p">,</span> <span class="s1">&#39;targeted&#39;</span><span class="p">,</span> <span class="s1">&#39;entire population&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+
     <span class="c1"># 15. fill_not_enough_to_code</span>
     <span class="n">record</span> <span class="o">=</span> <span class="n">fill_not_enough_to_code</span><span class="p">(</span><span class="n">record</span><span class="p">)</span>
 
@@ -132,11 +133,58 @@
 
     <span class="n">record</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">remove_tags</span><span class="p">(</span><span class="n">record</span><span class="p">)</span>
 
+    <span class="n">record</span> <span class="o">=</span> <span class="n">blank_record_and_url</span><span class="p">(</span><span class="n">record</span><span class="p">)</span>
+
+    <span class="k">return</span><span class="p">(</span><span class="n">record</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="blank_record_and_url"><a class="viewcode-back" href="../../../source/src.processing.html#src.processing.JH_HIT.blank_record_and_url">[docs]</a><span class="k">def</span> <span class="nf">blank_record_and_url</span><span class="p">(</span><span class="n">record</span><span class="p">:</span> <span class="nb">dict</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Assign who_code == 11 and &#39;Not enough to code&#39; to records with no `comments` AND no `url`.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    record : dict</span>
+<span class="sd">        Input record.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    type</span>
+<span class="sd">        Record with coding altered.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">isna</span><span class="p">(</span><span class="n">record</span><span class="p">[</span><span class="s1">&#39;comments&#39;</span><span class="p">]))</span> <span class="ow">and</span> <span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">isna</span><span class="p">(</span><span class="n">record</span><span class="p">[</span><span class="s1">&#39;link&#39;</span><span class="p">]))</span> <span class="ow">and</span> <span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">isna</span><span class="p">(</span><span class="n">record</span><span class="p">[</span><span class="s1">&#39;alt_link&#39;</span><span class="p">])):</span>
+
+        <span class="n">record</span><span class="p">[</span><span class="s1">&#39;who_code&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;11&#39;</span>
+        <span class="n">record</span><span class="p">[</span><span class="s1">&#39;who_category&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;Not enough to code&#39;</span>
+        <span class="n">record</span><span class="p">[</span><span class="s1">&#39;who_subcategory&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;Not enough to code&#39;</span>
+        <span class="n">record</span><span class="p">[</span><span class="s1">&#39;who_measure&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;Not enough to code&#39;</span>
+
     <span class="k">return</span><span class="p">(</span><span class="n">record</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="apply_prov_measure_filter"><a class="viewcode-back" href="../../../source/src.processing.html#src.processing.JH_HIT.apply_prov_measure_filter">[docs]</a><span class="k">def</span> <span class="nf">apply_prov_measure_filter</span><span class="p">(</span><span class="n">record</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span> <span class="n">prov_measure_filter</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">):</span>
-    <span class="sd">&#39;&#39;&#39;Function to filter only some prov_measure and prov_category values&#39;&#39;&#39;</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Filter only some `prov_measure` and `prov_category` values.</span>
+
+<span class="sd">    Only some JH_HIT codings are accepted.</span>
+
+<span class="sd">    Relies on `prov_measure_filter` defined in `config`.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    record : dict</span>
+<span class="sd">        Input record.</span>
+<span class="sd">    prov_measure_filter : pd.DataFrame</span>
+<span class="sd">        Config of which codings to drop. Defined in `config` directory.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    type</span>
+<span class="sd">        If coding is included in WHO PHSM dataset, record, else None.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">if</span> <span class="n">record</span><span class="p">[</span><span class="s1">&#39;prov_category&#39;</span><span class="p">]</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="n">prov_measure_filter</span><span class="p">[</span><span class="s1">&#39;prov_category&#39;</span><span class="p">])</span> <span class="ow">and</span> <span class="n">record</span><span class="p">[</span><span class="s1">&#39;prov_measure&#39;</span><span class="p">]</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="n">prov_measure_filter</span><span class="p">[</span><span class="s1">&#39;prov_measure&#39;</span><span class="p">]):</span>
 
@@ -146,9 +194,21 @@
 
         <span class="k">return</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span></div>
 
-
 <div class="viewcode-block" id="fill_not_enough_to_code"><a class="viewcode-back" href="../../../source/src.processing.html#src.processing.JH_HIT.fill_not_enough_to_code">[docs]</a><span class="k">def</span> <span class="nf">fill_not_enough_to_code</span><span class="p">(</span><span class="n">record</span><span class="p">:</span> <span class="nb">dict</span><span class="p">):</span>
-    <span class="sd">&#39;&#39;&#39;Function to add &quot;not enough to code&quot; label to specific records&#39;&#39;&#39;</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Function to add &quot;not enough to code&quot; label when comments are blank.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    record : dict</span>
+<span class="sd">        Input record.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    type</span>
+<span class="sd">        Record with `prov_measure` and `prov_category` values altered conditionally.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">if</span> <span class="n">record</span><span class="p">[</span><span class="s1">&#39;comments&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;&#39;</span> <span class="ow">and</span> <span class="n">record</span><span class="p">[</span><span class="s1">&#39;prov_category&#39;</span><span class="p">]</span> <span class="o">!=</span> <span class="s1">&#39;school_closed&#39;</span><span class="p">:</span>
 

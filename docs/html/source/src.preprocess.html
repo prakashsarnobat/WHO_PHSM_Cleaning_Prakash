@@ -38,23 +38,90 @@
 <span id="src-preprocess-utils-module"></span><h2>src.preprocess.utils module<a class="headerlink" href="#module-src.preprocess.utils" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
 <dt id="src.preprocess.utils.df_to_records">
-<code class="descclassname">src.preprocess.utils.</code><code class="descname">df_to_records</code><span class="sig-paren">(</span><em>df: &lt;sphinx.ext.autodoc.importer._MockObject object at 0x7fbb1d94be10&gt;</em>, <em>dataset: str</em>, <em>drop_columns=[]</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/src/preprocess/utils.html#df_to_records"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.preprocess.utils.df_to_records" title="Permalink to this definition">¶</a></dt>
-<dd><p>Function to convert dataframe to record oriented - dict</p>
+<code class="descclassname">src.preprocess.utils.</code><code class="descname">df_to_records</code><span class="sig-paren">(</span><em>df: &lt;sphinx.ext.autodoc.importer._MockObject object at 0x7f61d93d6c18&gt;</em>, <em>dataset: str</em>, <em>drop_columns=[]</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/src/preprocess/utils.html#df_to_records"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.preprocess.utils.df_to_records" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convert dataframe to a list of record oriented dicts.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>df</strong> (<em>pd.DataFrame</em>) – Input dataset.</li>
+<li><strong>dataset</strong> (<em>str</em>) – Name of provider dataset.</li>
+<li><strong>drop_columns</strong> (<em>type</em>) – Which columns (if any) to drop.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">List of row-wise dicts.</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">list</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="src.preprocess.utils.filter_new_hashes">
+<code class="descclassname">src.preprocess.utils.</code><code class="descname">filter_new_hashes</code><span class="sig-paren">(</span><em>data: &lt;sphinx.ext.autodoc.importer._MockObject object at 0x7f61d93d6b00&gt;</em>, <em>ingested_path: str</em>, <em>date_now: str = '2020_12_11'</em>, <em>save_ingestion_hashes: bool = False</em><span class="sig-paren">)</span> &#x2192; &lt;sphinx.ext.autodoc.importer._MockObject object at 0x7f61d93d6048&gt;<a class="reference internal" href="../_modules/src/preprocess/utils.html#filter_new_hashes"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.preprocess.utils.filter_new_hashes" title="Permalink to this definition">¶</a></dt>
+<dd><p>Filter records by the row-wise hashes of their content.</p>
+<p>Reduces the number of records that need to be processed from each dataset.</p>
+<p>Will not filter hashes that were ingested on the same day as the function is called.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>data</strong> (<em>pd.DataFrame</em>) – Input data.</li>
+<li><strong>ingested_path</strong> (<em>str</em>) – Path to ingested hash reference.</li>
+<li><strong>date_now</strong> (<em>str</em>) – String of current date.</li>
+<li><strong>save_ingestion_hashes</strong> (<em>bool</em>) – Should ingestion hashes be saved?</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">Filtered data.</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">pd.DataFrame</p>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="function">
 <dt id="src.preprocess.utils.get_measure_records">
 <code class="descclassname">src.preprocess.utils.</code><code class="descname">get_measure_records</code><span class="sig-paren">(</span><em>combined_record</em>, <em>stub_names</em>, <em>id_columns</em>, <em>full_value_names</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/src/preprocess/utils.html#get_measure_records"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.preprocess.utils.get_measure_records" title="Permalink to this definition">¶</a></dt>
-<dd><p>Function to break rows into individual records by stub group</p>
+<dd><p>Function to break rows into individual records by stub group.</p>
 <p>i.e. subset a row for only C4 records and other information, repeat for all possible measures.</p>
-<p>Also drops records where notes column is blank i.e. sum(notes columns) == 0</p>
+<p>Also drops records where notes column is blank i.e. sum(notes columns) == 0.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>combined_record</strong> (<em>type</em>) – Dict of a single OXCGRT row.</li>
+<li><strong>stub_names</strong> (<em>type</em>) – List of names of each stub group.</li>
+<li><strong>id_columns</strong> (<em>type</em>) – List of columns to be retained as IDs.</li>
+<li><strong>full_value_names</strong> (<em>type</em>) – List of full names of value columns.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">List of dicts containing all records extracted from a given row.</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">list</p>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="function">
 <dt id="src.preprocess.utils.get_names">
-<code class="descclassname">src.preprocess.utils.</code><code class="descname">get_names</code><span class="sig-paren">(</span><em>ox</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/src/preprocess/utils.html#get_names"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.preprocess.utils.get_names" title="Permalink to this definition">¶</a></dt>
-<dd><p>Function to get names of columns holding measure information.</p>
-<p>These columns begin with the prefix “<a href="#id1"><span class="problematic" id="id2">A1_</span></a>” etc.</p>
+<code class="descclassname">src.preprocess.utils.</code><code class="descname">get_names</code><span class="sig-paren">(</span><em>ox: &lt;sphinx.ext.autodoc.importer._MockObject object at 0x7f61d93d6a90&gt;</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/src/preprocess/utils.html#get_names"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.preprocess.utils.get_names" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the names of columns holding measure information.</p>
+<p>These columns begin with the prefix “A1_” etc.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -65,54 +132,216 @@ stub_names: the measure column prefixes (i.e. “A1”)</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">full_value_names</td>
 </tr>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>ox</strong> (<em>pd.DataFrame</em>) – Input OXCGRT dataset.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><ul class="simple">
+<li><strong>full_value_names</strong> (<em>list</em>) – The names of all columns with measure information.</li>
+<li><strong>value_names</strong> (<em>list</em>) – The names of measure columns.</li>
+<li><strong>stub_names</strong> (<em>list</em>) – The measure column prefixes (i.e. “A1”).</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="src.preprocess.utils.get_row_hashes">
+<code class="descclassname">src.preprocess.utils.</code><code class="descname">get_row_hashes</code><span class="sig-paren">(</span><em>data: &lt;sphinx.ext.autodoc.importer._MockObject object at 0x7f61d93caef0&gt;</em><span class="sig-paren">)</span> &#x2192; list<a class="reference internal" href="../_modules/src/preprocess/utils.html#get_row_hashes"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.preprocess.utils.get_row_hashes" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get row-wise base64 encoded hashes for a dataframe.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>data</strong> (<em>pd.DataFrame</em>) – Input data.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">list of hashes.</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">list</td>
+</tr>
 </tbody>
 </table>
 </dd></dl>
 
 <dl class="function">
 <dt id="src.preprocess.utils.oxcgrt_records">
-<code class="descclassname">src.preprocess.utils.</code><code class="descname">oxcgrt_records</code><span class="sig-paren">(</span><em>ox</em>, <em>dataset</em>, <em>drop_columns=[]</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/src/preprocess/utils.html#oxcgrt_records"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.preprocess.utils.oxcgrt_records" title="Permalink to this definition">¶</a></dt>
-<dd><p>Function to convert OXCGRT data to records</p>
-<p>This is an additional challenge because of the wide format of the Oxford data</p>
+<code class="descclassname">src.preprocess.utils.</code><code class="descname">oxcgrt_records</code><span class="sig-paren">(</span><em>ox: &lt;sphinx.ext.autodoc.importer._MockObject object at 0x7f61d93d6b70&gt;</em>, <em>dataset: str</em>, <em>drop_columns: list = []</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/src/preprocess/utils.html#oxcgrt_records"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.preprocess.utils.oxcgrt_records" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function to convert OXCGRT data to list of record dicts.</p>
+<p>This presents an additional challenge because of the wide format of the OXCGRT data.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>ox</strong> (<em>pd.DataFrame</em>) – Input OXCGRT data.</li>
+<li><strong>dataset</strong> (<em>str</em>) – Name of provider dataset.</li>
+<li><strong>drop_columns</strong> (<em>list</em>) – Which columns (if any) to drop.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">List of record dicts.</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">list</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="src.preprocess.utils.split_df_by_group">
+<code class="descclassname">src.preprocess.utils.</code><code class="descname">split_df_by_group</code><span class="sig-paren">(</span><em>data: &lt;sphinx.ext.autodoc.importer._MockObject object at 0x7f61d93d6b38&gt;</em>, <em>group: str</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/src/preprocess/utils.html#split_df_by_group"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.preprocess.utils.split_df_by_group" title="Permalink to this definition">¶</a></dt>
+<dd><p>Split a dataframe by group and return a named dictionary.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>data</strong> (<em>pd.DataFrame</em>) – Input dataset.</li>
+<li><strong>group</strong> (<em>str</em>) – Name of column to be used as group.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">Dict of dataset slices named by group.</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">dict</p>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="function">
 <dt id="src.preprocess.utils.write_records">
 <code class="descclassname">src.preprocess.utils.</code><code class="descname">write_records</code><span class="sig-paren">(</span><em>records: list</em>, <em>dir: str</em>, <em>fn: str</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/src/preprocess/utils.html#write_records"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.preprocess.utils.write_records" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Write records to a pickle file.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>records</strong> (<em>list</em>) – List of preprocessed records.</li>
+<li><strong>dir</strong> (<em>str</em>) – Output directory.</li>
+<li><strong>fn</strong> (<em>str</em>) – Output file name.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"></p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">None</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
 
 </div>
 <div class="section" id="module-src.preprocess.check">
 <span id="src-preprocess-check-module"></span><h2>src.preprocess.check module<a class="headerlink" href="#module-src.preprocess.check" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="main-py">
-<h3>main.py<a class="headerlink" href="#main-py" title="Permalink to this headline">¶</a></h3>
-<p>Functions to check input datasets during preprocessing.</p>
-<p>test these functions!</p>
 <dl class="function">
 <dt id="src.preprocess.check.check_column_names">
-<code class="descclassname">src.preprocess.check.</code><code class="descname">check_column_names</code><span class="sig-paren">(</span><em>records: &lt;sphinx.ext.autodoc.importer._MockObject object at 0x7fbb1d8917b8&gt;</em>, <em>config: &lt;sphinx.ext.autodoc.importer._MockObject object at 0x7fbb1d891780&gt;</em>, <em>log: bool = True</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/src/preprocess/check.html#check_column_names"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.preprocess.check.check_column_names" title="Permalink to this definition">¶</a></dt>
-<dd><p>Function to check that column names agree with config or raise exception</p>
+<code class="descclassname">src.preprocess.check.</code><code class="descname">check_column_names</code><span class="sig-paren">(</span><em>records: &lt;sphinx.ext.autodoc.importer._MockObject object at 0x7f61d927c5c0&gt;</em>, <em>config: &lt;sphinx.ext.autodoc.importer._MockObject object at 0x7f61d9478550&gt;</em>, <em>log: bool = True</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/src/preprocess/check.html#check_column_names"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.preprocess.check.check_column_names" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function to check that column names agree with config or raise exception.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>records</strong> (<em>pd.DataFrame</em>) – Dataframe of provider data.</li>
+<li><strong>config</strong> (<em>pd.DataFrame</em>) – Reference for accepted column names.</li>
+<li><strong>log</strong> (<em>bool</em>) – Whether or not to log results of checks.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"></p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">None</p>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="function">
 <dt id="src.preprocess.check.check_date_format">
-<code class="descclassname">src.preprocess.check.</code><code class="descname">check_date_format</code><span class="sig-paren">(</span><em>data: &lt;sphinx.ext.autodoc.importer._MockObject object at 0x7fbb1d891550&gt;</em>, <em>config: &lt;sphinx.ext.autodoc.importer._MockObject object at 0x7fbb1d891400&gt;</em>, <em>dataset: str</em>, <em>log: bool = True</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/src/preprocess/check.html#check_date_format"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.preprocess.check.check_date_format" title="Permalink to this definition">¶</a></dt>
-<dd><p>Function to check that an input date is in the expected format</p>
+<code class="descclassname">src.preprocess.check.</code><code class="descname">check_date_format</code><span class="sig-paren">(</span><em>data: &lt;sphinx.ext.autodoc.importer._MockObject object at 0x7f61d9478630&gt;</em>, <em>config: &lt;sphinx.ext.autodoc.importer._MockObject object at 0x7f61d94786d8&gt;</em>, <em>dataset: str</em>, <em>log: bool = True</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/src/preprocess/check.html#check_date_format"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.preprocess.check.check_date_format" title="Permalink to this definition">¶</a></dt>
+<dd><p>Check that an input date is in the expected format.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>data</strong> (<em>pd.DataFrame</em>) – Dataframe of provider data..</li>
+<li><strong>config</strong> (<em>pd.DataFrame</em>) – Reference for accepted date formats.</li>
+<li><strong>dataset</strong> (<em>str</em>) – Name of provider dataset.</li>
+<li><strong>log</strong> (<em>bool</em>) – Whether or not to log results of checks.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"></p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">None</p>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="function">
 <dt id="src.preprocess.check.check_input">
-<code class="descclassname">src.preprocess.check.</code><code class="descname">check_input</code><span class="sig-paren">(</span><em>records: &lt;sphinx.ext.autodoc.importer._MockObject object at 0x7fbb1d8f1940&gt;</em>, <em>column_config: &lt;sphinx.ext.autodoc.importer._MockObject object at 0x7fbb1d8f1978&gt;</em>, <em>date_config: &lt;sphinx.ext.autodoc.importer._MockObject object at 0x7fbb1d891ba8&gt;</em>, <em>dataset: str</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/src/preprocess/check.html#check_input"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.preprocess.check.check_input" title="Permalink to this definition">¶</a></dt>
-<dd><p>Function to unify all input checks</p>
+<code class="descclassname">src.preprocess.check.</code><code class="descname">check_input</code><span class="sig-paren">(</span><em>records: &lt;sphinx.ext.autodoc.importer._MockObject object at 0x7f61d9428a90&gt;</em>, <em>column_config: &lt;sphinx.ext.autodoc.importer._MockObject object at 0x7f61d94287b8&gt;</em>, <em>date_config: &lt;sphinx.ext.autodoc.importer._MockObject object at 0x7f61d9428b00&gt;</em>, <em>dataset: str</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/src/preprocess/check.html#check_input"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.preprocess.check.check_input" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function to unify all input checks.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>records</strong> (<em>pd.DataFrame</em>) – Dataframe of provider data.</li>
+<li><strong>column_config</strong> (<em>pd.DataFrame</em>) – Reference for accepted column names.</li>
+<li><strong>date_config</strong> (<em>pd.DataFrame</em>) – Reference for accepted date formats.</li>
+<li><strong>dataset</strong> (<em>str</em>) – Name of provider dataset.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">Description of returned object.</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">type</p>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="function">
 <dt id="src.preprocess.check.validate_date_format">
 <code class="descclassname">src.preprocess.check.</code><code class="descname">validate_date_format</code><span class="sig-paren">(</span><em>date</em>, <em>format</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/src/preprocess/check.html#validate_date_format"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.preprocess.check.validate_date_format" title="Permalink to this definition">¶</a></dt>
-<dd><p>Function to return None if a date format does not parse</p>
+<dd><p>Return None if a date format does not parse.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>date</strong> (<em>type</em>) – Input date string.</li>
+<li><strong>format</strong> (<em>type</em>) – Input accpeted format to try.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">Returns date on successful parse or None on parsing failure.</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">type</p>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
-</div>
 </div>
 <div class="section" id="module-src.preprocess">
 <span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-src.preprocess" title="Permalink to this headline">¶</a></h2>

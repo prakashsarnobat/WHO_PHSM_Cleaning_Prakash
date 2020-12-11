@@ -36,32 +36,85 @@
 </div>
 <div class="section" id="module-src.manually_cleaned.main">
 <span id="src-manually-cleaned-main-module"></span><h2>src.manually_cleaned.main module<a class="headerlink" href="#module-src.manually_cleaned.main" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="main-py">
-<h3>Main.py<a class="headerlink" href="#main-py" title="Permalink to this headline">¶</a></h3>
-<p>Apply changes to manually cleaned data.</p>
-<ul class="simple">
-<li>If a record has a following_measure_number, update date_end and reason_ended values from the following record</li>
-<li>If measure stage is “finish”, date_end should == date_start and reason_ended == ‘finish’</li>
-</ul>
 <dl class="function">
 <dt id="src.manually_cleaned.main.adjust_manually_cleaned">
-<code class="descclassname">src.manually_cleaned.main.</code><code class="descname">adjust_manually_cleaned</code><span class="sig-paren">(</span><em>manually_cleaned</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/src/manually_cleaned/main.html#adjust_manually_cleaned"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.manually_cleaned.main.adjust_manually_cleaned" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<code class="descclassname">src.manually_cleaned.main.</code><code class="descname">adjust_manually_cleaned</code><span class="sig-paren">(</span><em>manually_cleaned: &lt;sphinx.ext.autodoc.importer._MockObject object at 0x7f61d9527c50&gt;</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/src/manually_cleaned/main.html#adjust_manually_cleaned"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.manually_cleaned.main.adjust_manually_cleaned" title="Permalink to this definition">¶</a></dt>
+<dd><p>Unify value adjustments in manually cleaned data.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>manually_cleaned</strong> (<em>pd.DataFrame</em>) – Manually cleaned data.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Description of returned object.</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">pd.DataFrame</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="src.manually_cleaned.main.columns_to_lower">
+<code class="descclassname">src.manually_cleaned.main.</code><code class="descname">columns_to_lower</code><span class="sig-paren">(</span><em>manually_cleaned: &lt;sphinx.ext.autodoc.importer._MockObject object at 0x7f61d9527c88&gt;</em>, <em>lowercase_columns: list</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/src/manually_cleaned/main.html#columns_to_lower"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.manually_cleaned.main.columns_to_lower" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set all values in a column to lowercase.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>manually_cleaned</strong> (<em>pd.DataFrame</em>) – Manually cleaned data.</li>
+<li><strong>lowercase_columns</strong> (<em>list</em>) – list of columns to transform to lowercase.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">Manually cleaned data with conversion applied.</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">pd.DataFrame</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
 
 <dl class="function">
 <dt id="src.manually_cleaned.main.update_following_measures">
-<code class="descclassname">src.manually_cleaned.main.</code><code class="descname">update_following_measures</code><span class="sig-paren">(</span><em>manually_cleaned</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/src/manually_cleaned/main.html#update_following_measures"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.manually_cleaned.main.update_following_measures" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<code class="descclassname">src.manually_cleaned.main.</code><code class="descname">update_following_measures</code><span class="sig-paren">(</span><em>manually_cleaned: &lt;sphinx.ext.autodoc.importer._MockObject object at 0x7f61d9527908&gt;</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/src/manually_cleaned/main.html#update_following_measures"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.manually_cleaned.main.update_following_measures" title="Permalink to this definition">¶</a></dt>
+<dd><p>Update <cite>date_end</cite> values for records that have been assigned a following record.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>manually_cleaned</strong> (<em>pd.DataFrame</em>) – Manually cleaned data.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Manually cleaned data with <cite>date_end</cite> values adjusted.</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">pd.DataFrame</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
 
 <dl class="function">
 <dt id="src.manually_cleaned.main.update_measure_stage_date">
-<code class="descclassname">src.manually_cleaned.main.</code><code class="descname">update_measure_stage_date</code><span class="sig-paren">(</span><em>manually_cleaned</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/src/manually_cleaned/main.html#update_measure_stage_date"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.manually_cleaned.main.update_measure_stage_date" title="Permalink to this definition">¶</a></dt>
-<dd><ul class="simple">
-<li>If measure stage is “finish”, date_end should == date_start and reason_ended == ‘finish</li>
-</ul>
+<code class="descclassname">src.manually_cleaned.main.</code><code class="descname">update_measure_stage_date</code><span class="sig-paren">(</span><em>manually_cleaned: &lt;sphinx.ext.autodoc.importer._MockObject object at 0x7f61d9527860&gt;</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/src/manually_cleaned/main.html#update_measure_stage_date"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.manually_cleaned.main.update_measure_stage_date" title="Permalink to this definition">¶</a></dt>
+<dd><p>Updates <cite>date_end</cite> and <cite>reason_ended</cite> based on <cite>measure_stage</cite> value.</p>
+<p>If measure stage is “finish”, date_end should == date_start and reason_ended == “finish”.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>manually_cleaned</strong> (<em>pd.DataFrame</em>) – Manually cleaned data.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Manually cleaned data with adjustments.</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">pd.DataFrame</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
-</div>
 </div>
 <div class="section" id="module-src.manually_cleaned">
 <span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-src.manually_cleaned" title="Permalink to this headline">¶</a></h2>

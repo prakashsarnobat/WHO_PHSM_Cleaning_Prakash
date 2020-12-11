@@ -38,13 +38,56 @@
 <span id="src-master-main-module"></span><h2>src.master.main module<a class="headerlink" href="#module-src.master.main" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
 <dt id="src.master.main.get_combo_string">
-<code class="descclassname">src.master.main.</code><code class="descname">get_combo_string</code><span class="sig-paren">(</span><em>records</em>, <em>cols</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/src/master/main.html#get_combo_string"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.master.main.get_combo_string" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<code class="descclassname">src.master.main.</code><code class="descname">get_combo_string</code><span class="sig-paren">(</span><em>records: &lt;sphinx.ext.autodoc.importer._MockObject object at 0x7f61d94361d0&gt;</em>, <em>cols: list</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/src/master/main.html#get_combo_string"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.master.main.get_combo_string" title="Permalink to this definition">¶</a></dt>
+<dd><p>Paste column values together, separated by ‘_’.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>records</strong> (<em>pd.DataFrame</em>) – Input dataset.</li>
+<li><strong>cols</strong> (<em>list</em>) – Columns to be pasted together.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">List of pasted column values.</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">list</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
 
 <dl class="function">
 <dt id="src.master.main.get_new_records">
-<code class="descclassname">src.master.main.</code><code class="descname">get_new_records</code><span class="sig-paren">(</span><em>records: &lt;sphinx.ext.autodoc.importer._MockObject object at 0x7fbb1d9432b0&gt;</em>, <em>previous_update: &lt;sphinx.ext.autodoc.importer._MockObject object at 0x7fbb1d9a4978&gt;</em>, <em>cols</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/src/master/main.html#get_new_records"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.master.main.get_new_records" title="Permalink to this definition">¶</a></dt>
-<dd><p>Identify new records in an update data and a previous update data</p>
+<code class="descclassname">src.master.main.</code><code class="descname">get_new_records</code><span class="sig-paren">(</span><em>records: &lt;sphinx.ext.autodoc.importer._MockObject object at 0x7f61d94366a0&gt;</em>, <em>previous_update: &lt;sphinx.ext.autodoc.importer._MockObject object at 0x7f61d9436278&gt;</em>, <em>cols: list</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/src/master/main.html#get_new_records"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.master.main.get_new_records" title="Permalink to this definition">¶</a></dt>
+<dd><p>Identify new records in an update data and a previous update data.</p>
+<p>Based on a string of <cite>cols</cite> pasted together to form an identifier.</p>
+<p class="rubric">Example</p>
+<p>Given <cite>cols</cite> = <cite>[‘country_territory_area’, ‘date_start’]</cite>, pastes values in these columns together. Referred to as a “combo string”.</p>
+<p>Any records in <cite>records</cite> with a “combo string” in <cite>previous_update</cite> will be not be recognised as a new record.</p>
+<p>i.e. “United States of America_2020-01-01” == “United States of America_2020-01-01” means that records match.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>records</strong> (<em>pd.DataFrame</em>) – Newly updated data.</li>
+<li><strong>previous_update</strong> (<em>pd.DataFrame</em>) – Previously updated data.</li>
+<li><strong>cols</strong> (<em>list</em>) – Columns to be considered when merging records.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">New records not present in <cite>previous_update</cite>.</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">pd.DataFrame</p>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 </div>
