@@ -35,14 +35,6 @@ Or start a container and use `bash` with:
 make bash
 ```
 
-### Linting
-
-Once in the container, run [`isort`](https://pypi.org/project/isort/), [`black`](https://pypi.org/project/black/), and [`flake8`](https://pypi.org/project/flake8/) with:
-
-``` ${shell} 
-make lint
-```
-
 ### Testing
 
 This project uses [`tox`](https://tox.readthedocs.io/en/latest/) for automated unit testing.
@@ -50,5 +42,32 @@ This project uses [`tox`](https://tox.readthedocs.io/en/latest/) for automated u
 Run unit tests with:
 
 ``` ${shell} 
+make test
+```
+
+Once in the container, run unit tests with:
+
+``` ${shell} 
 tox
+```
+
+### Cleaning
+
+Run the full cleaning routine with:
+
+``` ${shell} 
+make data
+```
+
+**Please note:** Some files may be required in a `data` directory which is not tracked in this repository.
+
+To run individual components of the cleaning routine, see the targets available in the `Makefile`.
+
+
+### Linting
+
+Once in the container, run [`isort`](https://pypi.org/project/isort/), [`black`](https://pypi.org/project/black/), and [`flake8`](https://pypi.org/project/flake8/) with:
+
+``` ${shell} 
+make lint
 ```
