@@ -176,7 +176,22 @@ def add_date_end(record: dict):
 
 
 def join_comments(record: dict):
-    '''Function to combine comments from "Concise Notes" and "Notes" fields'''
+    """
+    Combine comments from "Concise Notes" and "Notes" fields.
+
+    Both will be stored in `comments` column of output dataset.
+
+    Parameters
+    ----------
+    record : dict
+        Input record.
+
+    Returns
+    -------
+    type
+        Record with merged comments.
+
+    """
 
     if type(record['Concise Notes']) != str:
 
