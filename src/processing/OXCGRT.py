@@ -97,10 +97,25 @@ def transform(record: dict, key_ref: dict, country_ref: pd.DataFrame, who_coding
     return(record)
 
 def label_update_phrase(record: dict, phrases: list):
-    '''
+    """
     Function to assign who_code == 10 and 'Not of interest'
-    to records with no update phrases
-    '''
+    to records with no update phrases.
+
+    Update phrases are defined in `config` directory.
+
+    Parameters
+    ----------
+    record : dict
+        Input record.
+    phrases : list
+        Reference for "no update" phrases.
+
+    Returns
+    -------
+    type
+        Record with coding transformations applied.
+
+    """
 
     if is_update_phrase(record['comments'], phrases):
 
@@ -113,6 +128,22 @@ def label_update_phrase(record: dict, phrases: list):
 
 
 def is_update_phrase(comment: str, phrases: list):
+    """
+    Identify comments matchign any "no update" phrases.
+
+    Parameters
+    ----------
+    comment : str
+        Comment string.
+    phrases : list
+        List of known "no update" phrases.
+
+    Returns
+    -------
+    type
+        True (is a "no update" phrase) or False (is not a "no update" phrase).
+
+    """
 
     if comment is None:
 
