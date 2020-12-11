@@ -76,8 +76,24 @@ def update_following_measures(manually_cleaned: pd.DataFrame):
     return(pd.concat([to_alter, not_to_alter]))
 
 
-def update_measure_stage_date(manually_cleaned):
-    '''* If measure stage is "finish", date_end should == date_start and reason_ended == 'finish'''
+def update_measure_stage_date(manually_cleaned: pd.DataFrame):
+    """
+
+    Updates `date_end` and `reason_ended` based on `measure_stage` value.
+
+    If measure stage is "finish", date_end should == date_start and reason_ended == "finish".
+
+    Parameters
+    ----------
+    manually_cleaned : pd.DataFrame
+        Manually cleaned data.
+
+    Returns
+    -------
+    pd.DataFrame
+        Manually cleaned data with adjustments.
+
+    """
 
     is_null_date_end = pd.isna(manually_cleaned['date_end'])
     is_finish = manually_cleaned['measure_stage'] == 'finish'
@@ -89,7 +105,22 @@ def update_measure_stage_date(manually_cleaned):
 
 
 def columns_to_lower(manually_cleaned: pd.DataFrame, lowercase_columns: list):
-    '''Function to set all columns to lowercase'''
+    """
+    Set all values in a column to lowercase.
+
+    Parameters
+    ----------
+    manually_cleaned : pd.DataFrame
+        Manually cleaned data.
+    lowercase_columns : list
+        list of columns to transform to lowercase.
+
+    Returns
+    -------
+    pd.DataFrame
+        Manually cleaned data with conversion applied.
+
+    """
 
     for col in lowercase_columns:
 
