@@ -1,19 +1,3 @@
-"""
-OXCGRT.py
-====================================
-Transform OXCGRT records to WHO PHSM format.
-
-**Data Source:**
-`https://raw.githubusercontent.com/OxCGRT/covid-policy-tracker/master/data/OxCGRT_latest_withnotes.csv <https://raw.githubusercontent.com/OxCGRT/covid-policy-tracker/master/data/OxCGRT_latest_withnotes.csv>`_
-
-**Processing Steps:**
-1. generator function of new record with correct keys (shared)
-2. replace data in new record with data from old record using column reference (shared)
-3. Assign unique ID (shared)
-4. Handle date formatting
-
-"""
-
 import pandas as pd
 from countrycode.countrycode import countrycode
 import re
