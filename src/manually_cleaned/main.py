@@ -21,7 +21,23 @@ def adjust_manually_cleaned(manually_cleaned: pd.DataFrame):
 
     return(manually_cleaned)
 
-def update_following_measures(manually_cleaned):
+
+def update_following_measures(manually_cleaned: pd.DataFrame):
+    """
+
+    Update `date_end` values for records that have been assigned a following record.
+
+    Parameters
+    ----------
+    manually_cleaned : pd.DataFrame
+        Manually cleaned data.
+
+    Returns
+    -------
+    pd.DataFrame
+        Manually cleaned data with `date_end` values adjusted.
+
+    """
 
     has_following_measure = pd.Series([not pd.isna(x) for x in manually_cleaned['following_measure_number']])
 
