@@ -310,9 +310,26 @@ def check_coded_values(data: pd.DataFrame, config: pd.DataFrame, log: bool = Tru
 
 
 def check_columns_one_to_one(data: pd.DataFrame, ref_col: str, target_col: str, log: bool = True):
-    '''
-    Function to detect violations of one-to-one relationships in a pair of columns.
-    '''
+    """
+    Detect violations of one-to-one relationships in a pair of columns.
+
+    Parameters
+    ----------
+    data : pd.DataFrame
+        Input data.
+    ref_col : str
+        Column name to be checked.
+    target_col : str
+        Column name to be searched for matching pairs of values.
+    log : bool
+        Whether to log results.
+
+    Returns
+    -------
+    bool
+        Result of check.
+
+    """
 
     data = data.copy()
 
