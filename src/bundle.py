@@ -4,9 +4,6 @@ bundle.py
 Script to bundle output datasets from the tmp directory
 into the data directory.
 
-should be able to run without adding files to an existing dir
-
-
 """
 
 import os

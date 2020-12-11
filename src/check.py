@@ -12,7 +12,20 @@ except:
 
 
 def check_output(data: pd.DataFrame):
-    '''Function to check output from master, mistress, and output'''
+    """
+    Unified check applied to processed data.
+
+    Parameters
+    ----------
+    data : pd.DataFrame
+        Data to be checked.
+
+    Returns
+    -------
+    pd.DataFrame
+        Checked data.
+
+    """
 
     # check columns are correct
     check_column_names(data)
@@ -47,6 +60,24 @@ def check_output(data: pd.DataFrame):
 
 
 def check_duplicate_id(data: pd.DataFrame, key: str, log: bool = True):
+    """
+    Check for duplicates in ID columns.
+
+    Parameters
+    ----------
+    data : pd.DataFrame
+        Input data.
+    key : str
+        Key to check for duplicates.
+    log : bool
+        Whether to log results.
+
+    Returns
+    -------
+    bool
+        Result of check.
+
+    """
 
     res = len(data[key]) == len(data[key].unique())
 
@@ -70,7 +101,23 @@ def check_duplicate_id(data: pd.DataFrame, key: str, log: bool = True):
 
 
 def check_column_names(data: pd.DataFrame, log: bool = True):
-    '''Function to check that column names are expected'''
+    """
+    Check that dataset columns have the expected names.
+
+    Parameters
+    ----------
+    data : pd.DataFrame
+        Input data.
+    log : bool
+        Whether to log results.
+
+    Returns
+    -------
+    bool
+        Result of check.
+
+    """
+
     expected = generate_blank_record().keys()
 
     try:
@@ -100,7 +147,26 @@ def check_column_names(data: pd.DataFrame, log: bool = True):
 
 
 def check_unknown_values(data: pd.DataFrame, key: str, log: bool = True):
-    '''Function to check for unknown values'''
+    """
+    Function to check for values == "unknown" in a given column.
+
+    This indicates failures in previous processing steps.
+
+    Parameters
+    ----------
+    data : pd.DataFrame
+        Input data.
+    key : str
+        Key to check for unknown values.
+    log : bool
+        Whether to log results.
+
+    Returns
+    -------
+    bool
+        Result of check.
+
+    """
 
     unknown_vals = data.loc[data[key] == 'unknown']
 
@@ -146,7 +212,26 @@ def check_unknown_values(data: pd.DataFrame, key: str, log: bool = True):
 
 
 def check_values_present(data: pd.DataFrame, focus_col: str, ref_col: str, log: bool = True):
-    '''Function to check if values present in one column can also be found in another column'''
+    """
+    Check if values present in one column can also be found in another column.
+
+    Parameters
+    ----------
+    data : pd.DataFrame
+        Input data.
+    focus_col : str
+        Name of column to be checked.
+    ref_col : str
+        Name of column to be searched for matching values.
+    log : bool
+        Whether to log results.
+
+    Returns
+    -------
+    bool
+        Result of check.
+
+    """
 
     diff = list(set(data[focus_col].dropna()).difference(set(data[ref_col].dropna())))
 
@@ -172,7 +257,24 @@ def check_values_present(data: pd.DataFrame, focus_col: str, ref_col: str, log: 
 
 
 def check_coded_values(data: pd.DataFrame, config: pd.DataFrame, log: bool = True):
-    '''Function to check for any values not accepted as coded values'''
+    """
+    Check for any values not accepted as coded values.
+
+    Parameters
+    ----------
+    data : pd.DataFrame
+        Input data.
+    config : pd.DataFrame
+        Reference of accepted values by column name.
+    log : bool
+        Whether to log results.
+
+    Returns
+    -------
+    bool
+        Result of check.
+
+    """
 
     config = config.groupby('column')
     config = [config.get_group(x) for x in config.groups]
