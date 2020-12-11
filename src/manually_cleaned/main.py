@@ -1,18 +1,21 @@
-"""
-Main.py
-====================================
-Apply changes to manually cleaned data.
-
-* If a record has a following_measure_number, update date_end and reason_ended values from the following record
-
-* If measure stage is "finish", date_end should == date_start and reason_ended == 'finish'
-"""
-
 import pandas as pd
 
-def adjust_manually_cleaned(manually_cleaned):
 
-    #manually_cleaned = update_following_measures(manually_cleaned)
+def adjust_manually_cleaned(manually_cleaned: pd.DataFrame):
+    """
+    Unify value adjustments in manually cleaned data.
+
+    Parameters
+    ----------
+    manually_cleaned : pd.DataFrame
+        Manually cleaned data.
+
+    Returns
+    -------
+    pd.DataFrame
+        Description of returned object.
+
+    """
 
     manually_cleaned = update_measure_stage_date(manually_cleaned)
 
