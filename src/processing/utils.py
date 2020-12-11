@@ -546,7 +546,24 @@ def replace_sensitive_regions(record):
 
 
 def shift_sensitive_region(record: dict, original_name: str, new_name: str):
-    '''Function to demote sensitive country names to area_covered from country_territory_area'''
+    """
+    Function to demote sensitive country names to `area_covered` from `country_territory_area`.
+
+    Parameters
+    ----------
+    record : dict
+        Input record.
+    original_name : str
+        Original country name from provider dataset.
+    new_name : str
+        New WHO-recognised country name.
+
+    Returns
+    -------
+    type
+        Record with sensitive countries changed.
+
+    """
 
     if record['country_territory_area'] == original_name:
 
