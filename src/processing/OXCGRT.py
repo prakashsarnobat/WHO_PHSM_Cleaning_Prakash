@@ -193,11 +193,26 @@ def financial_measures(record: dict):
 
 
 def get_comment_links(comments: str):
-    '''
-    Function to get all links from a comment string
+    """
+    Function to get all links from a comment string.
 
-    Returns a list of links
-    '''
+    Returns a list of links.
+
+    Example:
+
+    "Comment things, https://www.google.com/, other comment things https://www.google.com/" -> ["https://www.google.com/", "https://www.google.com/"]
+
+    Parameters
+    ----------
+    comments : str
+        Comments string.
+
+    Returns
+    -------
+    type
+        List of extracted links.
+
+    """
 
     exp = re.compile('http[s]?://(?:[a-zA-Z]|[0-9]|[$-_@.&+]|[!*\(\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+')
 
