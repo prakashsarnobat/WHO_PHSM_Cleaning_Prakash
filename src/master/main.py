@@ -57,7 +57,23 @@ def get_new_records(records: pd.DataFrame, previous_update: pd.DataFrame, cols: 
     return(new_records)
 
 
-def get_combo_string(records, cols):
+def get_combo_string(records: pd.DataFrame, cols: list):
+    """
+    Paste column values together, separated by '_'.
+
+    Parameters
+    ----------
+    records : pd.DataFrame
+        Input dataset.
+    cols : list
+        Columns to be pasted together.
+
+    Returns
+    -------
+    list
+        List of pasted column values.
+
+    """
 
     combo_string = records[cols].apply(lambda x: x.astype(str)).agg('_'.join, axis=1)
 
