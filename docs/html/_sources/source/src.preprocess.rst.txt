@@ -12,6 +12,14 @@ src.preprocess.utils module
     :undoc-members:
     :show-inheritance:
 
+src.preprocess.check module
+---------------------------
+
+.. automodule:: src.preprocess.check
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 
 Module contents
 ---------------

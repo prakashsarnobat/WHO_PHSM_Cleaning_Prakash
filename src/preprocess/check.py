@@ -1,19 +1,29 @@
-"""
-main.py
-====================================
-Functions to check input datasets during preprocessing.
-
-test these functions!
-
-"""
-
 import pandas as pd
 import logging
 from datetime import datetime
 
 
 def check_input(records: pd.DataFrame, column_config: pd.DataFrame, date_config: pd.DataFrame, dataset: str):
-    '''Function to unify all input checks'''
+    """
+    Function to unify all input checks.
+
+    Parameters
+    ----------
+    records : pd.DataFrame
+        Dataframe of provider data.
+    column_config : pd.DataFrame
+        Reference for accepted column names.
+    date_config : pd.DataFrame
+        Reference for accepted date formats.
+    dataset : str
+        Name of provider dataset.
+
+    Returns
+    -------
+    type
+        Description of returned object.
+
+    """
 
     check_column_names(records, column_config)
 
@@ -21,7 +31,23 @@ def check_input(records: pd.DataFrame, column_config: pd.DataFrame, date_config:
 
 
 def check_column_names(records: pd.DataFrame, config: pd.DataFrame, log: bool = True):
-    '''Function to check that column names agree with config or raise exception'''
+    """
+    Function to check that column names agree with config or raise exception.
+
+    Parameters
+    ----------
+    records : pd.DataFrame
+        Dataframe of provider data.
+    config : pd.DataFrame
+        Reference for accepted column names.
+    log : bool
+        Whether or not to log results of checks.
+
+    Returns
+    -------
+    None
+
+    """
 
     dataset = list(config['dataset'].unique())[0]
 
@@ -46,8 +72,27 @@ def check_column_names(records: pd.DataFrame, config: pd.DataFrame, log: bool = 
 
         #raise e
 
+
 def check_date_format(data: pd.DataFrame, config: pd.DataFrame, dataset: str, log: bool = True):
-    '''Function to check that an input date is in the expected format'''
+    """
+    Check that an input date is in the expected format.
+
+    Parameters
+    ----------
+    data : pd.DataFrame
+        Dataframe of provider data..
+    config : pd.DataFrame
+        Reference for accepted date formats.
+    dataset : str
+        Name of provider dataset.
+    log : bool
+        Whether or not to log results of checks.
+
+    Returns
+    -------
+    None
+
+    """
 
     format = config.loc[config['dataset'] == dataset, 'format'].item()
     date_column = config.loc[config['dataset'] == dataset, 'date_column'].item()
@@ -68,13 +113,29 @@ def check_date_format(data: pd.DataFrame, config: pd.DataFrame, dataset: str, lo
 
             logging.info('INPUT_CHECK_FAILURE=%s %s %d dates not in the format %s.' % (dataset, date_column, len(res), format))
 
+
 def validate_date_format(date, format):
-    '''Function to return None if a date format does not parse'''
+    """
+    Return None if a date format does not parse.
+
+    Parameters
+    ----------
+    date : type
+        Input date string.
+    format : type
+        Input accpeted format to try.
+
+    Returns
+    -------
+    type
+        Returns date on successful parse or None on parsing failure.
+
+    """
 
     try:
 
         return(datetime.strptime(date, format))
 
-    except:
+    except Exception:
 
         return(None)
