@@ -37,6 +37,9 @@ logging.info("Preprocessing Data...")
 # Should be None for production.
 record_limit = None
 
+# Allows ingestion hashes to be saved - should be True in production, not in development
+save_ingestion_hashes = False
+
 # Define dataset sources
 jh = "https://raw.githubusercontent.com/HopkinsIDD/hit-covid/master/data/hit-covid-longdata.csv"
 cdc = "data/raw/CDC_ITF_latest.csv"
@@ -59,11 +62,16 @@ column_config = {'JH_HIT':pd.read_csv(check_dir + '/columns/JH_HIT.csv'),
 # Load accepted date format reference
 date_config = pd.read_csv(check_dir + '/date_format/date_format.csv')
 
+ingestion_hashes = {'JH_HIT': 'config/ingestion_hashes/JH_HIT.csv',
+                    'CDC_ITF': 'config/ingestion_hashes/CDC_ITF.csv',
+                    'OXCGRT': 'config/ingestion_hashes/OXCGRT.csv',
+                    'ACAPS': 'config/ingestion_hashes/ACAPS.csv'}
+
 # Read JH_HIT Data
 jh = pd.read_csv(jh)
 
 # Remove records that have already been processed
-jh = utils.remove_processed_records(jh, previous_update['JH_HIT'], 'unique_id', 'prop_id')
+jh = utils.filter_new_hashes(jh, ingestion_hashes['JH_HIT'], save_ingestion_hashes=save_ingestion_hashes)
 
 # Check JH_HIT Data
 check.check_input(records=jh,
@@ -82,7 +90,7 @@ cdc = pd.read_csv(cdc,
                   dtype={'Date implemented or lifted':str, 'Date Entered':str})
 
 # Remove records that have already been processed
-cdc = utils.remove_processed_records(cdc, previous_update['CDC_ITF'], 'Unique Identifier', 'prop_id')
+cdc = utils.filter_new_hashes(cdc, ingestion_hashes['CDC_ITF'], save_ingestion_hashes=save_ingestion_hashes)
 
 # Parse CDC_ITF date format
 cdc["Date implemented or lifted"] = pd.to_datetime(cdc["Date implemented or lifted"], format='%d/%m/%Y')
@@ -105,8 +113,9 @@ acaps = pd.read_csv(acaps,
                     parse_dates = ['DATE_IMPLEMENTED', 'ENTRY_DATE'],
                     dayfirst = True)
 
+
 # Remove records that have already been processed
-acaps = utils.remove_processed_records(acaps, previous_update['ACAPS'], 'ID', 'prop_id')
+acaps = utils.filter_new_hashes(acaps, ingestion_hashes['ACAPS'], save_ingestion_hashes=save_ingestion_hashes)
 
 # Check ACAPS Data
 check.check_input(records=acaps,
@@ -122,6 +131,9 @@ logging.info("ACAPS_RECORDS=%d" % len(acaps))
 
 # Read OXCGRT Data
 oxcgrt = pd.read_csv(oxcgrt, parse_dates=["Date"], low_memory=False)
+
+# Remove records that have already been processed
+oxcgrt = utils.filter_new_hashes(oxcgrt, ingestion_hashes['OXCGRT'], save_ingestion_hashes=save_ingestion_hashes)
 
 # Check OXCGRT Data
 check.check_input(records=oxcgrt,

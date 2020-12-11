@@ -35,6 +35,9 @@
 <span></span><span class="kn">import</span> <span class="nn">pickle</span>
 <span class="kn">import</span> <span class="nn">shutil</span>
 <span class="kn">import</span> <span class="nn">re</span>
+<span class="kn">import</span> <span class="nn">hashlib</span>
+<span class="kn">import</span> <span class="nn">base64</span>
+<span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span>
 
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 
@@ -300,40 +303,74 @@
     <span class="k">return</span><span class="p">(</span><span class="nb">dict</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">groups</span><span class="p">,</span> <span class="n">grouped</span><span class="p">)))</span></div>
 
 
-<div class="viewcode-block" id="remove_processed_records"><a class="viewcode-back" href="../../../source/src.preprocess.html#src.preprocess.utils.remove_processed_records">[docs]</a><span class="k">def</span> <span class="nf">remove_processed_records</span><span class="p">(</span><span class="n">dataset</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span>
-                             <span class="n">previous_update</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span>
-                             <span class="n">current_id_col_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
-                             <span class="n">prev_id_col_name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;prop_id&#39;</span><span class="p">):</span>
+<div class="viewcode-block" id="filter_new_hashes"><a class="viewcode-back" href="../../../source/src.preprocess.html#src.preprocess.utils.filter_new_hashes">[docs]</a><span class="k">def</span> <span class="nf">filter_new_hashes</span><span class="p">(</span><span class="n">data</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span>
+                      <span class="n">ingested_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+                      <span class="n">date_now</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%Y_%m_</span><span class="si">%d</span><span class="s1">&#39;</span><span class="p">))</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Drop previously ingested records.</span>
+<span class="sd">    Filter records by the row-wise hashes of their content.</span>
+
+<span class="sd">    Reduces the number of records that need to be processed from each dataset.</span>
+
+<span class="sd">    Will not filter hashes that were ingested on the same day as the function is called.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
-<span class="sd">    dataset : pd.DataFrame</span>
-<span class="sd">        Input dataset.</span>
-<span class="sd">    previous_update : pd.DataFrame</span>
-<span class="sd">        Reference for previously ingested records.</span>
-<span class="sd">    current_id_col_name : str</span>
-<span class="sd">        Column name od ID values in current data.</span>
-<span class="sd">    prev_id_col_name : str</span>
-<span class="sd">        Column name od ID values in previously ingested data.</span>
+<span class="sd">    data : pd.DataFrame</span>
+<span class="sd">        Input data.</span>
+<span class="sd">    ingested_path : str</span>
+<span class="sd">        Path to ingested hash reference.</span>
+<span class="sd">    date_now : str</span>
+<span class="sd">        String of current date.</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
 <span class="sd">    pd.DataFrame</span>
-<span class="sd">        Dataframe with previously ingested records filtered out.</span>
+<span class="sd">        Filtered data.</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="n">current_ids</span> <span class="o">=</span> <span class="n">dataset</span><span class="p">[</span><span class="n">current_id_col_name</span><span class="p">]</span>
+    <span class="n">ingested_hash_ref</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">ingested_path</span><span class="p">)</span>
 
-    <span class="n">prev_ids</span> <span class="o">=</span> <span class="n">previous_update</span><span class="p">[</span><span class="n">prev_id_col_name</span><span class="p">]</span>
+    <span class="n">ingested_hash_ref</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">ingested_hash_ref</span><span class="p">[</span><span class="s1">&#39;date_processed&#39;</span><span class="p">]</span> <span class="o">!=</span> <span class="n">date_now</span><span class="p">,</span> <span class="p">:]</span>
 
-    <span class="n">new_ids</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">current_ids</span><span class="p">)</span><span class="o">.</span><span class="n">difference</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">prev_ids</span><span class="p">))</span>
+    <span class="n">data</span><span class="p">[</span><span class="s1">&#39;_hash&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">get_row_hashes</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
 
-    <span class="n">new_records</span> <span class="o">=</span> <span class="n">dataset</span><span class="o">.</span><span class="n">loc</span><span class="p">[[</span><span class="n">x</span> <span class="ow">in</span> <span class="n">new_ids</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">dataset</span><span class="p">[</span><span class="n">current_id_col_name</span><span class="p">]],</span> <span class="p">:]</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">loc</span><span class="p">[[</span><span class="n">x</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">ingested_hash_ref</span><span class="p">[</span><span class="s1">&#39;hash&#39;</span><span class="p">]</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;_hash&#39;</span><span class="p">]]]</span>
 
-    <span class="k">return</span><span class="p">(</span><span class="n">new_records</span><span class="p">)</span></div>
+    <span class="n">new_hashes</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;hash&#39;</span><span class="p">:</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;_hash&#39;</span><span class="p">],</span> <span class="s1">&#39;date_processed&#39;</span><span class="p">:</span> <span class="n">date_now</span><span class="p">})</span>
+
+    <span class="n">data</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;_hash&#39;</span><span class="p">])</span>
+
+    <span class="n">ingested_hash_ref</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">ingested_hash_ref</span><span class="p">,</span> <span class="n">new_hashes</span><span class="p">])</span><span class="o">.</span><span class="n">drop_duplicates</span><span class="p">()</span>
+
+    <span class="n">ingested_hash_ref</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">ingested_path</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+    <span class="k">return</span><span class="p">(</span><span class="n">data</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="get_row_hashes"><a class="viewcode-back" href="../../../source/src.preprocess.html#src.preprocess.utils.get_row_hashes">[docs]</a><span class="k">def</span> <span class="nf">get_row_hashes</span><span class="p">(</span><span class="n">data</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Get row-wise base64 encoded hashes for a dataframe.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    data : pd.DataFrame</span>
+<span class="sd">        Input data.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    list</span>
+<span class="sd">        list of hashes.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1"># Combine row values into a single string</span>
+    <span class="n">hash_strings</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="s1">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="nb">str</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">x</span><span class="p">)]),</span> <span class="n">axis</span> <span class="o">=</span> <span class="mi">1</span><span class="p">))</span>
+
+    <span class="c1"># Hash and base64 encode string</span>
+    <span class="n">hashes</span> <span class="o">=</span> <span class="p">[</span><span class="n">base64</span><span class="o">.</span><span class="n">b64encode</span><span class="p">(</span><span class="n">hashlib</span><span class="o">.</span><span class="n">sha1</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s2">&quot;UTF-8&quot;</span><span class="p">))</span><span class="o">.</span><span class="n">digest</span><span class="p">())</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">hash_strings</span><span class="p">]</span>
+
+    <span class="k">return</span><span class="p">(</span><span class="n">hashes</span><span class="p">)</span></div>
 </pre></div>
 
           </div>

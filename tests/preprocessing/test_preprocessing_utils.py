@@ -83,3 +83,33 @@ class Test_remove_processed_records:
         res = utils.remove_processed_records(curr, prev, 'id', 'id')
 
         assert len(res.index) == 3
+
+
+# test get_row_hashes
+
+
+def test_get_row_hashes_df():
+
+    data = pd.DataFrame({'a': [1, 2, 3], 'b': [3, 2, 1]})
+
+    res = utils.get_row_hashes(data)
+
+    assert type(res) is list
+
+
+def test_get_row_hashes_len():
+
+    data = pd.DataFrame({'a': [1, 2, 3], 'b': [3, 2, 1]})
+
+    res = utils.get_row_hashes(data)
+
+    assert len(res) == 3
+
+
+def test_get_row_hashes_bytes():
+
+    data = pd.DataFrame({'a': [1, 2, 3], 'b': [3, 2, 1]})
+
+    res = utils.get_row_hashes(data)
+
+    assert type(res[0]) is bytes

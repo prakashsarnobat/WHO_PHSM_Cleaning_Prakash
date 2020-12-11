@@ -60,6 +60,29 @@
 </dd></dl>
 
 <dl class="py function">
+<dt id="src.preprocess.utils.filter_new_hashes">
+<code class="sig-prename descclassname">src.preprocess.utils.</code><code class="sig-name descname">filter_new_hashes</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data</span><span class="p">:</span> <span class="n">pandas.DataFrame</span></em>, <em class="sig-param"><span class="n">ingested_path</span><span class="p">:</span> <span class="n">str</span></em>, <em class="sig-param"><span class="n">date_now</span><span class="p">:</span> <span class="n">str</span> <span class="o">=</span> <span class="default_value">'2020_12_11'</span></em><span class="sig-paren">)</span> &#x2192; pandas.DataFrame<a class="reference internal" href="../_modules/src/preprocess/utils.html#filter_new_hashes"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.preprocess.utils.filter_new_hashes" title="Permalink to this definition">¶</a></dt>
+<dd><p>Filter records by the row-wise hashes of their content.</p>
+<p>Reduces the number of records that need to be processed from each dataset.</p>
+<p>Will not filter hashes that were ingested on the same day as the function is called.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data</strong> (<em>pd.DataFrame</em>) – Input data.</p></li>
+<li><p><strong>ingested_path</strong> (<em>str</em>) – Path to ingested hash reference.</p></li>
+<li><p><strong>date_now</strong> (<em>str</em>) – String of current date.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Filtered data.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>pd.DataFrame</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
 <dt id="src.preprocess.utils.get_measure_records">
 <code class="sig-prename descclassname">src.preprocess.utils.</code><code class="sig-name descname">get_measure_records</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">combined_record</span></em>, <em class="sig-param"><span class="n">stub_names</span></em>, <em class="sig-param"><span class="n">id_columns</span></em>, <em class="sig-param"><span class="n">full_value_names</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/src/preprocess/utils.html#get_measure_records"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.preprocess.utils.get_measure_records" title="Permalink to this definition">¶</a></dt>
 <dd><p>Function to break rows into individual records by stub group.</p>
@@ -112,6 +135,23 @@ stub_names: the measure column prefixes (i.e. “A1”)</p>
 </dd></dl>
 
 <dl class="py function">
+<dt id="src.preprocess.utils.get_row_hashes">
+<code class="sig-prename descclassname">src.preprocess.utils.</code><code class="sig-name descname">get_row_hashes</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data</span><span class="p">:</span> <span class="n">pandas.DataFrame</span></em><span class="sig-paren">)</span> &#x2192; list<a class="reference internal" href="../_modules/src/preprocess/utils.html#get_row_hashes"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.preprocess.utils.get_row_hashes" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get row-wise base64 encoded hashes for a dataframe.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>data</strong> (<em>pd.DataFrame</em>) – Input data.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>list of hashes.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>list</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
 <dt id="src.preprocess.utils.oxcgrt_records">
 <code class="sig-prename descclassname">src.preprocess.utils.</code><code class="sig-name descname">oxcgrt_records</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">ox</span><span class="p">:</span> <span class="n">pandas.DataFrame</span></em>, <em class="sig-param"><span class="n">dataset</span><span class="p">:</span> <span class="n">str</span></em>, <em class="sig-param"><span class="n">drop_columns</span><span class="p">:</span> <span class="n">list</span> <span class="o">=</span> <span class="default_value">[]</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/src/preprocess/utils.html#oxcgrt_records"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.preprocess.utils.oxcgrt_records" title="Permalink to this definition">¶</a></dt>
 <dd><p>Function to convert OXCGRT data to list of record dicts.</p>
@@ -129,28 +169,6 @@ stub_names: the measure column prefixes (i.e. “A1”)</p>
 </dd>
 <dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p>list</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt id="src.preprocess.utils.remove_processed_records">
-<code class="sig-prename descclassname">src.preprocess.utils.</code><code class="sig-name descname">remove_processed_records</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">dataset</span><span class="p">:</span> <span class="n">pandas.DataFrame</span></em>, <em class="sig-param"><span class="n">previous_update</span><span class="p">:</span> <span class="n">pandas.DataFrame</span></em>, <em class="sig-param"><span class="n">current_id_col_name</span><span class="p">:</span> <span class="n">str</span></em>, <em class="sig-param"><span class="n">prev_id_col_name</span><span class="p">:</span> <span class="n">str</span> <span class="o">=</span> <span class="default_value">'prop_id'</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/src/preprocess/utils.html#remove_processed_records"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.preprocess.utils.remove_processed_records" title="Permalink to this definition">¶</a></dt>
-<dd><p>Drop previously ingested records.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>dataset</strong> (<em>pd.DataFrame</em>) – Input dataset.</p></li>
-<li><p><strong>previous_update</strong> (<em>pd.DataFrame</em>) – Reference for previously ingested records.</p></li>
-<li><p><strong>current_id_col_name</strong> (<em>str</em>) – Column name od ID values in current data.</p></li>
-<li><p><strong>prev_id_col_name</strong> (<em>str</em>) – Column name od ID values in previously ingested data.</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>Dataframe with previously ingested records filtered out.</p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>pd.DataFrame</p>
 </dd>
 </dl>
 </dd></dl>
