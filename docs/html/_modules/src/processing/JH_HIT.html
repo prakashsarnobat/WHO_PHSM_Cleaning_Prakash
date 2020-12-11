@@ -147,10 +147,20 @@
 
 
 <div class="viewcode-block" id="blank_record_and_url"><a class="viewcode-back" href="../../../source/src.processing.html#src.processing.JH_HIT.blank_record_and_url">[docs]</a><span class="k">def</span> <span class="nf">blank_record_and_url</span><span class="p">(</span><span class="n">record</span><span class="p">:</span> <span class="nb">dict</span><span class="p">):</span>
-    <span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">    Function to assign who_code == 11 and &#39;Not enough to code&#39;</span>
-<span class="sd">    to records with no comments AND no url</span>
-<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Assign who_code == 11 and &#39;Not enough to code&#39; to records with no `comments` AND no `url`.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    record : dict</span>
+<span class="sd">        Input record.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    type</span>
+<span class="sd">        Record with coding altered.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">if</span> <span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">isna</span><span class="p">(</span><span class="n">record</span><span class="p">[</span><span class="s1">&#39;comments&#39;</span><span class="p">]))</span> <span class="ow">and</span> <span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">isna</span><span class="p">(</span><span class="n">record</span><span class="p">[</span><span class="s1">&#39;link&#39;</span><span class="p">]))</span> <span class="ow">and</span> <span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">isna</span><span class="p">(</span><span class="n">record</span><span class="p">[</span><span class="s1">&#39;alt_link&#39;</span><span class="p">])):</span>
 
@@ -163,7 +173,26 @@
 
 
 <div class="viewcode-block" id="apply_prov_measure_filter"><a class="viewcode-back" href="../../../source/src.processing.html#src.processing.JH_HIT.apply_prov_measure_filter">[docs]</a><span class="k">def</span> <span class="nf">apply_prov_measure_filter</span><span class="p">(</span><span class="n">record</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span> <span class="n">prov_measure_filter</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">):</span>
-    <span class="sd">&#39;&#39;&#39;Function to filter only some prov_measure and prov_category values&#39;&#39;&#39;</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Filter only some `prov_measure` and `prov_category` values.</span>
+
+<span class="sd">    Only some JH_HIT codings are accepted.</span>
+
+<span class="sd">    Relies on `prov_measure_filter` defined in `config`.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    record : dict</span>
+<span class="sd">        Input record.</span>
+<span class="sd">    prov_measure_filter : pd.DataFrame</span>
+<span class="sd">        Config of which codings to drop. Defined in `config` directory.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    type</span>
+<span class="sd">        If coding is included in WHO PHSM dataset, record, else None.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">if</span> <span class="n">record</span><span class="p">[</span><span class="s1">&#39;prov_category&#39;</span><span class="p">]</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="n">prov_measure_filter</span><span class="p">[</span><span class="s1">&#39;prov_category&#39;</span><span class="p">])</span> <span class="ow">and</span> <span class="n">record</span><span class="p">[</span><span class="s1">&#39;prov_measure&#39;</span><span class="p">]</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="n">prov_measure_filter</span><span class="p">[</span><span class="s1">&#39;prov_measure&#39;</span><span class="p">]):</span>
 
@@ -174,7 +203,20 @@
         <span class="k">return</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="fill_not_enough_to_code"><a class="viewcode-back" href="../../../source/src.processing.html#src.processing.JH_HIT.fill_not_enough_to_code">[docs]</a><span class="k">def</span> <span class="nf">fill_not_enough_to_code</span><span class="p">(</span><span class="n">record</span><span class="p">:</span> <span class="nb">dict</span><span class="p">):</span>
-    <span class="sd">&#39;&#39;&#39;Function to add &quot;not enough to code&quot; label to specific records&#39;&#39;&#39;</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Function to add &quot;not enough to code&quot; label when comments are blank.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    record : dict</span>
+<span class="sd">        Input record.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    type</span>
+<span class="sd">        Record with `prov_measure` and `prov_category` values altered conditionally.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">if</span> <span class="n">record</span><span class="p">[</span><span class="s1">&#39;comments&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;&#39;</span> <span class="ow">and</span> <span class="n">record</span><span class="p">[</span><span class="s1">&#39;prov_category&#39;</span><span class="p">]</span> <span class="o">!=</span> <span class="s1">&#39;school_closed&#39;</span><span class="p">:</span>
 

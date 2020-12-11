@@ -91,19 +91,53 @@
 <dt id="src.processing.CDC_ITF.add_date_end">
 <code class="sig-prename descclassname">src.processing.CDC_ITF.</code><code class="sig-name descname">add_date_end</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">record</span><span class="p">:</span> <span class="n">dict</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/src/processing/CDC_ITF.html#add_date_end"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.processing.CDC_ITF.add_date_end" title="Permalink to this definition">¶</a></dt>
 <dd><p>Function to make <code class="docutils literal notranslate"><span class="pre">date_end</span></code> <code class="docutils literal notranslate"><span class="pre">date_start</span></code> if <code class="docutils literal notranslate"><span class="pre">measure_stage</span></code> is “Lift”</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>record</strong> (<em>dict</em>) – Input record.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Record with date_end changed conditionally, or original record.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>type</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py function">
 <dt id="src.processing.CDC_ITF.area_covered_national">
 <code class="sig-prename descclassname">src.processing.CDC_ITF.</code><code class="sig-name descname">area_covered_national</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">record</span><span class="p">:</span> <span class="n">dict</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/src/processing/CDC_ITF.html#area_covered_national"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.processing.CDC_ITF.area_covered_national" title="Permalink to this definition">¶</a></dt>
 <dd><p>Function to remove area_covered == “national”</p>
-<p>Replace with None</p>
+<p>Replace with None.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>record</strong> (<em>dict</em>) – Input record.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Record with <cite>area_covered</cite> changed.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>type</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py function">
 <dt id="src.processing.CDC_ITF.join_comments">
 <code class="sig-prename descclassname">src.processing.CDC_ITF.</code><code class="sig-name descname">join_comments</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">record</span><span class="p">:</span> <span class="n">dict</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/src/processing/CDC_ITF.html#join_comments"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.processing.CDC_ITF.join_comments" title="Permalink to this definition">¶</a></dt>
-<dd><p>Function to combine comments from “Concise Notes” and “Notes” fields</p>
+<dd><p>Combine comments from “Concise Notes” and “Notes” fields.</p>
+<p>Both will be stored in <cite>comments</cite> column of output dataset.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>record</strong> (<em>dict</em>) – Input record.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Record with merged comments.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>type</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py function">
@@ -142,20 +176,57 @@
 <dl class="py function">
 <dt id="src.processing.JH_HIT.apply_prov_measure_filter">
 <code class="sig-prename descclassname">src.processing.JH_HIT.</code><code class="sig-name descname">apply_prov_measure_filter</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">record</span><span class="p">:</span> <span class="n">dict</span></em>, <em class="sig-param"><span class="n">prov_measure_filter</span><span class="p">:</span> <span class="n">pandas.DataFrame</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/src/processing/JH_HIT.html#apply_prov_measure_filter"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.processing.JH_HIT.apply_prov_measure_filter" title="Permalink to this definition">¶</a></dt>
-<dd><p>Function to filter only some prov_measure and prov_category values</p>
+<dd><p>Filter only some <cite>prov_measure</cite> and <cite>prov_category</cite> values.</p>
+<p>Only some JH_HIT codings are accepted.</p>
+<p>Relies on <cite>prov_measure_filter</cite> defined in <cite>config</cite>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>record</strong> (<em>dict</em>) – Input record.</p></li>
+<li><p><strong>prov_measure_filter</strong> (<em>pd.DataFrame</em>) – Config of which codings to drop. Defined in <cite>config</cite> directory.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>If coding is included in WHO PHSM dataset, record, else None.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>type</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py function">
 <dt id="src.processing.JH_HIT.blank_record_and_url">
 <code class="sig-prename descclassname">src.processing.JH_HIT.</code><code class="sig-name descname">blank_record_and_url</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">record</span><span class="p">:</span> <span class="n">dict</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/src/processing/JH_HIT.html#blank_record_and_url"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.processing.JH_HIT.blank_record_and_url" title="Permalink to this definition">¶</a></dt>
-<dd><p>Function to assign who_code == 11 and ‘Not enough to code’
-to records with no comments AND no url</p>
+<dd><p>Assign who_code == 11 and ‘Not enough to code’ to records with no <cite>comments</cite> AND no <cite>url</cite>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>record</strong> (<em>dict</em>) – Input record.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Record with coding altered.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>type</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py function">
 <dt id="src.processing.JH_HIT.fill_not_enough_to_code">
 <code class="sig-prename descclassname">src.processing.JH_HIT.</code><code class="sig-name descname">fill_not_enough_to_code</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">record</span><span class="p">:</span> <span class="n">dict</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/src/processing/JH_HIT.html#fill_not_enough_to_code"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.processing.JH_HIT.fill_not_enough_to_code" title="Permalink to this definition">¶</a></dt>
-<dd><p>Function to add “not enough to code” label to specific records</p>
+<dd><p>Function to add “not enough to code” label when comments are blank.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>record</strong> (<em>dict</em>) – Input record.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Record with <cite>prov_measure</cite> and <cite>prov_category</cite> values altered conditionally.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>type</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py function">
@@ -173,7 +244,8 @@ to records with no comments AND no url</p>
 <dl class="py function">
 <dt id="src.processing.check.check_missing_iso">
 <code class="sig-prename descclassname">src.processing.check.</code><code class="sig-name descname">check_missing_iso</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">record</span><span class="p">:</span> <span class="n">dict</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/src/processing/check.html#check_missing_iso"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.processing.check.check_missing_iso" title="Permalink to this definition">¶</a></dt>
-<dd><p>Function to check for missing ISO codes</p>
+<dd><p>DEPRACTED by output check?</p>
+<p>Function to check for missing ISO codes</p>
 <p>Note: will not throw an error for “unknown” values which much be
 handled later</p>
 </dd></dl>
@@ -181,7 +253,8 @@ handled later</p>
 <dl class="py function">
 <dt id="src.processing.check.check_missing_who_code">
 <code class="sig-prename descclassname">src.processing.check.</code><code class="sig-name descname">check_missing_who_code</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">record</span><span class="p">:</span> <span class="n">dict</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/src/processing/check.html#check_missing_who_code"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.processing.check.check_missing_who_code" title="Permalink to this definition">¶</a></dt>
-<dd><p>Function to check for null who codes</p>
+<dd><p>DEPRACTED by output check?
+Function to check for null who codes</p>
 <p>Note: will not throw an error for “unknown” values which must be
 handled later</p>
 </dd></dl>
@@ -189,7 +262,22 @@ handled later</p>
 <dl class="py function">
 <dt id="src.processing.check.check_record_keys_agree">
 <code class="sig-prename descclassname">src.processing.check.</code><code class="sig-name descname">check_record_keys_agree</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">record</span><span class="p">:</span> <span class="n">dict</span></em>, <em class="sig-param"><span class="n">blank_record</span><span class="p">:</span> <span class="n">dict</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/src/processing/check.html#check_record_keys_agree"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.processing.check.check_record_keys_agree" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>DEPRACTED by output check?</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>record</strong> (<em>dict</em>) – Description of parameter <cite>record</cite>.</p></li>
+<li><p><strong>blank_record</strong> (<em>dict</em>) – Description of parameter <cite>blank_record</cite>.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Description of returned object.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>type</p>
+</dd>
+</dl>
+</dd></dl>
 
 </div>
 </div>
@@ -208,7 +296,26 @@ handled later</p>
 <dl class="py function">
 <dt id="src.processing.main.process">
 <code class="sig-prename descclassname">src.processing.main.</code><code class="sig-name descname">process</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">record</span><span class="p">:</span> <span class="n">dict</span></em>, <em class="sig-param"><span class="n">key_ref</span><span class="p">:</span> <span class="n">dict</span></em>, <em class="sig-param"><span class="n">country_ref</span><span class="p">:</span> <span class="n">pandas.DataFrame</span></em>, <em class="sig-param"><span class="n">who_coding</span><span class="p">:</span> <span class="n">dict</span></em>, <em class="sig-param"><span class="n">prov_measure_filter</span><span class="p">:</span> <span class="n">dict</span></em>, <em class="sig-param"><span class="n">no_update_phrase</span><span class="p">:</span> <span class="n">dict</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/src/processing/main.html#process"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.processing.main.process" title="Permalink to this definition">¶</a></dt>
-<dd><p>Unify individual dataset transformers</p>
+<dd><p>Unify individual dataset transformers.</p>
+<p>Applies different transformations for records from different datasets.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>record</strong> (<em>dict</em>) – Input record.</p></li>
+<li><p><strong>key_ref</strong> (<em>dict</em>) – Reference for key mapping.</p></li>
+<li><p><strong>country_ref</strong> (<em>pd.DataFrame</em>) – Reference for WHO accepted country names.</p></li>
+<li><p><strong>who_coding</strong> (<em>dict</em>) – Reference for WHO coding.</p></li>
+<li><p><strong>prov_measure_filter</strong> (<em>dict</em>) – Reference for filtering by <cite>prov_measure</cite> values.</p></li>
+<li><p><strong>no_update_phrase</strong> (<em>dict</em>) – Reference for “no update” phrases.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Record with transformations applied.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>type</p>
+</dd>
+</dl>
 </dd></dl>
 
 </div>

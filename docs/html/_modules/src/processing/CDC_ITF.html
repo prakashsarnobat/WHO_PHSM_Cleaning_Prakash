@@ -162,11 +162,22 @@
 
 
 <div class="viewcode-block" id="area_covered_national"><a class="viewcode-back" href="../../../source/src.processing.html#src.processing.CDC_ITF.area_covered_national">[docs]</a><span class="k">def</span> <span class="nf">area_covered_national</span><span class="p">(</span><span class="n">record</span><span class="p">:</span> <span class="nb">dict</span><span class="p">):</span>
-    <span class="sd">&#39;&#39;&#39;</span>
+    <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Function to remove area_covered == &quot;national&quot;</span>
 
-<span class="sd">    Replace with None</span>
-<span class="sd">    &#39;&#39;&#39;</span>
+<span class="sd">    Replace with None.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    record : dict</span>
+<span class="sd">        Input record.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    type</span>
+<span class="sd">        Record with `area_covered` changed.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">if</span> <span class="n">record</span><span class="p">[</span><span class="s1">&#39;area_covered&#39;</span><span class="p">]</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;national&#39;</span><span class="p">]:</span>
 
@@ -176,7 +187,20 @@
 
 
 <div class="viewcode-block" id="add_date_end"><a class="viewcode-back" href="../../../source/src.processing.html#src.processing.CDC_ITF.add_date_end">[docs]</a><span class="k">def</span> <span class="nf">add_date_end</span><span class="p">(</span><span class="n">record</span><span class="p">:</span> <span class="nb">dict</span><span class="p">):</span>
-    <span class="sd">&#39;&#39;&#39;Function to make ``date_end`` ``date_start`` if ``measure_stage`` is &quot;Lift&quot;&#39;&#39;&#39;</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Function to make ``date_end`` ``date_start`` if ``measure_stage`` is &quot;Lift&quot;</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    record : dict</span>
+<span class="sd">        Input record.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    type</span>
+<span class="sd">        Record with date_end changed conditionally, or original record.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">if</span> <span class="n">record</span><span class="p">[</span><span class="s1">&#39;measure_stage&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;Lift&#39;</span><span class="p">:</span>
 
@@ -186,7 +210,22 @@
 
 
 <div class="viewcode-block" id="join_comments"><a class="viewcode-back" href="../../../source/src.processing.html#src.processing.CDC_ITF.join_comments">[docs]</a><span class="k">def</span> <span class="nf">join_comments</span><span class="p">(</span><span class="n">record</span><span class="p">:</span> <span class="nb">dict</span><span class="p">):</span>
-    <span class="sd">&#39;&#39;&#39;Function to combine comments from &quot;Concise Notes&quot; and &quot;Notes&quot; fields&#39;&#39;&#39;</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Combine comments from &quot;Concise Notes&quot; and &quot;Notes&quot; fields.</span>
+
+<span class="sd">    Both will be stored in `comments` column of output dataset.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    record : dict</span>
+<span class="sd">        Input record.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    type</span>
+<span class="sd">        Record with merged comments.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">record</span><span class="p">[</span><span class="s1">&#39;Concise Notes&#39;</span><span class="p">])</span> <span class="o">!=</span> <span class="nb">str</span><span class="p">:</span>
 
