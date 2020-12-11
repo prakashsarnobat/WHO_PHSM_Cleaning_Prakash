@@ -646,12 +646,35 @@ def remove_tags(record: dict, keys: list = ['comments']):
 
 
 def replace_country(record: dict, country_name: str, area_name: str):
-    '''Function to replace country name with an area_covered name'''
+    """
+    Replace country name with an `area_covered` name.
+
+    Promote a string in `area_covered` to `country_territory_area`.
+
+    Applies to records where a WHO recognised country is defined as an
+    administrative region of a different country.
+
+
+    Parameters
+    ----------
+    record : dict
+        Input record.
+    country_name : str
+        Country name to be matched.
+    area_name : str
+        Area name to be matched.
+
+    Returns
+    -------
+    type
+        Record with country `area_covered` promotion applied.
+
+    """
 
     if record['country_territory_area'] == country_name and record['area_covered'] == area_name:
 
         record['country_territory_area'] = area_name
 
-        record['area_covered'] =  None
+        record['area_covered'] = None
 
     return(record)
