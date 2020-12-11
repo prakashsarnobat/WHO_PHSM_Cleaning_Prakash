@@ -160,13 +160,23 @@ def is_update_phrase(comment: str, phrases: list):
         return(False)
 
 
-def financial_measures(record):
-    '''
-    Function to move values from prov_measure to value_usd for financial reasures.
+def financial_measures(record: dict):
+    """
+    Function to move values from `prov_measure` to `value_usd` for financial measures.
 
     prov_measure values are replaced with 1 for coding.
 
-    '''
+    Parameters
+    ----------
+    record : dict
+        Input record.
+
+    Returns
+    -------
+    type
+        Record with `prov_measure` changes applied.
+
+    """
 
     financial = ['E3_Fiscal measures',
                  'E4_International support',
