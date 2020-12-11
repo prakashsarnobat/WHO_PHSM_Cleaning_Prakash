@@ -271,7 +271,26 @@ def remove_processed_records(dataset: pd.DataFrame,
                              previous_update: pd.DataFrame,
                              current_id_col_name: str,
                              prev_id_col_name: str = 'prop_id'):
-    '''Function to drop previously ingested records'''
+    """
+    Drop previously ingested records.
+
+    Parameters
+    ----------
+    dataset : pd.DataFrame
+        Input dataset.
+    previous_update : pd.DataFrame
+        Reference for previously ingested records.
+    current_id_col_name : str
+        Column name od ID values in current data.
+    prev_id_col_name : str
+        Column name od ID values in previously ingested data.
+
+    Returns
+    -------
+    pd.DataFrame
+        Dataframe with previously ingested records filtered out.
+
+    """
 
     current_ids = dataset[current_id_col_name]
 
