@@ -18,17 +18,18 @@ from check import check_output
 
 argv = sys.argv
 
+# Create process directory in tmp
 create_dir('tmp/process')
 
+# Setup logging to log into the process directory
 logging.basicConfig(filename='tmp/process/process.log',
                     level=logging.DEBUG,
                     format='%(asctime)s - %(levelname)s - %(message)s')
 
 logging.info("Processing Data...")
 
-fn = "tmp/preprocess/records.pickle"
-
-records = pickle.load(open(fn, "rb"))
+# Read list of record dicts
+records = pickle.load(open("tmp/preprocess/records.pickle", "rb"))
 
 # load key transformation reference
 key_ref = {'JH_HIT': pd.read_csv('config/key_map/JH_HIT.csv').to_dict(orient='records'),
@@ -39,35 +40,37 @@ key_ref = {'JH_HIT': pd.read_csv('config/key_map/JH_HIT.csv').to_dict(orient='re
 # load who country name reference
 country_ref = pd.read_csv('config/country_names/who_country_names.csv')
 
-#load who dataset coding
+# load who dataset coding reference
 who_coding = {'JH_HIT': pd.read_csv('config/who_coding/JH_HIT.csv').fillna(''),
               'CDC_ITF': pd.read_csv('config/who_coding/CDC_ITF.csv').fillna(''),
               'ACAPS': pd.read_csv('config/who_coding/ACAPS.csv').fillna(''),
               'OXCGRT': pd.read_csv('config/who_coding/OXCGRT.csv').fillna('')}
 
+# Load prov measure filter reference
 prov_measure_filter = {'JH_HIT': pd.read_csv('config/prov_measure_filter/JH_HIT.csv')}
 
+# Load "no update" phrase reference
 no_update_phrase = {'OXCGRT': pd.read_csv('config/no_update_phrase/OXCGRT.csv')}
 
+# Get minimum ID number from previous data release
 min_id = get_min_id('data/cleansed/mistress_latest.csv', id_column='who_id')
 
-print(min_id)
-
-blank_record = generate_blank_record()
-
+# Define a list to store processed records
 processed_records = []
 
+# Start progress bar
 bar = Bar('Processing Data...', max=len(records))
 for record in records:
 
+    # Process individual records
     record = process(record, key_ref, country_ref, who_coding, prov_measure_filter, no_update_phrase)
 
-    check.check_record_keys_agree(record, blank_record)
-
+    # If record is not None, transform it to a dictionary
     if record is not None:
 
         processed_records.append(pd.DataFrame.from_dict(record, orient = 'index').T)
 
+    # Increment progress bar
     bar.next()
 
 records = pd.concat(processed_records)
@@ -76,15 +79,17 @@ records = pd.concat(processed_records)
 # Assign who codes to the original WHO codes
 records['original_who_code'] = records['who_code']
 
+# Assign id numbers to new data
 records = assign_id(records, min_id)
 
+# Apply standard checks to processed data
 check_output(records)
 
-# set date processed to NOW
-
+# Log number of records in the processed dataset
 log_records_per(records, 'dataset')
 log_records_total(records)
 
+# Write processed file to csv
 records.to_csv('tmp/process/records.csv', index=False)
 
 print('Success.')
