@@ -271,7 +271,8 @@ def split_df_by_group(data: pd.DataFrame, group: str):
 
 def filter_new_hashes(data: pd.DataFrame,
                       ingested_path: str,
-                      date_now: str = datetime.now().strftime('%Y_%m_%d')) -> pd.DataFrame:
+                      date_now: str = datetime.now().strftime('%Y_%m_%d'),
+                      save_ingestion_hashes: bool = False) -> pd.DataFrame:
     """
     Filter records by the row-wise hashes of their content.
 
@@ -287,6 +288,8 @@ def filter_new_hashes(data: pd.DataFrame,
         Path to ingested hash reference.
     date_now : str
         String of current date.
+    save_ingestion_hashes: bool
+        Should ingestion hashes be saved?
 
     Returns
     -------
@@ -316,8 +319,10 @@ def filter_new_hashes(data: pd.DataFrame,
     # Combine previous hash ref with new hash ref
     ingested_hash_ref = pd.concat([ingested_hash_ref, new_hashes]).drop_duplicates()
 
-    # Write combined hash ref to csv file
-    ingested_hash_ref.to_csv(ingested_path, index=False)
+    # Write combined hash ref to csv file if save_ingestion_hashes is True
+    if save_ingestion_hashes:
+
+        ingested_hash_ref.to_csv(ingested_path, index=False)
 
     return(data)
 
