@@ -1,12 +1,3 @@
-"""
-main.py
-====================================
-Functions to check input datasets during preprocessing.
-
-test these functions!
-
-"""
-
 import pandas as pd
 import logging
 from datetime import datetime
