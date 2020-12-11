@@ -3,7 +3,20 @@ import pandas as pd
 
 
 def postprocess(data: pd.DataFrame):
-    '''Apply dataset-level transformations to JH_HIT data'''
+    """
+    Apply dataset-level transformations to JH_HIT data.
+
+    Parameters
+    ----------
+    data : pd.DataFrame
+        Input JH_HIT data.
+
+    Returns
+    -------
+    pd.DataFrame
+        JH_HIT data with transformations appied.
+
+    """
 
     data = combine_measures(data, '4.1.2', '_school_closure')
     data = combine_measures(data, '5.7', '_border_air')
