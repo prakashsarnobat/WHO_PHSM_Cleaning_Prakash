@@ -13,7 +13,26 @@ from datetime import datetime
 
 
 def check_input(records: pd.DataFrame, column_config: pd.DataFrame, date_config: pd.DataFrame, dataset: str):
-    '''Function to unify all input checks'''
+    """
+    Function to unify all input checks.
+
+    Parameters
+    ----------
+    records : pd.DataFrame
+        Dataframe of provider data.
+    column_config : pd.DataFrame
+        Reference for accepted column names.
+    date_config : pd.DataFrame
+        Config for date formats.
+    dataset : str
+        Name of provider dataset.
+
+    Returns
+    -------
+    type
+        Description of returned object.
+
+    """
 
     check_column_names(records, column_config)
 
