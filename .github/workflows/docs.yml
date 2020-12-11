@@ -1,0 +1,19 @@
+name: Docs
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  update_docs:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Build container
+        run: make build
+
+      - name: Update docs
+        run: make docs

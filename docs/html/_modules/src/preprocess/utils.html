@@ -1,23 +1,23 @@
 
-<!DOCTYPE html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
-<html>
+<html xmlns="http://www.w3.org/1999/xhtml">
   <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>src.preprocess.utils &#8212; WHO PHSM Cleaning 0.0.1 documentation</title>
     <link rel="stylesheet" href="../../../_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
-    <script id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
-    <script src="../../../_static/jquery.js"></script>
-    <script src="../../../_static/underscore.js"></script>
-    <script src="../../../_static/doctools.js"></script>
-    <script src="../../../_static/language_data.js"></script>
+    <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../../_static/language_data.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
    
   <link rel="stylesheet" href="../../../_static/custom.css" type="text/css" />
-  
   
   <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
 
@@ -27,40 +27,19 @@
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
-          
-
           <div class="body" role="main">
             
   <h1>Source code for src.preprocess.utils</h1><div class="highlight"><pre>
-<span></span><span class="kn">import</span> <span class="nn">pickle</span>
+<span></span><span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">pickle</span>
 <span class="kn">import</span> <span class="nn">shutil</span>
 <span class="kn">import</span> <span class="nn">re</span>
-<span class="kn">import</span> <span class="nn">hashlib</span>
-<span class="kn">import</span> <span class="nn">base64</span>
-<span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span>
 
-<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">from</span> <span class="nn">pandas</span> <span class="k">import</span> <span class="n">DataFrame</span>
 
 
-<div class="viewcode-block" id="df_to_records"><a class="viewcode-back" href="../../../source/src.preprocess.html#src.preprocess.utils.df_to_records">[docs]</a><span class="k">def</span> <span class="nf">df_to_records</span><span class="p">(</span><span class="n">df</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span> <span class="n">dataset</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">drop_columns</span> <span class="o">=</span> <span class="p">[]):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Convert dataframe to a list of record oriented dicts.</span>
-
-<span class="sd">    Parameters</span>
-<span class="sd">    ----------</span>
-<span class="sd">    df : pd.DataFrame</span>
-<span class="sd">        Input dataset.</span>
-<span class="sd">    dataset : str</span>
-<span class="sd">        Name of provider dataset.</span>
-<span class="sd">    drop_columns : type</span>
-<span class="sd">        Which columns (if any) to drop.</span>
-
-<span class="sd">    Returns</span>
-<span class="sd">    -------</span>
-<span class="sd">    list</span>
-<span class="sd">        List of row-wise dicts.</span>
-
-<span class="sd">    &quot;&quot;&quot;</span>
+<div class="viewcode-block" id="df_to_records"><a class="viewcode-back" href="../../../source/src.preprocess.html#src.preprocess.utils.df_to_records">[docs]</a><span class="k">def</span> <span class="nf">df_to_records</span><span class="p">(</span><span class="n">df</span><span class="p">:</span> <span class="n">DataFrame</span><span class="p">,</span> <span class="n">dataset</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">drop_columns</span> <span class="o">=</span> <span class="p">[]):</span>
+    <span class="sd">&quot;&quot;&quot;Function to convert dataframe to record oriented - dict&quot;&quot;&quot;</span>
 
     <span class="k">if</span> <span class="n">dataset</span> <span class="o">==</span> <span class="s1">&#39;OXCGRT&#39;</span><span class="p">:</span>
 
@@ -87,23 +66,6 @@
 
 
 <div class="viewcode-block" id="write_records"><a class="viewcode-back" href="../../../source/src.preprocess.html#src.preprocess.utils.write_records">[docs]</a><span class="k">def</span> <span class="nf">write_records</span><span class="p">(</span><span class="n">records</span><span class="p">:</span> <span class="nb">list</span><span class="p">,</span> <span class="nb">dir</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">fn</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Write records to a pickle file.</span>
-
-<span class="sd">    Parameters</span>
-<span class="sd">    ----------</span>
-<span class="sd">    records : list</span>
-<span class="sd">        List of preprocessed records.</span>
-<span class="sd">    dir : str</span>
-<span class="sd">        Output directory.</span>
-<span class="sd">    fn : str</span>
-<span class="sd">        Output file name.</span>
-
-<span class="sd">    Returns</span>
-<span class="sd">    -------</span>
-<span class="sd">    None</span>
-
-<span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">try</span><span class="p">:</span>
 
@@ -118,27 +80,12 @@
         <span class="k">raise</span> <span class="n">e</span><span class="p">(</span><span class="s2">&quot;Unable to write tmp/preprocess/records.p.&quot;</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="oxcgrt_records"><a class="viewcode-back" href="../../../source/src.preprocess.html#src.preprocess.utils.oxcgrt_records">[docs]</a><span class="k">def</span> <span class="nf">oxcgrt_records</span><span class="p">(</span><span class="n">ox</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span> <span class="n">dataset</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">drop_columns</span><span class="p">:</span> <span class="nb">list</span> <span class="o">=</span> <span class="p">[]):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Function to convert OXCGRT data to list of record dicts.</span>
+<div class="viewcode-block" id="oxcgrt_records"><a class="viewcode-back" href="../../../source/src.preprocess.html#src.preprocess.utils.oxcgrt_records">[docs]</a><span class="k">def</span> <span class="nf">oxcgrt_records</span><span class="p">(</span><span class="n">ox</span><span class="p">,</span> <span class="n">dataset</span><span class="p">,</span> <span class="n">drop_columns</span><span class="o">=</span><span class="p">[]):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Function to convert OXCGRT data to records</span>
 
-<span class="sd">    This presents an additional challenge because of the wide format of the OXCGRT data.</span>
-
-<span class="sd">    Parameters</span>
-<span class="sd">    ----------</span>
-<span class="sd">    ox : pd.DataFrame</span>
-<span class="sd">        Input OXCGRT data.</span>
-<span class="sd">    dataset : str</span>
-<span class="sd">        Name of provider dataset.</span>
-<span class="sd">    drop_columns : list</span>
-<span class="sd">        Which columns (if any) to drop.</span>
-
-<span class="sd">    Returns</span>
-<span class="sd">    -------</span>
-<span class="sd">    list</span>
-<span class="sd">        List of record dicts.</span>
-
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    This is an additional challenge because of the wide format of the Oxford data</span>
+<span class="sd">    &#39;&#39;&#39;</span>
 
     <span class="n">full_value_names</span><span class="p">,</span> <span class="n">value_names</span><span class="p">,</span> <span class="n">stub_names</span> <span class="o">=</span> <span class="n">get_names</span><span class="p">(</span><span class="n">ox</span><span class="p">)</span>
 
@@ -153,32 +100,18 @@
     <span class="k">return</span><span class="p">(</span><span class="n">rs</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="get_names"><a class="viewcode-back" href="../../../source/src.preprocess.html#src.preprocess.utils.get_names">[docs]</a><span class="k">def</span> <span class="nf">get_names</span><span class="p">(</span><span class="n">ox</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Get the names of columns holding measure information.</span>
+<div class="viewcode-block" id="get_names"><a class="viewcode-back" href="../../../source/src.preprocess.html#src.preprocess.utils.get_names">[docs]</a><span class="k">def</span> <span class="nf">get_names</span><span class="p">(</span><span class="n">ox</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Function to get names of columns holding measure information.</span>
 
-<span class="sd">    These columns begin with the prefix &quot;A1\_&quot; etc.</span>
+<span class="sd">    These columns begin with the prefix &quot;A1_&quot; etc.</span>
 
 <span class="sd">    returns:</span>
 <span class="sd">        full_value_names: the names of all columns with measure information</span>
 <span class="sd">        value_names: the names of measure columns</span>
 <span class="sd">        stub_names: the measure column prefixes (i.e. &quot;A1&quot;)</span>
 
-<span class="sd">    Parameters</span>
-<span class="sd">    ----------</span>
-<span class="sd">    ox : pd.DataFrame</span>
-<span class="sd">        Input OXCGRT dataset.</span>
-
-<span class="sd">    Returns</span>
-<span class="sd">    -------</span>
-<span class="sd">    full_value_names: list</span>
-<span class="sd">        The names of all columns with measure information.</span>
-<span class="sd">    value_names: list</span>
-<span class="sd">        The names of measure columns.</span>
-<span class="sd">    stub_names: list</span>
-<span class="sd">        The measure column prefixes (i.e. &quot;A1&quot;).</span>
-
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    &#39;&#39;&#39;</span>
 
     <span class="n">stub_exp</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;[A-Z][0-9]+_&#39;</span>
 
@@ -193,30 +126,13 @@
 
 
 <div class="viewcode-block" id="get_measure_records"><a class="viewcode-back" href="../../../source/src.preprocess.html#src.preprocess.utils.get_measure_records">[docs]</a><span class="k">def</span> <span class="nf">get_measure_records</span><span class="p">(</span><span class="n">combined_record</span><span class="p">,</span> <span class="n">stub_names</span><span class="p">,</span> <span class="n">id_columns</span><span class="p">,</span> <span class="n">full_value_names</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Function to break rows into individual records by stub group.</span>
+    <span class="sd">&#39;&#39;&#39;Function to break rows into individual records by stub group</span>
 
-<span class="sd">    i.e. subset a row for only C4 records and other information, repeat for all possible measures.</span>
+<span class="sd">        i.e. subset a row for only C4 records and other information, repeat for all possible measures.</span>
 
-<span class="sd">    Also drops records where notes column is blank i.e. sum(notes columns) == 0.</span>
+<span class="sd">        Also drops records where notes column is blank i.e. sum(notes columns) == 0</span>
 
-<span class="sd">    Parameters</span>
-<span class="sd">    ----------</span>
-<span class="sd">    combined_record : type</span>
-<span class="sd">        Dict of a single OXCGRT row.</span>
-<span class="sd">    stub_names : type</span>
-<span class="sd">        List of names of each stub group.</span>
-<span class="sd">    id_columns : type</span>
-<span class="sd">        List of columns to be retained as IDs.</span>
-<span class="sd">    full_value_names : type</span>
-<span class="sd">        List of full names of value columns.</span>
-
-<span class="sd">    Returns</span>
-<span class="sd">    -------</span>
-<span class="sd">    list</span>
-<span class="sd">        List of dicts containing all records extracted from a given row.</span>
-
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    &#39;&#39;&#39;</span>
 
     <span class="n">records</span> <span class="o">=</span> <span class="p">[]</span>
 
@@ -228,12 +144,12 @@
 
         <span class="k">try</span><span class="p">:</span>
             <span class="n">flag_key</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">stub_keys</span> <span class="k">if</span> <span class="s1">&#39;_Flag&#39;</span> <span class="ow">in</span> <span class="n">x</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
-        <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+        <span class="k">except</span><span class="p">:</span>
             <span class="k">pass</span>
 
         <span class="k">try</span><span class="p">:</span>
             <span class="n">notes_key</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">stub_keys</span> <span class="k">if</span> <span class="s1">&#39;_Notes&#39;</span> <span class="ow">in</span> <span class="n">x</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
-        <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+        <span class="k">except</span><span class="p">:</span>
             <span class="k">pass</span>
 
         <span class="n">subset</span> <span class="o">=</span> <span class="p">{</span><span class="n">key</span><span class="p">:</span> <span class="n">value</span> <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">combined_record</span><span class="o">.</span><span class="n">items</span><span class="p">()</span> <span class="k">if</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">keys</span><span class="p">}</span>
@@ -243,18 +159,18 @@
             <span class="k">if</span> <span class="nb">sum</span><span class="p">([</span><span class="n">subset</span><span class="p">[</span><span class="n">notes_key</span><span class="p">]])</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
 
                 <span class="k">continue</span>
-        <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+        <span class="k">except</span><span class="p">:</span>
             <span class="k">pass</span>
 
         <span class="k">try</span><span class="p">:</span>
             <span class="n">subset</span><span class="p">[</span><span class="s1">&#39;flag&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">subset</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">flag_key</span><span class="p">)</span>
-        <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+        <span class="k">except</span><span class="p">:</span>
             <span class="n">subset</span><span class="p">[</span><span class="s1">&#39;flag&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.0</span>
             <span class="k">pass</span>
 
         <span class="k">try</span><span class="p">:</span>
             <span class="n">subset</span><span class="p">[</span><span class="s1">&#39;notes&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">subset</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">notes_key</span><span class="p">)</span>
-        <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+        <span class="k">except</span><span class="p">:</span>
             <span class="k">pass</span>
 
 
@@ -274,120 +190,9 @@
         <span class="n">records</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">subset</span><span class="p">)</span>
 
     <span class="k">return</span><span class="p">(</span><span class="n">records</span><span class="p">)</span></div>
-
-
-<div class="viewcode-block" id="split_df_by_group"><a class="viewcode-back" href="../../../source/src.preprocess.html#src.preprocess.utils.split_df_by_group">[docs]</a><span class="k">def</span> <span class="nf">split_df_by_group</span><span class="p">(</span><span class="n">data</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span> <span class="n">group</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Split a dataframe by group and return a named dictionary.</span>
-
-<span class="sd">    Parameters</span>
-<span class="sd">    ----------</span>
-<span class="sd">    data : pd.DataFrame</span>
-<span class="sd">        Input dataset.</span>
-<span class="sd">    group : str</span>
-<span class="sd">        Name of column to be used as group.</span>
-
-<span class="sd">    Returns</span>
-<span class="sd">    -------</span>
-<span class="sd">    dict</span>
-<span class="sd">        Dict of dataset slices named by group.</span>
-
-<span class="sd">    &quot;&quot;&quot;</span>
-
-    <span class="n">grouped</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="n">group</span><span class="p">)</span>
-
-    <span class="n">groups</span> <span class="o">=</span> <span class="n">grouped</span><span class="o">.</span><span class="n">groups</span>
-
-    <span class="n">grouped</span> <span class="o">=</span> <span class="p">[</span><span class="n">grouped</span><span class="o">.</span><span class="n">get_group</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">grouped</span><span class="o">.</span><span class="n">groups</span><span class="p">]</span>
-
-    <span class="k">return</span><span class="p">(</span><span class="nb">dict</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">groups</span><span class="p">,</span> <span class="n">grouped</span><span class="p">)))</span></div>
-
-
-<div class="viewcode-block" id="filter_new_hashes"><a class="viewcode-back" href="../../../source/src.preprocess.html#src.preprocess.utils.filter_new_hashes">[docs]</a><span class="k">def</span> <span class="nf">filter_new_hashes</span><span class="p">(</span><span class="n">data</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span>
-                      <span class="n">ingested_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
-                      <span class="n">date_now</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%Y_%m_</span><span class="si">%d</span><span class="s1">&#39;</span><span class="p">),</span>
-                      <span class="n">save_ingestion_hashes</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Filter records by the row-wise hashes of their content.</span>
-
-<span class="sd">    Reduces the number of records that need to be processed from each dataset.</span>
-
-<span class="sd">    Will not filter hashes that were ingested on the same day as the function is called.</span>
-
-<span class="sd">    Parameters</span>
-<span class="sd">    ----------</span>
-<span class="sd">    data : pd.DataFrame</span>
-<span class="sd">        Input data.</span>
-<span class="sd">    ingested_path : str</span>
-<span class="sd">        Path to ingested hash reference.</span>
-<span class="sd">    date_now : str</span>
-<span class="sd">        String of current date.</span>
-<span class="sd">    save_ingestion_hashes: bool</span>
-<span class="sd">        Should ingestion hashes be saved?</span>
-
-<span class="sd">    Returns</span>
-<span class="sd">    -------</span>
-<span class="sd">    pd.DataFrame</span>
-<span class="sd">        Filtered data.</span>
-
-<span class="sd">    &quot;&quot;&quot;</span>
-
-    <span class="c1"># Read the reference file for ingested hashes</span>
-    <span class="n">ingested_hash_ref</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">ingested_path</span><span class="p">)</span>
-
-    <span class="c1"># Filter for hashes that were not processed today</span>
-    <span class="n">ingested_hash_ref</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">ingested_hash_ref</span><span class="p">[</span><span class="s1">&#39;date_processed&#39;</span><span class="p">]</span> <span class="o">!=</span> <span class="n">date_now</span><span class="p">,</span> <span class="p">:]</span>
-
-    <span class="c1"># Define row-wise hashes for the input dataset</span>
-    <span class="n">data</span><span class="p">[</span><span class="s1">&#39;_hash&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">get_row_hashes</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
-
-    <span class="c1"># Filter for only hash values that have not been processed on a different day</span>
-    <span class="n">data</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">loc</span><span class="p">[[</span><span class="n">x</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">ingested_hash_ref</span><span class="p">[</span><span class="s1">&#39;hash&#39;</span><span class="p">]</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;_hash&#39;</span><span class="p">]]]</span>
-
-    <span class="c1"># Get the hashes that were just ingested</span>
-    <span class="n">new_hashes</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;hash&#39;</span><span class="p">:</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;_hash&#39;</span><span class="p">],</span> <span class="s1">&#39;date_processed&#39;</span><span class="p">:</span> <span class="n">date_now</span><span class="p">})</span>
-
-    <span class="c1"># Remove _hash column from new data</span>
-    <span class="n">data</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;_hash&#39;</span><span class="p">])</span>
-
-    <span class="c1"># Combine previous hash ref with new hash ref</span>
-    <span class="n">ingested_hash_ref</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">ingested_hash_ref</span><span class="p">,</span> <span class="n">new_hashes</span><span class="p">])</span><span class="o">.</span><span class="n">drop_duplicates</span><span class="p">()</span>
-
-    <span class="c1"># Write combined hash ref to csv file if save_ingestion_hashes is True</span>
-    <span class="k">if</span> <span class="n">save_ingestion_hashes</span><span class="p">:</span>
-
-        <span class="n">ingested_hash_ref</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">ingested_path</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-
-    <span class="k">return</span><span class="p">(</span><span class="n">data</span><span class="p">)</span></div>
-
-
-<div class="viewcode-block" id="get_row_hashes"><a class="viewcode-back" href="../../../source/src.preprocess.html#src.preprocess.utils.get_row_hashes">[docs]</a><span class="k">def</span> <span class="nf">get_row_hashes</span><span class="p">(</span><span class="n">data</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Get row-wise base64 encoded hashes for a dataframe.</span>
-
-<span class="sd">    Parameters</span>
-<span class="sd">    ----------</span>
-<span class="sd">    data : pd.DataFrame</span>
-<span class="sd">        Input data.</span>
-
-<span class="sd">    Returns</span>
-<span class="sd">    -------</span>
-<span class="sd">    list</span>
-<span class="sd">        list of hashes.</span>
-
-<span class="sd">    &quot;&quot;&quot;</span>
-
-    <span class="c1"># Combine row values into a single string</span>
-    <span class="n">hash_strings</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="s1">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="nb">str</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">x</span><span class="p">)]),</span> <span class="n">axis</span> <span class="o">=</span> <span class="mi">1</span><span class="p">))</span>
-
-    <span class="c1"># Hash and base64 encode string</span>
-    <span class="n">hashes</span> <span class="o">=</span> <span class="p">[</span><span class="n">base64</span><span class="o">.</span><span class="n">b64encode</span><span class="p">(</span><span class="n">hashlib</span><span class="o">.</span><span class="n">sha1</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s2">&quot;UTF-8&quot;</span><span class="p">))</span><span class="o">.</span><span class="n">digest</span><span class="p">())</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">hash_strings</span><span class="p">]</span>
-
-    <span class="k">return</span><span class="p">(</span><span class="n">hashes</span><span class="p">)</span></div>
 </pre></div>
 
           </div>
-          
         </div>
       </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
@@ -413,23 +218,17 @@
 </ul>
 </div>
 <div id="searchbox" style="display: none" role="search">
-  <h3 id="searchlabel">Quick search</h3>
+  <h3>Quick search</h3>
     <div class="searchformwrapper">
     <form class="search" action="../../../search.html" method="get">
-      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="text" name="q" />
       <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
     </form>
     </div>
 </div>
-<script>$('#searchbox').show(0);</script>
-
-
-
-
-
-
-
-
+<script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
       </div>
       <div class="clearer"></div>
@@ -438,8 +237,8 @@
       &copy;2020, Hamish Gibbs.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.2.1</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.8.4</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.8</a>
       
     </div>
 

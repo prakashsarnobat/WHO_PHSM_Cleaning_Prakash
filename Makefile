@@ -4,42 +4,40 @@
 
 # Search for .env file variables
 
-#Build a new docker image
+# Build a new docker image
 build:
 	docker build -t who_clean .
 
-#Run image python
+# Run image python
 up:
 	docker run -it --rm --mount type=bind,source=${PWD},target=/usr/who_clean/ who_clean
 
-#Run image bash
+# Run image bash
 bash:
 	docker run -it --rm --mount type=bind,source=${PWD},target=/usr/who_clean/ who_clean bash
 
-#Run tests in container
+# Run tests in container
 test:
 	docker run --rm --mount type=bind,source=${PWD},target=/usr/who_clean/ who_clean tox
 
-#Lint code with isort -> black -> flake8
+# Build docs
+docs: FORCE
+	docker run --rm --mount type=bind,source=${PWD}/docs,target=/usr/who_clean/docs who_clean /bin/sh -c 'cd ./docs; make html'
+
+# Lint code with isort -> black -> flake8
 lint: isort black flake8
 
-#Apply black to all src files
+# Apply black to all src files
 black:
 	python -m black src
 
-#Apply flake8 to all src files
+# Apply flake8 to all src files
 flake8:
 	python -m flake8 src
 
-#Apply isort to all src files
+# Apply isort to all src files
 isort:
 	python -m isort src
-
-#Build docs
-docs: FORCE
-	sphinx-apidoc -f -o docs/source src
-	sphinx-apidoc -f -o docs/source tests
-	cd ./docs && $(MAKE) html
 
 data: preprocess process postprocess manually_cleaned master logs report bundle final_numbers
 

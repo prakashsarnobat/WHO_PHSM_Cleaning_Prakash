@@ -1,23 +1,23 @@
 
-<!DOCTYPE html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
-<html>
+<html xmlns="http://www.w3.org/1999/xhtml">
   <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>src.postprocess package &#8212; WHO PHSM Cleaning 0.0.1 documentation</title>
     <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-    <script src="../_static/jquery.js"></script>
-    <script src="../_static/underscore.js"></script>
-    <script src="../_static/doctools.js"></script>
-    <script src="../_static/language_data.js"></script>
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/language_data.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
    
   <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
-  
   
   <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
 
@@ -27,8 +27,6 @@
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
-          
-
           <div class="body" role="main">
             
   <div class="section" id="src-postprocess-package">
@@ -38,105 +36,28 @@
 </div>
 <div class="section" id="module-src.postprocess.CDC_ITF">
 <span id="src-postprocess-cdc-itf-module"></span><h2>src.postprocess.CDC_ITF module<a class="headerlink" href="#module-src.postprocess.CDC_ITF" title="Permalink to this headline">¶</a></h2>
-<dl class="py function">
+<dl class="function">
 <dt id="src.postprocess.CDC_ITF.postprocess">
-<code class="sig-prename descclassname">src.postprocess.CDC_ITF.</code><code class="sig-name descname">postprocess</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data</span><span class="p">:</span> <span class="n">pandas.DataFrame</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/src/postprocess/CDC_ITF.html#postprocess"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.postprocess.CDC_ITF.postprocess" title="Permalink to this definition">¶</a></dt>
-<dd><p>Apply dataset-level transformations to CDC_ITF data.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>data</strong> (<em>pd.DataFrame</em>) – Input CDC_ITF data.</p>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>CDC_ITF data with transformations appied.</p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>pd.DataFrame</p>
-</dd>
-</dl>
+<code class="descclassname">src.postprocess.CDC_ITF.</code><code class="descname">postprocess</code><span class="sig-paren">(</span><em>data: &lt;sphinx.ext.autodoc.importer._MockObject object at 0x7fbb1d9f7278&gt;</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/src/postprocess/CDC_ITF.html#postprocess"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.postprocess.CDC_ITF.postprocess" title="Permalink to this definition">¶</a></dt>
+<dd><p>Apply dataset-level transformations to cdc data</p>
 </dd></dl>
 
-<dl class="py function">
+<dl class="function">
 <dt id="src.postprocess.CDC_ITF.remove_id_duplicates">
-<code class="sig-prename descclassname">src.postprocess.CDC_ITF.</code><code class="sig-name descname">remove_id_duplicates</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data</span><span class="p">:</span> <span class="n">pandas.DataFrame</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/src/postprocess/CDC_ITF.html#remove_id_duplicates"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.postprocess.CDC_ITF.remove_id_duplicates" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">src.postprocess.CDC_ITF.</code><code class="descname">remove_id_duplicates</code><span class="sig-paren">(</span><em>data: &lt;sphinx.ext.autodoc.importer._MockObject object at 0x7fbb1d8c7128&gt;</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/src/postprocess/CDC_ITF.html#remove_id_duplicates"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.postprocess.CDC_ITF.remove_id_duplicates" title="Permalink to this definition">¶</a></dt>
 <dd><p>Remove duplicate records with identical measure_stage values</p>
-<p>Removes duplicate records with identical values in <cite>ref_cols</cite>.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>data</strong> (<em>pd.DataFrame</em>) – Input CDC_ITF data.</p>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>Data with duplicates removed.</p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>pd.DataFrame</p>
-</dd>
-</dl>
 </dd></dl>
 
 </div>
-<div class="section" id="module-src.postprocess.JH_HIT">
-<span id="src-postprocess-jh-hit-module"></span><h2>src.postprocess.JH_HIT module<a class="headerlink" href="#module-src.postprocess.JH_HIT" title="Permalink to this headline">¶</a></h2>
-<dl class="py function">
-<dt id="src.postprocess.JH_HIT.combine_measures">
-<code class="sig-prename descclassname">src.postprocess.JH_HIT.</code><code class="sig-name descname">combine_measures</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data</span><span class="p">:</span> <span class="n">pandas.DataFrame</span></em>, <em class="sig-param"><span class="n">who_code</span><span class="p">:</span> <span class="n">str</span></em>, <em class="sig-param"><span class="n">id_stub</span><span class="p">:</span> <span class="n">str</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/src/postprocess/JH_HIT.html#combine_measures"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.postprocess.JH_HIT.combine_measures" title="Permalink to this definition">¶</a></dt>
-<dd><p>Combine groups of records with an arbitrary <cite>who_code</cite>.</p>
-<p>Example:</p>
-<p>Groups are defined by records with identical numeric <cite>prop_id</cite> values:</p>
-<p>333_school_secondary, 333_school_nursery, 333_school_primary etc. -&gt; 333_school_closure</p>
-<p>or</p>
-<p>234_border_in, 234_border_out -&gt; 234_border_closure</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>data</strong> (<em>pd.DataFrame</em>) – Input data.</p></li>
-<li><p><strong>who_code</strong> (<em>str</em>) – <cite>who_code</cite> to combine.</p></li>
-<li><p><strong>id_stub</strong> (<em>str</em>) – Stub name to add to combined ID numbers.</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>Data with combination applied.</p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>pd.DataFrame</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt id="src.postprocess.JH_HIT.postprocess">
-<code class="sig-prename descclassname">src.postprocess.JH_HIT.</code><code class="sig-name descname">postprocess</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data</span><span class="p">:</span> <span class="n">pandas.DataFrame</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/src/postprocess/JH_HIT.html#postprocess"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.postprocess.JH_HIT.postprocess" title="Permalink to this definition">¶</a></dt>
-<dd><p>Apply dataset-level transformations to JH_HIT data.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>data</strong> (<em>pd.DataFrame</em>) – Input JH_HIT data.</p>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>JH_HIT data with transformations appied.</p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>pd.DataFrame</p>
-</dd>
-</dl>
-</dd></dl>
-
+<div class="section" id="src-postprocess-jh-hit-module">
+<h2>src.postprocess.JH_HIT module<a class="headerlink" href="#src-postprocess-jh-hit-module" title="Permalink to this headline">¶</a></h2>
 </div>
 <div class="section" id="module-src.postprocess.main">
 <span id="src-postprocess-main-module"></span><h2>src.postprocess.main module<a class="headerlink" href="#module-src.postprocess.main" title="Permalink to this headline">¶</a></h2>
-<dl class="py function">
+<dl class="function">
 <dt id="src.postprocess.main.postprocess">
-<code class="sig-prename descclassname">src.postprocess.main.</code><code class="sig-name descname">postprocess</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data</span><span class="p">:</span> <span class="n">pandas.DataFrame</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/src/postprocess/main.html#postprocess"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.postprocess.main.postprocess" title="Permalink to this definition">¶</a></dt>
-<dd><p>Unify manual changes applied to specific datasets.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>data</strong> (<em>pd.DataFrame</em>) – Input dataset.</p>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>Dataset with postprocessing changes applied.</p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>pd.DataFrame</p>
-</dd>
-</dl>
+<code class="descclassname">src.postprocess.main.</code><code class="descname">postprocess</code><span class="sig-paren">(</span><em>data: &lt;sphinx.ext.autodoc.importer._MockObject object at 0x7fbb1da1dba8&gt;</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/src/postprocess/main.html#postprocess"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.postprocess.main.postprocess" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function to apply manual changes to individual records</p>
 </dd></dl>
 
 </div>
@@ -147,7 +68,6 @@
 
 
           </div>
-          
         </div>
       </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
@@ -171,23 +91,17 @@
 </ul>
 </div>
 <div id="searchbox" style="display: none" role="search">
-  <h3 id="searchlabel">Quick search</h3>
+  <h3>Quick search</h3>
     <div class="searchformwrapper">
     <form class="search" action="../search.html" method="get">
-      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="text" name="q" />
       <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
     </form>
     </div>
 </div>
-<script>$('#searchbox').show(0);</script>
-
-
-
-
-
-
-
-
+<script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
       </div>
       <div class="clearer"></div>
@@ -196,8 +110,8 @@
       &copy;2020, Hamish Gibbs.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.2.1</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.8.4</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.8</a>
       
       |
       <a href="../_sources/source/src.postprocess.rst.txt"

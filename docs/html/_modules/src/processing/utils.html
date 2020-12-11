@@ -1,23 +1,23 @@
 
-<!DOCTYPE html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
-<html>
+<html xmlns="http://www.w3.org/1999/xhtml">
   <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>src.processing.utils &#8212; WHO PHSM Cleaning 0.0.1 documentation</title>
     <link rel="stylesheet" href="../../../_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
-    <script id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
-    <script src="../../../_static/jquery.js"></script>
-    <script src="../../../_static/underscore.js"></script>
-    <script src="../../../_static/doctools.js"></script>
-    <script src="../../../_static/language_data.js"></script>
+    <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../../_static/language_data.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
    
   <link rel="stylesheet" href="../../../_static/custom.css" type="text/css" />
-  
   
   <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
 
@@ -27,8 +27,6 @@
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
-          
-
           <div class="body" role="main">
             
   <h1>Source code for src.processing.utils</h1><div class="highlight"><pre>
@@ -39,28 +37,13 @@
 <span class="kn">import</span> <span class="nn">uuid</span>
 <span class="kn">import</span> <span class="nn">random</span>
 
-
 <div class="viewcode-block" id="generate_blank_record"><a class="viewcode-back" href="../../../source/src.processing.html#src.processing.utils.generate_blank_record">[docs]</a><span class="k">def</span> <span class="nf">generate_blank_record</span><span class="p">():</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Generate a blank record with the correct WHO PHSM keys.</span>
-
-<span class="sd">    Other objects requiring the same selection of keys descend from here.</span>
-
-<span class="sd">    Returns</span>
-<span class="sd">    -------</span>
-<span class="sd">    A blank record with keys in WHO PHSM column format.</span>
-
-<span class="sd">    type</span>
-<span class="sd">        dict.</span>
-
-<span class="sd">    &quot;&quot;&quot;</span>
-
+    <span class="sd">&#39;&#39;&#39;Function to generate a blank record with the correct WHO keys&#39;&#39;&#39;</span>
 
     <span class="n">record</span> <span class="o">=</span> <span class="p">{</span>
         <span class="s2">&quot;processed&quot;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
         <span class="s2">&quot;uuid&quot;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">uuid</span><span class="o">.</span><span class="n">uuid4</span><span class="p">()),</span>
         <span class="s2">&quot;who_id&quot;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
-        <span class="s2">&quot;who_id_original&quot;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
         <span class="s2">&quot;dataset&quot;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
         <span class="s2">&quot;prop_id&quot;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
         <span class="s2">&quot;keep&quot;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
@@ -109,27 +92,7 @@
 
 
 <div class="viewcode-block" id="new_id"><a class="viewcode-back" href="../../../source/src.processing.html#src.processing.utils.new_id">[docs]</a><span class="k">def</span> <span class="nf">new_id</span><span class="p">(</span><span class="n">dataset</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">length</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">6</span><span class="p">,</span> <span class="n">existing_ids</span><span class="p">:</span> <span class="nb">list</span> <span class="o">=</span> <span class="p">[</span><span class="kc">None</span><span class="p">]):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Function to create a unique id given a list of existing ids.</span>
-
-<span class="sd">    DEPRACATED?</span>
-
-<span class="sd">    Parameters</span>
-<span class="sd">    ----------</span>
-<span class="sd">    dataset : str</span>
-<span class="sd">        Dataset to which ids will be added.</span>
-<span class="sd">    length : int</span>
-<span class="sd">        Length of new ID number.</span>
-<span class="sd">    existing_ids : list</span>
-<span class="sd">        Vector of existing IDs.</span>
-
-<span class="sd">    Returns</span>
-<span class="sd">    -------</span>
-<span class="sd">    New ID number.</span>
-<span class="sd">    type</span>
-<span class="sd">        str.</span>
-
-<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="sd">&#39;&#39;&#39;Function to create a unique id given a list of existing ids&#39;&#39;&#39;</span>
 
     <span class="nb">id</span> <span class="o">=</span> <span class="n">create_id</span><span class="p">(</span><span class="n">dataset</span><span class="p">,</span> <span class="n">length</span><span class="p">)</span>
 
@@ -141,25 +104,7 @@
 
 
 <div class="viewcode-block" id="create_id"><a class="viewcode-back" href="../../../source/src.processing.html#src.processing.utils.create_id">[docs]</a><span class="k">def</span> <span class="nf">create_id</span><span class="p">(</span><span class="n">dataset</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">length</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">6</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Create a random id of characters and numbers.</span>
-
-<span class="sd">    DEPRACATED?</span>
-
-<span class="sd">    Parameters</span>
-<span class="sd">    ----------</span>
-<span class="sd">    dataset : str</span>
-<span class="sd">        Dataset to which ids will be added.</span>
-<span class="sd">    length : int</span>
-<span class="sd">        Length of new ID number.</span>
-
-<span class="sd">    Returns</span>
-<span class="sd">    -------</span>
-<span class="sd">    New ID number.</span>
-<span class="sd">    type</span>
-<span class="sd">        str.</span>
-
-<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="sd">&#39;&#39;&#39;Function to create a random id of characters and numbers&#39;&#39;&#39;</span>
 
     <span class="n">characters</span> <span class="o">=</span> <span class="s1">&#39;0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz-&#39;</span>
 
@@ -175,31 +120,7 @@
 
 
 <div class="viewcode-block" id="apply_key_map"><a class="viewcode-back" href="../../../source/src.processing.html#src.processing.utils.apply_key_map">[docs]</a><span class="k">def</span> <span class="nf">apply_key_map</span><span class="p">(</span><span class="n">new_record</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span> <span class="n">old_record</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span> <span class="n">key_ref</span><span class="p">:</span> <span class="nb">dict</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Apply key mapping between two records based on a key reference.</span>
-
-<span class="sd">    Example:</span>
-
-<span class="sd">    Given `key_ref`: `{&#39;column1&#39;:&#39;column2&#39;}`.</span>
-
-<span class="sd">    Extracts values from `old_record[&#39;column1&#39;]` to `new_record[&#39;column2&#39;]`.</span>
-
-<span class="sd">    Parameters</span>
-<span class="sd">    ----------</span>
-<span class="sd">    new_record : dict</span>
-<span class="sd">        Record with WHO PHSM keys.</span>
-<span class="sd">    old_record : dict</span>
-<span class="sd">        Record with provider keys.</span>
-<span class="sd">    key_ref : dict</span>
-<span class="sd">        Reference for mapping keys between records.</span>
-
-<span class="sd">    Returns</span>
-<span class="sd">    -------</span>
-<span class="sd">    Record with new values appliued to specified keys.</span>
-<span class="sd">    type</span>
-<span class="sd">        dict.</span>
-
-<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="sd">&#39;&#39;&#39;Function to apply key mapping between two records based on a key reference&#39;&#39;&#39;</span>
 
     <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">key_ref</span><span class="p">:</span>
 
@@ -219,28 +140,11 @@
 
 
 <div class="viewcode-block" id="key_map"><a class="viewcode-back" href="../../../source/src.processing.html#src.processing.utils.key_map">[docs]</a><span class="k">def</span> <span class="nf">key_map</span><span class="p">(</span><span class="n">new_record</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span> <span class="n">old_record</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span> <span class="n">new_key</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">old_key</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Implements key mapping from `new_record` to `old_record`.</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Function to move data between records from one key to another</span>
 
-<span class="sd">    For more information see `apply_key_map`.</span>
-
-<span class="sd">    Parameters</span>
-<span class="sd">    ----------</span>
-<span class="sd">    new_record : dict</span>
-<span class="sd">        Record with WHO PHSM keys.</span>
-<span class="sd">    old_record : dict</span>
-<span class="sd">        Record with provider keys.</span>
-<span class="sd">    new_key : str</span>
-<span class="sd">        Key in `old_record`.</span>
-<span class="sd">    old_key : str</span>
-<span class="sd">        Corresponding key in `new_record`.</span>
-
-<span class="sd">    Returns</span>
-<span class="sd">    -------</span>
-<span class="sd">    type</span>
-<span class="sd">        Record with information mapped from `new_key` to `old_key`.</span>
-
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    if a new key is null, data will not be copied. Occurs when some data in a provider dataset is not used in WHO dataset</span>
+<span class="sd">    &#39;&#39;&#39;</span>
 
     <span class="k">if</span> <span class="ow">not</span> <span class="n">pd</span><span class="o">.</span><span class="n">isnull</span><span class="p">(</span><span class="n">new_key</span><span class="p">):</span>
 
@@ -250,24 +154,13 @@
 
 
 <div class="viewcode-block" id="parse_date"><a class="viewcode-back" href="../../../source/src.processing.html#src.processing.utils.parse_date">[docs]</a><span class="k">def</span> <span class="nf">parse_date</span><span class="p">(</span><span class="n">record</span><span class="p">:</span> <span class="nb">dict</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Function to parse record date format.</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Function to parse record date format</span>
 
-<span class="sd">    Currently relying on parsing behaviour of pandas.to_datetime.</span>
-<span class="sd">    NOTE: This is vulnerable to USA format dates parsed as EU dates</span>
+<span class="sd">        Currently relying on parsing behaviour of pandas.to_datetime.</span>
+<span class="sd">        NOTE: This is vulnerable to USA format dates parsed as EU dates</span>
 
-<span class="sd">    DEPRACATED?</span>
-
-<span class="sd">    Parameters</span>
-<span class="sd">    ----------</span>
-<span class="sd">    record : dict</span>
-<span class="sd">        Dataset record.</span>
-
-<span class="sd">    Returns</span>
-<span class="sd">    -------</span>
-<span class="sd">    type</span>
-<span class="sd">        Dataset record.</span>
-
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    &#39;&#39;&#39;</span>
 
     <span class="n">record</span><span class="p">[</span><span class="s1">&#39;date_start&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">record</span><span class="p">[</span><span class="s1">&#39;date_start&#39;</span><span class="p">])</span>
     <span class="n">record</span><span class="p">[</span><span class="s1">&#39;date_end&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">record</span><span class="p">[</span><span class="s1">&#39;date_end&#39;</span><span class="p">])</span>
@@ -277,57 +170,19 @@
 
 
 <div class="viewcode-block" id="get_min_id"><a class="viewcode-back" href="../../../source/src.processing.html#src.processing.utils.get_min_id">[docs]</a><span class="k">def</span> <span class="nf">get_min_id</span><span class="p">(</span><span class="n">fn</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">id_column</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;who_id&#39;</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Function to open a file and extract the maximum numeric.</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Function to open a file and extract the maximum numeric # IDEA:</span>
 
-<span class="sd">    This will be the new min id to be incremented for the ID field.</span>
-
-<span class="sd">    Future: should be replaced by a set difference of existing IDs and an</span>
-<span class="sd">    arbitrary ID sequence.</span>
-
-<span class="sd">    Example:</span>
-
-<span class="sd">        Extracts numeric valeu of ID `ACAPS_1234` -&gt; `1234`.</span>
-
-<span class="sd">    Parameters</span>
-<span class="sd">    ----------</span>
-<span class="sd">    fn : str</span>
-<span class="sd">        Filename to reference dataset.</span>
-<span class="sd">    id_column : str</span>
-<span class="sd">        ID column name in reference dataset.</span>
-
-<span class="sd">    Returns</span>
-<span class="sd">    -------</span>
-<span class="sd">    Maximum numeric ID value.</span>
-<span class="sd">    type</span>
-<span class="sd">        int.</span>
-
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    This will be the new min id to be incremented.</span>
+<span class="sd">    &#39;&#39;&#39;</span>
 
     <span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">fn</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;latin1&#39;</span><span class="p">,</span> <span class="n">low_memory</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 
-    <span class="k">return</span><span class="p">(</span><span class="nb">max</span><span class="p">([</span><span class="nb">int</span><span class="p">(</span><span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;\d+&#39;</span><span class="p">,</span> <span class="n">x</span><span class="p">)[</span><span class="mi">0</span><span class="p">])</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">data</span><span class="p">[</span><span class="n">id_column</span><span class="p">]</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">pd</span><span class="o">.</span><span class="n">isna</span><span class="p">(</span><span class="n">x</span><span class="p">)]))</span></div>
+    <span class="k">return</span><span class="p">(</span><span class="nb">max</span><span class="p">([</span><span class="nb">int</span><span class="p">(</span><span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;\d+&#39;</span><span class="p">,</span> <span class="n">x</span><span class="p">)[</span><span class="mi">0</span><span class="p">])</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">data</span><span class="p">[</span><span class="n">id_column</span><span class="p">]]))</span></div>
 
 
-<div class="viewcode-block" id="assign_id"><a class="viewcode-back" href="../../../source/src.processing.html#src.processing.utils.assign_id">[docs]</a><span class="k">def</span> <span class="nf">assign_id</span><span class="p">(</span><span class="n">records</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span> <span class="n">min_id</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Function to assign a unique ID to each record.</span>
-
-<span class="sd">    IDs are assigned in the format `DATASET_NUMBER`. i.e. `ACAPS_1234`.</span>
-
-<span class="sd">    Parameters</span>
-<span class="sd">    ----------</span>
-<span class="sd">    records : pandas.DataFrame</span>
-<span class="sd">        Dataframe of records which will have ID numbers added.</span>
-<span class="sd">    min_id : int</span>
-<span class="sd">        Number to begin incrementing IDs from.</span>
-
-<span class="sd">    Returns</span>
-<span class="sd">    -------</span>
-<span class="sd">    type</span>
-<span class="sd">        Dataframe with IDs added.</span>
-
-<span class="sd">    &quot;&quot;&quot;</span>
+<div class="viewcode-block" id="assign_id"><a class="viewcode-back" href="../../../source/src.processing.html#src.processing.utils.assign_id">[docs]</a><span class="k">def</span> <span class="nf">assign_id</span><span class="p">(</span><span class="n">records</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span> <span class="n">min_id</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;Function to assign a unique ID to each record&#39;&#39;&#39;</span>
 
     <span class="c1">#Ensure that no IDs are duplicated by incrementing by 1</span>
     <span class="n">min_id</span> <span class="o">=</span> <span class="n">min_id</span> <span class="o">+</span> <span class="mi">1</span>
@@ -344,29 +199,12 @@
 
 
 <div class="viewcode-block" id="assign_who_country_name"><a class="viewcode-back" href="../../../source/src.processing.html#src.processing.utils.assign_who_country_name">[docs]</a><span class="k">def</span> <span class="nf">assign_who_country_name</span><span class="p">(</span><span class="n">record</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span> <span class="n">country_ref</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span> <span class="n">missing_value</span><span class="p">:</span> <span class="nb">str</span><span class="o">=</span><span class="s1">&#39;unknown&#39;</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Function to assign country names by ISO code.</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Function to assign country names by ISO code</span>
 
-<span class="sd">    Also adds: `who_region`, `country_territory_area`, `iso_3166_1_numeric`.</span>
+<span class="sd">    also adds: who_region, country_territory_area, iso_3166_1_numeric</span>
 
-<span class="sd">    WHO recognizes standard country names which are transformed from ISOs defined on provider country names.</span>
-
-<span class="sd">    Parameters</span>
-<span class="sd">    ----------</span>
-<span class="sd">    record : dict</span>
-<span class="sd">        Input record.</span>
-<span class="sd">    country_ref : pd.DataFrame</span>
-<span class="sd">        Dataframe of country name mappings.</span>
-<span class="sd">    missing_value : str</span>
-<span class="sd">        Value to add if name mapping fails - defaults to &quot;unknown&quot;.</span>
-<span class="sd">        This value is recognized by output checks.</span>
-
-<span class="sd">    Returns</span>
-<span class="sd">    -------</span>
-<span class="sd">    type</span>
-<span class="sd">        Record with country name mapping applied.</span>
-
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    &#39;&#39;&#39;</span>
 
     <span class="n">country_ref</span> <span class="o">=</span> <span class="n">country_ref</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">country_ref</span><span class="p">[</span><span class="s1">&#39;iso&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">record</span><span class="p">[</span><span class="s1">&#39;iso&#39;</span><span class="p">],</span> <span class="p">:]</span>
 
@@ -374,7 +212,7 @@
 
         <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">country_ref</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">])</span> <span class="o">==</span> <span class="mi">1</span>
 
-    <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
 
         <span class="n">record</span><span class="p">[</span><span class="s1">&#39;who_region&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">missing_value</span>
         <span class="n">record</span><span class="p">[</span><span class="s1">&#39;country_territory_area&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">missing_value</span>
@@ -391,31 +229,10 @@
     <span class="k">return</span><span class="p">(</span><span class="n">record</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="assign_who_coding"><a class="viewcode-back" href="../../../source/src.processing.html#src.processing.utils.assign_who_coding">[docs]</a><span class="k">def</span> <span class="nf">assign_who_coding</span><span class="p">(</span><span class="n">record</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span> <span class="n">who_coding</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span> <span class="n">missing_value</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;unknown&#39;</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Assign WHO coding to a record.</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Function to assign WHO coding to a record</span>
 
-<span class="sd">    Adds: `who_code`, `who_measure`, `who_subcategory`, `who_category`.</span>
-
-<span class="sd">    Optionally adds: `targeted`, `non_compliance`, `enforcement`.</span>
-
-<span class="sd">    Transforms provider coding of interventions to WHO PHSM coding.</span>
-
-<span class="sd">    Parameters</span>
-<span class="sd">    ----------</span>
-<span class="sd">    record : dict</span>
-<span class="sd">        Input record.</span>
-<span class="sd">    who_coding : pd.DataFrame</span>
-<span class="sd">        Dataframe of WHO PHSM intervention mappings.</span>
-<span class="sd">    missing_value : str</span>
-<span class="sd">        Value to add if name mapping fails - defaults to &quot;unknown&quot;.</span>
-<span class="sd">        This value is recognized by output checks.</span>
-
-<span class="sd">    Returns</span>
-<span class="sd">    -------</span>
-<span class="sd">    type</span>
-<span class="sd">        Record with WHO PHSM code mapping applied.</span>
-
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    &#39;&#39;&#39;</span>
 
     <span class="n">prov_measure</span> <span class="o">=</span> <span class="n">who_coding</span><span class="p">[</span><span class="s1">&#39;prov_measure&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">none_to_empty_str</span><span class="p">(</span><span class="n">record</span><span class="p">[</span><span class="s1">&#39;prov_measure&#39;</span><span class="p">])</span>
     <span class="n">prov_subcategory</span> <span class="o">=</span> <span class="n">who_coding</span><span class="p">[</span><span class="s1">&#39;prov_subcategory&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">none_to_empty_str</span><span class="p">(</span><span class="n">record</span><span class="p">[</span><span class="s1">&#39;prov_subcategory&#39;</span><span class="p">])</span>
@@ -427,7 +244,7 @@
 
         <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">coding</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">])</span> <span class="o">==</span> <span class="mi">1</span>
 
-    <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
 
         <span class="n">record</span><span class="p">[</span><span class="s1">&#39;who_code&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">missing_value</span>
         <span class="n">record</span><span class="p">[</span><span class="s1">&#39;who_measure&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">missing_value</span>
@@ -453,7 +270,7 @@
 
             <span class="n">record</span><span class="p">[</span><span class="s1">&#39;targeted&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">coding</span><span class="p">[</span><span class="s1">&#39;who_targeted&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
 
-    <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
 
         <span class="k">pass</span>
 
@@ -469,23 +286,7 @@
 
             <span class="n">record</span><span class="p">[</span><span class="s1">&#39;non_compliance_penalty&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">coding</span><span class="p">[</span><span class="s1">&#39;non_compliance&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
 
-    <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
-
-        <span class="k">pass</span>
-
-    <span class="c1"># try to assign an enforcement (missing for most records)</span>
-    <span class="c1"># WARNING: this could overwrite an existing enforcement value</span>
-    <span class="k">try</span><span class="p">:</span>
-
-        <span class="k">if</span> <span class="n">coding</span><span class="p">[</span><span class="s1">&#39;who_enforcement&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;&#39;</span><span class="p">:</span>
-
-            <span class="k">raise</span> <span class="ne">ValueError</span>
-
-        <span class="k">else</span><span class="p">:</span>
-
-            <span class="n">record</span><span class="p">[</span><span class="s1">&#39;enforcement&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">coding</span><span class="p">[</span><span class="s1">&#39;who_enforcement&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-
-    <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
 
         <span class="k">pass</span>
 
@@ -493,22 +294,7 @@
 
 
 <div class="viewcode-block" id="none_to_empty_str"><a class="viewcode-back" href="../../../source/src.processing.html#src.processing.utils.none_to_empty_str">[docs]</a><span class="k">def</span> <span class="nf">none_to_empty_str</span><span class="p">(</span><span class="n">s</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Convert None values to an empty string.</span>
-
-<span class="sd">    Useful for changing None values for smooth mapping of who coding.</span>
-
-<span class="sd">    Parameters</span>
-<span class="sd">    ----------</span>
-<span class="sd">    s : type</span>
-<span class="sd">        String to be converted.</span>
-
-<span class="sd">    Returns</span>
-<span class="sd">    -------</span>
-<span class="sd">    type</span>
-<span class="sd">        Outut string, if string equalled None, returns &#39;&#39;, else returns original string.</span>
-
-<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="sd">&#39;&#39;&#39;convert None values to empty strings&#39;&#39;&#39;</span>
 
     <span class="k">if</span> <span class="n">s</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
 
@@ -519,26 +305,7 @@
         <span class="k">return</span><span class="p">(</span><span class="n">s</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="replace_conditional"><a class="viewcode-back" href="../../../source/src.processing.html#src.processing.utils.replace_conditional">[docs]</a><span class="k">def</span> <span class="nf">replace_conditional</span><span class="p">(</span><span class="n">record</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span> <span class="n">field</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">replacement</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Function to conditionally replace a value in a field.</span>
-
-<span class="sd">    Parameters</span>
-<span class="sd">    ----------</span>
-<span class="sd">    record : dict</span>
-<span class="sd">        Input record.</span>
-<span class="sd">    field : str</span>
-<span class="sd">        Key of field to be conditionally altered.</span>
-<span class="sd">    value : str</span>
-<span class="sd">        Value to identify and replace.</span>
-<span class="sd">    replacement : str</span>
-<span class="sd">        Value to insert on replacement.</span>
-
-<span class="sd">    Returns</span>
-<span class="sd">    -------</span>
-<span class="sd">    type</span>
-<span class="sd">        Record with specified key altered if `record[key] == value`. Otherwise, the original record is returned.</span>
-
-<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="sd">&#39;&#39;&#39;Function to conditionally replace a value in an arbitrary field&#39;&#39;&#39;</span>
 
     <span class="k">if</span> <span class="n">record</span><span class="p">[</span><span class="n">field</span><span class="p">]</span> <span class="o">==</span> <span class="n">value</span><span class="p">:</span>
 
@@ -548,24 +315,7 @@
 
 
 <div class="viewcode-block" id="replace_sensitive_regions"><a class="viewcode-back" href="../../../source/src.processing.html#src.processing.utils.replace_sensitive_regions">[docs]</a><span class="k">def</span> <span class="nf">replace_sensitive_regions</span><span class="p">(</span><span class="n">record</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Replace a selection of commonly occuring admin level issues.</span>
-
-<span class="sd">    WHO recognizes certain administrative definitions that differ from ISO conventions.</span>
-
-<span class="sd">    Future: Move specific region definitions to `config` directory.</span>
-
-<span class="sd">    Parameters</span>
-<span class="sd">    ----------</span>
-<span class="sd">    record : type</span>
-<span class="sd">        Input record.</span>
-
-<span class="sd">    Returns</span>
-<span class="sd">    -------</span>
-<span class="sd">    type</span>
-<span class="sd">        Record with sensitive regions changed.</span>
-
-<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="sd">&#39;&#39;&#39;Replace a selection of commonly occuring admin level conflicts&#39;&#39;&#39;</span>
 
     <span class="n">record</span> <span class="o">=</span> <span class="n">shift_sensitive_region</span><span class="p">(</span><span class="n">record</span><span class="p">,</span> <span class="s1">&#39;Kosovo&#39;</span><span class="p">,</span> <span class="s1">&#39;Serbia&#39;</span><span class="p">)</span>
     <span class="n">record</span> <span class="o">=</span> <span class="n">shift_sensitive_region</span><span class="p">(</span><span class="n">record</span><span class="p">,</span> <span class="s1">&#39;Hong Kong&#39;</span><span class="p">,</span> <span class="s1">&#39;China&#39;</span><span class="p">)</span>
@@ -573,31 +323,12 @@
     <span class="n">record</span> <span class="o">=</span> <span class="n">shift_sensitive_region</span><span class="p">(</span><span class="n">record</span><span class="p">,</span> <span class="s1">&#39;Macau&#39;</span><span class="p">,</span> <span class="s1">&#39;China&#39;</span><span class="p">)</span>
     <span class="n">record</span> <span class="o">=</span> <span class="n">shift_sensitive_region</span><span class="p">(</span><span class="n">record</span><span class="p">,</span> <span class="s1">&#39;Macao&#39;</span><span class="p">,</span> <span class="s1">&#39;China&#39;</span><span class="p">)</span>
     <span class="n">record</span> <span class="o">=</span> <span class="n">shift_sensitive_region</span><span class="p">(</span><span class="n">record</span><span class="p">,</span> <span class="s1">&#39;Guadeloupe&#39;</span><span class="p">,</span> <span class="s1">&#39;France&#39;</span><span class="p">)</span>
-    <span class="n">record</span> <span class="o">=</span> <span class="n">shift_sensitive_region</span><span class="p">(</span><span class="n">record</span><span class="p">,</span> <span class="s1">&#39;Palestine&#39;</span><span class="p">,</span> <span class="s1">&#39;Israel&#39;</span><span class="p">)</span>
-    <span class="n">record</span> <span class="o">=</span> <span class="n">shift_sensitive_region</span><span class="p">(</span><span class="n">record</span><span class="p">,</span> <span class="s1">&#39;West Bank and Gaza&#39;</span><span class="p">,</span> <span class="s1">&#39;Israel&#39;</span><span class="p">)</span>
 
     <span class="k">return</span><span class="p">(</span><span class="n">record</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="shift_sensitive_region"><a class="viewcode-back" href="../../../source/src.processing.html#src.processing.utils.shift_sensitive_region">[docs]</a><span class="k">def</span> <span class="nf">shift_sensitive_region</span><span class="p">(</span><span class="n">record</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span> <span class="n">original_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">new_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Function to demote sensitive country names to `area_covered` from `country_territory_area`.</span>
-
-<span class="sd">    Parameters</span>
-<span class="sd">    ----------</span>
-<span class="sd">    record : dict</span>
-<span class="sd">        Input record.</span>
-<span class="sd">    original_name : str</span>
-<span class="sd">        Original country name from provider dataset.</span>
-<span class="sd">    new_name : str</span>
-<span class="sd">        New WHO-recognised country name.</span>
-
-<span class="sd">    Returns</span>
-<span class="sd">    -------</span>
-<span class="sd">    type</span>
-<span class="sd">        Record with sensitive countries changed.</span>
-
-<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="sd">&#39;&#39;&#39;Function to demote sensitive country names to area_covered from country_territory_area&#39;&#39;&#39;</span>
 
     <span class="k">if</span> <span class="n">record</span><span class="p">[</span><span class="s1">&#39;country_territory_area&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">original_name</span><span class="p">:</span>
 
@@ -609,28 +340,13 @@
 
 
 <div class="viewcode-block" id="add_admin_level"><a class="viewcode-back" href="../../../source/src.processing.html#src.processing.utils.add_admin_level">[docs]</a><span class="k">def</span> <span class="nf">add_admin_level</span><span class="p">(</span><span class="n">record</span><span class="p">:</span> <span class="nb">dict</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Set admin_level values to &quot;national&quot; or &quot;other&quot;.</span>
+    <span class="sd">&#39;&#39;&#39;Function to set admin_level values to &quot;national&quot; or &quot;other&quot;&#39;&#39;&#39;</span>
 
-<span class="sd">    If `area_covered` is blank: &quot;national&quot;, else: &quot;other&quot;.</span>
-
-<span class="sd">    Parameters</span>
-<span class="sd">    ----------</span>
-<span class="sd">    record : dict</span>
-<span class="sd">        Input record.</span>
-
-<span class="sd">    Returns</span>
-<span class="sd">    -------</span>
-<span class="sd">    type</span>
-<span class="sd">        Record with `admin_level` added.</span>
-
-<span class="sd">    &quot;&quot;&quot;</span>
-
-    <span class="k">if</span> <span class="n">pd</span><span class="o">.</span><span class="n">isna</span><span class="p">(</span><span class="n">record</span><span class="p">[</span><span class="s1">&#39;admin_level&#39;</span><span class="p">])</span> <span class="ow">and</span> <span class="n">pd</span><span class="o">.</span><span class="n">isna</span><span class="p">(</span><span class="n">record</span><span class="p">[</span><span class="s1">&#39;area_covered&#39;</span><span class="p">]):</span>
+    <span class="k">if</span> <span class="n">record</span><span class="p">[</span><span class="s1">&#39;area_covered&#39;</span><span class="p">]</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
 
         <span class="n">record</span><span class="p">[</span><span class="s1">&#39;admin_level&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;national&#39;</span>
 
-    <span class="k">elif</span> <span class="n">pd</span><span class="o">.</span><span class="n">isna</span><span class="p">(</span><span class="n">record</span><span class="p">[</span><span class="s1">&#39;admin_level&#39;</span><span class="p">])</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">pd</span><span class="o">.</span><span class="n">isna</span><span class="p">(</span><span class="n">record</span><span class="p">[</span><span class="s1">&#39;area_covered&#39;</span><span class="p">]):</span>
+    <span class="k">else</span><span class="p">:</span>
 
         <span class="n">record</span><span class="p">[</span><span class="s1">&#39;admin_level&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;other&#39;</span>
 
@@ -638,31 +354,7 @@
 
 
 <div class="viewcode-block" id="remove_tags"><a class="viewcode-back" href="../../../source/src.processing.html#src.processing.utils.remove_tags">[docs]</a><span class="k">def</span> <span class="nf">remove_tags</span><span class="p">(</span><span class="n">record</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span> <span class="n">keys</span><span class="p">:</span> <span class="nb">list</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;comments&#39;</span><span class="p">]):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Remove HTML tags from defined columns.</span>
-
-<span class="sd">    Some datasets (CDC_ITF) provide comments that are enclosed in</span>
-<span class="sd">    HTML tags for display on the web.</span>
-
-<span class="sd">    Identifies content inside of HTML tags and returns content only.</span>
-
-<span class="sd">    Example:</span>
-
-<span class="sd">    &quot;&lt;p&gt;Content&lt;/p&gt;&quot; -&gt; &quot;Content&quot;</span>
-
-<span class="sd">    Parameters</span>
-<span class="sd">    ----------</span>
-<span class="sd">    record : dict</span>
-<span class="sd">        Input record.</span>
-<span class="sd">    keys : list</span>
-<span class="sd">        List of which keys HTML tage replacement should be applied to.</span>
-
-<span class="sd">    Returns</span>
-<span class="sd">    -------</span>
-<span class="sd">    type</span>
-<span class="sd">        Record with HTML tags replaced in the defined tags.</span>
-
-<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="sd">&#39;&#39;&#39;Function to remove HTML tags from comments&#39;&#39;&#39;</span>
 
     <span class="n">exp</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;&lt;[^&gt;]+&gt;&#39;</span><span class="p">)</span>
 
@@ -677,44 +369,9 @@
             <span class="n">record</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
 
     <span class="k">return</span><span class="p">(</span><span class="n">record</span><span class="p">)</span></div>
-
-
-<div class="viewcode-block" id="replace_country"><a class="viewcode-back" href="../../../source/src.processing.html#src.processing.utils.replace_country">[docs]</a><span class="k">def</span> <span class="nf">replace_country</span><span class="p">(</span><span class="n">record</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span> <span class="n">country_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">area_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Replace country name with an `area_covered` name.</span>
-
-<span class="sd">    Promote a string in `area_covered` to `country_territory_area`.</span>
-
-<span class="sd">    Applies to records where a WHO recognised country is defined as an</span>
-<span class="sd">    administrative region of a different country.</span>
-
-<span class="sd">    Parameters</span>
-<span class="sd">    ----------</span>
-<span class="sd">    record : dict</span>
-<span class="sd">        Input record.</span>
-<span class="sd">    country_name : str</span>
-<span class="sd">        Country name to be matched.</span>
-<span class="sd">    area_name : str</span>
-<span class="sd">        Area name to be matched.</span>
-
-<span class="sd">    Returns</span>
-<span class="sd">    -------</span>
-<span class="sd">    type</span>
-<span class="sd">        Record with country `area_covered` promotion applied.</span>
-
-<span class="sd">    &quot;&quot;&quot;</span>
-
-    <span class="k">if</span> <span class="n">record</span><span class="p">[</span><span class="s1">&#39;country_territory_area&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">country_name</span> <span class="ow">and</span> <span class="n">record</span><span class="p">[</span><span class="s1">&#39;area_covered&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">area_name</span><span class="p">:</span>
-
-        <span class="n">record</span><span class="p">[</span><span class="s1">&#39;country_territory_area&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">area_name</span>
-
-        <span class="n">record</span><span class="p">[</span><span class="s1">&#39;area_covered&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
-
-    <span class="k">return</span><span class="p">(</span><span class="n">record</span><span class="p">)</span></div>
 </pre></div>
 
           </div>
-          
         </div>
       </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
@@ -740,23 +397,17 @@
 </ul>
 </div>
 <div id="searchbox" style="display: none" role="search">
-  <h3 id="searchlabel">Quick search</h3>
+  <h3>Quick search</h3>
     <div class="searchformwrapper">
     <form class="search" action="../../../search.html" method="get">
-      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="text" name="q" />
       <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
     </form>
     </div>
 </div>
-<script>$('#searchbox').show(0);</script>
-
-
-
-
-
-
-
-
+<script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
       </div>
       <div class="clearer"></div>
@@ -765,8 +416,8 @@
       &copy;2020, Hamish Gibbs.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.2.1</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.8.4</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.8</a>
       
     </div>
 
