@@ -1,6 +1,9 @@
 import pickle
 import shutil
 import re
+import hashlib
+import base64
+from datetime import datetime
 
 import pandas as pd
 
@@ -191,12 +194,12 @@ def get_measure_records(combined_record, stub_names, id_columns, full_value_name
 
         try:
             flag_key = [x for x in stub_keys if '_Flag' in x][0]
-        except:
+        except Exception:
             pass
 
         try:
             notes_key = [x for x in stub_keys if '_Notes' in x][0]
-        except:
+        except Exception:
             pass
 
         subset = {key: value for key, value in combined_record.items() if key in keys}
@@ -206,18 +209,18 @@ def get_measure_records(combined_record, stub_names, id_columns, full_value_name
             if sum([subset[notes_key]]) == 0:
 
                 continue
-        except:
+        except Exception:
             pass
 
         try:
             subset['flag'] = subset.pop(flag_key)
-        except:
+        except Exception:
             subset['flag'] = 0.0
             pass
 
         try:
             subset['notes'] = subset.pop(notes_key)
-        except:
+        except Exception:
             pass
 
 
@@ -266,37 +269,79 @@ def split_df_by_group(data: pd.DataFrame, group: str):
     return(dict(zip(groups, grouped)))
 
 
-def remove_processed_records(dataset: pd.DataFrame,
-                             previous_update: pd.DataFrame,
-                             current_id_col_name: str,
-                             prev_id_col_name: str = 'prop_id'):
+def filter_new_hashes(data: pd.DataFrame,
+                      ingested_path: str,
+                      date_now: str = datetime.now().strftime('%Y_%m_%d')) -> pd.DataFrame:
     """
-    Drop previously ingested records.
+    Filter records by the row-wise hashes of their content.
+
+    Reduces the number of records that need to be processed from each dataset.
+
+    Will not filter hashes that were ingested on the same day as the function is called.
 
     Parameters
     ----------
-    dataset : pd.DataFrame
-        Input dataset.
-    previous_update : pd.DataFrame
-        Reference for previously ingested records.
-    current_id_col_name : str
-        Column name od ID values in current data.
-    prev_id_col_name : str
-        Column name od ID values in previously ingested data.
+    data : pd.DataFrame
+        Input data.
+    ingested_path : str
+        Path to ingested hash reference.
+    date_now : str
+        String of current date.
 
     Returns
     -------
     pd.DataFrame
-        Dataframe with previously ingested records filtered out.
+        Filtered data.
 
     """
 
-    current_ids = dataset[current_id_col_name]
+    # Read the reference file for ingested hashes
+    ingested_hash_ref = pd.read_csv(ingested_path)
 
-    prev_ids = previous_update[prev_id_col_name]
+    # Filter for hashes that were not processed today
+    ingested_hash_ref.loc[ingested_hash_ref['date_processed'] != date_now, :]
 
-    new_ids = set(current_ids).difference(set(prev_ids))
+    # Define row-wise hashes for the input dataset
+    data['_hash'] = get_row_hashes(data)
 
-    new_records = dataset.loc[[x in new_ids for x in dataset[current_id_col_name]], :]
+    # Filter for only hash values that have not been processed on a different day
+    data = data.loc[[x not in ingested_hash_ref['hash'] for x in data['_hash']]]
 
-    return(new_records)
+    # Get the hashes that were just ingested
+    new_hashes = pd.DataFrame({'hash': data['_hash'], 'date_processed': date_now})
+
+    # Remove _hash column from new data
+    data = data.drop(columns=['_hash'])
+
+    # Combine previous hash ref with new hash ref
+    ingested_hash_ref = pd.concat([ingested_hash_ref, new_hashes]).drop_duplicates()
+
+    # Write combined hash ref to csv file
+    ingested_hash_ref.to_csv(ingested_path, index=False)
+
+    return(data)
+
+
+def get_row_hashes(data: pd.DataFrame) -> list:
+    """
+    Get row-wise base64 encoded hashes for a dataframe.
+
+    Parameters
+    ----------
+    data : pd.DataFrame
+        Input data.
+
+    Returns
+    -------
+    list
+        list of hashes.
+
+    """
+
+    # Combine row values into a single string
+    hash_strings = list(data.apply(lambda x: ''.join([str(x) for x in tuple(x)]), axis = 1))
+
+    # Hash and base64 encode string
+    hashes = [base64.b64encode(hashlib.sha1(x.encode("UTF-8")).digest()) for x in hash_strings]
+
+    return(hashes)
