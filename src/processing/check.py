@@ -10,6 +10,8 @@ import pandas as pd
 
 def check_missing_iso(record: dict):
     '''
+    DEPRACTED by output check?
+
     Function to check for missing ISO codes
 
     Note: will not throw an error for "unknown" values which much be
@@ -26,6 +28,8 @@ def check_missing_iso(record: dict):
 
 def check_missing_who_code(record: dict):
     '''
+
+    DEPRACTED by output check?
     Function to check for null who codes
 
     Note: will not throw an error for "unknown" values which must be
@@ -41,6 +45,22 @@ def check_missing_who_code(record: dict):
 
 
 def check_record_keys_agree(record: dict, blank_record: dict):
+    """
+    DEPRACTED by output check?
+
+    Parameters
+    ----------
+    record : dict
+        Description of parameter `record`.
+    blank_record : dict
+        Description of parameter `blank_record`.
+
+    Returns
+    -------
+    type
+        Description of returned object.
+
+    """
 
     if record is not None:
 

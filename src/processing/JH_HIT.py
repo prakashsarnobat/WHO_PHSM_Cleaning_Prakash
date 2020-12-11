@@ -113,10 +113,20 @@ def transform(record: dict, key_ref: dict, country_ref: pd.DataFrame, who_coding
 
 
 def blank_record_and_url(record: dict):
-    '''
-    Function to assign who_code == 11 and 'Not enough to code'
-    to records with no comments AND no url
-    '''
+    """
+    Assign who_code == 11 and 'Not enough to code' to records with no `comments` AND no `url`.
+
+    Parameters
+    ----------
+    record : dict
+        Input record.
+
+    Returns
+    -------
+    type
+        Record with coding altered.
+
+    """
 
     if (pd.isna(record['comments'])) and (pd.isna(record['link'])) and (pd.isna(record['alt_link'])):
 
