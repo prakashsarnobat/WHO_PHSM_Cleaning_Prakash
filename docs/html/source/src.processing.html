@@ -218,38 +218,136 @@ handled later</p>
 <dl class="py function">
 <dt id="src.processing.utils.add_admin_level">
 <code class="sig-prename descclassname">src.processing.utils.</code><code class="sig-name descname">add_admin_level</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">record</span><span class="p">:</span> <span class="n">dict</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/src/processing/utils.html#add_admin_level"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.processing.utils.add_admin_level" title="Permalink to this definition">¶</a></dt>
-<dd><p>Function to set admin_level values to “national” or “other”</p>
+<dd><p>Set admin_level values to “national” or “other”.</p>
+<p>If <cite>area_covered</cite> is blank: “national”, else: “other”.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>record</strong> (<em>dict</em>) – Input record.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Record with <cite>admin_level</cite> added.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>type</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py function">
 <dt id="src.processing.utils.apply_key_map">
 <code class="sig-prename descclassname">src.processing.utils.</code><code class="sig-name descname">apply_key_map</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">new_record</span><span class="p">:</span> <span class="n">dict</span></em>, <em class="sig-param"><span class="n">old_record</span><span class="p">:</span> <span class="n">dict</span></em>, <em class="sig-param"><span class="n">key_ref</span><span class="p">:</span> <span class="n">dict</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/src/processing/utils.html#apply_key_map"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.processing.utils.apply_key_map" title="Permalink to this definition">¶</a></dt>
-<dd><p>Function to apply key mapping between two records based on a key reference</p>
+<dd><p>Apply key mapping between two records based on a key reference.</p>
+<p>Example:</p>
+<p>Given <cite>key_ref</cite>: <cite>{‘column1’:’column2’}</cite>.</p>
+<p>Extracts values from <cite>old_record[‘column1’]</cite> to <cite>new_record[‘column2’]</cite>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>new_record</strong> (<em>dict</em>) – Record with WHO PHSM keys.</p></li>
+<li><p><strong>old_record</strong> (<em>dict</em>) – Record with provider keys.</p></li>
+<li><p><strong>key_ref</strong> (<em>dict</em>) – Reference for mapping keys between records.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p><em>Record with new values appliued to specified keys.</em></p></li>
+<li><p><em>type</em> – dict.</p></li>
+</ul>
+</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py function">
 <dt id="src.processing.utils.assign_id">
-<code class="sig-prename descclassname">src.processing.utils.</code><code class="sig-name descname">assign_id</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">records</span><span class="p">:</span> <span class="n">dict</span></em>, <em class="sig-param"><span class="n">min_id</span><span class="p">:</span> <span class="n">int</span> <span class="o">=</span> <span class="default_value">1</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/src/processing/utils.html#assign_id"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.processing.utils.assign_id" title="Permalink to this definition">¶</a></dt>
-<dd><p>Function to assign a unique ID to each record</p>
+<code class="sig-prename descclassname">src.processing.utils.</code><code class="sig-name descname">assign_id</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">records</span><span class="p">:</span> <span class="n">pandas.DataFrame</span></em>, <em class="sig-param"><span class="n">min_id</span><span class="p">:</span> <span class="n">int</span> <span class="o">=</span> <span class="default_value">1</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/src/processing/utils.html#assign_id"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.processing.utils.assign_id" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function to assign a unique ID to each record.</p>
+<p>IDs are assigned in the format <cite>DATASET_NUMBER</cite>. i.e. <cite>ACAPS_1234</cite>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>records</strong> (<em>pandas.DataFrame</em>) – Dataframe of records which will have ID numbers added.</p></li>
+<li><p><strong>min_id</strong> (<em>int</em>) – Number to begin incrementing IDs from.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Dataframe with IDs added.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>type</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py function">
 <dt id="src.processing.utils.assign_who_coding">
 <code class="sig-prename descclassname">src.processing.utils.</code><code class="sig-name descname">assign_who_coding</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">record</span><span class="p">:</span> <span class="n">dict</span></em>, <em class="sig-param"><span class="n">who_coding</span><span class="p">:</span> <span class="n">pandas.DataFrame</span></em>, <em class="sig-param"><span class="n">missing_value</span><span class="p">:</span> <span class="n">str</span> <span class="o">=</span> <span class="default_value">'unknown'</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/src/processing/utils.html#assign_who_coding"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.processing.utils.assign_who_coding" title="Permalink to this definition">¶</a></dt>
-<dd><p>Function to assign WHO coding to a record</p>
+<dd><p>Assign WHO coding to a record.</p>
+<p>Adds: <cite>who_code</cite>, <cite>who_measure</cite>, <cite>who_subcategory</cite>, <cite>who_category</cite>.</p>
+<p>Optionally adds: <cite>targeted</cite>, <cite>non_compliance</cite>, <cite>enforcement</cite>.</p>
+<p>Transforms provider coding of interventions to WHO PHSM coding.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>record</strong> (<em>dict</em>) – Input record.</p></li>
+<li><p><strong>who_coding</strong> (<em>pd.DataFrame</em>) – Dataframe of WHO PHSM intervention mappings.</p></li>
+<li><p><strong>missing_value</strong> (<em>str</em>) – Value to add if name mapping fails - defaults to “unknown”.
+This value is recognized by output checks.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Record with WHO PHSM code mapping applied.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>type</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py function">
 <dt id="src.processing.utils.assign_who_country_name">
 <code class="sig-prename descclassname">src.processing.utils.</code><code class="sig-name descname">assign_who_country_name</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">record</span><span class="p">:</span> <span class="n">dict</span></em>, <em class="sig-param"><span class="n">country_ref</span><span class="p">:</span> <span class="n">pandas.DataFrame</span></em>, <em class="sig-param"><span class="n">missing_value</span><span class="p">:</span> <span class="n">str</span> <span class="o">=</span> <span class="default_value">'unknown'</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/src/processing/utils.html#assign_who_country_name"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.processing.utils.assign_who_country_name" title="Permalink to this definition">¶</a></dt>
-<dd><p>Function to assign country names by ISO code</p>
-<p>also adds: who_region, country_territory_area, iso_3166_1_numeric</p>
+<dd><p>Function to assign country names by ISO code.</p>
+<p>Also adds: <cite>who_region</cite>, <cite>country_territory_area</cite>, <cite>iso_3166_1_numeric</cite>.</p>
+<p>WHO recognizes standard country names which are transformed from ISOs defined on provider country names.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>record</strong> (<em>dict</em>) – Input record.</p></li>
+<li><p><strong>country_ref</strong> (<em>pd.DataFrame</em>) – Dataframe of country name mappings.</p></li>
+<li><p><strong>missing_value</strong> (<em>str</em>) – Value to add if name mapping fails - defaults to “unknown”.
+This value is recognized by output checks.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Record with country name mapping applied.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>type</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py function">
 <dt id="src.processing.utils.create_id">
 <code class="sig-prename descclassname">src.processing.utils.</code><code class="sig-name descname">create_id</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">dataset</span><span class="p">:</span> <span class="n">str</span></em>, <em class="sig-param"><span class="n">length</span><span class="p">:</span> <span class="n">int</span> <span class="o">=</span> <span class="default_value">6</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/src/processing/utils.html#create_id"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.processing.utils.create_id" title="Permalink to this definition">¶</a></dt>
-<dd><p>Function to create a random id of characters and numbers</p>
+<dd><p>Create a random id of characters and numbers.</p>
+<p>DEPRACATED?</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>dataset</strong> (<em>str</em>) – Dataset to which ids will be added.</p></li>
+<li><p><strong>length</strong> (<em>int</em>) – Length of new ID number.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p><em>New ID number.</em></p></li>
+<li><p><em>type</em> – str.</p></li>
+</ul>
+</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py function">
@@ -271,15 +369,50 @@ handled later</p>
 <dl class="py function">
 <dt id="src.processing.utils.get_min_id">
 <code class="sig-prename descclassname">src.processing.utils.</code><code class="sig-name descname">get_min_id</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">fn</span><span class="p">:</span> <span class="n">str</span></em>, <em class="sig-param"><span class="n">id_column</span><span class="p">:</span> <span class="n">str</span> <span class="o">=</span> <span class="default_value">'who_id'</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/src/processing/utils.html#get_min_id"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.processing.utils.get_min_id" title="Permalink to this definition">¶</a></dt>
-<dd><p>Function to open a file and extract the maximum numeric # IDEA:</p>
-<p>This will be the new min id to be incremented.</p>
+<dd><p>Function to open a file and extract the maximum numeric.</p>
+<p>This will be the new min id to be incremented for the ID field.</p>
+<p>Future: should be replaced by a set difference of existing IDs and an
+arbitrary ID sequence.</p>
+<p class="rubric">Example</p>
+<p>Extracts numeric valeu of ID <cite>ACAPS_1234</cite> -&gt; <cite>1234</cite>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>fn</strong> (<em>str</em>) – Filename to reference dataset.</p></li>
+<li><p><strong>id_column</strong> (<em>str</em>) – ID column name in reference dataset.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p><em>Maximum numeric ID value.</em></p></li>
+<li><p><em>type</em> – int.</p></li>
+</ul>
+</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py function">
 <dt id="src.processing.utils.key_map">
 <code class="sig-prename descclassname">src.processing.utils.</code><code class="sig-name descname">key_map</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">new_record</span><span class="p">:</span> <span class="n">dict</span></em>, <em class="sig-param"><span class="n">old_record</span><span class="p">:</span> <span class="n">dict</span></em>, <em class="sig-param"><span class="n">new_key</span><span class="p">:</span> <span class="n">str</span></em>, <em class="sig-param"><span class="n">old_key</span><span class="p">:</span> <span class="n">str</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/src/processing/utils.html#key_map"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.processing.utils.key_map" title="Permalink to this definition">¶</a></dt>
-<dd><p>Function to move data between records from one key to another</p>
-<p>if a new key is null, data will not be copied. Occurs when some data in a provider dataset is not used in WHO dataset</p>
+<dd><p>Implements key mapping from <cite>new_record</cite> to <cite>old_record</cite>.</p>
+<p>For more information see <cite>apply_key_map</cite>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>new_record</strong> (<em>dict</em>) – Record with WHO PHSM keys.</p></li>
+<li><p><strong>old_record</strong> (<em>dict</em>) – Record with provider keys.</p></li>
+<li><p><strong>new_key</strong> (<em>str</em>) – Key in <cite>old_record</cite>.</p></li>
+<li><p><strong>old_key</strong> (<em>str</em>) – Corresponding key in <cite>new_record</cite>.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Record with information mapped from <cite>new_key</cite> to <cite>old_key</cite>.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>type</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py function">
@@ -308,45 +441,150 @@ handled later</p>
 <dl class="py function">
 <dt id="src.processing.utils.none_to_empty_str">
 <code class="sig-prename descclassname">src.processing.utils.</code><code class="sig-name descname">none_to_empty_str</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">s</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/src/processing/utils.html#none_to_empty_str"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.processing.utils.none_to_empty_str" title="Permalink to this definition">¶</a></dt>
-<dd><p>convert None values to empty strings</p>
+<dd><p>Convert None values to an empty string.</p>
+<p>Useful for changing None values for smooth mapping of who coding.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>s</strong> (<em>type</em>) – String to be converted.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Outut string, if string equalled None, returns ‘’, else returns original string.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>type</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py function">
 <dt id="src.processing.utils.parse_date">
 <code class="sig-prename descclassname">src.processing.utils.</code><code class="sig-name descname">parse_date</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">record</span><span class="p">:</span> <span class="n">dict</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/src/processing/utils.html#parse_date"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.processing.utils.parse_date" title="Permalink to this definition">¶</a></dt>
-<dd><p>Function to parse record date format</p>
+<dd><p>Function to parse record date format.</p>
 <p>Currently relying on parsing behaviour of pandas.to_datetime.
 NOTE: This is vulnerable to USA format dates parsed as EU dates</p>
+<p>DEPRACATED?</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>record</strong> (<em>dict</em>) – Dataset record.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Dataset record.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>type</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py function">
 <dt id="src.processing.utils.remove_tags">
 <code class="sig-prename descclassname">src.processing.utils.</code><code class="sig-name descname">remove_tags</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">record</span><span class="p">:</span> <span class="n">dict</span></em>, <em class="sig-param"><span class="n">keys</span><span class="p">:</span> <span class="n">list</span> <span class="o">=</span> <span class="default_value">['comments']</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/src/processing/utils.html#remove_tags"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.processing.utils.remove_tags" title="Permalink to this definition">¶</a></dt>
-<dd><p>Function to remove HTML tags from comments</p>
+<dd><p>Remove HTML tags from defined columns.</p>
+<p>Some datasets (CDC_ITF) provide comments that are enclosed in
+HTML tags for display on the web.</p>
+<p>Identifies content inside of HTML tags and returns content only.</p>
+<p>Example:</p>
+<p>“&lt;p&gt;Content&lt;/p&gt;” -&gt; “Content”</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>record</strong> (<em>dict</em>) – Input record.</p></li>
+<li><p><strong>keys</strong> (<em>list</em>) – List of which keys HTML tage replacement should be applied to.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Record with HTML tags replaced in the defined tags.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>type</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py function">
 <dt id="src.processing.utils.replace_conditional">
 <code class="sig-prename descclassname">src.processing.utils.</code><code class="sig-name descname">replace_conditional</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">record</span><span class="p">:</span> <span class="n">dict</span></em>, <em class="sig-param"><span class="n">field</span><span class="p">:</span> <span class="n">str</span></em>, <em class="sig-param"><span class="n">value</span><span class="p">:</span> <span class="n">str</span></em>, <em class="sig-param"><span class="n">replacement</span><span class="p">:</span> <span class="n">str</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/src/processing/utils.html#replace_conditional"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.processing.utils.replace_conditional" title="Permalink to this definition">¶</a></dt>
-<dd><p>Function to conditionally replace a value in an arbitrary field</p>
+<dd><p>Function to conditionally replace a value in a field.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>record</strong> (<em>dict</em>) – Input record.</p></li>
+<li><p><strong>field</strong> (<em>str</em>) – Key of field to be conditionally altered.</p></li>
+<li><p><strong>value</strong> (<em>str</em>) – Value to identify and replace.</p></li>
+<li><p><strong>replacement</strong> (<em>str</em>) – Value to insert on replacement.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Record with specified key altered if <cite>record[key] == value</cite>. Otherwise, the original record is returned.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>type</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py function">
 <dt id="src.processing.utils.replace_country">
 <code class="sig-prename descclassname">src.processing.utils.</code><code class="sig-name descname">replace_country</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">record</span><span class="p">:</span> <span class="n">dict</span></em>, <em class="sig-param"><span class="n">country_name</span><span class="p">:</span> <span class="n">str</span></em>, <em class="sig-param"><span class="n">area_name</span><span class="p">:</span> <span class="n">str</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/src/processing/utils.html#replace_country"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.processing.utils.replace_country" title="Permalink to this definition">¶</a></dt>
-<dd><p>Function to replace country name with an area_covered name</p>
+<dd><p>Replace country name with an <cite>area_covered</cite> name.</p>
+<p>Promote a string in <cite>area_covered</cite> to <cite>country_territory_area</cite>.</p>
+<p>Applies to records where a WHO recognised country is defined as an
+administrative region of a different country.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>record</strong> (<em>dict</em>) – Input record.</p></li>
+<li><p><strong>country_name</strong> (<em>str</em>) – Country name to be matched.</p></li>
+<li><p><strong>area_name</strong> (<em>str</em>) – Area name to be matched.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Record with country <cite>area_covered</cite> promotion applied.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>type</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py function">
 <dt id="src.processing.utils.replace_sensitive_regions">
 <code class="sig-prename descclassname">src.processing.utils.</code><code class="sig-name descname">replace_sensitive_regions</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">record</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/src/processing/utils.html#replace_sensitive_regions"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.processing.utils.replace_sensitive_regions" title="Permalink to this definition">¶</a></dt>
-<dd><p>Replace a selection of commonly occuring admin level conflicts</p>
+<dd><p>Replace a selection of commonly occuring admin level issues.</p>
+<p>WHO recognizes certain administrative definitions that differ from ISO conventions.</p>
+<p>Future: Move specific region definitions to <cite>config</cite> directory.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>record</strong> (<em>type</em>) – Input record.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Record with sensitive regions changed.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>type</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py function">
 <dt id="src.processing.utils.shift_sensitive_region">
 <code class="sig-prename descclassname">src.processing.utils.</code><code class="sig-name descname">shift_sensitive_region</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">record</span><span class="p">:</span> <span class="n">dict</span></em>, <em class="sig-param"><span class="n">original_name</span><span class="p">:</span> <span class="n">str</span></em>, <em class="sig-param"><span class="n">new_name</span><span class="p">:</span> <span class="n">str</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/src/processing/utils.html#shift_sensitive_region"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.processing.utils.shift_sensitive_region" title="Permalink to this definition">¶</a></dt>
-<dd><p>Function to demote sensitive country names to area_covered from country_territory_area</p>
+<dd><p>Function to demote sensitive country names to <cite>area_covered</cite> from <cite>country_territory_area</cite>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>record</strong> (<em>dict</em>) – Input record.</p></li>
+<li><p><strong>original_name</strong> (<em>str</em>) – Original country name from provider dataset.</p></li>
+<li><p><strong>new_name</strong> (<em>str</em>) – New WHO-recognised country name.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Record with sensitive countries changed.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>type</p>
+</dd>
+</dl>
 </dd></dl>
 
 </div>

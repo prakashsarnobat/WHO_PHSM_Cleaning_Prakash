@@ -654,7 +654,6 @@ def replace_country(record: dict, country_name: str, area_name: str):
     Applies to records where a WHO recognised country is defined as an
     administrative region of a different country.
 
-
     Parameters
     ----------
     record : dict
