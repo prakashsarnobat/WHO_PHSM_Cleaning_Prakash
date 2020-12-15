@@ -47,12 +47,6 @@ acaps = "data/raw/ACAPS_latest.csv"
 oxcgrt = "https://raw.githubusercontent.com/OxCGRT/covid-policy-tracker/master/data/OxCGRT_latest_withnotes.csv"
 check_dir = 'config/input_check'
 
-# Filter out previous records for non-oxcgrt datasets
-previous_update = pd.read_csv('data/merge/update_merge_2020_12_02.csv')
-
-# Split previous update by dataset
-previous_update = utils.split_df_by_group(previous_update, 'dataset')
-
 # Load accepted column reference
 column_config = {'JH_HIT':pd.read_csv(check_dir + '/columns/JH_HIT.csv'),
                  'CDC_ITF':pd.read_csv(check_dir + '/columns/CDC_ITF.csv'),
