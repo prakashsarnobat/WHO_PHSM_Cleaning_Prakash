@@ -38,7 +38,7 @@
 <span id="src-preprocess-utils-module"></span><h2>src.preprocess.utils module<a class="headerlink" href="#module-src.preprocess.utils" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
 <dt id="src.preprocess.utils.df_to_records">
-<code class="descclassname">src.preprocess.utils.</code><code class="descname">df_to_records</code><span class="sig-paren">(</span><em>df: &lt;sphinx.ext.autodoc.importer._MockObject object at 0x7fa4b4d6cb00&gt;</em>, <em>dataset: str</em>, <em>drop_columns=[]</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/src/preprocess/utils.html#df_to_records"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.preprocess.utils.df_to_records" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">src.preprocess.utils.</code><code class="descname">df_to_records</code><span class="sig-paren">(</span><em>df: &lt;sphinx.ext.autodoc.importer._MockObject object at 0x7f5aa8ce4ac8&gt;</em>, <em>dataset: str</em>, <em>drop_columns=[]</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/src/preprocess/utils.html#df_to_records"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.preprocess.utils.df_to_records" title="Permalink to this definition">¶</a></dt>
 <dd><p>Convert dataframe to a list of record oriented dicts.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -63,7 +63,7 @@
 
 <dl class="function">
 <dt id="src.preprocess.utils.filter_new_hashes">
-<code class="descclassname">src.preprocess.utils.</code><code class="descname">filter_new_hashes</code><span class="sig-paren">(</span><em>data: &lt;sphinx.ext.autodoc.importer._MockObject object at 0x7fa4b4d75828&gt;</em>, <em>ingested_path: str</em>, <em>date_now: str = '2020_12_11'</em>, <em>save_ingestion_hashes: bool = False</em><span class="sig-paren">)</span> &#x2192; &lt;sphinx.ext.autodoc.importer._MockObject object at 0x7fa4b4d75748&gt;<a class="reference internal" href="../_modules/src/preprocess/utils.html#filter_new_hashes"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.preprocess.utils.filter_new_hashes" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">src.preprocess.utils.</code><code class="descname">filter_new_hashes</code><span class="sig-paren">(</span><em>data: &lt;sphinx.ext.autodoc.importer._MockObject object at 0x7f5aa8ced7f0&gt;</em>, <em>ingested_path: str</em>, <em>date_now: str = '2020_12_15'</em>, <em>save_ingestion_hashes: bool = False</em><span class="sig-paren">)</span> &#x2192; &lt;sphinx.ext.autodoc.importer._MockObject object at 0x7f5aa8ced710&gt;<a class="reference internal" href="../_modules/src/preprocess/utils.html#filter_new_hashes"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.preprocess.utils.filter_new_hashes" title="Permalink to this definition">¶</a></dt>
 <dd><p>Filter records by the row-wise hashes of their content.</p>
 <p>Reduces the number of records that need to be processed from each dataset.</p>
 <p>Will not filter hashes that were ingested on the same day as the function is called.</p>
@@ -119,7 +119,7 @@
 
 <dl class="function">
 <dt id="src.preprocess.utils.get_names">
-<code class="descclassname">src.preprocess.utils.</code><code class="descname">get_names</code><span class="sig-paren">(</span><em>ox: &lt;sphinx.ext.autodoc.importer._MockObject object at 0x7fa4b4d757b8&gt;</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/src/preprocess/utils.html#get_names"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.preprocess.utils.get_names" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">src.preprocess.utils.</code><code class="descname">get_names</code><span class="sig-paren">(</span><em>ox: &lt;sphinx.ext.autodoc.importer._MockObject object at 0x7f5aa8ced780&gt;</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/src/preprocess/utils.html#get_names"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.preprocess.utils.get_names" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get the names of columns holding measure information.</p>
 <p>These columns begin with the prefix “A1_” etc.</p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -147,7 +147,7 @@ stub_names: the measure column prefixes (i.e. “A1”)</td>
 
 <dl class="function">
 <dt id="src.preprocess.utils.get_row_hashes">
-<code class="descclassname">src.preprocess.utils.</code><code class="descname">get_row_hashes</code><span class="sig-paren">(</span><em>data: &lt;sphinx.ext.autodoc.importer._MockObject object at 0x7fa4b4d75710&gt;</em><span class="sig-paren">)</span> &#x2192; list<a class="reference internal" href="../_modules/src/preprocess/utils.html#get_row_hashes"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.preprocess.utils.get_row_hashes" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">src.preprocess.utils.</code><code class="descname">get_row_hashes</code><span class="sig-paren">(</span><em>data: &lt;sphinx.ext.autodoc.importer._MockObject object at 0x7f5aa8ced6d8&gt;</em><span class="sig-paren">)</span> &#x2192; list<a class="reference internal" href="../_modules/src/preprocess/utils.html#get_row_hashes"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.preprocess.utils.get_row_hashes" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get row-wise base64 encoded hashes for a dataframe.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -165,7 +165,7 @@ stub_names: the measure column prefixes (i.e. “A1”)</td>
 
 <dl class="function">
 <dt id="src.preprocess.utils.oxcgrt_records">
-<code class="descclassname">src.preprocess.utils.</code><code class="descname">oxcgrt_records</code><span class="sig-paren">(</span><em>ox: &lt;sphinx.ext.autodoc.importer._MockObject object at 0x7fa4b4d75898&gt;</em>, <em>dataset: str</em>, <em>drop_columns: list = []</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/src/preprocess/utils.html#oxcgrt_records"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.preprocess.utils.oxcgrt_records" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">src.preprocess.utils.</code><code class="descname">oxcgrt_records</code><span class="sig-paren">(</span><em>ox: &lt;sphinx.ext.autodoc.importer._MockObject object at 0x7f5aa8ced860&gt;</em>, <em>dataset: str</em>, <em>drop_columns: list = []</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/src/preprocess/utils.html#oxcgrt_records"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.preprocess.utils.oxcgrt_records" title="Permalink to this definition">¶</a></dt>
 <dd><p>Function to convert OXCGRT data to list of record dicts.</p>
 <p>This presents an additional challenge because of the wide format of the OXCGRT data.</p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -191,7 +191,7 @@ stub_names: the measure column prefixes (i.e. “A1”)</td>
 
 <dl class="function">
 <dt id="src.preprocess.utils.split_df_by_group">
-<code class="descclassname">src.preprocess.utils.</code><code class="descname">split_df_by_group</code><span class="sig-paren">(</span><em>data: &lt;sphinx.ext.autodoc.importer._MockObject object at 0x7fa4b4d75860&gt;</em>, <em>group: str</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/src/preprocess/utils.html#split_df_by_group"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.preprocess.utils.split_df_by_group" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">src.preprocess.utils.</code><code class="descname">split_df_by_group</code><span class="sig-paren">(</span><em>data: &lt;sphinx.ext.autodoc.importer._MockObject object at 0x7f5aa8ced828&gt;</em>, <em>group: str</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/src/preprocess/utils.html#split_df_by_group"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.preprocess.utils.split_df_by_group" title="Permalink to this definition">¶</a></dt>
 <dd><p>Split a dataframe by group and return a named dictionary.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -243,7 +243,7 @@ stub_names: the measure column prefixes (i.e. “A1”)</td>
 <span id="src-preprocess-check-module"></span><h2>src.preprocess.check module<a class="headerlink" href="#module-src.preprocess.check" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
 <dt id="src.preprocess.check.check_column_names">
-<code class="descclassname">src.preprocess.check.</code><code class="descname">check_column_names</code><span class="sig-paren">(</span><em>records: &lt;sphinx.ext.autodoc.importer._MockObject object at 0x7fa4b4e7be48&gt;</em>, <em>config: &lt;sphinx.ext.autodoc.importer._MockObject object at 0x7fa4b4e7be10&gt;</em>, <em>log: bool = True</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/src/preprocess/check.html#check_column_names"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.preprocess.check.check_column_names" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">src.preprocess.check.</code><code class="descname">check_column_names</code><span class="sig-paren">(</span><em>records: &lt;sphinx.ext.autodoc.importer._MockObject object at 0x7f5aa8e09e80&gt;</em>, <em>config: &lt;sphinx.ext.autodoc.importer._MockObject object at 0x7f5aa8df2ac8&gt;</em>, <em>log: bool = True</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/src/preprocess/check.html#check_column_names"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.preprocess.check.check_column_names" title="Permalink to this definition">¶</a></dt>
 <dd><p>Function to check that column names agree with config or raise exception.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -268,7 +268,7 @@ stub_names: the measure column prefixes (i.e. “A1”)</td>
 
 <dl class="function">
 <dt id="src.preprocess.check.check_date_format">
-<code class="descclassname">src.preprocess.check.</code><code class="descname">check_date_format</code><span class="sig-paren">(</span><em>data: &lt;sphinx.ext.autodoc.importer._MockObject object at 0x7fa4b4e7bf28&gt;</em>, <em>config: &lt;sphinx.ext.autodoc.importer._MockObject object at 0x7fa4b4e7be80&gt;</em>, <em>dataset: str</em>, <em>log: bool = True</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/src/preprocess/check.html#check_date_format"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.preprocess.check.check_date_format" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">src.preprocess.check.</code><code class="descname">check_date_format</code><span class="sig-paren">(</span><em>data: &lt;sphinx.ext.autodoc.importer._MockObject object at 0x7f5aa8df2a58&gt;</em>, <em>config: &lt;sphinx.ext.autodoc.importer._MockObject object at 0x7f5aa8df2e80&gt;</em>, <em>dataset: str</em>, <em>log: bool = True</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/src/preprocess/check.html#check_date_format"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.preprocess.check.check_date_format" title="Permalink to this definition">¶</a></dt>
 <dd><p>Check that an input date is in the expected format.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -294,7 +294,7 @@ stub_names: the measure column prefixes (i.e. “A1”)</td>
 
 <dl class="function">
 <dt id="src.preprocess.check.check_input">
-<code class="descclassname">src.preprocess.check.</code><code class="descname">check_input</code><span class="sig-paren">(</span><em>records: &lt;sphinx.ext.autodoc.importer._MockObject object at 0x7fa4b4e92c18&gt;</em>, <em>column_config: &lt;sphinx.ext.autodoc.importer._MockObject object at 0x7fa4b4e92ac8&gt;</em>, <em>date_config: &lt;sphinx.ext.autodoc.importer._MockObject object at 0x7fa4b4e926d8&gt;</em>, <em>dataset: str</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/src/preprocess/check.html#check_input"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.preprocess.check.check_input" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">src.preprocess.check.</code><code class="descname">check_input</code><span class="sig-paren">(</span><em>records: &lt;sphinx.ext.autodoc.importer._MockObject object at 0x7f5aa8e09da0&gt;</em>, <em>column_config: &lt;sphinx.ext.autodoc.importer._MockObject object at 0x7f5aa8e09c50&gt;</em>, <em>date_config: &lt;sphinx.ext.autodoc.importer._MockObject object at 0x7f5aa8e097f0&gt;</em>, <em>dataset: str</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/src/preprocess/check.html#check_input"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.preprocess.check.check_input" title="Permalink to this definition">¶</a></dt>
 <dd><p>Function to unify all input checks.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
