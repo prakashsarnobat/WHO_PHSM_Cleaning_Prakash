@@ -7,22 +7,6 @@ suppressPackageStartupMessages(
 
 mistress <- read_csv('/Users/hamishgibbs/Documents/Covid-19/WHO_PHSM_Cleaning/data/cleansed/mistress_20201209.csv')
 
-duplicate_ids <- mistress %>% pull(duplicate_record_id) %>% unique()
-
-prev_ids <- mistress %>% pull(prev_measure_number) %>% unique()
-
-follow_ids <- mistress %>% pull(following_measure_number) %>% unique()
-
-
-problems <- setdiff(duplicate_ids, who_ids)
-
-problem_df <- mistress %>% 
-  filter(duplicate_record_id %in% problems) %>% 
-  select(who_id, who_code, duplicate_record_id) %>% 
-  mutate(column = 'duplicate_record_id')
-
-problem_df
-
 get_id_problems <- function(problem_col, mistress){
   
   who_ids <- mistress %>% pull(who_id) %>% unique()
