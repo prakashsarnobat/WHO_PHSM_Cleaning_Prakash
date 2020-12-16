@@ -2,8 +2,8 @@ suppressPackageStartupMessages(
   require(tidyverse)
 )
 
-
-mistress <- read_csv('data/cleansed/mistress_20201209.csv')
+mistress <- read_csv('data/cleansed/mistress_20201216.csv',
+                     col_types = cols())
 
 targeted <- mistress %>% 
   select(who_id, who_code, targeted) %>% 
@@ -21,9 +21,7 @@ separate_values <- function(data, sep, new_col_len = 100){
   
 }
 
-sep <- c(", ", ",", " - ", " / ", " and ", "; ")
-
-targeted %>% 
+res <- targeted %>% 
   separate_values(', ') %>% 
   separate_values(',') %>% 
   separate_values(' - ') %>% 
@@ -32,15 +30,4 @@ targeted %>%
   separate_values('; ')
 
 
-
-tar %>% 
-  separate(targeted, into = as.character(1:100), sep = ', ', extra = "merge", fill = "right") %>% 
-  pivot_longer(!c(who_id, who_code), 'type', 'value') %>% 
-  select(-type) %>% 
-  drop_na(value) %>% 
-  separate(value, into = as.character(1:100), sep = ' - ', extra = "merge", fill = "right") %>% 
-  pivot_longer(!c(who_id, who_code), 'type', 'value') %>% 
-  select(-type) %>% 
-  drop_na(value)
-  
-          
+write_csv(res, 'data/manual/targeted_summary_table.csv')
