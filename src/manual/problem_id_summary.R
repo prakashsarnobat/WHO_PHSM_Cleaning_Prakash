@@ -5,7 +5,10 @@ suppressPackageStartupMessages(
 )
 
 
-mistress <- read_csv('/Users/hamishgibbs/Documents/Covid-19/WHO_PHSM_Cleaning/data/cleansed/mistress_20201209.csv')
+mistress <- read_csv('/Users/hamishgibbs/Documents/Covid-19/WHO_PHSM_Cleaning/data/cleansed/mistress_20201216.csv')
+
+mistress <- mistress %>% 
+  mutate(duplicate_record_id = ifelse(duplicate_record_id %in% c('auto', 'auto1', 'auto2'), NA, duplicate_record_id))
 
 get_id_problems <- function(problem_col, mistress){
   
@@ -19,7 +22,7 @@ get_id_problems <- function(problem_col, mistress){
     filter(!! sym(problem_col) %in% problems) %>% 
     select(who_id, who_code, !! sym(problem_col)) %>% 
     mutate(column = problem_col) %>% 
-    rename(other_id_col = !! sym(problem_col))
+    dplyr::rename(other_id_col = !! sym(problem_col))
   
   return(problem_df)
   
@@ -29,5 +32,5 @@ cols <- c('duplicate_record_id', 'prev_measure_number', 'following_measure_numbe
 
 problem_ref <- do.call(rbind, lapply(cols, get_id_problems, mistress = mistress))
 
-
+write_csv(problem_ref, '/Users/hamishgibbs/Documents/Covid-19/WHO_PHSM_Cleaning/data/manual/missing_id_table.csv')
 
