@@ -1,4 +1,6 @@
 # WHO_PHSM_Cleaning
+[![GitHub Actions (Tests)](https://github.com/lshtm-gis/WHO_PHSM_Cleaning/workflows/Tests/badge.svg)](https://github.com/lshtm-gis/WHO_PHSM_Cleaning)
+
 Cleaning PHSM provider data for WHO
 
 Cleaning routines for Non-pharmaceutical intervention data from 7 providers:
@@ -19,13 +21,13 @@ To develop this project locally - alter the project directory in the `.env` file
 
 Build the Docker image with:
 
-``` ${shell} 
+``` ${shell}
 make build
 ```
 
 Enter a container and use `bash` with:
 
-``` ${shell} 
+``` ${shell}
 make bash
 ```
 
@@ -35,13 +37,13 @@ This project uses [`tox`](https://tox.readthedocs.io/en/latest/) for automated u
 
 Run unit tests with:
 
-``` ${shell} 
+``` ${shell}
 make test
 ```
 
 Once in the container, run unit tests with:
 
-``` ${shell} 
+``` ${shell}
 tox
 ```
 
@@ -49,7 +51,7 @@ tox
 
 Run the full cleaning routine with:
 
-``` ${shell} 
+``` ${shell}
 make data
 ```
 
@@ -62,6 +64,6 @@ To run individual components of the cleaning routine, see the targets available 
 
 Once in the container, run [`isort`](https://pypi.org/project/isort/), [`black`](https://pypi.org/project/black/), and [`flake8`](https://pypi.org/project/flake8/) with:
 
-``` ${shell} 
+``` ${shell}
 make lint
 ```
