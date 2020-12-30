@@ -71,6 +71,8 @@ for record in records:
     # Increment progress bar
     bar.next()
 
+bar.finish()
+
 # Filter dropped records
 processed_records = [x for x in processed_records if x is not None]
 

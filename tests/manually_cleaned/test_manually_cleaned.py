@@ -17,8 +17,8 @@ class Test_update_following_measures():
 
         res = main.update_following_measures(data)
 
-        assert list(res.loc[0, 'date_end'])[0] == 'NEW_DATE_END'
-        assert list(res.loc[0, 'reason_ended'])[0] == 'NEW_REASON_ENDED'
+        assert res.loc[0, 'date_end'] == 'NEW_DATE_END'
+        assert res.loc[0, 'reason_ended'] == 'NEW_REASON_ENDED'
 
     def test_update_following_measures_missing(self):
 
@@ -64,8 +64,8 @@ class Test_update_measure_stage_date():
 
         res = main.update_measure_stage_date(data)
 
-        assert res.loc[0, 'date_end'] == None
-        assert res.loc[0, 'reason_ended'] == None
+        assert res.loc[0, 'date_end'] is None
+        assert res.loc[0, 'reason_ended'] is None
 
 
 class Test_columns_to_lower:
