@@ -1,5 +1,5 @@
 import pandas as pd
-
+from progress.bar import Bar
 
 def adjust_manually_cleaned(manually_cleaned: pd.DataFrame):
     """
@@ -18,6 +18,8 @@ def adjust_manually_cleaned(manually_cleaned: pd.DataFrame):
     """
 
     manually_cleaned = update_measure_stage_date(manually_cleaned)
+
+    manually_cleaned = update_following_measures(manually_cleaned)
 
     return(manually_cleaned)
 
@@ -39,25 +41,44 @@ def update_following_measures(manually_cleaned: pd.DataFrame):
 
     """
 
+    # Identify records with a following_measure_number
     has_following_measure = pd.Series([not pd.isna(x) for x in manually_cleaned['following_measure_number']])
 
+    # Filter dataset by records with following_measure_number
     to_alter = manually_cleaned[has_following_measure]
 
+    # Filter dataset by records with no following_measure_number
     not_to_alter = manually_cleaned[~has_following_measure]
 
     to_alter_res = []
 
-    for i, row in to_alter.iterrows():
+    to_alter = [x for x in to_alter.iterrows()]
+
+    bar = Bar('Processing Data...', max=len(to_alter))
+
+    for i, row in to_alter:
 
         following_measure_number = row['following_measure_number']
 
         following_measure = manually_cleaned.loc[manually_cleaned['who_id'] == following_measure_number, :]
 
-        new_date_end = following_measure['date_start']
+        try:
 
-        new_reason_ended = following_measure['measure_stage']
+            new_date_end = list(following_measure['date_start'])[0]
 
-        if len(new_date_end) > 0:
+        except Exception:
+
+            new_date_end = None
+
+        try:
+
+            new_reason_ended = list(following_measure['measure_stage'])[0]
+
+        except Exception:
+
+            new_reason_ended = None
+
+        if not pd.isna(new_date_end):
 
             row['date_end'] = new_date_end
             row['reason_ended'] = new_reason_ended
@@ -69,7 +90,11 @@ def update_following_measures(manually_cleaned: pd.DataFrame):
 
         to_alter_res.append(row)
 
-    to_alter = pd.concat([x.to_frame().T for x in to_alter_res])
+        bar.next()
+
+    bar.finish()
+
+    to_alter = pd.DataFrame(to_alter_res)
 
     assert (len(to_alter.index) + len(not_to_alter.index)) == len(manually_cleaned.index)
 
@@ -126,7 +151,7 @@ def columns_to_lower(manually_cleaned: pd.DataFrame, lowercase_columns: list):
 
         try:
 
-            assert all(isinstance(x, str) for x in manually_cleaned[col] if not pd.isna(x))
+            assert all([isinstance(x, str) for x in manually_cleaned[col] if not pd.isna(x)])
 
         except AssertionError:
 
