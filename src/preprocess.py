@@ -152,8 +152,6 @@ oxcgrt.fillna(0.0, inplace = True)
 # Convert OxCGRT data to list of record dicts
 oxcgrt = utils.df_to_records(oxcgrt, "OXCGRT", drop_columns)
 
-print(oxcgrt)
-
 # Log the number of OXCGRT records
 logging.info("OXCGRT_RECORDS=%d" % len(oxcgrt))
 
