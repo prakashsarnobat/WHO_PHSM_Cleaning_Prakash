@@ -75,7 +75,6 @@ def transform(record: dict, key_ref: dict, country_ref: pd.DataFrame, who_coding
         return(None)
 
     # Removes information in flag variables for now
-    record['prov_measure'] = 0
     record['prov_subcategory'] = int(record['prov_subcategory'])
     record['prov_measure'] = int(record['prov_measure'])
 
@@ -171,7 +170,7 @@ def financial_measures(record: dict):
     """
     Function to move values from `prov_measure` to `value_usd` for financial measures.
 
-    prov_measure values are replaced with 1 for coding.
+    prov_subcategory values are replaced with 1 for coding.
 
     Parameters
     ----------
