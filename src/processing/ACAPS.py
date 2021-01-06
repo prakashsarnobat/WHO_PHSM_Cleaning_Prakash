@@ -76,13 +76,13 @@ def transform(record: dict, key_ref: dict, country_ref: pd.DataFrame, who_coding
     record = utils.replace_conditional(record, 'non_compliance_penalty', 'Other (add in comments)', 'not known')
     record = utils.replace_conditional(record, 'non_compliance_penalty', 'Fines', 'fines')
     record = utils.replace_conditional(record, 'non_compliance_penalty', 'Other', 'not known')
-    record = utils.replace_conditional(record, 'non_compliance_penalty', 'Not Available', 'not available')
-    record = utils.replace_conditional(record, 'non_compliance_penalty', 'Not available', 'not available')
-    record = utils.replace_conditional(record, 'non_compliance_penalty', 'Not available ', 'not available')
-    record = utils.replace_conditional(record, 'non_compliance_penalty', 'not available ', 'not available')
+    record = utils.replace_conditional(record, 'non_compliance_penalty', 'Not Available', 'not known')
+    record = utils.replace_conditional(record, 'non_compliance_penalty', 'Not available', 'not known')
+    record = utils.replace_conditional(record, 'non_compliance_penalty', 'Not available ', 'not known')
+    record = utils.replace_conditional(record, 'non_compliance_penalty', 'not available ', 'not known')
     record = utils.replace_conditional(record, 'non_compliance_penalty', 'Not Applicable', 'not applicable')
     record = utils.replace_conditional(record, 'non_compliance_penalty', 'Not applicable', 'not applicable')
-    record = utils.replace_conditional(record, 'non_compliance_penalty', 'not applicable ', 'not available')
+    record = utils.replace_conditional(record, 'non_compliance_penalty', 'not applicable ', 'not known')
 
     # Replace targeted values
     record = utils.replace_conditional(record, 'targeted', 'checked', None)
