@@ -76,7 +76,6 @@ def transform(record: dict, key_ref: dict, country_ref: pd.DataFrame, who_coding
 
     # Removes information in flag variables for now
     record['prov_subcategory'] = int(record['prov_subcategory'])
-    record['prov_measure'] = int(record['prov_measure'])
 
     # 11. Join WHO accepted country names (shared)
     record = utils.assign_who_country_name(record, country_ref)
