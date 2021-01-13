@@ -5,6 +5,6 @@ OxCGRT,RegionName,area_covered
 OxCGRT,Date,date_start
 OxCGRT,flag,flag
 OxCGRT,notes,comments
-OxCGRT,measure_name,prov_category
+OxCGRT,measure_name,prov_measure
 OxCGRT,measure,prov_subcategory
 OxCGRT,dataset,dataset
