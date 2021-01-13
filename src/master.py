@@ -44,7 +44,8 @@ combo_cols = ["country_territory_area", "dataset", "area_covered", "who_code", "
 
 # Define columns to be dropped from released data
 drop_cols = ['processed', 'keep', 'duplicate_record_id', 'prov_category', 'prov_subcategory',
-    'prov_measure', 'value_usd', 'percent_interest', 'source_alt', 'queries_comments', 'date_processed']
+    'prov_measure', 'value_usd', 'percent_interest', 'source_alt', 'queries_comments', 'date_processed',
+    'flag']
 
 # Extract previous_update records not from OXCGRT dataset
 previous_update_not_ox = previous_update.loc[(previous_update['dataset'] != 'OXCGRT'), :]
