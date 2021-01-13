@@ -188,7 +188,7 @@ def financial_measures(record: dict):
                  'H4_Emergency investment in healthcare',
                  'H5_Investment in vaccines']
 
-    if record['prov_category'] in financial:
+    if record['prov_measure'] in financial:
 
         record['value_usd'] = record['prov_subcategory']
 
