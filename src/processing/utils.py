@@ -68,7 +68,8 @@ def generate_blank_record():
         "alt_link_eng": None,
         "source_alt": None,
         "queries_comments": None,
-        "date_processed": None
+        "date_processed": None,
+        "flag": None
     }
 
     return record

@@ -76,7 +76,6 @@ def transform(record: dict, key_ref: dict, country_ref: pd.DataFrame, who_coding
 
     # Removes information in flag variables for now
     record['prov_subcategory'] = int(record['prov_subcategory'])
-    record['prov_measure'] = int(record['prov_measure'])
 
     # 11. Join WHO accepted country names (shared)
     record = utils.assign_who_country_name(record, country_ref)
@@ -189,7 +188,7 @@ def financial_measures(record: dict):
                  'H4_Emergency investment in healthcare',
                  'H5_Investment in vaccines']
 
-    if record['prov_category'] in financial:
+    if record['prov_measure'] in financial:
 
         record['value_usd'] = record['prov_subcategory']
 

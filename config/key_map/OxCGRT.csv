@@ -3,8 +3,8 @@ OxCGRT,CountryName,country_territory_area
 OxCGRT,CountryCode,iso
 OxCGRT,RegionName,area_covered
 OxCGRT,Date,date_start
-OxCGRT,flag,prov_measure
+OxCGRT,flag,flag
 OxCGRT,notes,comments
-OxCGRT,measure_name,prov_category
+OxCGRT,measure_name,prov_measure
 OxCGRT,measure,prov_subcategory
 OxCGRT,dataset,dataset
