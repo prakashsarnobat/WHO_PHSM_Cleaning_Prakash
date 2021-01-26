@@ -391,19 +391,6 @@ def assign_who_coding(record: dict, who_coding: pd.DataFrame, missing_value: str
 
     coding = who_coding.loc[prov_measure & prov_subcategory & prov_category, :]
 
-    #print('\n')
-    #print(type(who_coding['prov_subcategory'][0]))
-    #print(who_coding['prov_subcategory'][0])
-    #print('\n')
-    #print('\nrecord measure:' + str(none_to_empty_str(record['prov_measure'])))
-    #print('record prov_subcategory:' + str(none_to_empty_str(record['prov_subcategory'])))
-    #print('record prov_category:' + str(none_to_empty_str(record['prov_category'])))
-    #print('\nrecord measure:' + str(sum(prov_measure)))
-    #print('record prov_subcategory:' + str(sum(prov_subcategory)))
-    #print('record prov_category:' + str(sum(prov_category)))
-    #print(coding)
-    #print(who_coding[['dataset', 'prov_measure', 'prov_subcategory', 'prov_category']])
-
 
     try:
 
