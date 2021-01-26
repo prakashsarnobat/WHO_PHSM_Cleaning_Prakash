@@ -1,0 +1,16 @@
+dataset,old_key,new_key
+EURO,Measure ID,prop_id
+EURO,MS implementing measures,country_territory_area
+EURO,Category,prov_category
+EURO,Subcategory,prov_subcategory
+EURO,Measure,prov_measure
+EURO,Restriction description/further details,comments
+EURO,Level of enforcement,enforcement
+EURO,Change in measure,
+EURO,Start of measure,date_start
+EURO,End of measure,date_end
+EURO,Source,source
+EURO,Links,link
+EURO,Date of access,
+EURO,Comments,
+EURO,dataset,dataset

@@ -19,7 +19,7 @@ General checks for record numbers etc
 """
 
 import pandas as pd
-from processing import JH_HIT, CDC_ITF, ACAPS, OXCGRT
+from processing import JH_HIT, CDC_ITF, ACAPS, OXCGRT, EURO
 
 
 def process(record: dict, key_ref: dict, country_ref: pd.DataFrame, who_coding: dict, prov_measure_filter: dict, no_update_phrase: dict):
@@ -80,6 +80,13 @@ def process(record: dict, key_ref: dict, country_ref: pd.DataFrame, who_coding: 
                                   country_ref,
                                   who_coding['OXCGRT'],
                                   no_update_phrase['OXCGRT'])
+                                  
+    elif record['dataset'] == 'EURO':
+
+        record = EURO.transform(record,
+                                  key_ref['EURO'],
+                                  country_ref,
+                                  who_coding['EURO'])
 
     else:
 

@@ -389,7 +389,12 @@ def assign_who_coding(record: dict, who_coding: pd.DataFrame, missing_value: str
     prov_category = who_coding['prov_category'] == none_to_empty_str(record['prov_category'])
 
     coding = who_coding.loc[prov_measure & prov_subcategory & prov_category, :]
-
+    
+    #print(sum(prov_measure))
+    #print(sum(prov_subcategory))
+    #print(sum(prov_category))
+    
+    
     try:
 
         assert len(coding.iloc[:, 1]) == 1
