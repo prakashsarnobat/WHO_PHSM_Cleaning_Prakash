@@ -45,7 +45,7 @@ jh = "https://raw.githubusercontent.com/HopkinsIDD/hit-covid/master/data/hit-cov
 cdc = "data/raw/CDC_ITF_latest.csv"
 acaps = "data/raw/ACAPS_latest.csv"
 oxcgrt = "https://raw.githubusercontent.com/OxCGRT/covid-policy-tracker/master/data/OxCGRT_latest_withnotes.csv"
-euro = "data/raw/Euro_latest.csv"
+euro = "data/raw/EURO_latest.csv"
 check_dir = 'config/input_check'
 
 # Load accepted column reference
