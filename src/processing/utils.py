@@ -357,6 +357,7 @@ def assign_who_country_name(record: dict, country_ref: pd.DataFrame, missing_val
 
     return(record)
 
+
 def assign_who_coding(record: dict, who_coding: pd.DataFrame, missing_value: str = 'unknown'):
     """
     Assign WHO coding to a record.
@@ -389,6 +390,7 @@ def assign_who_coding(record: dict, who_coding: pd.DataFrame, missing_value: str
     prov_category = who_coding['prov_category'] == none_to_empty_str(record['prov_category'])
 
     coding = who_coding.loc[prov_measure & prov_subcategory & prov_category, :]
+
 
     try:
 
@@ -477,7 +479,7 @@ def none_to_empty_str(s):
 
     """
 
-    if s is None:
+    if pd.isna(s):
 
         return('')
 

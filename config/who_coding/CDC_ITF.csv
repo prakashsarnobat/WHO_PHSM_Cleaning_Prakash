@@ -1,4 +1,4 @@
-﻿dataset,prov_category,prov_subcategory,prov_measure,who_code,who_category,who_subcategory,who_measure,non_compliance,who_targeted
+dataset,prov_category,prov_subcategory,prov_measure,who_code,who_category,who_subcategory,who_measure,non_compliance,who_targeted
 CDC-ITF,,Academic closures,all schools and universities,4.1.2,Social and physical distancing measures,School measures ,Closing,,
 CDC-ITF,,Academic closures,,4.1.2,Social and physical distancing measures,School measures ,Closing,,
 CDC-ITF,,Academic closures,All schools and universities,4.1.2,Social and physical distancing measures,School measures ,Closing,,
@@ -123,6 +123,7 @@ CDC-ITF,,Travel restrictions,Travel recommendation,5.1,International travel meas
 CDC-ITF,,Travel restrictions,Sea travel suspended,5.8,International travel measures,,Suspending or restricting international ferries or ships,,
 CDC-ITF,,Travel restrictions,Movement restricted,5.8,International travel measures,,Suspending or restricting international ferries or ships,,
 CDC-ITF,,Travel restrictions,Border closure,5.7,International travel measures,,Suspending or restricting international flights,,
+CDC-ITF,,Travel restrictions,Traveler isolation/quarantine,5.5,International travel measures,,Mandatory quarantine for more countries,,
 CDC-ITF,,Travel restrictions,travel bans/border closure,5.9,International travel measures,,Closing international land borders,,
 CDC-ITF,,Travel restrictions,flight suspensions,5.7,International travel measures,,Suspending or restricting international flights,,
 CDC-ITF,,Travel restrictions,Border closures/travel bans,5.9,International travel measures,,Closing international land borders,,

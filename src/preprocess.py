@@ -9,7 +9,7 @@ Data Sources:
 `https://www.cdc.gov/mmwr/preview/mmwrhtml/00001590.htm <https://www.cdc.gov/mmwr/preview/mmwrhtml/00001590.htm>`_
 `https://github.com/HopkinsIDD/hit-covid <https://github.com/HopkinsIDD/hit-covid>`_
 `https://raw.githubusercontent.com/OxCGRT/covid-policy-tracker/master/data/OxCGRT_latest_withnotes.csv <https://raw.githubusercontent.com/OxCGRT/covid-policy-tracker/master/data/OxCGRT_latest_withnotes.csv>`_
-
+`https://who.maps.arcgis.com/apps/opsdashboard/index.html#/ead3c6475654481ca51c248d52ab9c61 <https://who.maps.arcgis.com/apps/opsdashboard/index.html#/ead3c6475654481ca51c248d52ab9c61>`_
 """
 
 import pandas as pd
@@ -35,7 +35,7 @@ logging.info("Preprocessing Data...")
 
 # HOTFIX: limit the number of records that will be ingested from each dataset. Used for development.
 # Should be None for production.
-record_limit = None
+record_limit = 10
 
 # Allows ingestion hashes to be saved - should be True in production, not in development
 save_ingestion_hashes = False
@@ -45,13 +45,15 @@ jh = "https://raw.githubusercontent.com/HopkinsIDD/hit-covid/master/data/hit-cov
 cdc = "data/raw/CDC_ITF_latest.csv"
 acaps = "data/raw/ACAPS_latest.csv"
 oxcgrt = "https://raw.githubusercontent.com/OxCGRT/covid-policy-tracker/master/data/OxCGRT_latest_withnotes.csv"
+euro = "data/raw/EURO_latest.csv"
 check_dir = 'config/input_check'
 
 # Load accepted column reference
 column_config = {'JH_HIT':pd.read_csv(check_dir + '/columns/JH_HIT.csv'),
                  'CDC_ITF':pd.read_csv(check_dir + '/columns/CDC_ITF.csv'),
                  'ACAPS':pd.read_csv(check_dir + '/columns/ACAPS.csv'),
-                 'OXCGRT':pd.read_csv(check_dir + '/columns/OXCGRT.csv')}
+                 'OXCGRT':pd.read_csv(check_dir + '/columns/OXCGRT.csv'),
+                 'EURO':pd.read_csv(check_dir + '/columns/EURO.csv')}
 
 # Load accepted date format reference
 date_config = pd.read_csv(check_dir + '/date_format/date_format.csv')
@@ -59,7 +61,8 @@ date_config = pd.read_csv(check_dir + '/date_format/date_format.csv')
 ingestion_hashes = {'JH_HIT': 'config/ingestion_hashes/JH_HIT.csv',
                     'CDC_ITF': 'config/ingestion_hashes/CDC_ITF.csv',
                     'OXCGRT': 'config/ingestion_hashes/OXCGRT.csv',
-                    'ACAPS': 'config/ingestion_hashes/ACAPS.csv'}
+                    'ACAPS': 'config/ingestion_hashes/ACAPS.csv',
+                    'EURO': 'config/ingestion_hashes/EURO.csv'}
 
 # Read JH_HIT Data
 jh = pd.read_csv(jh)
@@ -155,8 +158,29 @@ oxcgrt = utils.df_to_records(oxcgrt, "OXCGRT", drop_columns)
 # Log the number of OXCGRT records
 logging.info("OXCGRT_RECORDS=%d" % len(oxcgrt))
 
+# Read EURO Data
+euro = pd.read_csv(euro,
+                    parse_dates = ['Start of measure', 'End of measure'],
+                    dtype={'Category':str, 'Subcategory':str, 'Measure':str},
+                    dayfirst = True)
+
+# Remove records that have already been processed
+euro = utils.filter_new_hashes(euro, ingestion_hashes['EURO'], save_ingestion_hashes=save_ingestion_hashes)
+
+# Check EURO Data
+check.check_input(records=euro,
+                  column_config=column_config['EURO'],
+                  date_config=date_config,
+                  dataset='EURO')
+
+# Convert EURO data to list of record dicts
+euro = utils.df_to_records(euro, "EURO")
+
+# Log the number of EUROrecords
+logging.info("EURO_RECORDS=%d" % len(euro))
+
 # concat all record lists - filter each by the (development only) record limit
-records = jh[:record_limit] + cdc[:record_limit] + acaps[:record_limit] + oxcgrt[:record_limit]
+records = jh[:record_limit] + cdc[:record_limit] + acaps[:record_limit] + oxcgrt[:record_limit] + euro[:record_limit]
 
 # write list of record dicts to a pickle file
 utils.write_records(records, "tmp/preprocess", "records.pickle")
