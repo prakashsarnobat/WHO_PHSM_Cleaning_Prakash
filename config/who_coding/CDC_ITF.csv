@@ -1,4 +1,4 @@
-﻿dataset,prov_category,prov_subcategory,prov_measure,who_code,who_category,who_subcategory,who_measure,non_compliance,who_targeted
+dataset,prov_category,prov_subcategory,prov_measure,who_code,who_category,who_subcategory,who_measure,non_compliance,who_targeted
 CDC-ITF,,Academic closures,all schools and universities,4.1.2,Social and physical distancing measures,School measures ,Closing,,
 CDC-ITF,,Academic closures,,4.1.2,Social and physical distancing measures,School measures ,Closing,,
 CDC-ITF,,Academic closures,All schools and universities,4.1.2,Social and physical distancing measures,School measures ,Closing,,
@@ -158,3 +158,4 @@ CDC-ITF,,Traveler isolation/quarantine,Flight suspensions,5.7,International trav
 CDC-ITF,,Traveler isolation/quarantine,Required traveler testing,5.5,International travel measures,,Entry screening and isolation or quarantine,,
 CDC-ITF,,Traveler isolation/quarantine,,9,Coding required,,,,
 CDC-ITF,,PPE Requirements,Face mask wearing requirements,1.4,Individual measures,,Wearing a mask,,
+CDC-ITF,,Travel restrictions,Traveler isolation/quarantine,5.5,International travel measures,,Mandatory quarantine for more countries.,,
