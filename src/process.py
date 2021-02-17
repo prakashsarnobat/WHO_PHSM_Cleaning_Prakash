@@ -35,16 +35,20 @@ records = pickle.load(open("tmp/preprocess/records.pickle", "rb"))
 key_ref = {'JH_HIT': pd.read_csv('config/key_map/JH_HIT.csv').to_dict(orient='records'),
            'CDC_ITF': pd.read_csv('config/key_map/CDC_ITF.csv').to_dict(orient='records'),
            'ACAPS': pd.read_csv('config/key_map/ACAPS.csv').to_dict(orient='records'),
-           'OXCGRT': pd.read_csv('config/key_map/OXCGRT.csv').to_dict(orient='records')}
+           'OXCGRT': pd.read_csv('config/key_map/OXCGRT.csv').to_dict(orient='records'),
+           'EURO': pd.read_csv('config/key_map/EURO.csv').to_dict(orient='records')}
 
 # load who country name reference
 country_ref = pd.read_csv('config/country_names/who_country_names.csv')
+
+EURO_dtype = {'prov_category': str, 'prov_subcategory': str, 'prov_measure': str}
 
 # load who dataset coding reference
 who_coding = {'JH_HIT': pd.read_csv('config/who_coding/JH_HIT.csv').fillna(''),
               'CDC_ITF': pd.read_csv('config/who_coding/CDC_ITF.csv').fillna(''),
               'ACAPS': pd.read_csv('config/who_coding/ACAPS.csv').fillna(''),
-              'OXCGRT': pd.read_csv('config/who_coding/OXCGRT.csv').fillna('')}
+              'OXCGRT': pd.read_csv('config/who_coding/OXCGRT.csv').fillna(''),
+              'EURO': pd.read_csv('config/who_coding/EURO.csv', dtype=EURO_dtype).fillna('')}
 
 # Load prov measure filter reference
 prov_measure_filter = {'JH_HIT': pd.read_csv('config/prov_measure_filter/JH_HIT.csv')}
