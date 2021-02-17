@@ -84,7 +84,8 @@ logging.info("JH_HIT_RECORDS=%d" % len(jh))
 
 # Read CDC_ITF data
 cdc = pd.read_csv(cdc,
-                  dtype={'Date implemented or lifted':str, 'Date Entered':str})
+                  dtype={'Date implemented or lifted':str, 'Date Entered':str},
+                  parse_dates = ['Date implemented or lifted', 'Date Entered'], encoding='latin1')
 
 # Remove records that have already been processed
 cdc = utils.filter_new_hashes(cdc, ingestion_hashes['CDC_ITF'], save_ingestion_hashes=save_ingestion_hashes)

@@ -123,7 +123,6 @@ CDC-ITF,,Travel restrictions,Travel recommendation,5.1,International travel meas
 CDC-ITF,,Travel restrictions,Sea travel suspended,5.8,International travel measures,,Suspending or restricting international ferries or ships,,
 CDC-ITF,,Travel restrictions,Movement restricted,5.8,International travel measures,,Suspending or restricting international ferries or ships,,
 CDC-ITF,,Travel restrictions,Border closure,5.7,International travel measures,,Suspending or restricting international flights,,
-CDC-ITF,,Travel restrictions,Traveler isolation/quarantine,5.5,International travel measures,,Mandatory quarantine for more countries,,
 CDC-ITF,,Travel restrictions,travel bans/border closure,5.9,International travel measures,,Closing international land borders,,
 CDC-ITF,,Travel restrictions,flight suspensions,5.7,International travel measures,,Suspending or restricting international flights,,
 CDC-ITF,,Travel restrictions,Border closures/travel bans,5.9,International travel measures,,Closing international land borders,,
@@ -159,3 +158,4 @@ CDC-ITF,,Traveler isolation/quarantine,Flight suspensions,5.7,International trav
 CDC-ITF,,Traveler isolation/quarantine,Required traveler testing,5.5,International travel measures,,Entry screening and isolation or quarantine,,
 CDC-ITF,,Traveler isolation/quarantine,,9,Coding required,,,,
 CDC-ITF,,PPE Requirements,Face mask wearing requirements,1.4,Individual measures,,Wearing a mask,,
+CDC-ITF,,Travel restrictions,Traveler isolation/quarantine,5.5,International travel measures,,Mandatory quarantine for more countries.,,

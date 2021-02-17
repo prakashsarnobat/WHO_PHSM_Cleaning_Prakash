@@ -69,7 +69,8 @@ def generate_blank_record():
         "source_alt": None,
         "queries_comments": None,
         "date_processed": None,
-        "flag": None
+        "flag": None,
+        "old_targeted": None
     }
 
     return record
