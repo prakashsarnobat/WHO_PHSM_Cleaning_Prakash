@@ -11,7 +11,7 @@ import logging
 
 from utils import create_dir, log_records_per, log_records_total
 from check import check_output
-from manually_cleaned.main import adjust_manually_cleaned, columns_to_lower, update_following_measures, update_measure_stage_date 
+from manually_cleaned.main import adjust_manually_cleaned, columns_to_lower, update_following_measures, update_measure_stage_date
 
 argv = sys.argv
 
@@ -59,7 +59,7 @@ manually_cleaned = adjust_manually_cleaned(manually_cleaned)
 manually_cleaned = update_following_measures(manually_cleaned)
 
 # Updates `date_end` and `reason_ended` based on `measure_stage` value
-manually_cleaned = update_measure_stage_date(manually_cleaned) 
+manually_cleaned = update_measure_stage_date(manually_cleaned)
 
 # update `keep` labels for records coded with who_code in ['10', '11', '12', '13']
 manually_cleaned.loc[(pd.isna(manually_cleaned['keep'])) & ([x in ['10', '11', '12', '13'] for x in manually_cleaned['who_code']]), 'keep'] = 'n'
