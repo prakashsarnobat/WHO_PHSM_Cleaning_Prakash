@@ -1,5 +1,5 @@
 dataset,old_key,new_key
-EURO,Measure ID,prop_id
+EURO,Entry ID,prop_id
 EURO,MS implementing measures,country_territory_area
 EURO,Category,prov_category
 EURO,Subcategory,prov_subcategory

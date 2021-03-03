@@ -11,7 +11,7 @@ import logging
 
 from utils import create_dir, log_records_per, log_records_total
 from check import check_output
-from manually_cleaned.main import adjust_manually_cleaned, columns_to_lower, update_following_measures, update_measure_stage_date
+from manually_cleaned.main import adjust_manually_cleaned, columns_to_lower
 
 argv = sys.argv
 
@@ -37,8 +37,8 @@ lowercase_columns = ['admin_level',
                      'reason_ended']
 
 # Read manually cleaned data
-manually_cleaned = pd.read_csv('data/cleansed/mistress_latest1.csv', low_memory=False,
-    dtype={'date_start':str, 'date_end':str, 'date_entry':str, 'date_processed':str})
+manually_cleaned = pd.read_csv('data/cleansed/mistress_latest.csv', low_memory=False,
+    dtype={'date_start':str, 'date_end':str, 'date_entry':str, 'date_processed':str}, encoding = 'latin1')
 
 # Parse date values with a specific date format. This will throw an error on unexpected values
 manually_cleaned['date_start'] = pd.to_datetime(manually_cleaned['date_start'], format='%m/%d/%Y')
@@ -54,12 +54,6 @@ logging.info("Adjusting manually cleaned...")
 
 # Apply record adjustments to manually cleaned data
 manually_cleaned = adjust_manually_cleaned(manually_cleaned)
-
-# Update `date_end` values for records that have been assigned a following record
-manually_cleaned = update_following_measures(manually_cleaned)
-
-# Updates `date_end` and `reason_ended` based on `measure_stage` value
-manually_cleaned = update_measure_stage_date(manually_cleaned)
 
 # update `keep` labels for records coded with who_code in ['10', '11', '12', '13']
 manually_cleaned.loc[(pd.isna(manually_cleaned['keep'])) & ([x in ['10', '11', '12', '13'] for x in manually_cleaned['who_code']]), 'keep'] = 'n'
