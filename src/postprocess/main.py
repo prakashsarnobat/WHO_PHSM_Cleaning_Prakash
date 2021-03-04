@@ -1,5 +1,5 @@
 import pandas as pd
-from postprocess import CDC_ITF, JH_HIT
+from postprocess import CDC_ITF, JH_HIT, EURO
 
 def postprocess(data: pd.DataFrame):
     """
@@ -29,6 +29,12 @@ def postprocess(data: pd.DataFrame):
 
         data = JH_HIT.postprocess(data)
 
+        return(data)
+        
+    if dataset == 'EURO':
+        
+        data = EURO.postprocess(data)
+        
         return(data)
 
     else:

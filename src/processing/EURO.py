@@ -53,8 +53,8 @@ def transform(record: dict, key_ref: dict, country_ref: pd.DataFrame, who_coding
     #record = utils.replace_country(record, 'Denmark', 'Greenland')
 
     # 3. Make manual country name changes
-    #record = utils.replace_conditional(record, 'country_territory_area', 'DRC', 'Democratic Republic of the Congo')
-    #record = utils.replace_conditional(record, 'country_territory_area', 'CAR', 'Central African Republic')
+    record = utils.replace_conditional(record, 'country_territory_area', 'Kosovo*', 'Kosovo')
+    record = utils.replace_conditional(record, 'country_territory_area', 'Bewlgium', 'Belgium')
     #record = utils.replace_conditional(record, 'country_territory_area', 'DPRK', 'North Korea')
     #record = utils.replace_conditional(record, 'country_territory_area', 'Eswatini', 'Swaziland')
 
@@ -66,6 +66,13 @@ def transform(record: dict, key_ref: dict, country_ref: pd.DataFrame, who_coding
     #record = utils.replace_conditional(record, 'non_compliance_penalty', 'Legal Action', 'legal action')
     #record = utils.replace_conditional(record, 'non_compliance_penalty', 'Legal action', 'legal action')
 
+    # Replace enforcement values
+    record = utils.replace_conditional(record, 'enforcement','0', 'not applicable')
+    record = utils.replace_conditional(record, 'enforcement','1', 'recommended')
+    record = utils.replace_conditional(record, 'enforcement','2', 'required')
+    record = utils.replace_conditional(record, 'enforcement','3', 'monitored')
+    record = utils.replace_conditional(record, 'enforcement', 3, 'monitored')
+    record = utils.replace_conditional(record, 'enforcement', ' ', 'not known')
 
     # Replace targeted values
     #record = utils.replace_conditional(record, 'targeted', 'checked', None)
@@ -74,7 +81,7 @@ def transform(record: dict, key_ref: dict, country_ref: pd.DataFrame, who_coding
     #record = utils.replace_conditional(record, 'targeted', 'General', None)
 
     # 4. replace sensitive country names by ISO (utils)
-    #record = utils.replace_sensitive_regions(record)
+    record = utils.replace_sensitive_regions(record)
 
     # 5. assign ISO code
     record['iso'] = countrycode(codes=record['country_territory_area'], origin='country_name', target='iso3c')

@@ -1,6 +1,8 @@
 dataset,column
-EURO,Measure ID
+EURO,Unnamed: 0
+EURO,Entry ID
 EURO,MS implementing measures
+EURO,Country Code
 EURO,Category
 EURO,Subcategory
 EURO,Measure
@@ -12,4 +14,7 @@ EURO,End of measure
 EURO,Source
 EURO,Links
 EURO,Date of access
+EURO,Entry Week No. (2020)
+EURO,Entry Week No. (2021)
 EURO,Comments
+EURO,Confidential
