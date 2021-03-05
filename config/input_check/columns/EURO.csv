@@ -1,5 +1,4 @@
 dataset,column
-EURO,Unnamed: 0
 EURO,Entry ID
 EURO,MS implementing measures
 EURO,Country Code
@@ -7,14 +6,67 @@ EURO,Category
 EURO,Subcategory
 EURO,Measure
 EURO,Restriction description/further details
-EURO,Level of enforcement
-EURO,Change in measure
+EURO,"Level of enforcement
+ 0 - n/a
+ 1 - recommended
+2 - required"
+EURO,"Change in measure 
+1 - first put in place; 
+2 - strengthened or intensified; 
+3 - eased or gradually lifted"
 EURO,Start of measure
 EURO,End of measure
-EURO,Source
+EURO,"Source
+1 = government
+2 = media
+3 = WCO communication
+4 = IHR NFP reporting"
 EURO,Links
 EURO,Date of access
 EURO,Entry Week No. (2020)
 EURO,Entry Week No. (2021)
 EURO,Comments
 EURO,Confidential
+EURO,% of each source
+EURO,1
+EURO,0.6525821596244131
+EURO,2
+EURO,0.24696039484771878
+EURO,3
+EURO,0.0896232093415192
+EURO,4
+EURO,0.010834236186348862
+,Unnamed: 27
+,Unnamed: 28
+,Unnamed: 29
+,Unnamed: 30
+,Unnamed: 31
+,Unnamed: 32
+,Unnamed: 33
+,Unnamed: 34
+,Unnamed: 35
+,Unnamed: 36
+,Unnamed: 37
+,Unnamed: 38
+,Unnamed: 39
+,Unnamed: 40
+,Unnamed: 41
+,Unnamed: 42
+,Unnamed: 43
+,Unnamed: 44
+,Unnamed: 45
+,Unnamed: 46
+,Unnamed: 47
+,Unnamed: 48
+,Unnamed: 49
+,Unnamed: 50
+,Unnamed: 51
+,Unnamed: 52
+,Unnamed: 53
+,Unnamed: 54
+,Unnamed: 55
+,Unnamed: 56
+,Unnamed: 57
+,Unnamed: 58
+,Unnamed: 59
+,Unnamed: 60

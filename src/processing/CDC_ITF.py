@@ -64,6 +64,7 @@ def transform(record: dict, key_ref: dict, country_ref: pd.DataFrame, who_coding
     record = utils.replace_conditional(record, 'country_territory_area', 'RÃ©union', 'Reunion')
     record = utils.replace_conditional(record, 'country_territory_area', 'CuraÃ§ao', 'Curacao')
     record = utils.replace_conditional(record, 'country_territory_area', 'Curaçao', 'Curacao')
+    record = utils.replace_conditional(record, 'country_territory_area', 'CuraÃÂ§ao', 'Curacao')
     record = utils.replace_conditional(record, 'country_territory_area', 'St. Barts', 'Saint Barthelemy')
     record = utils.replace_conditional(record, 'country_territory_area', 'Czechia', 'Czech Republic')
     record = utils.replace_conditional(record, 'country_territory_area', 'D. P. R. of Korea', 'North Korea')

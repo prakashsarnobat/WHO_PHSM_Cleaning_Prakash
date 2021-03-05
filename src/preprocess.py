@@ -35,8 +35,7 @@ logging.info("Preprocessing Data...")
 
 # HOTFIX: limit the number of records that will be ingested from each dataset. Used for development.
 # Should be None for production.
-record_limit = None
-
+record_limit = 1000
 # Allows ingestion hashes to be saved - should be True in production, not in development
 save_ingestion_hashes = False
 
@@ -45,7 +44,7 @@ jh = "https://raw.githubusercontent.com/HopkinsIDD/hit-covid/master/data/hit-cov
 cdc = "data/raw/CDC_ITF_latest.csv"
 acaps = "data/raw/ACAPS_latest.csv"
 oxcgrt = "https://raw.githubusercontent.com/OxCGRT/covid-policy-tracker/master/data/OxCGRT_latest_withnotes.csv"
-euro = "data/raw/EURO_latest.csv"
+euro = "data/raw/EURO.xlsx"
 check_dir = 'config/input_check'
 
 # Load accepted column reference
@@ -160,10 +159,15 @@ oxcgrt = utils.df_to_records(oxcgrt, "OXCGRT", drop_columns)
 logging.info("OXCGRT_RECORDS=%d" % len(oxcgrt))
 
 # Read EURO Data
-euro = pd.read_csv(euro,
-                    parse_dates = ['Start of measure', 'End of measure'],
-                    dtype={'Category':str, 'Subcategory':str, 'Measure':str},
-                    dayfirst = True)
+#euro = pd.read_csv(euro,
+ #                   parse_dates = ['Start of measure', 'End of measure'],
+  #                  dtype={'Category':str, 'Subcategory':str, 'Measure':str},
+   #                 dayfirst = True, encoding = 'latin1')
+
+
+euro = pd.read_excel(euro,engine='openpyxl',
+dtype={'Category':str, 'Subcategory':str, 'Measure':str})
+euro.columns = euro.columns.astype("str")
 
 # Remove records that have already been processed
 euro = utils.filter_new_hashes(euro, ingestion_hashes['EURO'], save_ingestion_hashes=save_ingestion_hashes)
