@@ -68,11 +68,13 @@ def transform(record: dict, key_ref: dict, country_ref: pd.DataFrame, who_coding
 
     # Replace enforcement values
     record = utils.replace_conditional(record, 'enforcement','0', 'not applicable')
+    record = utils.replace_conditional(record, 'enforcement',1, 'recommended')
     record = utils.replace_conditional(record, 'enforcement','1', 'recommended')
     record = utils.replace_conditional(record, 'enforcement','2', 'required')
-    record = utils.replace_conditional(record, 'enforcement','3', 'monitored')
-    record = utils.replace_conditional(record, 'enforcement', 3, 'monitored')
+    record = utils.replace_conditional(record, 'enforcement',2, 'required')
+    record = utils.replace_conditional(record, 'enforcement',3, 'monitored')
     record = utils.replace_conditional(record, 'enforcement', ' ', 'not known')
+    record = utils.replace_conditional(record, 'enforcement', 0 , 'not applicable')
 
     # Replace targeted values
     #record = utils.replace_conditional(record, 'targeted', 'checked', None)

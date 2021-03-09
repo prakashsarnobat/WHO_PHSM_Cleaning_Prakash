@@ -5,11 +5,18 @@ EURO,Category,prov_category
 EURO,Subcategory,prov_subcategory
 EURO,Measure,prov_measure
 EURO,Restriction description/further details,comments
-EURO,Level of enforcement,enforcement
+EURO,"Level of enforcement
+ 0 - n/a
+ 1 - recommended
+2 - required",enforcement
 EURO,Change in measure,
 EURO,Start of measure,date_start
 EURO,End of measure,date_end
-EURO,Source,source
+EURO,"Source
+1 = government
+2 = media
+3 = WCO communication
+4 = IHR NFP reporting",source
 EURO,Links,link
 EURO,Date of access,
 EURO,Comments,
