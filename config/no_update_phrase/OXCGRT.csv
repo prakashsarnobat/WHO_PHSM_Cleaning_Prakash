@@ -18,6 +18,7 @@ OXCGRT,^No changes reported.
 OXCGRT,^No changes observed here.
 OXCGRT,^no changes observed here.
 OXCGRT,^No policy change
+OXCGRT,^No policy update
 OXCGRT,^No policy updates.
 OXCGRT,^no change
 OXCGRT,^The policy stays unchanged: 
@@ -30,4 +31,6 @@ OXCGRT,^Unable to find any information
 OXCGRT,^No noted changes
 OXCGRT,^Still in place
 OXCGRT,^Change in policy not found
+OXCGRT,^no new updates
+OXCGRT,^No Change
 OXCGRT,^No evidence of a policy change
