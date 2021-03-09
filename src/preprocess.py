@@ -35,7 +35,7 @@ logging.info("Preprocessing Data...")
 
 # HOTFIX: limit the number of records that will be ingested from each dataset. Used for development.
 # Should be None for production.
-record_limit = 1000
+record_limit = None
 # Allows ingestion hashes to be saved - should be True in production, not in development
 save_ingestion_hashes = False
 
