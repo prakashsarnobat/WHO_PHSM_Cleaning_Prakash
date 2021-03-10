@@ -37,14 +37,17 @@ lowercase_columns = ['admin_level',
                      'reason_ended']
 
 # Read manually cleaned data
-manually_cleaned = pd.read_csv('data/cleansed/mistress_latest.csv', low_memory=False,
-    dtype={'date_start':str, 'date_end':str, 'date_entry':str, 'date_processed':str}, encoding = 'latin1')
+manually_cleaned = pd.read_excel('data/cleansed/mistress_latest.xlsx',
+                                 engine='openpyxl',
+                                 dtype={'date_start': str,
+                                        'date_end': str,
+                                        'date_entry': str,
+                                        'date_processed': str})
 
 # Parse date values with a specific date format. This will throw an error on unexpected values
-manually_cleaned['date_start'] = pd.to_datetime(manually_cleaned['date_start'], format='%m/%d/%Y')
-manually_cleaned['date_end'] = pd.to_datetime(manually_cleaned['date_end'], format='%m/%d/%Y')
-manually_cleaned['date_entry'] = pd.to_datetime(manually_cleaned['date_entry'], format='%m/%d/%Y')
-manually_cleaned['date_processed'] = pd.to_datetime(manually_cleaned['date_processed'], format='%m/%d/%Y')
+
+# manually_cleaned['date_processed'] = pd.to_datetime(manually_cleaned['date_processed'],
+#                                                    format='%d/%m/%Y')
 
 print("Checking manually cleaned...")
 logging.info("Checking manually cleaned...")

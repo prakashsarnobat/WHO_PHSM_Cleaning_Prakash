@@ -24,16 +24,23 @@ print("Reading master data...")
 logging.info("Reading master data...")
 
 # Read adjusted manually cleaned data
-manually_cleaned = pd.read_csv("tmp/manually_cleaned/records.csv", low_memory=False, parse_dates = ['date_start'])
+manually_cleaned = pd.read_csv("tmp/manually_cleaned/records.csv",
+                               low_memory=False,
+                               parse_dates=['date_start'])
 
 print("Reading previous update...")
 logging.info("Reading previous update...")
 
 # Read previous update data
-previous_update = pd.read_csv("data/merge/update_merge_2021_03_04.csv", parse_dates = ['date_start'], low_memory=False, encoding='latin1', dtype={'date_start':str})
+previous_update = pd.read_csv("data/merge/update_merge_2021_03_10.csv",
+                              parse_dates=['date_start'],
+                              low_memory=False,
+                              encoding='latin1')
 
 # Read new update data
-update = pd.read_csv("tmp/postprocess/records.csv", low_memory=False, parse_dates = ['date_start'])
+update = pd.read_csv("tmp/postprocess/records.csv",
+                     dtype={'date_start': str},
+                     low_memory=False)
 
 print("Combining manually cleaned and update data...")
 logging.info("Combining manually cleaned and update data...")
@@ -62,7 +69,11 @@ update_ox = update.loc[(update['dataset'] == 'OXCGRT'), :]
 assert (len(previous_update_not_ox.index) + len(previous_update_ox.index)) == len(previous_update.index)
 assert (len(update_not_ox.index) + len(update_ox.index)) == len(update.index)
 
-# Identify new record sin OXCGRT data
+
+update_ox['date_start'] = pd.to_datetime(update_ox['date_start'],
+                                         format="%Y-%m-%d %H:%M:%S")
+
+# Identify new records in OXCGRT data
 new_records_ox = get_new_records(
     update_ox,
     previous_update_ox,
