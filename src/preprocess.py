@@ -44,15 +44,15 @@ jh = "https://raw.githubusercontent.com/HopkinsIDD/hit-covid/master/data/hit-cov
 cdc = "data/raw/CDC_ITF_latest.csv"
 acaps = "data/raw/ACAPS_latest.csv"
 oxcgrt = "https://raw.githubusercontent.com/OxCGRT/covid-policy-tracker/master/data/OxCGRT_latest_withnotes.csv"
-euro = "data/raw/EURO.xlsx"
+euro = "data/raw/EURO_latest.xlsx"
 check_dir = 'config/input_check'
 
 # Load accepted column reference
-column_config = {'JH_HIT':pd.read_csv(check_dir + '/columns/JH_HIT.csv'),
-                 'CDC_ITF':pd.read_csv(check_dir + '/columns/CDC_ITF.csv'),
-                 'ACAPS':pd.read_csv(check_dir + '/columns/ACAPS.csv'),
-                 'OXCGRT':pd.read_csv(check_dir + '/columns/OXCGRT.csv'),
-                 'EURO':pd.read_csv(check_dir + '/columns/EURO.csv')}
+column_config = {'JH_HIT': pd.read_csv(check_dir + '/columns/JH_HIT.csv'),
+                 'CDC_ITF': pd.read_csv(check_dir + '/columns/CDC_ITF.csv'),
+                 'ACAPS': pd.read_csv(check_dir + '/columns/ACAPS.csv'),
+                 'OXCGRT': pd.read_csv(check_dir + '/columns/OXCGRT.csv'),
+                 'EURO': pd.read_csv(check_dir + '/columns/EURO.csv')}
 
 # Load accepted date format reference
 date_config = pd.read_csv(check_dir + '/date_format/date_format.csv')
@@ -67,13 +67,14 @@ ingestion_hashes = {'JH_HIT': 'config/ingestion_hashes/JH_HIT.csv',
 jh = pd.read_csv(jh)
 
 # Remove records that have already been processed
-jh = utils.filter_new_hashes(jh, ingestion_hashes['JH_HIT'], save_ingestion_hashes=save_ingestion_hashes)
+jh = utils.filter_new_hashes(jh, ingestion_hashes['JH_HIT'],
+                             save_ingestion_hashes=save_ingestion_hashes)
 
 # Check JH_HIT Data
 check.check_input(records=jh,
                   column_config=column_config['JH_HIT'],
                   date_config=date_config,
-                  dataset = 'JH_HIT')
+                  dataset='JH_HIT')
 
 # Convert JH_HIT data to list of record dicts
 jh = utils.df_to_records(jh, "JH_HIT")
@@ -83,14 +84,17 @@ logging.info("JH_HIT_RECORDS=%d" % len(jh))
 
 # Read CDC_ITF data
 cdc = pd.read_csv(cdc,
-                  dtype={'Date implemented or lifted':str, 'Date Entered':str},
-                  parse_dates = ['Date implemented or lifted', 'Date Entered'], encoding='latin1')
+                  dtype={'Date implemented or lifted': str,
+                         'Date Entered': str},
+                  parse_dates=['Date implemented or lifted', 'Date Entered'],
+                  encoding='latin1')
 
 # Remove records that have already been processed
 cdc = utils.filter_new_hashes(cdc, ingestion_hashes['CDC_ITF'], save_ingestion_hashes=save_ingestion_hashes)
 
 # Parse CDC_ITF date format
-cdc["Date implemented or lifted"] = pd.to_datetime(cdc["Date implemented or lifted"], format='%d/%m/%Y')
+cdc["Date implemented or lifted"] = pd.to_datetime(cdc["Date implemented or lifted"],
+                                                   format='%d/%m/%Y')
 cdc["Date Entered"] = pd.to_datetime(cdc["Date Entered"], format='%d/%m/%Y')
 
 # Check CDC_ITF Data
@@ -140,17 +144,17 @@ check.check_input(records=oxcgrt,
 
 # Define columns that will be dropped from OXCGRT data
 drop_columns = ['ConfirmedCases',
-               'ConfirmedDeaths', 'StringencyIndex', 'StringencyIndexForDisplay',
-               'StringencyLegacyIndex', 'StringencyLegacyIndexForDisplay',
-               'GovernmentResponseIndex', 'GovernmentResponseIndexForDisplay',
-               'ContainmentHealthIndex', 'ContainmentHealthIndexForDisplay',
-               'EconomicSupportIndex', 'EconomicSupportIndexForDisplay']
+                'ConfirmedDeaths', 'StringencyIndex', 'StringencyIndexForDisplay',
+                'StringencyLegacyIndex', 'StringencyLegacyIndexForDisplay',
+                'GovernmentResponseIndex', 'GovernmentResponseIndexForDisplay',
+                'ContainmentHealthIndex', 'ContainmentHealthIndexForDisplay',
+                'EconomicSupportIndex', 'EconomicSupportIndexForDisplay']
 
 # Drop defined columns from OXCGRT data
-oxcgrt.drop(drop_columns, axis = 1, inplace = True)
+oxcgrt.drop(drop_columns, axis=1, inplace=True)
 
 # Replace NA values with 0.0
-oxcgrt.fillna(0.0, inplace = True)
+oxcgrt.fillna(0.0, inplace=True)
 
 # Convert OxCGRT data to list of record dicts
 oxcgrt = utils.df_to_records(oxcgrt, "OXCGRT", drop_columns)
@@ -159,24 +163,25 @@ oxcgrt = utils.df_to_records(oxcgrt, "OXCGRT", drop_columns)
 logging.info("OXCGRT_RECORDS=%d" % len(oxcgrt))
 
 # Read EURO Data
-#euro = pd.read_csv(euro,
- #                   parse_dates = ['Start of measure', 'End of measure'],
-  #                  dtype={'Category':str, 'Subcategory':str, 'Measure':str},
-   #                 dayfirst = True, encoding = 'latin1')
+euro = pd.read_excel(euro, engine='openpyxl',
+                     dtype={'Category': str,
+                            'Subcategory': str,
+                            'Measure': str})
 
-
-euro = pd.read_excel(euro,engine='openpyxl',
-dtype={'Category':str, 'Subcategory':str, 'Measure':str})
+# Convert EURO columns to str
 euro.columns = euro.columns.astype("str")
 
 # Remove records that have already been processed
-euro = utils.filter_new_hashes(euro, ingestion_hashes['EURO'], save_ingestion_hashes=save_ingestion_hashes)
+euro = utils.filter_new_hashes(euro, ingestion_hashes['EURO'],
+                               save_ingestion_hashes=save_ingestion_hashes)
 
 # Check EURO Data
 check.check_input(records=euro,
                   column_config=column_config['EURO'],
                   date_config=date_config,
                   dataset='EURO')
+
+euro = euro.fillna('')
 
 # Convert EURO data to list of record dicts
 euro = utils.df_to_records(euro, "EURO")
@@ -185,7 +190,11 @@ euro = utils.df_to_records(euro, "EURO")
 logging.info("EURO_RECORDS=%d" % len(euro))
 
 # concat all record lists - filter each by the (development only) record limit
-records = jh[:record_limit] + cdc[:record_limit] + acaps[:record_limit] + oxcgrt[:record_limit] + euro[:record_limit]
+records = jh[:record_limit] + \
+          cdc[:record_limit] + \
+          acaps[:record_limit] + \
+          oxcgrt[:record_limit] + \
+          euro[:record_limit]
 
 # write list of record dicts to a pickle file
 utils.write_records(records, "tmp/preprocess", "records.pickle")

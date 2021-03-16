@@ -80,7 +80,7 @@ def process(record: dict, key_ref: dict, country_ref: pd.DataFrame, who_coding: 
                                   country_ref,
                                   who_coding['OXCGRT'],
                                   no_update_phrase['OXCGRT'])
-                                  
+
     elif record['dataset'] == 'EURO':
 
         record = EURO.transform(record,

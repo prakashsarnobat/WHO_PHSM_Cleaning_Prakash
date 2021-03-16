@@ -41,51 +41,39 @@ def transform(record: dict, key_ref: dict, country_ref: pd.DataFrame, who_coding
     # 2. replace data in new record with data from old record using key_ref
     record = utils.apply_key_map(new_record, record, key_ref)
 
-    # Remove records where area covered is a single space
-    #if record['area_covered'] == ' ':
-
-     #   record['area_covered'] = ''
-
-    # 6. Assign unique ID (shared)
-    #record = utils.assign_id(record)
-
-    # shift areas that should be countries.
-    #record = utils.replace_country(record, 'Denmark', 'Greenland')
-
     # 3. Make manual country name changes
     record = utils.replace_conditional(record, 'country_territory_area', 'Kosovo*', 'Kosovo')
     record = utils.replace_conditional(record, 'country_territory_area', 'Bewlgium', 'Belgium')
-    #record = utils.replace_conditional(record, 'country_territory_area', 'DPRK', 'North Korea')
-    #record = utils.replace_conditional(record, 'country_territory_area', 'Eswatini', 'Swaziland')
-
-    # Make manual measure_stage changes
-    #record = utils.replace_conditional(record, 'measure_stage', 'Introduction / extension of measures', 'introduction / extension of measures')
-    #record = utils.replace_conditional(record, 'measure_stage', 'Phase-out measure', 'phase-out')
-
-    # Make manual non_compliance_penalty changes
-    #record = utils.replace_conditional(record, 'non_compliance_penalty', 'Legal Action', 'legal action')
-    #record = utils.replace_conditional(record, 'non_compliance_penalty', 'Legal action', 'legal action')
 
     # Replace enforcement values
-    record = utils.replace_conditional(record, 'enforcement','0', 'not applicable')
-    record = utils.replace_conditional(record, 'enforcement',1, 'recommended')
-    record = utils.replace_conditional(record, 'enforcement','1', 'recommended')
-    record = utils.replace_conditional(record, 'enforcement','2', 'required')
-    record = utils.replace_conditional(record, 'enforcement',2, 'required')
-    record = utils.replace_conditional(record, 'enforcement',3, 'monitored')
     record = utils.replace_conditional(record, 'enforcement', ' ', 'not known')
-    record = utils.replace_conditional(record, 'enforcement', 0 , 'not applicable')
+    record = utils.replace_conditional(record, 'enforcement', 0, 'not applicable')
+    record = utils.replace_conditional(record, 'enforcement', '0', 'not applicable')
+    record = utils.replace_conditional(record, 'enforcement', 1, 'recommended')
+    record = utils.replace_conditional(record, 'enforcement', '1', 'recommended')
+    record = utils.replace_conditional(record, 'enforcement', '2', 'required')
+    record = utils.replace_conditional(record, 'enforcement', 2, 'required')
+    record = utils.replace_conditional(record, 'enforcement', 3, 'monitored')
 
-    # Replace targeted values
-    #record = utils.replace_conditional(record, 'targeted', 'checked', None)
-    #record = utils.replace_conditional(record, 'targeted', 'Checked', None)
-    #record = utils.replace_conditional(record, 'targeted', 'general', None)
-    #record = utils.replace_conditional(record, 'targeted', 'General', None)
+    # Replace measure_stage values
+    record = utils.replace_conditional(record, 'measure_stage', 1, 'new')
+    record = utils.replace_conditional(record, 'measure_stage', '1', 'new')
+    record = utils.replace_conditional(record, 'measure_stage', 2, 'modification')
+    record = utils.replace_conditional(record, 'measure_stage', '2', 'modification')
+    record = utils.replace_conditional(record, 'measure_stage', 3, 'phase out')
+    record = utils.replace_conditional(record, 'measure_stage', '3', 'phase out')
+
+    # Change a who_code value based on measure_stage
+    record = update_school_record(record)
+
+    # Strip whitespace characters from coding
+    record['prov_category'] = record['prov_category'].strip()
+    record['prov_subcategory'] = record['prov_subcategory'].strip()
+    record['prov_measure'] = record['prov_measure'].strip()
 
     # 4. replace sensitive country names by ISO (utils)
     record = utils.replace_sensitive_regions(record)
 
-    # 5. assign ISO code
     record['iso'] = countrycode(codes=record['country_territory_area'], origin='country_name', target='iso3c')
 
     # 6. check for missing ISO codes (shared)
@@ -105,4 +93,13 @@ def transform(record: dict, key_ref: dict, country_ref: pd.DataFrame, who_coding
 
     record = utils.remove_tags(record)
 
-    return(record)
+    return record
+
+
+def update_school_record(record: dict):
+
+    if record['who_code'] == '4.1.2' and record['measure_stage'] == 'phase out':
+
+        record['who_code'] = '4.1.1'
+
+    return record

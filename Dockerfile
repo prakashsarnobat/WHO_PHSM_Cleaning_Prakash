@@ -16,4 +16,5 @@ RUN apt-get -y install python3-sphinx
 WORKDIR /usr/who_clean
 
 # Copy all files to container
-COPY . .
+COPY src src
+COPY data/raw data/raw
