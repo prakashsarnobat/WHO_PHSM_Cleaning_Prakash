@@ -46,7 +46,10 @@ def transform(record: dict, key_ref: dict, country_ref: pd.DataFrame, who_coding
     record = utils.apply_key_map(new_record, record, key_ref)
 
     # 3. Assign unique ID (shared)
-    #record = utils.assign_id(record)
+    # record = utils.assign_id(record)
+    if record["prov_measure"] == "H8_Protection of elderly people":
+
+        return None
 
     # 4. Handle date formatting
     record = utils.parse_date(record)

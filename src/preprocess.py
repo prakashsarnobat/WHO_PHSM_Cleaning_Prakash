@@ -63,6 +63,45 @@ ingestion_hashes = {'JH_HIT': 'config/ingestion_hashes/JH_HIT.csv',
                     'ACAPS': 'config/ingestion_hashes/ACAPS.csv',
                     'EURO': 'config/ingestion_hashes/EURO.csv'}
 
+
+# Read EURO Data
+"""
+euro = pd.read_csv(euro,
+                   parse_dates=["Start of measure", "End of measure"],
+                   low_memory=False,
+                   dtype={'Category': str,
+                          'Subcategory': str,
+                          'Measure': str})
+"""
+
+euro = pd.read_excel(euro, engine='openpyxl',
+                     dtype={'Category': str,
+                            'Subcategory': str,
+                            'Measure': str},
+                    sheet_name=1)
+print(euro.columns)
+
+# Convert EURO columns to str
+euro.columns = euro.columns.astype("str")
+
+# Remove records that have already been processed
+euro = utils.filter_new_hashes(euro, ingestion_hashes['EURO'],
+                               save_ingestion_hashes=save_ingestion_hashes)
+
+# Check EURO Data
+check.check_input(records=euro,
+                  column_config=column_config['EURO'],
+                  date_config=date_config,
+                  dataset='EURO')
+
+euro = euro.fillna('')
+
+# Convert EURO data to list of record dicts
+euro = utils.df_to_records(euro, "EURO")
+
+# Log the number of EUROrecords
+logging.info("EURO_RECORDS=%d" % len(euro))
+
 # Read JH_HIT Data
 jh = pd.read_csv(jh)
 
@@ -88,6 +127,8 @@ cdc = pd.read_csv(cdc,
                          'Date Entered': str},
                   parse_dates=['Date implemented or lifted', 'Date Entered'],
                   encoding='latin1')
+
+cdc = cdc.rename(columns={"ï»¿Unique Identifier": "Unique Identifier"})
 
 # Remove records that have already been processed
 cdc = utils.filter_new_hashes(cdc, ingestion_hashes['CDC_ITF'], save_ingestion_hashes=save_ingestion_hashes)
@@ -162,39 +203,12 @@ oxcgrt = utils.df_to_records(oxcgrt, "OXCGRT", drop_columns)
 # Log the number of OXCGRT records
 logging.info("OXCGRT_RECORDS=%d" % len(oxcgrt))
 
-# Read EURO Data
-euro = pd.read_excel(euro, engine='openpyxl',
-                     dtype={'Category': str,
-                            'Subcategory': str,
-                            'Measure': str})
-
-# Convert EURO columns to str
-euro.columns = euro.columns.astype("str")
-
-# Remove records that have already been processed
-euro = utils.filter_new_hashes(euro, ingestion_hashes['EURO'],
-                               save_ingestion_hashes=save_ingestion_hashes)
-
-# Check EURO Data
-check.check_input(records=euro,
-                  column_config=column_config['EURO'],
-                  date_config=date_config,
-                  dataset='EURO')
-
-euro = euro.fillna('')
-
-# Convert EURO data to list of record dicts
-euro = utils.df_to_records(euro, "EURO")
-
-# Log the number of EUROrecords
-logging.info("EURO_RECORDS=%d" % len(euro))
-
 # concat all record lists - filter each by the (development only) record limit
-records = jh[:record_limit] + \
+records = euro[:record_limit] + \
+          jh[:record_limit] + \
           cdc[:record_limit] + \
           acaps[:record_limit] + \
-          oxcgrt[:record_limit] + \
-          euro[:record_limit]
+          oxcgrt[:record_limit]
 
 # write list of record dicts to a pickle file
 utils.write_records(records, "tmp/preprocess", "records.pickle")

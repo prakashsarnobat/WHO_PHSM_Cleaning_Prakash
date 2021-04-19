@@ -32,7 +32,7 @@ print("Reading previous update...")
 logging.info("Reading previous update...")
 
 # Read previous update data
-previous_update = pd.read_csv("data/merge/update_merge_2021_03_10.csv",
+previous_update = pd.read_csv("data/merge/update_merge_2021_04_14.csv",
                               parse_dates=['date_start'],
                               low_memory=False,
                               encoding='latin1')
@@ -83,6 +83,9 @@ new_records_ox = get_new_records(
 # Identify new prop_id values for non-OXCGRT datasets
 new_ids = set(update_not_ox['prop_id']).difference(set(previous_update_not_ox['prop_id']))
 
+print(update_not_ox[update_not_ox["dataset"] == "CDC_ITF"]["prop_id"])
+print(previous_update_not_ox[previous_update_not_ox["dataset"] == "CDC_ITF"]["prop_id"])
+print(set(update_not_ox[update_not_ox["dataset"] == "CDC_ITF"]["prop_id"]).difference(set(previous_update_not_ox[previous_update_not_ox["dataset"] == "CDC_ITF"]["prop_id"])))
 # Drop NA id values
 new_ids = [x for x in new_ids if not pd.isna(x)]
 
