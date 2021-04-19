@@ -12,9 +12,9 @@ build:
 up:
 	docker run -it --rm --mount type=bind,source=${PWD},target=/usr/who_clean/ who_clean
 
-# Run image bash, using 'winpty'. In 'source', make sure that the explicit filepath is entered correctly.
+# Run image bash 
 bash:
-	winpty docker run -it --rm --mount type=bind,source=C:\Users/Sridhar\ Sanobat/Documents/Covid-19/WHO_PHSM_Cleaning-master,target=/usr/who_clean/ who_clean bash
+	docker run -it --rm --mount type=bind,source=${PWD},target=/usr/who_clean/ who_clean bash
 
 # Run tests in container
 test:
