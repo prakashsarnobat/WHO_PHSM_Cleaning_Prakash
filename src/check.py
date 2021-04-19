@@ -206,7 +206,7 @@ def check_unknown_values(data: pd.DataFrame, key: str, log: bool = True):
 
                 for k, row in unknown_vals.iterrows():
 
-                    logging.error('OUTPUT_CHECK_FAILURE=Unknown coding in dataset: %s; %s.' % (datasets, ' '.join(['%s: %s' % (key, value) for (key, value) in row.items()])))
+                    logging.error('OUTPUT_CHECK_FAILURE=Unknown coding in dataset: %s; %s.' % (datasets, ' '.join(['%s: "%s"' % (key, value) for (key, value) in row.items()])))
 
         pass
 

@@ -30,11 +30,11 @@ def postprocess(data: pd.DataFrame):
         data = JH_HIT.postprocess(data)
 
         return(data)
-        
+
     if dataset == 'EURO':
-        
+
         data = EURO.postprocess(data)
-        
+
         return(data)
 
     else:

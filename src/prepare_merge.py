@@ -18,14 +18,14 @@ merge_columns = ["prop_id",
 print('Getting IDs for data merge...')
 
 # Read previous update data - this should be for the previous week
-previous_update = pd.read_csv('data/merge/update_merge_2021_03_04.csv',
+previous_update = pd.read_csv('data/merge/update_merge_2021_04_07.csv',
                               low_memory=False)
 previous_update['date_start'] = pd.to_datetime(previous_update['date_start'])
 
 print(previous_update['date_start'])
 
 # Read previous release data - this should be for the previous week
-previous_not_cleansed = pd.read_csv('data/not_cleansed/master_2021_03_04.csv',
+previous_not_cleansed = pd.read_csv('data/not_cleansed/master_2021_04_07.csv',
                                     low_memory=False)
 previous_not_cleansed['date_start'] = pd.to_datetime(previous_not_cleansed['date_start'])
 previous_not_cleansed['date_end'] = pd.to_datetime(previous_not_cleansed['date_end'])
