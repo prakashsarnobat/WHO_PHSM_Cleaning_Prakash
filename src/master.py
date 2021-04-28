@@ -32,7 +32,7 @@ print("Reading previous update...")
 logging.info("Reading previous update...")
 
 # Read previous update data
-previous_update = pd.read_csv("data/merge/update_merge_2021_04_14.csv",
+previous_update = pd.read_csv("data/merge/update_merge_2021_04_28.csv",
                               parse_dates=['date_start'],
                               low_memory=False,
                               encoding='latin1')

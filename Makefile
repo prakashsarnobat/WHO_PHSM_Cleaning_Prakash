@@ -14,7 +14,7 @@ up:
 
 # Run image bash 
 bash:
-	docker run -it --rm --mount type=bind,source=${PWD},target=/usr/who_clean/ who_clean bash
+	winpty docker run -it --rm --mount type=bind,source=${PWD},target=/usr/who_clean/ who_clean bash
 
 # Run tests in container
 test:
