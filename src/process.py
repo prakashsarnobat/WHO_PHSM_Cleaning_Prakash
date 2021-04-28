@@ -89,6 +89,9 @@ records['original_who_code'] = records['who_code']
 # Assign id numbers to new data
 records = assign_id(records, min_id)
 
+# See what columns are in the data
+print(records.columns)
+
 # Apply standard checks to processed data
 check_output(records)
 

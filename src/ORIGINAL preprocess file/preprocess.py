@@ -41,10 +41,10 @@ save_ingestion_hashes = False
 
 # Define dataset sources
 jh = "https://raw.githubusercontent.com/HopkinsIDD/hit-covid/master/data/hit-covid-longdata.csv"
-cdc = "data/raw/CDC_ITF_210421.csv"
+cdc = "data/raw/CDC_ITF_latest.csv"
 acaps = "data/raw/ACAPS_latest.csv"
-oxcgrt = "data/raw/OxCGRT_latest_withnotes.csv" 
-euro = "data/raw/WHOEURO_PHSMdatabase_External_27.04.2021.xlsx"
+oxcgrt = "https://raw.githubusercontent.com/OxCGRT/covid-policy-tracker/master/data/OxCGRT_latest_withnotes.csv"
+euro = "data/raw/EURO_latest.xlsx"
 check_dir = 'config/input_check'
 
 # Load accepted column reference
@@ -78,7 +78,7 @@ euro = pd.read_excel(euro, engine='openpyxl',
                      dtype={'Category': str,
                             'Subcategory': str,
                             'Measure': str},
-                    sheet_name=0)
+                    sheet_name=1)
 print(euro.columns)
 
 # Convert EURO columns to str
