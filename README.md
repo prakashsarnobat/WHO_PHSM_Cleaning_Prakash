@@ -5,13 +5,11 @@ Cleaning PHSM provider data for WHO
 
 Cleaning routines for Non-pharmaceutical intervention data from 7 providers:
 
+* ACAPS
 * CDC-ITF
 * John's Hopkins HIT-COVID
-* ACAPS
-* GPHIN
-* WHO IHR
-* CSH Vienna
 * OxCGRT
+* WHO Europe Regional Office
 
 ### Guide for contributors
 
