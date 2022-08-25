@@ -54,17 +54,6 @@ check_output(records)
 log_records_per(records, 'dataset')
 log_records_total(records)
 
-# PRAKASH step introduced when Orlagh created column 'split' in mistress file. 
-# Here we create an (empty) extra column in the not_cleaned dataset with the exact same name
-# and in the exact same position. May have to REMOVE this step in later weeks.
-# (NOT YET USED - delete this line when the step is used, and log the date)
-
-# records.insert(loc = 8,
-#          column = 'split',
-#          value = '')
-
-# End of step introduced by PRAKASH 
-
 # Write postprocess file to csv
 records.to_csv('tmp/postprocess/records.csv', index=False)
 

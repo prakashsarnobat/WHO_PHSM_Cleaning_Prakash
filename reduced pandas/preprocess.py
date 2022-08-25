@@ -106,75 +106,6 @@ euro = utils.df_to_records(euro, "EURO")
 # Log the number of EUROrecords
 logging.info("EURO_RECORDS=%d" % len(euro))
 
-# Read JH_HIT Data
-jh = pd.read_csv(jh)
-
-# Remove records that have already been processed
-jh = utils.filter_new_hashes(jh, ingestion_hashes['JH_HIT'],
-                             save_ingestion_hashes=save_ingestion_hashes)
-
-# Check JH_HIT Data
-check.check_input(records=jh,
-                  column_config=column_config['JH_HIT'],
-                  date_config=date_config,
-                  dataset='JH_HIT')
-
-# Convert JH_HIT data to list of record dicts
-jh = utils.df_to_records(jh, "JH_HIT")
-
-# Log the number of JH_HIT records
-logging.info("JH_HIT_RECORDS=%d" % len(jh))
-
-# Read CDC_ITF data
-cdc = pd.read_csv(cdc,
-                  dtype={'Date implemented or lifted': str,
-                         'Date Entered': str},
-                  parse_dates=['Date implemented or lifted', 'Date Entered'],
-                  encoding='latin1')
-
-cdc = cdc.rename(columns={"ï»¿Unique Identifier": "Unique Identifier"})
-
-# Remove records that have already been processed
-cdc = utils.filter_new_hashes(cdc, ingestion_hashes['CDC_ITF'], save_ingestion_hashes=save_ingestion_hashes)
-
-# Parse CDC_ITF date format
-cdc["Date implemented or lifted"] = pd.to_datetime(cdc["Date implemented or lifted"],
-                                                   format='%d/%m/%Y')
-cdc["Date Entered"] = pd.to_datetime(cdc["Date Entered"], format='%d/%m/%Y')
-
-# Check CDC_ITF Data
-check.check_input(records=cdc,
-                  column_config=column_config['CDC_ITF'],
-                  date_config=date_config,
-                  dataset = 'CDC_ITF')
-
-# Convert CDC_ITF data to list of record dicts
-cdc = utils.df_to_records(cdc, "CDC_ITF")
-
-# Log the number of CDC_ITF records
-logging.info("CDC_ITF_RECORDS=%d" % len(cdc))
-
-# Read ACAPS Data
-acaps = pd.read_csv(acaps,
-                    parse_dates = ['DATE_IMPLEMENTED', 'ENTRY_DATE'],
-                    dayfirst = True)
-
-
-# Remove records that have already been processed
-acaps = utils.filter_new_hashes(acaps, ingestion_hashes['ACAPS'], save_ingestion_hashes=save_ingestion_hashes)
-
-# Check ACAPS Data
-check.check_input(records=acaps,
-                  column_config=column_config['ACAPS'],
-                  date_config=date_config,
-                  dataset='ACAPS')
-
-# Convert ACAPS data to list of record dicts
-acaps = utils.df_to_records(acaps, "ACAPS")
-
-# Log the number of ACAPS records
-logging.info("ACAPS_RECORDS=%d" % len(acaps))
-
 # Read OXCGRT Data
 oxcgrt = pd.read_csv(oxcgrt, parse_dates=["Date"], low_memory=False)
 
@@ -209,9 +140,6 @@ logging.info("OXCGRT_RECORDS=%d" % len(oxcgrt))
 
 # concat all record lists - filter each by the (development only) record limit
 records = euro[:record_limit] + \
-          jh[:record_limit] + \
-          cdc[:record_limit] + \
-          acaps[:record_limit] + \
           oxcgrt[:record_limit]
 
 # write list of record dicts to a pickle file
